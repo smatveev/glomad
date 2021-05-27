@@ -26,7 +26,7 @@ else
         @foreach (Country c in r.Countries)
         {
             <div class="col" style="padding-bottom: 24px;">
-                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url(./images/@c.Image);">
                     <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                         <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">@c.Name</h2>
                         <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Current season is @c.Season</h4>
@@ -90,6 +90,11 @@ else
             "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        private static readonly string[] Images = new[]
+        {
+            "Bangkok", "Berlin", "Chiang-mai", "Kuala-Lumpur", "Ubud"
+        };
+
         public List<Country> Countries { get; set; }
 
         public Routes()
@@ -106,7 +111,8 @@ else
             {
                 Name = Names[rng.Next(Names.Length)],
                 TempC = rng.Next(-20, 55),
-                Season = Seasons[rng.Next(Seasons.Length)]
+                Season = Seasons[rng.Next(Seasons.Length)],
+                Image = Images[rng.Next(Images.Length)] + ".jpg"
             }).ToList();
 
         }
@@ -117,5 +123,6 @@ else
         public string Name { get; set; }
         public int TempC { get; set; }
         public string Season { get; set; }
+        public string Image { get; set; }
     }
 }
