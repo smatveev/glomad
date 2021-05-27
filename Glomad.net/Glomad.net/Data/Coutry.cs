@@ -7,10 +7,67 @@ namespace Glomad.net.Data
 {
     public class Country
     {
+        private static readonly string[] Images = new[]
+        {
+            "Bangkok", "Berlin", "Chiang-mai", "Kuala-Lumpur", "Ubud"
+        };
+        private static readonly string[] Seasons = new[]
+{
+            "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
+
         public string Name { get; set; }
         public int TempC { get; set; }
         public string Season { get; set; }
         public string Image { get; set; }
+
+        public int VisaDays { get; set; }
+
+        public string[] VisaCountry { get; set; }
+
+        public List<Country> PreparedCountries()
+        {
+            var rng = new Random();
+            var result = new List<Country>();
+
+            result.Add(new Country()
+            {
+                Image = Images[rng.Next(Images.Length)] + ".jpg",
+                Name = "Mexico",
+                VisaDays = 180,
+                Season = "Сезон кргулый год. Можно стартануть в любое время.",// Seasons[rng.Next(Seasons.Length)],
+                VisaCountry = new string[] { "Russian Federation", "Turkey", "Ukraine", "Canada", "United States of America" }
+            });
+
+            result.Add(new Country()
+            {
+                Image = Images[rng.Next(Images.Length)] + ".jpg",
+                Name = "Колумбия",
+                VisaDays = 180,
+                Season = "Круглый год. Высокий сезон с декабря по март",// Seasons[rng.Next(Seasons.Length)],
+                VisaCountry = new string[] { "Albania", "Andorra", "Antigua and Barbuda", "Argentina", "Australia", "Austria", "Azerbaijan", "United States of America" }
+            });
+
+            result.Add(new Country()
+            {
+                Image = Images[rng.Next(Images.Length)] + ".jpg",
+                Name = "Chili",
+                VisaDays = 90,
+                Season = "КThe warmest season is between October and April and the coldest, from May to September.",// Seasons[rng.Next(Seasons.Length)],
+                VisaCountry = new string[] { "Russian Federation", "Turkey", "Ukraine", "Canada", "United States of America" }
+            });
+
+            result.Add(new Country()
+            {
+                Image = Images[rng.Next(Images.Length)] + ".jpg",
+                Name = "Brazil",
+                VisaDays = 90,
+                Season = "Brazil's summer is Dec-Mar, and winter Jun-Sep - but heat and humidity rise the further north you go. Overall, Sep-Oct is the best time to visit Brazil - avoiding major vacation periods.",// Seasons[rng.Next(Seasons.Length)],
+                VisaCountry = new string[] { "Russian Federation", "Turkey", "Ukraine", "Canada", "United States of America" }
+            });
+
+            return result;
+        }
 
         public string[] GetCountries()
         {

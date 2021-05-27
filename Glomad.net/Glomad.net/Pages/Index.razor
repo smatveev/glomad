@@ -10,9 +10,9 @@
 
 @inject HttpClient Http
 
-<h1>Weather forecast</h1>
+<h1>Discovering the routes</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>Based on visa first better conditions</p>
 
 <input type="text" list="countries" @bind-value="@searchTerm" />
 <datalist id="countries">
@@ -26,33 +26,33 @@
 
 @if (routes == null)
 {
-    <p><em>Loading...</em></p>
+    @*<p><em>Loading...</em></p>*@
 }
 else
 {
 
     <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
 
-        @foreach (Routes r in routes)
+        @foreach (Route route in routes)
         {
-            @foreach (Country c in r.Countries)
+            @foreach (Country c in route.Countries)
             {
                 <div class="col" style="padding-bottom: 24px;">
                     <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url(./images/@c.Image);">
                         <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                             <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">@c.Name</h2>
-                            <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Current season is @c.Season</h4>
+                            <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">@c.Season</h4>
                             <ul class="d-flex list-unstyled mt-auto">
-                                <li class="me-auto">
+                                @*<li class="me-auto">
                                     <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
                                 </li>
                                 <li class="d-flex align-items-center me-3">
                                     <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
                                     <small>Earth</small>
-                                </li>
+                                </li>*@
                                 <li class="d-flex align-items-center">
                                     <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                                    <small>@c.TempC</small>
+                                    <small>Visa for days: @c.VisaDays</small>
                                 </li>
                             </ul>
                         </div>
@@ -66,18 +66,18 @@ else
 
 @code {
     //private WeatherForecast[] forecasts;
-    private List<Routes> routes;
+    private List<Route> routes;
     private string[] countries;
     private string searchTerm;
 
     protected override void OnInitialized()
     {
         //routes = await Http.GetFromJsonAsync<Routes[]>("sample-data/weather.json");
-        routes = new List<Routes>();
+        //routes = new List<Routes>();
 
-        routes.Add(new Routes());
-        routes.Add(new Routes());
-        routes.Add(new Routes());
+        //routes.Add(new Routes());
+        //routes.Add(new Routes());
+        //routes.Add(new Routes());
 
         var c = new Country();
         countries = c.GetCountries();
@@ -87,57 +87,8 @@ else
     {
         var ss = searchTerm;
         int a = 1;
-    }
 
-    //public class WeatherForecast
-    //{
-    //    public DateTime Date { get; set; }
-
-    //    public int TemperatureC { get; set; }
-
-    //    public string Summary { get; set; }
-
-    //    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-    //}
-
-
-    public class Routes
-    {
-        private static readonly string[] Names = new[]
-        {
-            "Russia", "USA", "UK", "Thai"
-        };
-
-        private static readonly string[] Seasons = new[]
-        {
-            "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private static readonly string[] Images = new[]
-        {
-            "Bangkok", "Berlin", "Chiang-mai", "Kuala-Lumpur", "Ubud"
-        };
-
-        public List<Country> Countries { get; set; }
-
-        public Routes()
-        {
-            //Countries = new List<Country>
-            //{
-            //    new Country {Name = "UK"},
-            //    new Country {Name = "US"},
-            //    new Country {Name = "Russia"}
-            //};
-
-            var rng = new Random();
-            Countries = Enumerable.Range(1, 10).Select(index => new Country
-            {
-                Name = Names[rng.Next(Names.Length)],
-                TempC = rng.Next(-20, 55),
-                Season = Seasons[rng.Next(Seasons.Length)],
-                Image = Images[rng.Next(Images.Length)] + ".jpg"
-            }).ToList();
-
-        }
-    }
+        routes = new PreparedRoutes().GetRoutes();
+        //routes.Add(new Routes());
+    }    
 }
