@@ -1,0 +1,121 @@
+﻿@page "/"
+@*<h1>Hello, world!</h1>
+
+    Welcome to your new app.
+
+    <SurveyPrompt Title="How is Blazor working for you?" />*@
+
+
+@inject HttpClient Http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (routes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+<div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+
+    @foreach (Routes r in routes)
+    {
+        @foreach (Country c in r.Countries)
+        {
+            <div class="col" style="padding-bottom: 24px;">
+                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">@c.Name</h2>
+                        <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Current season is @c.Season</h4>
+                        <ul class="d-flex list-unstyled mt-auto">
+                            <li class="me-auto">
+                                <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+                            </li>
+                            <li class="d-flex align-items-center me-3">
+                                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                                <small>Earth</small>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
+                                <small>@c.TempC</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>
+}
+
+@code {
+    //private WeatherForecast[] forecasts;
+    private List<Routes> routes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //routes = await Http.GetFromJsonAsync<Routes[]>("sample-data/weather.json");
+        routes = new List<Routes>();
+
+        routes.Add(new Routes());
+        routes.Add(new Routes());
+        routes.Add(new Routes());
+    }
+
+    //public class WeatherForecast
+    //{
+    //    public DateTime Date { get; set; }
+
+    //    public int TemperatureC { get; set; }
+
+    //    public string Summary { get; set; }
+
+    //    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    //}
+
+
+    public class Routes
+    {
+        private static readonly string[] Names = new[]
+        {
+            "Russia", "USA", "UK", "Thai"
+        };
+
+        private static readonly string[] Seasons = new[]
+        {
+            "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
+
+        public List<Country> Countries { get; set; }
+
+        public Routes()
+        {
+            //Countries = new List<Country>
+            //{
+            //    new Country {Name = "UK"},
+            //    new Country {Name = "US"},
+            //    new Country {Name = "Russia"}
+            //};
+
+            var rng = new Random();
+            Countries = Enumerable.Range(1, 10).Select(index => new Country
+            {
+                Name = Names[rng.Next(Names.Length)],
+                TempC = rng.Next(-20, 55),
+                Season = Seasons[rng.Next(Seasons.Length)]
+            }).ToList();
+
+        }
+    }
+
+    public class Country
+    {
+        public string Name { get; set; }
+        public int TempC { get; set; }
+        public string Season { get; set; }
+    }
+}
