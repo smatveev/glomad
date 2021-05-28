@@ -6,27 +6,73 @@
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
-            <img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+            @*<iframe width="700" height="500" loading="lazy" src="https://www.youtube.com/embed/aMaG09wcQdE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>*@
+
+            <form class="p-4 p-md-5 border rounded-3 bg-light">
+                <div class="row g-3">
+
+                    <div class="col-12">
+                        <label for="citizenship" class="form-label">Citizenship </label>
+                        <input type="text" class="form-control" list="countries" @bind-value="@searchTerm" />
+                        <datalist id="countries">
+                            @foreach (var c in countries)
+                            {
+                                <option>@c</option>
+                            }
+                        </datalist>
+
+                        @*<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>*@
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="route" class="form-label">Route duration <span class="text-muted">(Optional)</span></label>
+                        <select class="form-select" id="route" required="">
+                            <option value="">Choose...</option>
+                            <option>Long (180+ days)</option>
+                            <option>Short (up to 90 days)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="route" class="form-label">Climate <span class="text-muted">(Optional)</span></label>
+                        <select class="form-select" id="route" required="">
+                            <option value="">Choose...</option>
+                            <option>Cold</option>
+                            <option>Hot</option>
+                            <option>Mixed seasons</option>
+                        </select>
+                    </div>
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Simple visa
+                        </label>
+                    </div>
+
+                    <button class="w-100 btn btn-lg btn-primary" type="button" @onclick="@SearchIssues">Search</button>
+                    @*<input type="button" value="Search"  />*@
+                    @*<hr class="my-4">
+                    <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>*@
+                </div>
+            </form>
+
         </div>
         <div class="col-lg-6">
-            <h1 class="display-5 fw-bold lh-1 mb-3">Responsive left-aligned hero with image</h1>
-            <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+            <h1 class="display-5 fw-bold lh-1 mb-3">Glomad.net</h1>
+            <p class="lead">
+                We collect and constantly update country data in order to offer the most comfy and exciting routes for global nomads.
+                Check out what's available now and join our community.
+            </p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+                @*<button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>*@
             </div>
         </div>
     </div>
 </div>
 
-<input type="text" list="countries" @bind-value="@searchTerm" />
-<datalist id="countries">
-    @foreach (var c in countries)
-    {
-        <option>@c</option>
-    }
-</datalist>
-<input type="button" value="Search" @onclick="@SearchIssues" />
+
 
 
 @if (routes == null)
@@ -77,13 +123,6 @@ else
 
     protected override void OnInitialized()
     {
-        //routes = await Http.GetFromJsonAsync<Routes[]>("sample-data/weather.json");
-        //routes = new List<Routes>();
-
-        //routes.Add(new Routes());
-        //routes.Add(new Routes());
-        //routes.Add(new Routes());
-
         var c = new Country();
         countries = c.GetCountries();
     }
@@ -91,9 +130,6 @@ else
     async Task SearchIssues()
     {
         var ss = searchTerm;
-        int a = 1;
-
         routes = new PreparedRoutes().GetRoutes();
-        //routes.Add(new Routes());
     }    
 }
