@@ -25,6 +25,7 @@ namespace Glomad.net.Data
         public int VisaDays { get; set; }
 
         public string[] VisaCountry { get; set; }
+        public List<Tag> Tags { get; set; }
 
         public List<Country> PreparedCountries()
         {
@@ -37,7 +38,8 @@ namespace Glomad.net.Data
                 Name = "Mexico",
                 VisaDays = 180,
                 Season = "Сезон кргулый год. Можно стартануть в любое время.",// Seasons[rng.Next(Seasons.Length)],
-                VisaCountry = new string[] { "Russian Federation", "Turkey", "Ukraine", "Canada", "United States of America" }
+                VisaCountry = new string[] { "Russian Federation", "Turkey", "Ukraine", "Canada", "United States of America" },
+                Tags = { Tag.days180, Tag.SimpleVisa }
             });
 
             result.Add(new Country()
@@ -46,7 +48,8 @@ namespace Glomad.net.Data
                 Name = "Колумбия",
                 VisaDays = 180,
                 Season = "Круглый год. Высокий сезон с декабря по март",// Seasons[rng.Next(Seasons.Length)],
-                VisaCountry = new string[] { "Albania", "Andorra", "Antigua and Barbuda", "Argentina", "Australia", "Austria", "Azerbaijan", "United States of America" }
+                VisaCountry = new string[] { "Albania", "Andorra", "Antigua and Barbuda", "Argentina", "Australia", "Austria", "Azerbaijan", "United States of America" },
+                Tags = { Tag.PCR, Tag.Covid, Tag.days180 }
             });
 
             result.Add(new Country()
@@ -55,7 +58,8 @@ namespace Glomad.net.Data
                 Name = "Chili",
                 VisaDays = 90,
                 Season = "КThe warmest season is between October and April and the coldest, from May to September.",// Seasons[rng.Next(Seasons.Length)],
-                VisaCountry = new string[] { "Russian Federation", "Turkey", "Ukraine", "Canada", "United States of America" }
+                VisaCountry = new string[] { "Russian Federation", "Turkey", "Ukraine", "Canada", "United States of America" },
+                Tags = { Tag.PCR, Tag.Covid }
             });
 
             result.Add(new Country()
@@ -64,7 +68,8 @@ namespace Glomad.net.Data
                 Name = "Brazil",
                 VisaDays = 90,
                 Season = "Brazil's summer is Dec-Mar, and winter Jun-Sep - but heat and humidity rise the further north you go. Overall, Sep-Oct is the best time to visit Brazil - avoiding major vacation periods.",// Seasons[rng.Next(Seasons.Length)],
-                VisaCountry = new string[] { "Russian Federation", "Turkey", "Ukraine", "Canada", "United States of America" }
+                VisaCountry = new string[] { "Russian Federation", "Turkey", "Ukraine", "Canada", "United States of America" },
+                Tags = { Tag.PCR, Tag.Covid, Tag.days90 }
             });
 
             return result;

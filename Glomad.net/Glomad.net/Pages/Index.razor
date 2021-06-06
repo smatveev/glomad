@@ -92,11 +92,10 @@ else
                         <img src="/images/@c.Image" class="card-img rounded-4" alt="...">
                         <div class="card-img-overlay">
                             <h5 class="card-title">@c.Name</h5>
-                            <span class="badge bg-primary">PRC</span>
-                            <span class="badge bg-secondary">Other</span>
-                            <span class="badge bg-success">Success</span>
-                            <span class="badge bg-danger">Covid</span>
-
+                            @foreach(Tag tag in c.Tags)
+                            {
+                                <span class="badge @tag.Style">@tag.Title</span>
+                            }
                             <h5 class="card-title card-title position-absolute bottom-0">Tickets from ...</h5>
                         </div>
                     </div>
