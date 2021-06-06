@@ -19,6 +19,7 @@ namespace Glomad.net.Data
         public string Name { get; set; }
         public int TempC { get; set; }
         public string Season { get; set; }
+        public string CovidInfo { get; set; }
         public string Image { get; set; }
 
         public int VisaDays { get; set; }
