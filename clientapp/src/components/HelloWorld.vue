@@ -22,7 +22,7 @@
 
 <div class="-gradient-custom py-5 m-0 row -flex-lg-row-reverse -align-items-center">
     
-    <div class="col-8 col-sm-12 col-lg-8">
+    <div class="col-sm-12 col-lg-8">
       <h1 class="display-5 fw-bold text-white pb-4">🌏 Be Glomad</h1>
       <div class="-col-lg-8 -mx-auto">
         <p class="fs-5 mb-4 text-white">🛂 Check visa requirements for your passport.</p>
@@ -38,7 +38,7 @@
       </div>      
     </div>
 
-    <div class="col-4 col-sm-12 col-lg-4">
+    <div class="col-sm-12 col-lg-4">
       <form>
     
     
