@@ -29,7 +29,10 @@ namespace API.Models
 
     public class VisaSearchResult
     {
+        public int Id { get; set; }
         public string VisaName { get; set; }
         public string Description { get; set; }
+        public bool IsExdendable{ get; set; }
+        public short Duration { get; set; }
     }
 }

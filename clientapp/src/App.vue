@@ -55,13 +55,51 @@
 
 
 .gradient-custom {
-  /* fallback for old browsers */
-  background: #1e3c72;
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+            background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center center;
 }
+
+
+
+
+/* Carousel styling */
+        #introCarousel,
+        .carousel-inner,
+        .carousel-item,
+        .carousel-item.active {
+          height: 100vh;
+        }
+
+        .carousel-item:nth-child(1) {
+          background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center center;
+        }
+        .carousel-item:nth-child(2) {
+          background-image: url('https://mdbootstrap.com/img/Photos/Others/images/77.jpg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center center;
+        }
+        .carousel-item:nth-child(3) {
+          background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center center;
+        }
+
+        /* Height for devices larger than 576px */
+        @media (min-width: 992px) {
+          #introCarousel,
+          .carousel-inner,
+          .carousel-item,
+          .carousel-item.active {
+            height: 75vh;
+          }
+        }
+
+
 </style>

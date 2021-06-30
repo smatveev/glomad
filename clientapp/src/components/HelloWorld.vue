@@ -1,9 +1,29 @@
 <template>
 
-  <div class="gradient-custom  p-5 m-0 row -flex-lg-row-reverse -align-items-center">
+ <header>
+      
+
+     
+
+     
+        <!-- Indicators -->
+
+        <!-- Inner -->
+        <div class="carousel-inner">
+
+
+          <!-- Single item -->
+          <div class="carousel-item active">
+            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+              <div class="d-flex justify-content-center align-items-center h-100">
+
+
+
+
+<div class="-gradient-custom p-5 m-0 row -flex-lg-row-reverse -align-items-center">
     
-    <div class="col-12 col-sm-12 col-lg-8">
-      <h1 class="display-5 fw-bold text-white pb-4">Glomad — visa-first travel service.</h1>
+    <div class="col-12 col-sm-12 col-lg-12">
+      <h1 class="display-5 fw-bold text-white pb-4">🌏 Be Glomad</h1>
       <div class="-col-lg-8 -mx-auto">
         <p class="fs-5 mb-4 text-white">🛂 Check visa requirements for your passport.</p>
         <p class="fs-5 mb-4 text-white">😷 Check last COVID-19 travel restrictions for a country</p>
@@ -18,10 +38,10 @@
       </div>      
     </div>
 
-    <div class="col-lg-4">
+    <!-- <div class="col-lg-4">
       <iframe width="100%" height="315" src="https://www.youtube.com/embed/8W48x4-Xf1w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    </div>
+    </div> -->
 
     
 
@@ -30,11 +50,11 @@
       <div class="col">
         <select class="form-select form-select-lg" v-model="search.citizen">
           <option disabled value="">Your citizenship</option>
-          <option v-for="c in countries" :key="c.id">
+          <option v-for="c in countries" :key="c.id" :value="c.id">
             {{ c.name }}
         </option>
         </select>
-        <!-- <span>Selected: {{ selected }}</span> -->
+        <!-- <span>Selected: {{ search.citizen }}</span> -->
         <!-- <input type="text" class="form-control form-control-lg" placeholder="Citizenship" aria-label="Citizenship"> -->
       </div>
 
@@ -50,7 +70,7 @@
 
       <div class="col">
         <select class="form-select form-select-lg" >
-          <option selected="selected" value="123">Thailand</option>
+          <option selected="selected" value="220">Thailand</option>
         </select>
         <!-- <span>Selected: {{ selected }}</span> -->
       </div>
@@ -62,9 +82,53 @@
 
   </div>
 
+
+
+
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+        <!-- Inner -->
+
+      
+    </header>
+
       <div v-if="loading" class="loading">
       Loading...
     </div>
+      
+
+        <div class="container py-4" v-for="v in visasNonEntry" :key="v.id">
+          <div class="p-5 -mb-4 bg-light rounded-3">
+            <div class="container-fluid -py-5">
+              <h1 class="display-6 fw-bold">{{ v.visaName }}</h1>
+              <p class="col-md-12 fs-6">{{ v.description }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="container py-4" v-for="v in visas" :key="v.id">
+          <div class="p-5 -mb-4 bg-light rounded-3">
+            <div>
+              <h1 class="display-6 fw-bold">{{ v.visaName }}</h1>
+              <p class="col-md-12">{{ v.description }}</p>
+
+              <span v-if="v.isExdendable" class="badge badge-card bg-info text-dark m-2 fs-5">
+                ✨ Extendable
+              </span>
+
+              <span class="badge badge-card bg-info text-dark m-2 fs-5">
+                🕜 Duration {{ v.duration }} days
+              </span>
+
+            </div>
+          </div>
+        </div>
+
+
 
   <section class="container py-4 my-5 text-center">
     <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
@@ -113,19 +177,6 @@
 
   </section>
 
-  <!-- <div class="container py-4" v-for="c in countries" :key="c.id">
-    <div class="p-5 mb-4 bg-light rounded-3">
-      <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">{{c.name}}</h1>
-        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-        <router-link :to="{ name: 'Country', params: { id: c.id }}">
-          <button class="btn btn-primary btn-lg" type="button">Details</button>
-        </router-link>        
-      </div>
-    </div>
-  </div> -->
-
-
 <!--Section: Content-->
         <section class="container mb-5">
           <h2 class="mb-5 text-center"><strong>... but what else you most interested in ❓</strong></h2>
@@ -145,10 +196,12 @@
           <div class="form-floating mb-3">
             <input type="email" class="form-control" v-model="feedback.email" placeholder="name@example.com">
             <label>Email address</label>
+            <span class="text-muted">(Optional)</span>
           </div>
           <div class="form-floating mb-3">
             <input type="text" class="form-control" v-model="feedback.username" placeholder="Your name">
             <label>Your name</label>
+            <span class="text-muted">(Optional)</span>
           </div>
           <div class="checkbox mb-3">
             <label>
@@ -213,7 +266,10 @@ export default {
         isnotify: true
       },
 
-      successFeedback: false
+      successFeedback: false,
+
+      visasNonEntry: {},
+      visas: {}
     }
   },
   mounted() {  
@@ -224,15 +280,21 @@ export default {
   },
   methods: {
 
-    async search1() {
-      const res = await fetch("https://localhost:5001/Countries/?citi=" + this.search.citizen + "&from="+ this.search.from);
-      const data = await res.json();
-      
-      console.log("data=" + data);
-      console.log("from=" + this.search.from.id);
-      console.log("citi=" + this.search.citizen);
-      console.log("to=" + this.search.to);
+    search1() {
+       fetch("https://localhost:5001/api/Visas/GetNonEntry?DestinationId=" + 220 + "&PassportId="+ this.search.citizen)
+      .then(res => res.json())
+      .then(data => { this.visasNonEntry = data; console.info(data); })
+      .catch(err => { console.warn(err.message); this.visasNonEntry = [] })
+
+       fetch("https://localhost:5001/api/Visas")
+      .then(res => res.json())
+      .then(data => { this.visas = data; console.info(data); })
+      .catch(err => { console.warn(err.message); this.visas = [] })
+
+//      console.info("Visas", this.visas)
+      //console.info("Visas Non", this.visasNonEntry)
     },
+
     async SendFeedback() {
       try{
         const request = new Request(
