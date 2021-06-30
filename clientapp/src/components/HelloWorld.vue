@@ -15,14 +15,14 @@
           <!-- Single item -->
           <div class="carousel-item active">
             <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-              <div class="d-flex justify-content-center align-items-center h-100">
+              <div class="container h-100">
 
 
 
 
-<div class="-gradient-custom p-5 m-0 row -flex-lg-row-reverse -align-items-center">
+<div class="-gradient-custom py-5 m-0 row -flex-lg-row-reverse -align-items-center">
     
-    <div class="col-12 col-sm-12 col-lg-12">
+    <div class="col-8 col-sm-12 col-lg-8">
       <h1 class="display-5 fw-bold text-white pb-4">🌏 Be Glomad</h1>
       <div class="-col-lg-8 -mx-auto">
         <p class="fs-5 mb-4 text-white">🛂 Check visa requirements for your passport.</p>
@@ -38,6 +38,38 @@
       </div>      
     </div>
 
+    <div class="col-4 col-sm-12 col-lg-4">
+      <form>
+    
+    
+
+    <div class="mb-3">
+      <select class="form-select form-select-lg" v-model="search.citizen">
+          <option disabled value="">Your citizenship</option>
+          <option v-for="c in countries" :key="c.id" :value="c.id">
+            {{ c.name }}
+        </option>
+        </select>
+    </div>
+    <div class="mb-3">
+      <select class="form-select form-select-lg" v-model="search.from">
+          <option disabled value="">Current location</option>
+          <option v-for="c in countries" v-bind:key="c.id">
+            {{ c.name }}
+        </option>
+        </select>
+    </div>
+    <div class="mb-3">
+      <select class="form-select form-select-lg" >
+          <option selected="selected" value="220">Thailand</option>
+        </select>
+    </div>
+
+    <button @click="search1" type="button" class="w-100 btn btn-outline-light btn-lg px-4 me-sm-3 fw-bold">Search 👇</button>
+    
+  </form>
+    </div>
+
     <!-- <div class="col-lg-4">
       <iframe width="100%" height="315" src="https://www.youtube.com/embed/8W48x4-Xf1w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -45,40 +77,7 @@
 
     
 
-    <div class="row g-3">
 
-      <div class="col">
-        <select class="form-select form-select-lg" v-model="search.citizen">
-          <option disabled value="">Your citizenship</option>
-          <option v-for="c in countries" :key="c.id" :value="c.id">
-            {{ c.name }}
-        </option>
-        </select>
-        <!-- <span>Selected: {{ search.citizen }}</span> -->
-        <!-- <input type="text" class="form-control form-control-lg" placeholder="Citizenship" aria-label="Citizenship"> -->
-      </div>
-
-      <div class="col">
-        <select class="form-select form-select-lg" v-model="search.from">
-          <option disabled value="">Current location</option>
-          <option v-for="c in countries" v-bind:key="c.id">
-            {{ c.name }}
-        </option>
-        </select>
-        <!-- <span>Selected: {{ selected }}</span> -->
-      </div>
-
-      <div class="col">
-        <select class="form-select form-select-lg" >
-          <option selected="selected" value="220">Thailand</option>
-        </select>
-        <!-- <span>Selected: {{ selected }}</span> -->
-      </div>
-
-      <div class="col-auto">
-        <button @click="search1" type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Search 👇</button>
-      </div>
-    </div>
 
   </div>
 
