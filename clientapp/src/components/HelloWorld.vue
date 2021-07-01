@@ -98,7 +98,26 @@
       <div v-if="loading" class="loading">
       Loading...
     </div>
-      
+
+<!-- COVID restrictions -->
+     <section v-if="covidInfo" class="container py-4 my-5 text-center">
+    <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
+    <h2 class="mb-5 fw-bold">🦠 Thailand COVID-19 restrictions</h2>
+
+    <p>
+Country-Specific Information:
+
+Due to the COVID-19 pandemic, the U.S. Embassy Moscow advises U.S. citizens not to travel to Russia. The U.S. Embassy and Consulates in the Russian Federation have limited capacity to assist U.S. citizens in the event of an emergency.
+The Russian Federation is one of the countries most affected by the COVID-19 pandemic. As of June 24, the Government of the Russian Federation has reported 5,388,695 cumulative cases of coronavirus and 131,463 attributed fatalities. Medical services have generally been able to provide adequate care for serious cases of COVID-19. The healthcare system in Russia faces limitations and adequate care may not be available everywhere.
+In response to a worsening epidemiological situation, municipal and regional authorities in the Russian Federation continue to take steps to restrict the spread of COVID-19. Measures and restrictions to prevent the spread of COVID-19 vary widely, as individual regions and cities set their own policies. Travelers should check with the local government in their region for current restrictions. These measures may include curfews for restaurants and bars, attendance limits on large gatherings, and the closure of all noncritical infrastructure. Travelers should comply with all government restrictions/requirements regarding the spread of COVID-19.
+The government of the Russian Federation requires the use of masks in crowded public areas, including public transportation, taxis, parking lots, and elevators. This order applies to the entire country. Non-compliance may result in fines.
+In the Moscow region, indoor gatherings of more than 50 people and outdoors events of more than 500 are prohibited. In the city of Moscow, the mayor has implemented a system of QR codes for those seeking to dine in restaurants and cafes. Starting from June 28, 2021, all patrons at restaurants and bars will need to utilize an application connecting to a centralized government database in order to generate a QR code proving that they have either: been vaccinated, recovered from COVID-19 within the last six months, or had a negative PCR test result from an approved Moscow lab within the last three days. Otherwise, they will not be permitted to enter. Moscow authorities will only accept evidence of vaccination with one of the vaccines registered in the Russian Federation. The Moderna, Pfizer, and Johnson & Johnson vaccines are not currently registered in the Russian Federation. For more information, please see the following website.
+In Saint Petersburg, the governor has suspended the work of amusement and water parks and increased enforcement of the mask regime in public transportation and cultural and retail establishments.
+    </p>
+    
+
+  </section>
+      <!-- -- COVID restrictions -->
 
         <div class="container py-4" v-for="v in visasNonEntry" :key="v.id">
           <div class="p-5 -mb-4 bg-light rounded-3">
@@ -268,7 +287,8 @@ export default {
       successFeedback: false,
 
       visasNonEntry: {},
-      visas: {}
+      visas: {},
+      covidInfo: ''
     }
   },
   mounted() {  
@@ -289,6 +309,11 @@ export default {
       .then(res => res.json())
       .then(data => { this.visas = data; console.info(data); })
       .catch(err => { console.warn(err.message); this.visas = [] })
+
+      fetch("https://localhost:5001/Countries/GetCovidInfo?countryId=220")
+      .then(res => res.json())
+      .then(data => { this.covidInfo = data; console.info(data); })
+      .catch(err => { console.warn(err.message); this.covidInfo = [] })
 
 //      console.info("Visas", this.visas)
       //console.info("Visas Non", this.visasNonEntry)

@@ -23,13 +23,13 @@ namespace API.Controllers
         [HttpGet]
         public ActionResult<Country> Get()
         {
-            var countries= (from c in _context.Country                         
-                         select new 
-                            { id = c.Id, 
-                             name = c.Name, 
-                             PhotoName = c.PhotoName, 
-                             DevelopmentLevel = c.DevelopmentLevel 
-                         }).Take(10);
+            var countries = (from c in _context.Country
+                             select new
+                             { id = c.Id,
+                                 name = c.Name,
+                                 PhotoName = c.PhotoName,
+                                 DevelopmentLevel = c.DevelopmentLevel
+                             }).Take(10);
 
             if (countries.Count() == 0) return NotFound();
 
@@ -44,6 +44,13 @@ namespace API.Controllers
             if (res == null) return NotFound();
 
             return Ok(res);
+        }
+
+        [HttpGet("GetCovidInfo")]
+        public IActionResult GetCovidInfo(int countryId)
+        {
+            var q = _context.Country.FirstOrDefault(c => c.Id == countryId).CovidRestrictions;
+            return q != null ? Ok(q) : NotFound();
         }
 
         [HttpPost("Feedback")]
