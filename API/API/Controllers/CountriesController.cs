@@ -29,7 +29,7 @@ namespace API.Controllers
                                  name = c.Name,
                                  PhotoName = c.PhotoName,
                                  DevelopmentLevel = c.DevelopmentLevel
-                             }).Take(10);
+                             });
 
             if (countries.Count() == 0) return NotFound();
 
