@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CountriesController : ControllerBase
     {
         private readonly AppDbContext _context;

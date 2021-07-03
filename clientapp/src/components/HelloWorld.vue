@@ -1,8 +1,7 @@
 <template>
 
  <header>
-      
-
+    
      
 
      
@@ -292,7 +291,9 @@ export default {
     }
   },
   mounted() {  
-    fetch("https://localhost:5001/Countries")
+console.log(process.env.VUE_APP_API_URL)
+
+    fetch(process.env.VUE_APP_API_URL + "Countries")
     .then(res => res.json())
     .then(data => { this.countries = data; console.info(data); })
     .catch(err => console.log(err.message))
@@ -300,17 +301,17 @@ export default {
   methods: {
 
     search1() {
-       fetch("https://localhost:5001/api/Visas/GetNonEntry?DestinationId=" + 220 + "&PassportId="+ this.search.citizen)
+       fetch(process.env.VUE_APP_API_URL + "Visas/GetNonEntry?DestinationId=" + 220 + "&PassportId="+ this.search.citizen)
       .then(res => res.json())
       .then(data => { this.visasNonEntry = data; console.info(data); })
       .catch(err => { console.warn(err.message); this.visasNonEntry = [] })
 
-       fetch("https://localhost:5001/api/Visas")
+       fetch(process.env.VUE_APP_API_URL + "Visas")
       .then(res => res.json())
       .then(data => { this.visas = data; console.info(data); })
       .catch(err => { console.warn(err.message); this.visas = [] })
 
-      fetch("https://localhost:5001/Countries/GetCovidInfo?countryId=220")
+      fetch(process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?countryId=220")
       .then(res => res.json())
       .then(data => { this.covidInfo = data; console.info(data); })
       .catch(err => { console.warn(err.message); this.covidInfo = [] })
