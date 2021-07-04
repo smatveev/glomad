@@ -96,41 +96,45 @@
 
   <div v-if="loading" class="loading">Loading...</div>
 
-  <div class="container py-4" v-for="v in visasNonEntry" :key="v.id">
-    <div class="p-5 -mb-4 bg-light rounded-3">
-      <div class="container-fluid -py-5">
-        <h1 class="display-6 fw-bold">{{ v.visaName }}</h1>
+<section v-if="covidInfo" class="container -py-4 my-5">
+
+  <h2 class="fw-bold text-center">💳 Here are the types of visas available to visit Thailand</h2>
+
+<br>
+  <div class="py-2" v-for="v in visasNonEntry" :key="v.id">
+    <div class="p-3 bg-light rounded-3">
+      <div class="container-fluid">
+        <h5 class="fw-bold">{{ v.visaName }}</h5>
         <p class="col-md-12 fs-6">{{ v.description }}</p>
       </div>
     </div>
   </div>
 
-  <div class="container py-4" v-for="v in visas" :key="v.id">
-    <div class="p-5 -mb-4 bg-light rounded-3">
-      <div>
-        <h1 class="display-6 fw-bold">{{ v.visaName }}</h1>
+  <div class="py-2" v-for="v in visas" :key="v.id">
+    <div class="p-3 bg-light rounded-3">
+      <div class="container-fluid">
+        <h5 class="fw-bold">{{ v.visaName }}</h5>
+
         <p class="col-md-12">{{ v.description }}</p>
 
-        <span
-          v-if="v.isExdendable"
-          class="badge badge-card bg-info text-dark m-2 fs-5"
-        >
+        <span v-if="v.isExdendable" class="badge badge-card bg-info text-dark m-2 fs-6">
           ✨ Extendable
         </span>
 
-        <span class="badge badge-card bg-info text-dark m-2 fs-5">
+        <span class="badge badge-card bg-info text-dark m-2 fs-6">
           🕜 Duration {{ v.duration }} days
         </span>
       </div>
     </div>
   </div>
+</section>
 
   <!-- COVID restrictions -->
-  <section v-if="covidInfo" class="container py-4 my-5 text-center">
+  <section v-if="covidInfo" class="container -py-4 my-5">
     <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
-    <h2 class="mb-5 fw-bold">🦠 Thailand COVID-19 restrictions</h2>
+    <h2 class="mb-5 fw-bold text-center">🦠 Thailand COVID-19 restrictions</h2>
 
-    {{ covidInfo }}
+    <p> {{ covidInfo }} </p>
   </section>
   <!-- -- COVID restrictions -->
 
@@ -355,14 +359,11 @@ export default {
           this.visas = [];
         });
 
-      fetch(
-        process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?countryId=220"
-      )
-        .then((res) => (this.covidInfo = res.message))
-        //.then(data => this.covidInfo = data )
+      fetch(process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?countryId=" + 220)
+        .then(res => res.text())
+        .then(text => this.covidInfo = text )
         .catch((err) => {
           console.warn(err.message);
-          this.covidInfo = "";
         });
 
       //      console.info("Visas", this.visas)
