@@ -42,39 +42,14 @@
   z-index: 1;
 }
 
-.mask {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-attachment: fixed;
-}
-
-
-.gradient-custom {
-            background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center center;
-}
-
 
 
 
 /* Carousel styling */
-        #introCarousel,
-        .carousel-inner,
-        .carousel-item,
-        .carousel-item.active {
-          height: 110vh;
-        }
+        
 
         .carousel-item:nth-child(1) {
-          background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+          background-image: url('/bg-1.jpg');
           background-repeat: no-repeat;
           background-size: cover;
           background-position: center center;
@@ -90,16 +65,6 @@
           background-repeat: no-repeat;
           background-size: cover;
           background-position: center center;
-        }
-
-        /* Height for devices larger than 576px */
-        @media (min-width: 992px) {
-          #introCarousel,
-          .carousel-inner,
-          .carousel-item,
-          .carousel-item.active {
-            height: 75vh;
-          }
         }
 
 
