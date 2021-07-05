@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import VueYandexMetrika from 'vue-yandex-metrika'
+//import VueYandexMetrika from 'vue-yandex-metrika'
 
 //import FlashMessage from "@smartweb/vue-flash-message";
 
@@ -15,9 +15,9 @@ app.use(router)
 
 app.mount('#app')
 
-app.use(VueYandexMetrika, {
-    id: 56660788,
-    router: router,
-    env: process.env.NODE_ENV
-    // other options
-})
+// app.use(VueYandexMetrika, {
+//     id: 56660788,
+//     router: router,
+//     env: process.env.NODE_ENV
+//     // other options
+// })

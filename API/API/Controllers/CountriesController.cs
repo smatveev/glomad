@@ -36,10 +36,31 @@ namespace API.Controllers
             return Ok(countries);
         }
 
+        [HttpGet("GetCountryEmbassies")]
+        public ActionResult<Country> GetCountryEmbassies()
+        {
+            var q = (from c in _context.Embassy
+                     select c);
+
+            if (q.Count() == 0) return NotFound();
+
+            return Ok(q);
+        }
+
         [HttpGet("GetById")]
         public IActionResult Country(int id)
         {
             var res = _context.Country.FirstOrDefault(m => m.Id == id);
+
+            if (res == null) return NotFound();
+
+            return Ok(res);
+        }
+
+        [HttpGet("GetByName")]
+        public IActionResult GetByName(string name)
+        {
+            var res = _context.Country.FirstOrDefault(m => m.Name == name);
 
             if (res == null) return NotFound();
 

@@ -42,7 +42,12 @@
   z-index: 1;
 }
 
-
+.hero-bg{
+            background-image: url('/thailand.jpg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center center;
+}
 
 
 /* Carousel styling */

@@ -146,6 +146,7 @@
 
     <div class="row row-cols-sm-1 row-cols-1 row-cols-md-3 g-4">
       <div class="col">
+        <a href="/Thailand">
         <div class="card rounded-3 text-white">
           <span
             class="
@@ -168,6 +169,7 @@
             <p class="shadowed card-text">Last updated 3 mins ago</p>
           </div>
         </div>
+        </a>
       </div>
 
       <div class="col">
