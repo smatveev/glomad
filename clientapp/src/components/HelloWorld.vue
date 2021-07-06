@@ -98,7 +98,9 @@
 
 <section v-if="covidInfo" class="container -py-4 my-5">
 
-  <h2 class="fw-bold text-center">💳 Here are the types of visas available to visit Thailand</h2>
+  <h2 class="fw-bold text-center">💳 Here are the types of visas available to visit 
+    <a href="/Thailand">Thailand</a>
+  </h2>
 
 <br>
   <div class="py-2" v-for="v in visasNonEntry" :key="v.id">
@@ -412,7 +414,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
+/* a {
   color: #42b983;
-}
+} */
 </style>
