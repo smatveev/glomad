@@ -57,7 +57,7 @@
           <div class="card-body">
             <h5 class="card-title">{{e.countryIata}}</h5>
             <p class="card-text">📍 {{ e.address }}</p>
-            <a href="#" class="card-link">Details</a>
+            <a :href="'Thailand/Embassy/' + e.id" class="card-link">Details</a>
           </div>
         </div>
       </div>
