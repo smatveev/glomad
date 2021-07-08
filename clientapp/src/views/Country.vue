@@ -16,21 +16,20 @@
     </div>
   </div>
 
-<section class="container -py-4 my-5">
-  <h2 class="fw-bold text-center">🏢 List of {{country.name}} enbassies</h2>
+<section class="container py-3">
+  <h2 class="fw-bold text-center p-4">🏢 List of {{country.name}} embassies</h2>
 
-  <div class="py-2" v-for="e in embassy" :key="e.id">
-    <div class="p-3 bg-light rounded-3">
-      <div class="container-fluid">
-        <h5 class="fw-bold">County {{ e.countryIata }}</h5>
-        <p class="col-md-12 fs-6">📍 {{ e.address }}</p>
-        <p class="col-md-12 fs-6">⏱ {{ e.workingHours }}</p>
-        <p class="col-md-12 fs-6">☎ {{ e.phone }}</p>
-        <p class="col-md-12 fs-6">📧 {{ e.email }}</p>
-        <a :href="e.url" class="col-md-12 fs-6">{{ e.url }}</a>
-      </div>
+<div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+      <div class="col" v-for="e in embassy" :key="e.id">
+        <div class="card rouded-3">
+          <div class="card-body">
+            <h5 class="card-title">{{e.countryIata}}</h5>
+            <p class="card-text">📍 {{ e.address }}</p>
+            <a href="#" class="card-link">Details</a>
+          </div>
+        </div>
     </div>
-  </div>
+</div>
   
 </section>
   
