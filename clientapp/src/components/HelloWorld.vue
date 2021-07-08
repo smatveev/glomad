@@ -9,31 +9,12 @@
         <div class="container">
           <div class="py-5 m-0 row">
             <div class="col-sm-12 col-lg-8">
-              <h1 class="display-5 fw-bold text-white pb-4">🌏 Be Glomad</h1>
-              <div class="-col-lg-8 -mx-auto">
-                <p class="fs-5 mb-4 text-white">
-                  🛂 Check visa requirements for your passport.
-                </p>
-                <p class="fs-5 mb-4 text-white">
-                  😷 Check last COVID-19 travel restrictions for a country
-                </p>
-                <p class="fs-5 mb-4 text-white">
-                  🗺 Follow a country to know last updates.
-                </p>
-                <p class="fs-5 mb-4 text-white">
-                  🏢 Check information about any embassy you are interested in.
-                </p>
-                <p class="fs-5 mb-4 text-white">
-                  🧐 Join as a travel and visa expert to help plan nomads their
-                  trip.
-                </p>
-                <p class="fs-5 mb-4 text-white">
-                  😎 Join as a traveler and plan your trip to any point of the
-                  world.
-                </p>
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                  <!-- <button type="button" class="btn btn-outline-light btn-lg px-4">Secondary</button> -->
-                </div>
+              <h1 class="display-5 fw-bold text-white  pb-4">🌏 Be Glomad</h1>
+              <div class="mb-3 col-lg-8 text-white fs-5 lead fw-lighter">               
+                  Let's know where you can go with your 🛂 passport easily. <br>
+                  Find visa requirements and needed 🎫 documents for countries. <br>
+                  Check last 😷 COVID-19 travel restrictions for a country. <br>
+                  Forget about visa headaches. Be ready to travel at any time. 😎 <br>               
               </div>
             </div>
 
@@ -142,9 +123,13 @@
 
   <section class="container py-4 my-5 text-center">
     <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
-    <h2 class="mb-5">
+    <h2 class="mb-4">
       <strong>Here are destinations we're monitoring now 🤖 ...</strong>
     </h2>
+
+    <p class="mb-4 mx-auto text-secondary lead">
+        We are interested in offering you reliable and logically structured information.  Now data about Thailand is ready and we are working on the collection of information about Indonesia and Mexico. If our service will be useful for you please share with us which destinations are most delightful. We are glad to help you prepare for your amazing travels.
+      </p>
 
     <div class="row row-cols-sm-1 row-cols-1 row-cols-md-3 g-4">
       <div class="col">
