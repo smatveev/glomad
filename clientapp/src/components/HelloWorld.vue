@@ -9,12 +9,14 @@
         <div class="container">
           <div class="py-5 m-0 row">
             <div class="col-sm-12 col-lg-8">
-              <h1 class="display-5 fw-bold text-white  pb-4">🌏 Be Glomad</h1>
-              <div class="mb-3 col-lg-8 text-white fs-5 lead fw-lighter">               
-                  Let's know where you can go with your 🛂 passport easily. <br>
-                  Find visa requirements and needed 🎫 documents for countries. <br>
-                  Check last 😷 COVID-19 travel restrictions for a country. <br>
-                  Forget about visa headaches. Be ready to travel at any time. 😎 <br>               
+              <h1 class="display-5 fw-bold text-white pb-4">🌏 Be Glomad</h1>
+              <div class="mb-3 col-lg-8 text-white fs-5 lead fw-lighter">
+                Let's know where you can go with your 🛂 passport easily. <br />
+                Find visa requirements and needed 🎫 documents for countries.
+                <br />
+                Check last 😷 COVID-19 travel restrictions for a country. <br />
+                Forget about visa headaches. Be ready to travel at any time. 😎
+                <br />
               </div>
             </div>
 
@@ -77,85 +79,95 @@
 
   <div v-if="loading" class="loading">Loading...</div>
 
-<section v-if="covidInfo" class="container -py-4 my-5">
+  <section v-if="covidInfo" class="container -py-4 my-5">
+    <h2 class="fw-bold text-center">
+      💳 Here are the types of visas available to visit
+      <a href="/Thailand">Thailand</a>
+    </h2>
 
-  <h2 class="fw-bold text-center">💳 Here are the types of visas available to visit 
-    <a href="/Thailand">Thailand</a>
-  </h2>
-
-<br>
-  <div class="py-2" v-for="v in visasNonEntry" :key="v.id">
-    <div class="p-3 bg-light rounded-3">
-      <div class="container-fluid">
-        <h5 class="fw-bold">{{ v.visaName }}</h5>
-        <p class="col-md-12 fs-6">{{ v.description }}</p>
+    <br />
+    <div class="py-2" v-for="v in visasNonEntry" :key="v.id">
+      <div class="p-3 bg-light rounded-3">
+        <div class="container-fluid">
+          <h5 class="fw-bold">{{ v.visaName }}</h5>
+          <p class="col-md-12 fs-6">{{ v.description }}</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="py-2" v-for="v in visas" :key="v.id">
-    <div class="p-3 bg-light rounded-3">
-      <div class="container-fluid">
-        <h5 class="fw-bold">{{ v.visaName }}</h5>
+    <div class="py-2" v-for="v in visas" :key="v.id">
+      <div class="p-3 bg-light rounded-3">
+        <div class="container-fluid">
+          <h5 class="fw-bold">{{ v.visaName }}</h5>
 
-        <p class="col-md-12">{{ v.description }}</p>
+          <p class="col-md-12">{{ v.description }}</p>
 
-        <span v-if="v.isExdendable" class="badge badge-card bg-info text-dark m-2 fs-6">
-          ✨ Extendable
-        </span>
+          <span
+            v-if="v.isExdendable"
+            class="badge badge-card bg-info text-dark m-2 fs-6"
+          >
+            ✨ Extendable
+          </span>
 
-        <span class="badge badge-card bg-info text-dark m-2 fs-6">
-          🕜 Duration {{ v.duration }} days
-        </span>
+          <span class="badge badge-card bg-info text-dark m-2 fs-6">
+            🕜 Duration {{ v.duration }} days
+          </span>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- COVID restrictions -->
   <section v-if="covidInfo" class="container -py-4 my-5">
     <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
     <h2 class="mb-5 fw-bold text-center">🦠 Thailand COVID-19 restrictions</h2>
 
-    <p> {{ covidInfo }} </p>
+    <p>{{ covidInfo }}</p>
   </section>
   <!-- -- COVID restrictions -->
 
   <section class="container py-4 my-5 text-center">
     <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
-    <h2 class="mb-4">
+    <h2 class="mb-5">
       <strong>Here are destinations we're monitoring now 🤖 ...</strong>
     </h2>
 
-    <p class="mb-4 mx-auto text-secondary lead">
-        We are interested in offering you reliable and logically structured information.  Now data about Thailand is ready and we are working on the collection of information about Indonesia and Mexico. If our service will be useful for you please share with us which destinations are most delightful. We are glad to help you prepare for your amazing travels.
-      </p>
-
-    <div class="row row-cols-sm-1 row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-sm-1 row-cols-1 row-cols-lg-3 row-cols-md-3 g-4">
       <div class="col">
         <a href="/Thailand">
-        <div class="card rounded-3 text-white">
-          <span
-            class="
-              badge badge-card
-              bg-info
-              -text-dark
-              position-absolute
-              bottom-0
-              start-0
-              m-2
-            "
-          >
-            ✨ Oppening from July, 1
-          </span>
-          <img src="thailand.jpg" class="card-img" alt="..." />
-          <div class="card-img-overlay">
-            <h2 class="card-title shadowed">Thailand</h2>
-            <br />
-            <p class="shadowed card-text">We detailed reseatched Thailand.</p>
-            <p class="shadowed card-text">Last updated 3 mins ago</p>
+          <div class="card rounded-3 text-white">
+            <span
+              class="
+                badge badge-card
+                bg-info
+                -text-dark
+                position-absolute
+                bottom-0
+                start-0
+                m-2
+              "
+            >
+              ✨ Oppening from July, 1
+            </span>
+
+                        <span
+              class="
+                badge badge-card
+                bg-success
+                -text-dark
+                position-absolute
+                top-0
+                start-0
+                m-2
+              "
+            >
+              🕜 updated 3 mins ago
+            </span>
+            <img src="thailand.jpg" class="card-img" alt="..." />
+            <div class="card-img-overlay">
+              <h2 class="card-title shadowed mt-3">Thailand</h2>
+            </div>
           </div>
-        </div>
         </a>
       </div>
 
@@ -175,7 +187,7 @@
           >
           <img src="Mexico-City.jpg" class="card-img" alt="Photo" />
           <div class="card-img-overlay preparing">
-            <h2 class="card-title">Mexica</h2>
+            <h2 class="card-title shadowed mt-3">Mexica</h2>
           </div>
         </div>
       </div>
@@ -196,10 +208,13 @@
           >
           <img src="Jakarta.jpg" class="card-img" alt="Photo" />
           <div class="card-img-overlay preparing">
-            <h2 class="card-title">Indonesia</h2>
+            <h2 class="card-title shadowed mt-3">Indonesia</h2>
           </div>
         </div>
       </div>
+
+     
+
     </div>
   </section>
 
@@ -210,6 +225,14 @@
     </h2>
 
     <div class="col-md-10 mx-auto col-lg-8">
+
+<p class="mb-4  card-text text-secondary fs-5">
+              👉 We are interested in offering you reliable information. 
+              Data about Thailand is ready and we are working on new directions. 
+              Please share with us which destinations are most delightful. 
+              We are glad to help you prepare for your amazing travels.
+    </p>
+
       <form
         @submit.prevent="SendFeedback"
         class="p-4 p-md-5 border rounded-3 bg-light"
@@ -348,9 +371,11 @@ export default {
           this.visas = [];
         });
 
-      fetch(process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?countryId=" + 220)
-        .then(res => res.text())
-        .then(text => this.covidInfo = text )
+      fetch(
+        process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?countryId=" + 220
+      )
+        .then((res) => res.text())
+        .then((text) => (this.covidInfo = text))
         .catch((err) => {
           console.warn(err.message);
         });
