@@ -16,5 +16,10 @@ namespace Glomad.Models
         public string DevelopmentLevel { get; set; }
         public string PhotoName { get; set; }
         public string CovidRestrictions { get; set; }
+        public bool IsQuarantine { get; set; }
+        public string Quarantine { get; set; }
+        public string AcceptableVaccinations { get; set; }
+        public bool IsPcrRequired{ get; set; }
+        public string PCR { get; set; }
     }
 }
