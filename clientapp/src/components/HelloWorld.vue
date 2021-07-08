@@ -150,7 +150,7 @@
               ✨ Oppening from July, 1
             </span>
 
-                        <span
+            <span
               class="
                 badge badge-card
                 bg-success
@@ -212,9 +212,6 @@
           </div>
         </div>
       </div>
-
-     
-
     </div>
   </section>
 
@@ -225,13 +222,12 @@
     </h2>
 
     <div class="col-md-10 mx-auto col-lg-8">
-
-<p class="mb-4  card-text text-secondary fs-5">
-              👉 We are interested in offering you reliable information. 
-              Data about Thailand is ready and we are working on new directions. 
-              Please share with us which destinations are most delightful. 
-              We are glad to help you prepare for your amazing travels.
-    </p>
+      <p class="mb-4 card-text text-secondary fs-5">
+        👉 We are interested in offering you reliable information. Data about
+        Thailand is ready and we are working on new directions. Please share
+        with us which destinations are most delightful. We are glad to help you
+        prepare for your amazing travels.
+      </p>
 
       <form
         @submit.prevent="SendFeedback"
