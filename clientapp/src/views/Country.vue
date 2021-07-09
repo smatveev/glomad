@@ -64,15 +64,13 @@
     </Tab>
 
     
-    <Tab title="😷 Covid restrictions" v-if="covidInfo">
+    <Tab title="😷 Covid restrictions">
       <!-- COVID restrictions -->
-        <h2 class="fw-bold text-center p-4">🦠 Thailand COVID-19 restrictions</h2>
-
-        <section  class="container -py-4 my-5">
+        <section v-if="covidInfo">
           <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
-          
+          <h2 class="fw-bold text-center p-4">🦠 Thailand COVID-19 restrictions</h2>
 
-          <p>{{ covidInfo }}</p>
+          <p class="p-3">{{ covidInfo }}</p>
         </section>
         <!-- -- COVID restrictions -->
     </Tab>

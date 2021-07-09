@@ -23,7 +23,7 @@
       <p>🕜 {{ embassy.workingHours }}</p>
       <p>☎ {{ embassy.phone }}</p>
       <p>📧 {{ embassy.email }}</p>
-      <p> {{ embassy.url }}</p>
+      <a :href="'//' + embassy.url" target="_blank">{{embassy.url}}</a>
 
     </Tab>
 
