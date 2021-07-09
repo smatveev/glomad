@@ -4,14 +4,16 @@ using Glomad.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Glomad.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210709110923_EmbassyEappointmentUrlField")]
+    partial class EmbassyEappointmentUrlField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,14 +118,9 @@ namespace Glomad.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("VisaId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EmbassyId");
-
-                    b.HasIndex("VisaId");
 
                     b.ToTable("VisaDoc");
                 });
@@ -800,13 +797,7 @@ namespace Glomad.Migrations
                         .WithMany()
                         .HasForeignKey("EmbassyId");
 
-                    b.HasOne("API.Models.Visa", "Visa")
-                        .WithMany()
-                        .HasForeignKey("VisaId");
-
                     b.Navigation("Embassy");
-
-                    b.Navigation("Visa");
                 });
 
             modelBuilder.Entity("Glomad.Models.CityWeather", b =>

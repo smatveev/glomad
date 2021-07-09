@@ -15,5 +15,6 @@ namespace API.Models
         public Embassy Embassy { get; set; }
 
         public string Text { get; set; }
+        public Visa Visa { get; set; }
     }
 }

@@ -29,5 +29,6 @@ namespace Glomad.Models
         public string Url { get; set; }
         
         public string ApplicationFormUrl { get; set; }
+        public string EappointmentUrl { get; set; }
     }
 }
