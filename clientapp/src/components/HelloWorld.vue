@@ -9,7 +9,8 @@
         <div class="container">
           <div class="py-5 m-0 row">
             <div class="col-sm-12 col-lg-8">
-              <h1 class="display-5 fw-bold text-white pb-4">🌏 Be Glomad</h1>
+              <h1 class="display-5 fw-bold text-white pb-4">🌏 Be Glomad <i class="flag flag-united-states"></i></h1>
+
               <div class="mb-3 col-lg-8 text-white fs-5 lead fw-lighter">
                 Let's know where you can go with your 🛂 passport easily. <br />
                 Find visa requirements and needed 🎫 documents for countries.

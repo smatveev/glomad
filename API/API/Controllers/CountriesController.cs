@@ -39,8 +39,15 @@ namespace API.Controllers
         [HttpGet("GetCountryEmbassies")]
         public ActionResult<Country> GetCountryEmbassies()
         {
-            var q = (from c in _context.Embassy
-                     select c);
+            var q = (from e in _context.Embassy
+                     join c in _context.Country
+                     on e.Country.Id equals c.Id
+                     select new { 
+                         Id = e.Id,
+                         Country = c.Name,
+                         City = e.City.Name,
+                         Iata = c.ISOalpha2
+                     });
 
             if (q.Count() == 0) return NotFound();
 

@@ -23,7 +23,7 @@
   <Tabs>
 
 <Tab title="Visas">
-      <h2 class="fw-bold text-center p-4">🏢 List of {{country.name}} visa types</h2>
+      <h2 class="fw-bold text-center p-4">💳 List of {{country.name}} visa types</h2>
 
     <div class="py-2" v-for="v in visas" :key="v.id">
       <div class="p-3 bg-light rounded-3">
@@ -55,9 +55,8 @@
       <div class="col" v-for="e in embassy" :key="e.id">
         <div class="card rouded-3">
           <div class="card-body">
-            <h5 class="card-title">{{e.countryIata}}</h5>
-            <p class="card-text">📍 {{ e.address }}</p>
-            <a :href="'Thailand/Embassy/' + e.id" class="card-link">Details</a>
+            <flag :iso="e.iata" /> 
+            <a :href="country.name + '/Embassy/' + e.id" class="card-link m-2">{{e.country}}, {{ e.city }}</a>
           </div>
         </div>
       </div>
@@ -65,11 +64,13 @@
     </Tab>
 
     
-    <Tab title="😷 Covid restrictions">
+    <Tab title="😷 Covid restrictions" v-if="covidInfo">
       <!-- COVID restrictions -->
-        <section v-if="covidInfo" class="container -py-4 my-5">
+        <h2 class="fw-bold text-center p-4">🦠 Thailand COVID-19 restrictions</h2>
+
+        <section  class="container -py-4 my-5">
           <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
-          <h2 class="mb-5 fw-bold text-center">🦠 Thailand COVID-19 restrictions</h2>
+          
 
           <p>{{ covidInfo }}</p>
         </section>
