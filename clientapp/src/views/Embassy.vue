@@ -1,57 +1,47 @@
 
 <template>
+  <section class="container py-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Thailand">Thailand</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Embassy of Thailand at {{ embassy[0].country }}
+        </li>
+      </ol>
+    </nav>
 
+    <Tabs>
+      <Tab title="Info">
+        <h2 class="fw-bold text-center p-4">🏢 Embassy details</h2>
+        <p>📍 {{ embassy[0].embassy.address }}</p>
+        <p>🕜 {{ embassy[0].embassy.workingHours }}</p>
+        <p>☎ {{ embassy[0].embassy.phone }}</p>
+        <p>📧 {{ embassy[0].embassy.email }}</p>
+        <a :href="'//' + embassy[0].embassy.url" target="_blank">{{ embassy[0].embassy.url }}</a>
 
+      </Tab>
 
-<section class="container py-3">
+      <Tab title="Documents">
+        <h2 class="fw-bold text-center p-4">List of documents</h2>
 
-<nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item"><a href="/Thailand">Thailand</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Embassy at {{ embassy.countryIata }}</li>
-        </ol>
-      </nav>
-
-  <Tabs>
-
-<Tab title="Info">
-      <h2 class="fw-bold text-center p-4">🏢 Embassy details</h2>
-
-      <p>{{ embassy.countryIata }}</p>
-      <p>📍 {{ embassy.address }}</p>
-      <p>🕜 {{ embassy.workingHours }}</p>
-      <p>☎ {{ embassy.phone }}</p>
-      <p>📧 {{ embassy.email }}</p>
-      <a :href="'//' + embassy.url" target="_blank">{{embassy.url}}</a>
-
-    </Tab>
-
-    <Tab title="Documents">
-      <h2 class="fw-bold text-center p-4">List of documents</h2>
-
-      <div>{{ docs.text }}</div>
-    </Tab>
-
-    
-  </Tabs>  
-  
-</section>  
- 
+        <div>{{ docs.text }}</div>
+      </Tab>
+    </Tabs>
+  </section>
 </template>
 
 <script>
-
-import Tabs from '@/components/Tabs.vue'
-import Tab from '@/components/Tab.vue'
+import Tabs from "@/components/Tabs.vue";
+import Tab from "@/components/Tab.vue";
 
 export default {
   //props: ['id'],
   data() {
-    return {      
+    return {
       name: this.$route.params.name,
-      embassy: {},
-      docs: {}
+      embassy: [],
+      docs: {},
     };
   },
   mounted() {
@@ -76,7 +66,7 @@ export default {
   },
   components: {
     Tabs,
-    Tab
-  }
+    Tab,
+  },
 };
 </script>

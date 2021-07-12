@@ -22,11 +22,18 @@ namespace API.Controllers
         [HttpGet]
         public IActionResult Get(int id)
         {
-            var res = _context.Embassy.FirstOrDefault(m => m.Id == id);
+            var q = (from e in _context.Embassy
+                     join c in _context.Country
+                     on e.Country.Id equals c.Id
+                     where e.Id == id
+                     select new {
+                        Embassy = e,
+                        Country = c.Name
+                     });
 
-            if (res == null) return NotFound();
+            if (q == null) return NotFound();
 
-            return Ok(res);
+            return Ok(q);
         }
 
         [HttpGet("DocsById")]
