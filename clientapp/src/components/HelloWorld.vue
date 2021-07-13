@@ -1,4 +1,5 @@
 <template>
+
   <header>
     <!-- Indicators -->
 
@@ -123,7 +124,7 @@
     <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
     <h2 class="mb-5 fw-bold text-center">🦠 Thailand COVID-19 travel requirements</h2>
 
-    <p class="p-3" v-html="covidInfo"></p>
+    <p class="p-3" style="height:400px; overflow-y: auto;" v-html="covidInfo"></p>
   </section>
   <!-- -- COVID restrictions -->
 
@@ -188,7 +189,7 @@
           >
           <img src="Mexico-City.jpg" class="card-img" alt="Photo" />
           <div class="card-img-overlay preparing">
-            <h2 class="card-title shadowed mt-3">Mexica</h2>
+            <h2 class="card-title shadowed mt-3">Mexico</h2>
           </div>
         </div>
       </div>

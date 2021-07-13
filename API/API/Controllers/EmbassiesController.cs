@@ -45,5 +45,27 @@ namespace API.Controllers
 
             return Ok(res);
         }
+
+        [HttpGet("VisasById")]
+        public IActionResult GetVisasById(int id)
+        {
+            var q = (from v in _context.Visa
+                     join ve in _context.VisaEmbassy
+                     on v.Id equals ve.Visa.Id
+                     where ve.Embassy.Id == id
+                     select new
+                     {
+                         Price = ve.Price,
+                         Currency = ve.Currency,
+                         Duration = ve.Duration,
+                         IsExtendable = v.IsExtendable,
+                         Description = v.Description,
+                         Name = v.Name
+                     }).ToList();
+
+            if (q == null) return NotFound();
+
+            return Ok(q);
+        }
     }
 }
