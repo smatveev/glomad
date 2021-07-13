@@ -1,31 +1,33 @@
 
-<template>
+<template v-if="embassy">
   <section class="container py-3">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="/Thailand">Thailand</a></li>
         <li class="breadcrumb-item active" aria-current="page">
-          Embassy of Thailand at {{ embassy[0].country }}
+          Embassy of Thailand at {{ embassy.country }}
         </li>
       </ol>
     </nav>
 
     <Tabs>
       <Tab title="Info">
-        <h2 class="fw-bold text-center p-4">🏢 Embassy details</h2>
-        <p>📍 {{ embassy[0].embassy.address }}</p>
-        <p>🕜 {{ embassy[0].embassy.workingHours }}</p>
-        <p>☎ {{ embassy[0].embassy.phone }}</p>
-        <p>📧 {{ embassy[0].embassy.email }}</p>
-        <a :href="'//' + embassy[0].embassy.url" target="_blank">{{ embassy[0].embassy.url }}</a>
-
+        <h2 class="fw-bold text-center p-4 mb-3">🏢 Embassy details in {{ embassy.country }}</h2>
+        <p>📍 <small class="text-muted">Address: </small>{{ embassy.embassy.address }}</p>
+        <p>🕜 <small class="text-muted">Office hours: </small>{{ embassy.embassy.workingHours }}</p>
+        <p>☎ <small class="text-muted">Phone: </small>{{ embassy.embassy.phone }}</p>
+        <p>📧 <small class="text-muted">Email: </small>{{ embassy.embassy.email }}</p>
+        <p>💻 <small class="text-muted">Website: </small><a :href="'//' + embassy.embassy.url" target="_blank">{{ embassy.embassy.url }}</a></p>
+        <p>🐱‍💻 <small class="text-muted">Web application: </small><a :href="'//' + embassy.embassy.applicationFormUrl" target="_blank"> link</a></p>
       </Tab>
 
       <Tab title="Documents">
-        <h2 class="fw-bold text-center p-4">List of documents</h2>
+        <h2 class="fw-bold text-center p-4">Checklist of documents for visa to Thailand</h2>
 
-        <div>{{ docs.text }}</div>
+        <ul v-for="d in docs" :key="d.id">
+          <li>{{ d.text }}</li>
+        </ul>
       </Tab>
     </Tabs>
   </section>
@@ -40,7 +42,9 @@ export default {
   data() {
     return {
       name: this.$route.params.name,
-      embassy: [],
+      embassy: {
+        embassy: {}
+      },
       docs: {},
     };
   },
@@ -51,7 +55,9 @@ export default {
         this.embassy = data;
         console.info(data);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => {
+        console.log(err.message);
+      } );
 
     fetch(process.env.VUE_APP_API_URL + "Embassies/DocsById?id=" + this.name)
       .then((res) => res.json())
@@ -61,7 +67,6 @@ export default {
       })
       .catch((err) => {
         console.warn(err.message);
-        this.embassy = null;
       });
   },
   components: {

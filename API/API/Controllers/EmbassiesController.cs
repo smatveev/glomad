@@ -29,7 +29,7 @@ namespace API.Controllers
                      select new {
                         Embassy = e,
                         Country = c.Name
-                     });
+                     }).FirstOrDefault();
 
             if (q == null) return NotFound();
 
@@ -39,7 +39,7 @@ namespace API.Controllers
         [HttpGet("DocsById")]
         public IActionResult GetDocsById(int id)
         {
-            var res = _context.VisaDoc.FirstOrDefault(m => m.Embassy.Id == id);
+            var res = _context.VisaDoc.Where(m => m.Embassy.Id == id).ToList();
 
             if (res == null) return NotFound();
 

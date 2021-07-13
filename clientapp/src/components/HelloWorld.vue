@@ -121,9 +121,9 @@
   <!-- COVID restrictions -->
   <section v-if="covidInfo" class="container -py-4 my-5">
     <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
-    <h2 class="mb-5 fw-bold text-center">🦠 Thailand COVID-19 restrictions</h2>
+    <h2 class="mb-5 fw-bold text-center">🦠 Thailand COVID-19 travel requirements</h2>
 
-    <p>{{ covidInfo }}</p>
+    <p class="p-3" v-html="covidInfo"></p>
   </section>
   <!-- -- COVID restrictions -->
 
