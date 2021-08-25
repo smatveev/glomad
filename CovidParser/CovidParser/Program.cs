@@ -11,7 +11,7 @@ namespace CovidParser
     {
         static async Task Main(string[] args)
         {
-            string connStr = "Data Source=wpl37.hosting.reg.ru;Initial Catalog=u0894345_GlomadDb;Integrated Security=False;User ID=u0894345_GlomadAdmin;Password=Gl0madpwd";
+            string connStr = "";
             SqlConnection conn = new SqlConnection(connStr);
 
             try
