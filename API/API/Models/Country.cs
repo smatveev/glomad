@@ -21,5 +21,6 @@ namespace Glomad.Models
         public string AcceptableVaccinations { get; set; }
         public bool IsPcrRequired{ get; set; }
         public string PCR { get; set; }
+        public DateTime? UpdateDate { get; set; }
     }
 }

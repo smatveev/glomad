@@ -3,7 +3,7 @@
 <template>
   <div class="hero-bg px-4 py-5 text-white text-center">
     <h1 class="display-5 fw-bold">{{ country.name }}</h1>
-    <h5 class="my-3">⏱ updated 3 min ago</h5>
+    <h5 class="my-3">⏱ update date {{ dateTime(country.updateDate) }}</h5>
 
     <div class="col-lg-6 mx-auto position-absolute">
         <p class="lead mb-4">
@@ -85,6 +85,7 @@
 
 import Tabs from '@/components/Tabs.vue'
 import Tab from '@/components/Tab.vue'
+import moment from 'moment'
 
 export default {
   //props: ['id'],
@@ -132,7 +133,7 @@ export default {
         });
     
     fetch(
-        process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?countryId=" + 220
+        process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?name=" + this.name
       )
         .then((res) => res.text())
         .then((text) => (this.covidInfo = text))
@@ -143,6 +144,11 @@ export default {
   components: {
     Tabs,
     Tab
-  }
+  },
+  methods: {
+    dateTime(value) {
+      return moment(value, "YYYYMMDDHHmmss").fromNow(); 
+      },
+    }
 };
 </script>

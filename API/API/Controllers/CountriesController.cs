@@ -75,9 +75,9 @@ namespace API.Controllers
         }
 
         [HttpGet("GetCovidInfo")]
-        public IActionResult GetCovidInfo(int countryId)
+        public IActionResult GetCovidInfo(string name)
         {
-            var q = _context.Country.FirstOrDefault(c => c.Id == countryId).CovidRestrictions;
+            var q = _context.Country.FirstOrDefault(c => c.Name == name).CovidRestrictions;
             return q != null ? Ok(q) : NotFound();
         }
 

@@ -9,7 +9,6 @@ import VueYandexMetrika from 'vue-yandex-metrika'
 //import FlashMessage from "@smartweb/vue-flash-message";
 import FlagIcon from 'vue-flag-icon'
 
-
 const app = createApp(App)
 
 //app.use(FlashMessage, {tag: 'flash-message', strategy: 'multiple'})

@@ -45,7 +45,8 @@ namespace CovidParser
                    // Console.WriteLine("html = " + body.InnerHtml);
 
                     StringBuilder strBuilder = new StringBuilder();
-                    strBuilder.Append("UPDATE Country SET CovidRestrictions='" + body.InnerHtml.Replace('\'', ' '));
+                    strBuilder.Append("UPDATE Country SET CovidRestrictions='" + body.InnerHtml.Replace('\'', ' ') + "'");
+                    strBuilder.Append(" ,UpdateDate='" + DateTime.Now);
                     strBuilder.Append("' WHERE Name='" + country + "'");
 
 
@@ -71,7 +72,7 @@ namespace CovidParser
                 Console.WriteLine("Error: " + e.Message);
             }
             
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
 }
