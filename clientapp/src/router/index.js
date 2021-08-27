@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Country from '../views/Country.vue'
 import Embassy from '../views/Embassy.vue'
+import Countries from '../views/Countries.vue'
 
 
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/:name',
     name: "Country",
     component: Country
+  },
+  {
+    path: '/countries',
+    name: "Countries",
+    component: Countries
   },
   {
     path: '/:name/Embassy/:name',

@@ -74,6 +74,21 @@ namespace API.Controllers
             return Ok(res);
         }
 
+        [HttpGet("GetUpdatedCountries")]
+        public IActionResult GetUpdatedCountries()
+        {
+            var res = (from c in _context.Country where c.UpdateDate != null
+                             select new
+                             {
+                                 id = c.Id,
+                                 name = c.Name,
+                                 iata = c.ISOalpha2,
+                                 updateDate = c.UpdateDate
+                             });
+            if (res == null) return NotFound();
+            return Ok(res);
+        }
+
         [HttpGet("GetCovidInfo")]
         public IActionResult GetCovidInfo(string name)
         {

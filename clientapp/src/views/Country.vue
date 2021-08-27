@@ -3,7 +3,7 @@
 <template>
   <div class="hero-bg px-4 py-5 text-white text-center">
     <h1 class="display-5 fw-bold">{{ country.name }}</h1>
-    <h5 class="my-3">⏱ update date {{ dateTime(country.updateDate) }}</h5>
+    <h5 class="my-3">⏱ Updated {{ dateTime(country.updateDate) }}</h5>
 
     <div class="col-lg-6 mx-auto position-absolute">
         <p class="lead mb-4">
@@ -25,7 +25,8 @@
 <Tab title="Visas">
       <h2 class="fw-bold text-center p-4">💳 List of {{country.name}} visa types</h2>
 
-    <div class="py-2" v-for="v in visas" :key="v.id">
+<div class="row row-cols-sm-1  row-cols-lg-3 row-cols-md-2 g-4">
+<div class="py-2" v-for="v in visas" :key="v.id">
       <div class="p-3 bg-light rounded-3">
         <div class="container-fluid">
           <h5 class="fw-bold">{{ v.visaName }}</h5>
@@ -45,6 +46,12 @@
         </div>
       </div>
     </div>
+
+    <div class="p-3 bg-light rounded-3">
+        <W/>
+      </div>
+</div>
+    
 
     </Tab>
 
@@ -86,6 +93,8 @@
 import Tabs from '@/components/Tabs.vue'
 import Tab from '@/components/Tab.vue'
 import moment from 'moment'
+
+import W from '@/components/Widget.vue'
 
 export default {
   //props: ['id'],
@@ -143,7 +152,8 @@ export default {
   },
   components: {
     Tabs,
-    Tab
+    Tab,
+    W
   },
   methods: {
     dateTime(value) {

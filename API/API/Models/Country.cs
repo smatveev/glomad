@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,5 +23,7 @@ namespace Glomad.Models
         public bool IsPcrRequired{ get; set; }
         public string PCR { get; set; }
         public DateTime? UpdateDate { get; set; }
+        [StringLength(20)]
+        public string CapitalCode { get; set; }
     }
 }

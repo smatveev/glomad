@@ -220,7 +220,7 @@
   <!--Section: Content-->
   <section class="container mb-5">
     <h2 class="mb-5 text-center">
-      <strong>... but what else you most interested in ❓</strong>
+      <strong>... what else you most interested in ❓</strong>
     </h2>
 
     <div class="col-md-10 mx-auto col-lg-8">
