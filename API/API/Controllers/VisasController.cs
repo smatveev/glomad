@@ -38,10 +38,10 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<VisaSearchResult> Get()
+        public ActionResult<VisaSearchResult> Get(string country)
         {
             var q = (from co in _context.Visa
-                                where co.Country.Id == 220
+                                where co.Country.Name == country
                                 select new VisaSearchResult
                                 {
                                     Id = co.Id,

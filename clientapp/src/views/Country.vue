@@ -130,7 +130,7 @@ export default {
       });
 
 
-    fetch(process.env.VUE_APP_API_URL + "Visas")
+    fetch(process.env.VUE_APP_API_URL + "Visas?country=" + this.name)
         .then((res) => res.json())
         .then((data) => {
           this.visas = data;
@@ -141,9 +141,7 @@ export default {
           this.visas = [];
         });
     
-    fetch(
-        process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?name=" + this.name
-      )
+    fetch(process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?name=" + this.name)
         .then((res) => res.text())
         .then((text) => (this.covidInfo = text))
         .catch((err) => {
