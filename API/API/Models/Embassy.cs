@@ -30,5 +30,8 @@ namespace Glomad.Models
         
         public string ApplicationFormUrl { get; set; }
         public string EappointmentUrl { get; set; }
+
+        [Required]
+        public Country OriginalCountry { get; set; }
     }
 }

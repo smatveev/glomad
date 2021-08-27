@@ -118,7 +118,7 @@ export default {
       })
       .catch((err) => console.log(err.message));
 
-    fetch(process.env.VUE_APP_API_URL + "Countries/GetCountryEmbassies")
+    fetch(process.env.VUE_APP_API_URL + "Countries/GetCountryEmbassies?country=" + this.name)
       .then((res) => res.json())
       .then((data) => {
         this.embassy = data;

@@ -37,11 +37,12 @@ namespace API.Controllers
         }
 
         [HttpGet("GetCountryEmbassies")]
-        public ActionResult<Country> GetCountryEmbassies()
+        public ActionResult<Country> GetCountryEmbassies(string country)
         {
             var q = (from e in _context.Embassy
                      join c in _context.Country
                      on e.Country.Id equals c.Id
+                     where e.OriginalCountry.Name == country
                      select new { 
                          Id = e.Id,
                          Country = c.Name,
