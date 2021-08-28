@@ -20,7 +20,7 @@
 
 <section class="container py-3">
 
-  <Tabs>
+  <Tabs :selec="this.hash.substring(1)">
 
 <Tab title="Visas">
       <h2 class="fw-bold text-center p-4">💳 List of {{country.name}} visa types</h2>
@@ -71,7 +71,7 @@
     </Tab>
 
     
-    <Tab title="😷 Covid">
+    <Tab title="Covid">
       <!-- COVID restrictions -->
         <section v-if="covidInfo">
           <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
@@ -102,12 +102,16 @@ export default {
     return {
       country: {},
       name: this.$route.params.name,
+      hash: this.$route.hash,
       embassy: {},
       
       visasNonEntry: {},
       visas: {},
       covidInfo: ""
     };
+  },
+  created() {
+    //alert(this.$route.params.name)
   },
   mounted() {
     fetch(process.env.VUE_APP_API_URL + "Countries/GetByName?name=" + this.name)
