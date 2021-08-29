@@ -28,7 +28,8 @@ namespace API.Controllers
                              { id = c.Id,
                                  name = c.Name,
                                  PhotoName = c.PhotoName,
-                                 DevelopmentLevel = c.DevelopmentLevel
+                                 DevelopmentLevel = c.DevelopmentLevel,
+                                 Capital = c.CapitalCode
                              });
 
             if (countries.Count() == 0) return NotFound();

@@ -43,7 +43,8 @@
                     v-model="search.from"
                   >
                     <option disabled value="">Current location</option>
-                    <option v-for="c in countries" v-bind:key="c.id">
+                    <option v-for="c in countries" :key="c.id" :value="c.id" >
+                      <!-- v-bind:key="c.id" -->
                       {{ c.name }}
                     </option>
                   </select>
@@ -344,7 +345,7 @@ export default {
       fetch(
         process.env.VUE_APP_API_URL +
           "Visas/GetNonEntry?DestinationId=" +
-          220 +
+          this.search.from +
           "&PassportId=" +
           this.search.citizen
       )
@@ -358,7 +359,7 @@ export default {
           this.visasNonEntry = null;
         });
 
-      fetch(process.env.VUE_APP_API_URL + "Visas")
+      fetch(process.env.VUE_APP_API_URL + "Visas?country=Thailand")
         .then((res) => res.json())
         .then((data) => {
           this.visas = data;
@@ -370,7 +371,7 @@ export default {
         });
 
       fetch(
-        process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?countryId=" + 220
+        process.env.VUE_APP_API_URL + "Countries/GetCovidInfo?name=Thailand"
       )
         .then((res) => res.text())
         .then((text) => (this.covidInfo = text))

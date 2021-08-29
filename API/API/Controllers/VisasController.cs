@@ -24,7 +24,7 @@ namespace API.Controllers
         public ActionResult<VisaSearchResult> GetNonEntry(int DestinationId, int PassportId)
         {
             var noEntryVisas = (from co in _context.NoVisaEntry
-                                where co.CountryDestination.Id == 220 && co.CountryPassport.Id == PassportId
+                                where co.CountryDestination.Id == DestinationId && co.CountryPassport.Id == PassportId
                                 select new VisaSearchResult
                                 {
                                     Id = co.Id,
