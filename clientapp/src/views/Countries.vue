@@ -25,6 +25,8 @@ export default {
     };
   },
   mounted() {
+    document.title = "All countries with actial Covid and travel data - Glomad.net"
+    
     fetch(process.env.VUE_APP_API_URL + "Countries/GetUpdatedCountries")
       .then((res) => res.json())
       .then((data) => {

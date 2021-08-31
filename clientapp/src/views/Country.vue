@@ -114,6 +114,8 @@ export default {
     //alert(this.$route.params.name)
   },
   mounted() {
+    document.title = this.$route.params.name + " travel COVID-19 requirements - Glomad"
+
     fetch(process.env.VUE_APP_API_URL + "Countries/GetByName?name=" + this.name)
       .then((res) => res.json())
       .then((data) => {
@@ -161,6 +163,9 @@ export default {
     dateTime(value) {
       return moment(value, "YYYYMMDDHHmmss").fromNow(); 
       },
+    foo(p) {
+      alert(p)
     }
+  }
 };
 </script>

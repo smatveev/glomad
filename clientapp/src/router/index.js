@@ -10,7 +10,20 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      title: 'Home Page - Glomad',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Welcome to digital nomads home.'
+        },
+        {
+          property: 'og:description',
+          content: 'Welcome to digital nomads home.'
+        }
+      ]
+    }
   },
   {
     path: '/:name',
@@ -20,7 +33,20 @@ const routes = [
   {
     path: '/countries',
     name: "Countries",
-    component: Countries
+    component: Countries,
+    meta: {
+      title: 'Countries list - Glomad',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Latest covid and travel data all countries.'
+        },
+        {
+          property: 'og:description',
+          content: 'Latest covid and travel data all countries.'
+        }
+      ]
+    }
   },
   {
     path: '/:name/Embassy/:name',

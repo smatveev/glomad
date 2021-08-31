@@ -30,6 +30,9 @@ export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  mounted() {
+    document.title = "Be Glomad.net"
   }
 }
 </script>
