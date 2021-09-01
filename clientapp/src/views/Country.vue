@@ -20,10 +20,21 @@
 
 <section class="container py-3">
 
-  <Tabs :selec="this.hash.substring(1)">
+<ul class="nav nav-tabs nav-justified">
+      <li class="nav-item">
+        <a class="nav-link" @click="setActive('Visas')" :class="{ active: isActive('Visas') }" :href="'#Visas'">🎫 Visas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" @click="setActive('Embassies')" :class="{ active: isActive('Embassies') }" :href="'#Embassies'">🏤 Embassies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" @click="setActive('Covid')" :class="{ active: isActive('Covid') }" :href="'#Covid'">😷 Covid</a>
+      </li>
+</ul>
 
-<Tab title="Visas">
-      <h2 class="fw-bold text-center p-4">💳 List of {{country.name}} visa types</h2>
+    <div class="tab-content py-3" id="myTabContent">
+      <div class="tab-pane fade" :class="{ 'active show': isActive('Visas') }" id="Visas">
+            <h2 class="fw-bold text-center p-4">💳 List of {{country.name}} visa types</h2>
 
 <div class="row row-cols-sm-1  row-cols-lg-3 row-cols-md-2 g-4">
 <div class="py-2" v-for="v in visas" :key="v.id">
@@ -50,13 +61,11 @@
     <div class="p-3 bg-light rounded-3">
         <W/>
       </div>
-</div>
-    
+    </div>
+      </div>
 
-    </Tab>
-
-    <Tab title="Embassies">
-      <h2 class="fw-bold text-center p-4">🏢 List of {{country.name}} embassies</h2>
+      <div class="tab-pane fade" :class="{ 'active show': isActive('Embassies') }" id="Embassies">
+        <h2 class="fw-bold text-center p-4">🏢 List of {{country.name}} embassies</h2>
 
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
       <div class="col" v-for="e in embassy" :key="e.id">
@@ -68,20 +77,32 @@
         </div>
       </div>
       </div>
-    </Tab>
+        </div>
 
-    
-    <Tab title="Covid">
-      <!-- COVID restrictions -->
-        <section v-if="covidInfo">
+      <div class="tab-pane fade" :class="{ 'active show': isActive('Covid') }" id="Covid">
+                <section v-if="covidInfo">
           <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
           <h2 class="fw-bold text-center p-4">🦠 {{country.name}} COVID-19 travel requirements</h2>
 
           <p class="p-3" v-html="covidInfo"></p>
         </section>
-        <!-- -- COVID restrictions -->
+        </div>
+    </div>
+
+  <!-- <Tabs :selec="this.hash.substring(1)">
+
+<Tab title="Visas" v-on:click="foo('visas')"> -->
+    <!-- </Tab> -->
+
+    <!-- <Tab title="Embassies">
+      
+    </Tab> -->
+
+    
+    <!-- <Tab title="Covid">
+
     </Tab>
-  </Tabs>  
+  </Tabs>   -->
   
 </section>
   
@@ -90,8 +111,8 @@
 
 <script>
 
-import Tabs from '@/components/Tabs.vue'
-import Tab from '@/components/Tab.vue'
+// import Tabs from '@/components/Tabs.vue'
+// import Tab from '@/components/Tab.vue'
 import moment from 'moment'
 
 import W from '@/components/Widget.vue'
@@ -100,6 +121,7 @@ export default {
   //props: ['id'],
   data() {
     return {
+      activeItem: '',
       country: {},
       name: this.$route.params.name,
       hash: this.$route.hash,
@@ -112,6 +134,7 @@ export default {
   },
   created() {
     //alert(this.$route.params.name)
+    this.setActive(this.hash.substring(1) ? this.hash.substring(1) : "Visas");
   },
   mounted() {
     document.title = this.$route.params.name + " travel COVID-19 requirements - Glomad"
@@ -155,8 +178,8 @@ export default {
         });
   },
   components: {
-    Tabs,
-    Tab,
+   // Tabs,
+   // Tab,
     W
   },
   methods: {
@@ -165,6 +188,13 @@ export default {
       },
     foo(p) {
       alert(p)
+    },
+    isActive (menuItem) {
+      return this.activeItem === menuItem
+    },
+    setActive (menuItem) {
+      this.activeItem = menuItem
+      
     }
   }
 };

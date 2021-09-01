@@ -12,7 +12,7 @@
     </nav>
 
     <Tabs>
-      <Tab title="☝ Info">
+      <Tab title="Info">
         <h2 class="fw-bold text-center p-4 mb-3">🏢 Embassy details in {{ embassy.country }}</h2>
         <p>📍 <small class="text-muted">Address: </small>{{ embassy.embassy.address }}</p>
         <p>🕜 <small class="text-muted">Office hours: </small>{{ embassy.embassy.workingHours }}</p>
@@ -24,7 +24,7 @@
         <p>🐱‍💻 <small class="text-muted">Visa application form: </small><a :href="embassy.embassy.applicationFormUrl" target="_blank"> link</a></p>
       </Tab>
 
-      <Tab title="🎫 Documents">
+      <Tab title="Documents">
         <h2 class="fw-bold text-center p-4">Checklist of documents for visa to Thailand</h2>
 
         <ul v-for="d in docs" :key="d.id">
@@ -32,7 +32,7 @@
         </ul>
       </Tab>
 
-      <Tab title="🛂 Visas">
+      <Tab title="Visas">
         <h2 class="fw-bold text-center p-4">Types of visas allowed at the embassy</h2>
         <table class="table table-hover">
           <thead>
@@ -67,7 +67,7 @@ export default {
   //props: ['id'],
   data() {
     return {
-      name: this.$route.params.name,
+      id: this.$route.params.id,
       embassy: {
         embassy: {}
       },
@@ -76,7 +76,7 @@ export default {
     };
   },
   mounted() {
-    fetch(process.env.VUE_APP_API_URL + "Embassies?id=" + this.name)
+    fetch(process.env.VUE_APP_API_URL + "Embassies?id=" + this.id)
       .then((res) => res.json())
       .then((data) => {
         this.embassy = data;
@@ -86,7 +86,7 @@ export default {
         console.log(err.message);
       } );
 
-    fetch(process.env.VUE_APP_API_URL + "Embassies/DocsById?id=" + this.name)
+    fetch(process.env.VUE_APP_API_URL + "Embassies/DocsById?id=" + this.id)
       .then((res) => res.json())
       .then((data) => {
         this.docs = data;
@@ -96,7 +96,7 @@ export default {
         console.warn(err.message);
       });
 
-    fetch(process.env.VUE_APP_API_URL + "Embassies/VisasById?id=" + this.name)
+    fetch(process.env.VUE_APP_API_URL + "Embassies/VisasById?id=" + this.id)
       .then((res) => res.json())
       .then((data) => {
         this.visas = data;

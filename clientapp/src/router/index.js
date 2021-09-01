@@ -49,7 +49,7 @@ const routes = [
     }
   },
   {
-    path: '/:name/Embassy/:name',
+    path: '/:name/Embassy/:id',
     name: "Embassy",
     component: Embassy
   },

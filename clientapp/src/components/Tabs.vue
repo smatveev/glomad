@@ -17,13 +17,14 @@
 <script>
 import { ref, provide } from 'vue'
 export default {
-    props: ['selec'],
+    
+    
     setup(props, { slots }) {
         const tabTitles = ref(slots.default().map((tab) => tab.props.title)) 
 
         let selectedTitle = ref(tabTitles.value[0])
-        if(ref(props.selec).value.length>0)
-            selectedTitle = ref(props.selec).value;
+        // if(ref(props.selec).value.length>0)
+        //     selectedTitle = ref(props.selec).value;
 
         provide("selectedTitle", selectedTitle)
         return {

@@ -9,6 +9,7 @@ import {inject} from 'vue'
 
 export default {
     props: ['title'],
+    emits: ['click'],
 
     setup() {
         const selectedTitle = inject("selectedTitle")
