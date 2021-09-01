@@ -27,30 +27,32 @@
             <div class="col-sm-12 col-lg-4">
               <form>
                 <div class="mb-3">
+                  <label for="citizenship" class="form-label text-white">Your citizenship</label>
                   <select
+                    id="citizenship"
                     class="form-select form-select-lg"
                     v-model="search.citizen"
                   >
-                    <option disabled value="">Your citizenship</option>
+                    <!-- <option disabled value="">Your citizenship</option> -->
                     <option v-for="c in countries" :key="c.id" :value="c.id">
                       {{ c.name }}
                     </option>
                   </select>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <select
                     class="form-select form-select-lg"
                     v-model="search.from"
                   >
                     <option disabled value="">Current location</option>
-                    <option v-for="c in countries" :key="c.id" :value="c.id" >
-                      <!-- v-bind:key="c.id" -->
+                    <option v-for="c in countries" :key="c.id" :value="c.id" >                
                       {{ c.name }}
                     </option>
                   </select>
-                </div>
+                </div> -->
                 <div class="mb-3">
-                  <select class="form-select form-select-lg">
+                  <label for="destinaion" class="form-label text-white">Destination country</label>
+                  <select id="destinaion" class="form-select form-select-lg">
                     <option selected="selected" value="220">Thailand</option>
                   </select>
                 </div>
@@ -66,6 +68,13 @@
                 >
                   Search 👇
                 </button>
+
+                <div class="alert alert-warning" role="alert" v-if="errors.length">
+                  Please correct the following error(s):
+                  <ul>
+                     <li v-for="error in errors" :key="error">{{ error }}</li>
+                  </ul>
+                </div>
               </form>
             </div>
 
@@ -307,6 +316,8 @@ export default {
         },
       },
 
+      errors: [],
+
       countries: [],
       selected: "",
       loading: false,
@@ -342,10 +353,15 @@ export default {
   },
   methods: {
     search1() {
+      this.errors = [];
+      if(!this.search.citizen) {
+        this.errors.push('Citizenship required.');
+      }
+      else {
+
       fetch(
         process.env.VUE_APP_API_URL +
-          "Visas/GetNonEntry?DestinationId=" +
-          this.search.from +
+          "Visas/GetNonEntry?DestinationId=220" +
           "&PassportId=" +
           this.search.citizen
       )
@@ -378,6 +394,8 @@ export default {
         .catch((err) => {
           console.warn(err.message);
         });
+
+      }
 
       //      console.info("Visas", this.visas)
       //console.info("Visas Non", this.visasNonEntry)
