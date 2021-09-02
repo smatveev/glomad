@@ -34,7 +34,7 @@
                     v-model="search.citizen"
                   >
                     <!-- <option disabled value="">Your citizenship</option> -->
-                    <option v-for="c in countries" :key="c.id" :value="c.id">
+                    <option v-for="c in countries" :key="c.id" :value="c">
                       {{ c.name }}
                     </option>
                   </select>
@@ -89,9 +89,12 @@
     <!-- Inner -->
   </header>
 
-  <div v-if="loading" class="loading">Loading...</div>
+  
 
   <section v-if="covidInfo" class="container -py-4 my-5">
+
+    <h1 v-if="loading" class="loading">Loading...</h1>
+
     <h2 class="fw-bold text-center">
       💳 Here are the types of visas available to visit
       <a href="/Thailand">Thailand</a>
@@ -127,6 +130,13 @@
         </div>
       </div>
     </div>
+
+    <div class="py-2">
+      <div class="p-3 bg-light rounded-3">
+        <W :from="search.citizen.capital" :key="from"/>
+      </div>
+    </div>
+    
   </section>
 
   <!-- COVID restrictions -->
@@ -148,17 +158,7 @@
       <div class="col">
         <a href="/Thailand">
           <div class="card rounded-3 text-white">
-            <span
-              class="
-                badge badge-card
-                bg-info
-                -text-dark
-                position-absolute
-                bottom-0
-                start-0
-                m-2
-              "
-            >
+            <span class="badge badge-card bg-info position-absolute bottom-0 start-0 m-2">
               ✨ Oppening from July, 1
             </span>
 
@@ -301,6 +301,9 @@
 </template>
 
  <script>
+
+import W from '@/components/Widget.vue'
+
 export default {
   name: "HelloWorld",
   data() {
@@ -320,7 +323,7 @@ export default {
 
       countries: [],
       selected: "",
-      loading: false,
+      loading: true,
       search: {
         citizen: "",
         from: "",
@@ -353,17 +356,21 @@ export default {
   },
   methods: {
     search1() {
+
+      console.info('citi = ' + this.search.citizen);
+      
       this.errors = [];
       if(!this.search.citizen) {
         this.errors.push('Citizenship required.');
       }
       else {
 
+      this.loading = true;
       fetch(
         process.env.VUE_APP_API_URL +
           "Visas/GetNonEntry?DestinationId=220" +
           "&PassportId=" +
-          this.search.citizen
+          this.search.citizen.id
       )
         .then((res) => res.json())
         .then((data) => {
@@ -395,10 +402,9 @@ export default {
           console.warn(err.message);
         });
 
-      }
+        this.loading = false;
 
-      //      console.info("Visas", this.visas)
-      //console.info("Visas Non", this.visasNonEntry)
+      }
     },
 
     async SendFeedback() {
@@ -424,6 +430,9 @@ export default {
       }
     },
   },
+  components: {
+    W,
+  }
 };
 </script>
 
