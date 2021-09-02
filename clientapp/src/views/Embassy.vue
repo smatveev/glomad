@@ -1,15 +1,26 @@
 
-<template v-if="embassy">
-  <section class="container py-3">
-    <nav aria-label="breadcrumb">
+<template v-if="">
+
+  <div class="hero-bg px-4 py-5 text-white text-center">
+    <h1 class="display-5 fw-bold">{{ embassy.country }}</h1>
+
+    <div class="col-lg-6 mx-auto position-absolute">
+        <p class="lead mb-4">
+        <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="/Thailand">Thailand</a></li>
-        <li class="breadcrumb-item active" aria-current="page">
+        <li class="breadcrumb-item" aria-current="page">
           Embassy of Thailand in {{ embassy.country }}
         </li>
       </ol>
     </nav>
+      </p>
+      
+    </div>
+  </div>
+
+  <section class="container py-3">    
 
     <Tabs>
       <Tab title="Info">
