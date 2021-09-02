@@ -1,5 +1,5 @@
 <template>
-    <div ref="d"></div>
+    <div ref="d" :key='from'></div>
 </template>
 
 

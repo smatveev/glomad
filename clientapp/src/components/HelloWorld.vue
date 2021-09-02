@@ -35,7 +35,7 @@
                   >
                     <!-- <option disabled value="">Your citizenship</option> -->
                     <option v-for="c in countries" :key="c.id" :value="c">
-                      {{ c.name }}
+                      {{ c.name + " " + c.capital }}
                     </option>
                   </select>
                 </div>
@@ -137,7 +137,7 @@
 
     <div class="py-2">
       <div class="p-3 bg-light rounded-3">
-        <W :from="search.citizen.capital"/>
+        <W :from="search.citizen.capital" :key="search.citizen.capital"/>
       </div>
     </div>
     
