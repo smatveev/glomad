@@ -101,6 +101,8 @@
     </h2>
 
     <br />
+
+
     <div class="py-2" v-for="v in visasNonEntry" :key="v.id">
       <div class="p-3 bg-light rounded-3">
         <div class="container-fluid">
@@ -109,6 +111,8 @@
         </div>
       </div>
     </div>
+
+
 
     <div class="py-2" v-for="v in visas" :key="v.id">
       <div class="p-3 bg-light rounded-3">
@@ -133,7 +137,7 @@
 
     <div class="py-2">
       <div class="p-3 bg-light rounded-3">
-        <W :from="search.citizen.capital" :key="from"/>
+        <W :from="search.citizen.capital"/>
       </div>
     </div>
     
@@ -366,31 +370,30 @@ export default {
       else {
 
       this.loading = true;
-      fetch(
-        process.env.VUE_APP_API_URL +
-          "Visas/GetNonEntry?DestinationId=220" +
-          "&PassportId=" +
-          this.search.citizen.id
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          this.visasNonEntry = data;
-          console.info(data);
+      fetch(process.env.VUE_APP_API_URL + "Visas/GetNonEntry?DestinationId=220" + "&PassportId=" + this.search.citizen.id)
+        .then(async res => {
+            const data = await res.json();
+            if(!res.ok) {
+              const err = (data && data.message) || res.statusText
+              this.visasNonEntry = {};
+              return Promise.reject(err);
+            }
+
+            this.visasNonEntry = data;
         })
-        .catch((err) => {
-          console.warn(err.message);
-          this.visasNonEntry = null;
-        });
+        .catch((err) => {          
+          console.error("ERROR:" + err.message);
+          this.visasNonEntry = {};
+        });       
 
       fetch(process.env.VUE_APP_API_URL + "Visas?country=Thailand")
         .then((res) => res.json())
         .then((data) => {
           this.visas = data;
-          console.info(data);
+          console.info("VISAS:", data) 
         })
         .catch((err) => {
           console.warn(err.message);
-          this.visas = [];
         });
 
       fetch(
