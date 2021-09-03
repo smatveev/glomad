@@ -140,6 +140,8 @@
         <W :from="search.citizen.capital" :key="search.citizen.capital"/>
       </div>
     </div>
+
+    <Pricing />
     
   </section>
 
@@ -307,6 +309,7 @@
  <script>
 
 import W from '@/components/Widget.vue'
+import Pricing from '@/components/Pricing.vue'
 
 export default {
   name: "HelloWorld",
@@ -435,6 +438,7 @@ export default {
   },
   components: {
     W,
+    Pricing
   }
 };
 </script>
