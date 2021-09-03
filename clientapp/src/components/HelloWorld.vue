@@ -35,7 +35,7 @@
                   >
                     <!-- <option disabled value="">Your citizenship</option> -->
                     <option v-for="c in countries" :key="c.id" :value="c">
-                      {{ c.name + " " + c.capital }}
+                      {{ c.name }}
                     </option>
                   </select>
                 </div>
