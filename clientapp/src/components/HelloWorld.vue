@@ -134,14 +134,6 @@
         </div>
       </div>
     </div>
-
-    <div class="py-2">
-      <div class="p-3 bg-light rounded-3">
-        <W :from="search.citizen.capital" :key="search.citizen.capital"/>
-      </div>
-    </div>
-
-    <Pricing />
     
   </section>
 
@@ -153,6 +145,22 @@
     <p class="p-3" style="height:400px; overflow-y: auto;" v-html="covidInfo"></p>
   </section>
   <!-- -- COVID restrictions -->
+
+  <section v-if="covidInfo" class="container -py-4 my-5">
+    <h2 class="mb-5 fw-bold text-center">Pricing</h2>
+    <Pricing />
+  </section>
+  
+<section v-if="covidInfo" class="container -py-4 my-5">
+  <h2 class="mb-5 fw-bold text-center">Cheap tickets to Thailand</h2>
+<div class="py-2">
+      <div class="p-3 bg-light rounded-3">
+        <W :from="search.citizen.capital" :key="search.citizen.capital"/>
+      </div>
+    </div>
+</section>
+
+    
 
   <section class="container py-4 my-5 text-center">
     <!-- <h1 class="display-5 fw-bold">Proven countries</h1> -->
