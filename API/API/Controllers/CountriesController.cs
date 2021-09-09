@@ -104,13 +104,15 @@ namespace API.Controllers
             Feedback feedback = new()
             {
                 Country = _context.Country.First(c => c.Id == createFeedback.CountryId),
-                Email = createFeedback.Email,
+                Email = createFeedback.Email ?? "none",
                 IsNotify = createFeedback.IsNotify,
-                Username = createFeedback.Username
+                Username = createFeedback.Username ?? "none"
             };
 
             _context.Feedback.Add(feedback);
             _context.SaveChanges();
+
+            Helpers.EmailSender.Send();
             
             return Ok();
         }
