@@ -1,6 +1,7 @@
 <template>
 
   <header>
+
     <!-- Indicators -->
 
     <!-- Inner -->
@@ -148,8 +149,11 @@
 
   <section v-if="covidInfo" class="container -py-4 my-5">
     <h2 class="mb-5 fw-bold text-center">Pricing</h2>
-    <Pricing />
   </section>
+
+<section  class="container -py-4 my-5">
+  <Pricing />
+</section>
   
 <section v-if="covidInfo" class="container -py-4 my-5">
   <h2 class="mb-5 fw-bold text-center">Cheap tickets to Thailand</h2>
@@ -323,6 +327,8 @@ export default {
   name: "HelloWorld",
   data() {
     return {
+      priceVisible: false,
+
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. ",
       callbackText: "",
       customStyle: {
