@@ -146,14 +146,6 @@
     <p class="p-3" style="height:400px; overflow-y: auto;" v-html="covidInfo"></p>
   </section>
   <!-- -- COVID restrictions -->
-
-  <section v-if="covidInfo" class="container -py-4 my-5">
-    <h2 class="mb-5 fw-bold text-center">Pricing</h2>
-  </section>
-
-<section  class="container -py-4 my-5">
-  <Pricing />
-</section>
   
 <section v-if="covidInfo" class="container -py-4 my-5">
   <h2 class="mb-5 fw-bold text-center">Cheap tickets to Thailand</h2>
@@ -315,6 +307,12 @@
     </button> -->
     </div>
   </section>
+
+    <section class="container -py-4 my-5">
+    <h2 class="mb-5 fw-bold text-center">Pricing</h2>
+    <Pricing />
+  </section>
+
   <!--Section: Content-->
 </template>
 
