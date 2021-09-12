@@ -111,9 +111,14 @@ namespace API.Controllers
 
             _context.Feedback.Add(feedback);
             _context.SaveChanges();
-
-            Helpers.EmailSender.Send();
             
+            return Ok();
+        }
+
+        [HttpPost("SelectPrice")]
+        public IActionResult SelectPrice([FromBody] SelectPlan plan)
+        {
+            Helpers.EmailSender.Send(plan);
             return Ok();
         }
     }

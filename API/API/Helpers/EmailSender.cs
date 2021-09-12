@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using API.Models;
+using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Net.Mail;
 
@@ -6,7 +7,7 @@ namespace API.Helpers
 {
     public static class EmailSender
     {
-        public static void Send()
+        public static void Send(SelectPlan plan)
         {
             var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
             var config = builder.Build();
@@ -21,8 +22,12 @@ namespace API.Helpers
             var mailMessage = new MailMessage
             {
                 From = new MailAddress("bot@glomad.net"),
-                Subject = "New user",
-                Body = "<h1>User with email: " + "test@mymail.com" + "</h1><h1>selected plan: 25$</h1>",
+                Subject = "New user with plan #" + plan.PlanNumber.ToString(),
+                Body = string.Format("<h3>New user</h3>" +
+                    "<p>name: {0}</p>" +
+                    "<p>with email: {1}</p>" +
+                    "<p>selected plan: {2}</p>",
+                    plan.Username, plan.Email, plan.PlanNumber),
                 IsBodyHtml = true,
             };
             mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");

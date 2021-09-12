@@ -38,4 +38,13 @@ namespace API.Models
         [Required]
         public int CountryId { get; set; }
     }
+
+    public class SelectPlan
+    {
+        public int PlanNumber { get; set; }
+        public string Username { get; set; }
+        [StringLength(50, MinimumLength = 3)]
+        public string Email { get; set; }
+        public string Details { get; set; }
+    }
 }
