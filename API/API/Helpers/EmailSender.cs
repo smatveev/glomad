@@ -21,7 +21,7 @@ namespace API.Helpers
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress("bot@glomad.net"),
+                From = new MailAddress("matv33v@gmail.com"),
                 Subject = "New user with plan #" + plan.PlanNumber.ToString(),
                 Body = string.Format("<h3>New user</h3>" +
                     "<p>name: {0}</p>" +

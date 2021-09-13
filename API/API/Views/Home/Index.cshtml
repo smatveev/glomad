@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var countries = ViewData["Contries"] as List<Glomad.Models.CountryVM>;
+}
+
+<header>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="py-5 m-0 row">
+                    <div class="col-sm-12 col-lg-8">
+                        <h1 class="display-5 fw-bold text-white pb-4">
+                            🌏 Be Glomad <i class="flag flag-united-states"></i>
+                        </h1>
+
+                        <div class="mb-3 col-lg-8 text-white fs-5 lead fw-lighter">
+                            Let's know where you can go with your 🛂 passport easily. <br />
+                            Find visa requirements and needed 🎫 documents for countries.
+                            <br />
+                            Check last 😷 COVID-19 travel restrictions for a country. <br />
+                            Forget about visa headaches. Be ready to travel at any time. 😎
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-4">
+                        <form>
+                            <div class="mb-3">
+                                <label for="citizenship" class="form-label text-white">Your citizenship</label>
+                                <!--<select id="citizenship"
+                                        class="form-select form-select-lg"
+                                        asp-for="Glomad.Models.CountryVM"
+                                        asp-items="(SelectList)@ViewData["Countries"]">-->
+                                    <!-- <option disabled value="">Your citizenship</option> -->
+                                <!--</select>-->
+                            </div>
+                            <div class="mb-3">
+                                <label for="destinaion" class="form-label text-white">Destination country</label>
+                                <select id="destinaion" class="form-select form-select-lg">
+                                    <option selected="selected" value="220">Thailand</option>
+                                </select>
+                            </div>
+
+                            <button type="button"
+                                    class="w-100 btn btn-outline-light btn-lg
+                    px-4
+                    me-sm-3
+                    fw-bold
+                  ">
+                                Search 👇
+                            </button>
+
+                            <div class="alert alert-warning" role="alert" v-if="errors.length">
+                                Please correct the following error(s):
+                                <ul>
+                                    <li v-for="error in errors" :key="error">{{ error }}</li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<partial name="_Monitoring" />
+<partial name="_Feedback" />
+<partial name="_Pricing" />

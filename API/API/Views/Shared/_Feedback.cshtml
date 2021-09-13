@@ -1,0 +1,84 @@
+﻿<section class="container mb-5">
+    <h2 class="mb-5 text-center">
+        <strong>... what else you most interested in ❓</strong>
+    </h2>
+
+    <div class="col-md-10 mx-auto col-lg-8">
+        <p class="mb-4 card-text text-secondary fs-5">
+            👉 We are interested in offering you reliable information. Data about
+            Thailand is ready and we are working on new directions. Please share
+            with us which destinations are most delightful. We are glad to help you
+            prepare for your amazing travels.
+        </p>
+
+        <form class="p-4 p-md-5 border rounded-3 bg-light" id="myForm" method="post" 
+              asp-controller="Countries" asp-action="CreateFeedback">
+            <div class="form-floating mb-3">
+                <select class="form-select">
+                    <option id="CountryId" selected value="1111">What country</option>
+                </select>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="email"
+                       id="Email"
+                       class="form-control"
+                       placeholder="name@example.com" />
+                <label>Email address</label>
+                <span class="text-muted">(Optional)</span>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text"
+                       id="Username"
+                       class="form-control"
+                       placeholder="Your name" />
+                <label>Your name</label>
+                <span class="text-muted">(Optional)</span>
+            </div>
+            <div class="checkbox mb-3">
+                <label>
+                    <input id="IsNotify" type="checkbox" checked /> Notify
+                    me about data update
+                </label>
+            </div>
+            <input class="w-100 btn btn-lg btn-primary" type="button" onclick="AjaxFormSubmit()" value="Thank you ✌" />
+
+            <h3 id="status" class="text-center">🤝</h3>
+        </form>
+    </div>
+</section>
+
+<script type="text/javascript">
+        function AjaxFormSubmit() {
+            //Set the URL.
+            var url = $("#myForm").attr("action");
+
+            var fb = new Object();
+            fb.Username = $('#Username').val();
+            fb.Email = $('#Email').val();
+            fb.CountryId = $('#CountryId').val();
+            fb.IsNotify = $('#IsNotify').is(":checked");
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: JSON.stringify(fb),
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (response) {
+                    if (response != null) {
+                        $("#status").text("Got it! Thank you 👌")
+                        //alert("SUCCESS = Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
+                    } else {
+                        $("#status").text("😣 Something went wrong. Please try again.")
+                    }
+                },
+                failure: function (response) {
+                    $("#status").text("😣 Something went wrong. Please try again.")
+                },
+                error: function (response) {
+                    $("#status").text("😣 Something went wrong. Please try again.")
+                }  
+            })
+        }
+</script>

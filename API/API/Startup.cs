@@ -29,27 +29,29 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy(policy,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://localhost:8080",
-                                                          "http://localhost:5001",
-                                                          "https://glomad.net")
-                                                          .AllowAnyHeader()
-                                                          .AllowAnyMethod();
-                                  });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(policy,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("http://localhost:8080",
+            //                                              "http://localhost:5001",
+            //                                              "https://glomad.net")
+            //                                              .AllowAnyHeader()
+            //                                              .AllowAnyMethod();
+            //                      });
+            //});
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-            });
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+            //});
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,21 +60,29 @@ namespace API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors(policy);
+            //app.UseCors(policy);
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

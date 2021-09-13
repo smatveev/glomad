@@ -98,8 +98,8 @@ namespace API.Controllers
             return q != null ? Ok(q) : NotFound();
         }
 
-        [HttpPost("Feedback")]
-        public IActionResult CreateFeedback([FromBody] CreateFeedback createFeedback)
+        [HttpPost]
+        public IActionResult CreateFeedback(CreateFeedback createFeedback)
         {
             Feedback feedback = new()
             {

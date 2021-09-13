@@ -26,4 +26,13 @@ namespace Glomad.Models
         [StringLength(20)]
         public string CapitalCode { get; set; }
     }
+
+    public class CountryVM
+    {
+        public CountryVM() { }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string PhotoName { get; set; }
+        public string CapitalCode { get; set; }
+    }
 }
