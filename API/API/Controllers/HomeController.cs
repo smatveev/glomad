@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using API.Models;
 using Glomad.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace API.Controllers
 {
@@ -21,18 +20,41 @@ namespace API.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int CitizenshipId, int To = 220)
         {
-            var countries = (from c in _context.Country
-                             select new CountryVM
-                             {
-                                 Id = c.Id,
-                                 Name = c.Name,
-                                 CapitalCode = c.CapitalCode
-                             });
-            ViewData["Countries"] = countries;
-            ViewData["Title"] = "Best SEO f*cking good title!!";
-            return View();
+            var mo = new API.Models.IndexModel();
+            mo.CitizenshipId = CitizenshipId;
+
+            if(CitizenshipId > 0)
+            {
+                mo.VisasNonEntry = (from co in _context.NoVisaEntry
+                                    where co.CountryDestination.Id == To && co.CountryPassport.Id == CitizenshipId
+                                    select new VisaSearchResult
+                                    {
+                                        Id = co.Id,
+                                        Description = co.Description,
+                                        VisaName = "No Entry Visa"
+                                    });
+            }
+            if(To > 0)
+            {
+                mo.CovidInfo = _context.Country.FirstOrDefault(c => c.Id == To).CovidRestrictions; // Thai
+                mo.Visas = (from co in _context.Visa
+                            where co.Country.Id == To
+                            select new VisaSearchResult
+                            {
+                                Id = co.Id,
+                                Description = co.Description,
+                                VisaName = co.Name,
+                                IsExdendable = co.IsExtendable,
+                                Duration = co.Duration
+                            });
+            }
+            
+            
+
+            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+            return View(mo);
         }
 
         public IActionResult Privacy()
