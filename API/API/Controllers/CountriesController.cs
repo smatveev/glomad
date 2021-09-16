@@ -11,11 +11,11 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CountriesController : ControllerBase
+    public class CountriesApiController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public CountriesController(AppDbContext context)
+        public CountriesApiController(AppDbContext context)
         {
             _context = context;
         }

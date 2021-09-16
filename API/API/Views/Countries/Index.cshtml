@@ -1,0 +1,97 @@
+﻿@model CountryViewModel
+
+@{
+    ViewData["Title"] = "Cpountry Best fucking SEO friendly pages";
+    ViewData["MetaDescription"] = "Country My desc so good!";
+}
+
+<div class="hero-bg px-4 py-5 text-white text-center">
+    <h1 class="display-5 fw-bold">@Model.Country.Name</h1>
+    <h5 class="my-3">⏱ Updated @Model.Country.UpdateDate</h5>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Country.Name</li>
+        </ol>
+    </nav>
+</div>
+
+<section class="container py-3">
+
+    <ul class="nav nav-pills" role="tablist" id="mytabs">
+        <li class="nav-item" role="presentation">
+            <a id="visas-tab" class="nav-link active" role="tab" aria-current="page" href="#visas"  data-bs-toggle="tab" data-bs-target="#visas" aria-controls="visas" aria-selected="true">🎫 Visas</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a id="embassies-tab" class="nav-link" role="tab" href="#embassies"  data-bs-toggle="tab" data-bs-target="#embassies" aria-controls="embassies" aria-selected="false">🏤 Embassies</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a id="covid-tab" class="nav-link" role="tab" href="#covid"  data-bs-toggle="tab" data-bs-target="#covid" aria-controls="covid" aria-selected="false">😷 Covid</a>
+        </li>
+        @*<li class="nav-item" role="presentation">
+            <a class="nav-link disabled" role="tab" href="#" tabindex="-1" aria-disabled="true"  data-bs-toggle="tab">🖐 Free entry passports</a>
+        </li>*@
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="visas" role="tabpanel" aria-labelledby="visas-tab">
+            <h2 class="fw-bold text-center p-4">💳 List of @Model.Country.Name visa types</h2>
+            <div class="row row-cols-sm-1  row-cols-lg-3 row-cols-md-2 g-4">
+                @foreach (var visa in Model.Visas)
+                {
+                    <div>
+                        <div class="p-3 m-1 bg-light rounded-3">
+                            <div class="container-fluid">
+                                <h5 class="fw-bold">@visa.VisaName</h5>
+
+                                <p class="col-md-12">@visa.Description</p>
+
+                                @if (visa.IsExdendable)
+                                {
+                                    <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                        ✨ Extendable
+                                    </span>
+                                }
+                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                    🕜 Duration @visa.Duration days
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="p-2 bg-light rounded-3">
+                    @*<WC v-if="country.capitalCode" :to="country.capitalCode" />*@
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="embassies" role="tabpanel" aria-labelledby="embassies-tab">
+            <h2 class="fw-bold text-center p-4">🏢 List of @Model.Country.Name embassies</h2>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                @foreach (var e in Model.Embassies)
+                {
+                    <div class="col">
+                        <div class="card rouded-3">
+                            <div class="card-body">
+                                @*<flag :iso="e.iata" />*@
+                                <a href="#" class="card-link m-2">@e.Country, @e.City</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="covid" role="tabpanel" aria-labelledby="covid-tab">
+            <section>
+                <h2 class="fw-bold text-center p-4">🦠 @Model.Country.Name COVID-19 travel requirements</h2>
+                <div class="p-3">@Html.Raw(Model.Covid)</div>
+            </section>
+        </div>
+
+    </div>
+</section>

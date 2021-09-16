@@ -20,6 +20,9 @@ namespace API.Controllers
             _context = context;
         }
 
+        //[Route("")]
+        //[Route("Home")]
+        //[Route("Home/Index")]
         public IActionResult Index(int CitizenshipId, int To = 220)
         {
             var mo = new API.Models.IndexModel();
