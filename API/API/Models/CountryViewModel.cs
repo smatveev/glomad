@@ -21,4 +21,12 @@ namespace API.Models
         public string City { get; set; }
         public string Iata { get; set; }
     }
+
+    public struct UpdatedCountries
+    {
+        public int Id { get; set; }
+        public string Name { get; set;}
+        public string Iata { get; set; }
+        public DateTime UpdateDate { get; set; }
+    }
 }

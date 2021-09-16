@@ -1,0 +1,18 @@
+﻿@{
+    var countries = ViewBag.Countries as List<UpdatedCountries>;
+}
+
+<h2 class="fw-bold text-center p-4">All countries</h2>
+
+<div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+    @foreach (var c in countries)
+    {
+        <div class="col">
+            <div class="card-body">
+                <span class="flag-icon flag-icon-@c.Iata.ToLower()"></span>
+                <a class="card-link m-2">@c.Name</a>
+                <p>⏱ Updated @c.UpdateDate</p>
+            </div>
+        </div>
+    }
+</div>

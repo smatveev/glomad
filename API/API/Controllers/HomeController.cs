@@ -6,6 +6,7 @@ using System.Linq;
 using API.Models;
 using Glomad.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace API.Controllers
 {
@@ -18,6 +19,22 @@ namespace API.Controllers
         {
             _logger = logger;
             _context = context;
+        }
+
+        [Route("Countries")]
+        public IActionResult Index()
+        {
+            List<UpdatedCountries> res = (from c in _context.Country
+                       where c.UpdateDate != null
+                       select new UpdatedCountries
+                       {
+                           Id = c.Id,
+                           Name = c.Name,
+                           Iata = c.ISOalpha3,
+                           UpdateDate = c.UpdateDate.Value
+                       }).ToList();
+            ViewBag.Countries = res;
+            return View("Countries");
         }
 
         //[Route("")]
