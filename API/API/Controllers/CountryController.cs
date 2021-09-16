@@ -36,7 +36,7 @@ namespace API.Controllers
                                    Id = e.Id,
                                    Country = c.Name,
                                    City = e.City.Name,
-                                   Iata = c.ISOalpha2
+                                   Iata = c.ISOalpha3.ToLower()
                                }).ToList();
 
             model.Visas = (from co in _context.Visa
