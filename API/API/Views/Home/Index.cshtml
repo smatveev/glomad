@@ -31,15 +31,18 @@
                                 <label for="citizenship" class="form-label text-white">Your citizenship</label>
                                 <select id="CitizenshipId"
                                         class="form-select form-select-lg"
-                                        asp-for="CitizenshipId"
+                                        asp-for="Passport"
                                         asp-items="@ViewBag.Countries">
                                     <option disabled value="">Your citizenship</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="destinaion" class="form-label text-white">Destination country</label>
-                                <select id="destinaion" class="form-select form-select-lg">
+                                <select id="Destinaion"
+                                        class="form-select form-select-lg"
+                                        asp-for="To">
                                     <option selected="selected" value="220">Thailand</option>
+                                    <option value="181">Russia</option>
                                 </select>
                             </div>
 
@@ -63,58 +66,72 @@
 
 @if (Model.Visas != null || Model.VisasNonEntry != null)
 {
-<section class="container my-5">
+    <section class="container my-5">
 
-    <h2 class="fw-bold text-center">
-        💳 Here are the types of visas available to visit
-        <a href="/Thailand">Thailand</a>
-    </h2>
+        <h2 class="fw-bold text-center">
+            💳 Here are the types of visas available to visit
+            <a href="/Thailand">Thailand</a>
+        </h2>
 
-    <br />
+        <br />
 
-    @if (Model.Visas != null)
-    {
-        @foreach (var visa in Model.Visas)
+        @if (Model.Visas != null)
         {
-            <div class="py-2">
-                <div class="p-3 bg-light rounded-3">
-                    <div class="container-fluid">
-                        <h5 class="fw-bold">@visa.VisaName</h5>
-                        <p class="col-md-12 fs-6">@visa.Description</p>
+            @foreach (var visa in Model.Visas)
+            {
+                <div class="py-2">
+                    <div class="p-3 bg-light rounded-3">
+                        <div class="container-fluid">
+                            <h5 class="fw-bold">@visa.VisaName</h5>
+                            <p class="col-md-12 fs-6">@visa.Description</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
-    }
 
-    @if (Model.VisasNonEntry != null)
-    {
-        @foreach (var nonEntry in Model.VisasNonEntry)
+        @if (Model.VisasNonEntry != null)
         {
-            <div class="py-2">
-                <div class="p-3 bg-light rounded-3">
-                    <div class="container-fluid">
-                        <h5 class="fw-bold">@nonEntry.VisaName</h5>
-                        <p class="col-md-12">@nonEntry.Description</p>
+            @foreach (var nonEntry in Model.VisasNonEntry)
+            {
+                <div class="py-2">
+                    <div class="p-3 bg-light rounded-3">
+                        <div class="container-fluid">
+                            <h5 class="fw-bold">@nonEntry.VisaName</h5>
+                            <p class="col-md-12">@nonEntry.Description</p>
 
-                        @if (@nonEntry.IsExdendable)
-                        {
+                            @if (@nonEntry.IsExdendable)
+                            {
+                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                    ✨ Extendable
+                                </span>
+                            }
+
                             <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                ✨ Extendable
+                                🕜 Duration @nonEntry.Duration days
                             </span>
-                        }
-
-                        <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                            🕜 Duration @nonEntry.Duration days
-                        </span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
-    }
 
-</section>
+    </section>
 }
+
+
+@if (Model.Passport > 0)
+{
+    <section class="container my-5">
+        <h2 class="mb-5 fw-bold text-center">Cheap tickets to Thailand</h2>
+        <div class="py-2">
+            <div class="p-3 bg-light rounded-3">
+                <script src="https://tp.media/content?currency=usd&promo_id=4041&shmarker=14510&campaign_id=100&trs=21653&searchUrl=search.jetradar.com&locale=en_us&powered_by=false&one_way=true&only_direct=false&period=year&range=7%2C21&primary=%230C73FE&color_background=%23ffffff&achieve=%2345AD35&dark=%23000000&light=%23FFFFFF&origin=@Model.PassportCapitalCode&destination=BKK" charset="utf-8"></script>
+            </div>
+        </div>
+    </section>
+}
+
 
 @if (Model.CovidInfo != null)
 {

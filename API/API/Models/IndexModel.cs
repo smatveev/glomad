@@ -15,7 +15,10 @@ namespace API.Models
         }
 
         [BindProperty]
-        public int CitizenshipId { get; set; }
+        public int Passport { get; set; }
+        public string PassportCapitalCode { get; set; }
+
+        public int To { get; set; }
 
         public string CovidInfo { get; set; }
 

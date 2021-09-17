@@ -37,28 +37,39 @@ namespace API.Controllers
             return View("Countries");
         }
 
-        //[Route("")]
-        //[Route("Home")]
-        //[Route("Home/Index")]
-        public IActionResult Index(int CitizenshipId, int To = 220)
+        [Route("")]
+        //[Route("Search")]
+        //[Route("Search/{route}")]
+        public IActionResult Index(int Passport, int To)
         {
             var mo = new API.Models.IndexModel();
-            mo.CitizenshipId = CitizenshipId;
+            mo.Passport = Passport;
+            mo.To = To;
+            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
 
-            if(CitizenshipId > 0)
+            //if (route == null || route.Length != 4)
+            //    return View(mo);
+
+            //string citizenship = route.Substring(0, 2);
+            //string to = route.Substring(2, 2);
+
+            
+            //mo.CitizenshipId = _context.Country.FirstOrDefault(c => c.ISOalpha2 == citizenship).Id; //CitizenshipId;
+
+            if(mo.Passport > 0)
             {
                 mo.VisasNonEntry = (from co in _context.NoVisaEntry
-                                    where co.CountryDestination.Id == To && co.CountryPassport.Id == CitizenshipId
+                                    where co.CountryDestination.Id == To && co.CountryPassport.Id == mo.Passport
                                     select new VisaSearchResult
                                     {
                                         Id = co.Id,
                                         Description = co.Description,
                                         VisaName = "No Entry Visa"
                                     });
-            }
-            if(To > 0)
-            {
+                mo.PassportCapitalCode = _context.Country.FirstOrDefault(c => c.Id == mo.Passport).CapitalCode;
+
                 mo.CovidInfo = _context.Country.FirstOrDefault(c => c.Id == To).CovidRestrictions; // Thai
+
                 mo.Visas = (from co in _context.Visa
                             where co.Country.Id == To
                             select new VisaSearchResult
@@ -70,10 +81,6 @@ namespace API.Controllers
                                 Duration = co.Duration
                             });
             }
-            
-            
-
-            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
             return View(mo);
         }
 
