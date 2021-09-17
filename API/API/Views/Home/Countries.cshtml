@@ -11,8 +11,19 @@
             <div class="card-body">
                 <span class="flag-icon flag-icon-@c.Iata.ToLower()"></span>
                 <a class="card-link m-2">@c.Name</a>
-                <p>⏱ Updated @c.UpdateDate</p>
+                <p data-utcdate="@c.UpdateDate.ToString("s", System.Globalization.CultureInfo.InvariantCulture)"></p>
             </div>
         </div>
     }
 </div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('[data-utcdate]').each(function () {
+                var d = moment($(this).attr('data-utcdate'), "YYYYMMDDHHmmss").fromNow(); //moment($(this).attr('data-utcdate'));
+                $(this).html("⏱ Updated " + d);
+            });
+        });
+    </script>
+}

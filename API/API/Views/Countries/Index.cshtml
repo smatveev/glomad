@@ -7,7 +7,7 @@
 
 <div class="hero-bg px-4 py-5 text-white text-center">
     <h1 class="display-5 fw-bold">@Model.Country.Name</h1>
-    <h5 class="my-3">⏱ Updated @Model.Country.UpdateDate</h5>
+    <h5 id="updatedate" class="my-3" data-utcdate="@Model.Country.UpdateDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture);"></h5>
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -21,17 +21,17 @@
 
     <ul class="nav nav-pills" role="tablist" id="mytabs">
         <li class="nav-item" role="presentation">
-            <a id="visas-tab" class="nav-link active" role="tab" aria-current="page" href="#visas"  data-bs-toggle="tab" data-bs-target="#visas" aria-controls="visas" aria-selected="true">🎫 Visas</a>
+            <a id="visas-tab" class="nav-link active" role="tab" aria-current="page" href="#visas" data-bs-toggle="tab" data-bs-target="#visas" aria-controls="visas" aria-selected="true">🎫 Visas</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a id="embassies-tab" class="nav-link" role="tab" href="#embassies"  data-bs-toggle="tab" data-bs-target="#embassies" aria-controls="embassies" aria-selected="false">🏤 Embassies</a>
+            <a id="embassies-tab" class="nav-link" role="tab" href="#embassies" data-bs-toggle="tab" data-bs-target="#embassies" aria-controls="embassies" aria-selected="false">🏤 Embassies</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a id="covid-tab" class="nav-link" role="tab" href="#covid"  data-bs-toggle="tab" data-bs-target="#covid" aria-controls="covid" aria-selected="false">😷 Covid</a>
+            <a id="covid-tab" class="nav-link" role="tab" href="#covid" data-bs-toggle="tab" data-bs-target="#covid" aria-controls="covid" aria-selected="false">😷 Covid</a>
         </li>
         @*<li class="nav-item" role="presentation">
-            <a class="nav-link disabled" role="tab" href="#" tabindex="-1" aria-disabled="true"  data-bs-toggle="tab">🖐 Free entry passports</a>
-        </li>*@
+                <a class="nav-link disabled" role="tab" href="#" tabindex="-1" aria-disabled="true"  data-bs-toggle="tab">🖐 Free entry passports</a>
+            </li>*@
     </ul>
 
     <div class="tab-content" id="myTabContent">
@@ -61,11 +61,11 @@
                         </div>
                     </div>
                 }
-            <div class="p-2 bg-light rounded-3">
-                <div>
-                    <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
+                <div class="p-2 bg-light rounded-3">
+                    <div>
+                        <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
 
@@ -97,3 +97,11 @@
 
     </div>
 </section>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#updatedate").html("⏱ Updated " + moment($("#updatedate").attr('data-utcdate'), "YYYYMMDDHHmmss").fromNow());
+        });
+    </script>
+}
