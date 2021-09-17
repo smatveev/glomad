@@ -1,8 +1,8 @@
 ﻿@model EmbassyViewModel
 
 @{
-    ViewData["Title"] = "EMBASSY YAYAYYA Best fucking SEO friendly pages";
-    ViewData["MetaDescription"] = "EMBASSY My desc so good!";
+    ViewData["Title"] = $"{Model.Country} embassy in {Model.EmbassyWithCountry.Country}";
+    ViewData["MetaDescription"] = $"Checklist tourist visa to {Model.Country}. Working hours and processing time. Visa fees and visa duration.";
 }
 
 <div class="hero-bg px-4 py-5 text-white text-center">
