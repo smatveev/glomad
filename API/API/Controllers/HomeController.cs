@@ -84,6 +84,13 @@ namespace API.Controllers
             return View(mo);
         }
 
+        [HttpPost("SelectPrice")]
+        public IActionResult SelectPrice([FromBody] SelectPlan plan)
+        {
+            Helpers.EmailSender.Send(plan);
+            return Ok();
+        }
+
         public IActionResult Privacy()
         {
             return View();

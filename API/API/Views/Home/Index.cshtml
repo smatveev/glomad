@@ -145,3 +145,49 @@
 <partial name="_Monitoring" />
 <partial name="_Feedback" />
 <partial name="_Pricing" />
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('#exampleModal').bind('show.bs.modal', function (event) {
+                // Button that triggered the modal
+                var button = event.relatedTarget
+                // Extract info from data-bs-* attributes
+                var title = button.getAttribute('data-bs-title')
+                var details = button.getAttribute('data-bs-details')
+                $('#exampleModal .modal-title').text(title);
+                $('#exampleModal #details').text(details);
+            })
+        });
+
+        function PriceSubmit() {
+            var plan = new Object();
+            plan.plannumber = 1;
+            plan.username = $('#exampleModal #username').val() + " " + $('#exampleModal .modal-title').val();
+            plan.email = $('#exampleModal #email').val();
+            plan.details = $('#exampleModal #details').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "/SelectPrice",
+                data: JSON.stringify(plan),
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (response) {
+                    if (response != null) {
+                        $("#exampleModal #status").text("Thank you 🤝 We will contact you soon!")
+                        //alert("SUCCESS = Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
+                    } else {
+                        $("#exampleModal #status").text("😣 Something went wrong. Please try again.")
+                    }
+                },
+                failure: function (response) {
+                    $("#exampleModal #status").text("😣 Something went wrong. Please try again.")
+                },
+                error: function (response) {
+                    $("#exampleModal #status").text("😣 Something went wrong. Please try again.")
+                }
+            })
+        }
+    </script>
+}
