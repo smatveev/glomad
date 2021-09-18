@@ -22,12 +22,13 @@ namespace API.Helpers
             var mailMessage = new MailMessage
             {
                 From = new MailAddress("matv33v@gmail.com"),
-                Subject = "New user with plan #" + plan.PlanNumber.ToString(),
+                Subject = "New user: " + plan.Email,
                 Body = string.Format("<h3>New user</h3>" +
-                    "<p>name: {0}</p>" +
-                    "<p>with email: {1}</p>" +
-                    "<p>selected plan: {2}</p>",
-                    plan.Username, plan.Email, plan.PlanNumber),
+                    "<p>Name: {0}</p>" +
+                    "<p>Email: {1}</p>" +
+                    "<p>Plan: {2}</p>" +
+                    "<p>Details: {3}</p>",
+                    plan.Username, plan.Email, plan.Name, plan.Details),
                 IsBodyHtml = true,
             };
             mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");

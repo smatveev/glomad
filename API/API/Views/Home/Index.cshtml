@@ -155,32 +155,24 @@
 
         function PriceSubmit() {
             var plan = new Object();
-            plan.plannumber = 1;
-            plan.username = $('#exampleModal #username').val() + " " + $('#exampleModal .modal-title').val();
+            plan.name = $('#exampleModal .modal-title').text();
+            plan.username = $('#exampleModal #username').val();
             plan.email = $('#exampleModal #email').val();
-            plan.details = $('#exampleModal #details').val();
+            plan.details = $('#exampleModal #info').val();
 
             $.ajax({
                 type: 'POST',
                 url: "/SelectPrice",
                 data: JSON.stringify(plan),
                 dataType: 'json',
-                contentType: "application/json",
-                success: function (response) {
-                    if (response != null) {
-                        $("#exampleModal #status").text("Thank you 🤝 We will contact you soon!")
-                        //alert("SUCCESS = Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
-                    } else {
-                        $("#exampleModal #status").text("😣 Something went wrong. Please try again.")
-                    }
-                },
-                failure: function (response) {
-                    $("#exampleModal #status").text("😣 Something went wrong. Please try again.")
-                },
-                error: function (response) {
-                    $("#exampleModal #status").text("😣 Something went wrong. Please try again.")
-                }
+                contentType: "application/json"
             })
+                .done(function (response) {
+                    $("#exampleModal #status").text("Thank you 🤝 We will contact you soon!")
+                })
+                .fail(function (response) {
+                    $("#exampleModal #status").text("Thank you 🤝 We will contact you soon!")
+                });
         }
     </script>
 }
