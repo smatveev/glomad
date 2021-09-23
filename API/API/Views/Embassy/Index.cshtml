@@ -3,9 +3,10 @@
 @{
     ViewData["Title"] = $"{Model.Country} embassy in {Model.EmbassyWithCountry.Country}";
     ViewData["MetaDescription"] = $"Checklist tourist visa to {Model.Country}. Working hours and processing time. Visa fees and visa duration.";
+    string bgimage = Model.Country + ".jpg";
 }
 
-<div class="hero-bg px-4 py-5 text-white text-center">
+<div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/@bgimage') !important">
     <h1 class="display-5 fw-bold">@Model.EmbassyWithCountry.Country</h1>
 
     <nav aria-label="breadcrumb">

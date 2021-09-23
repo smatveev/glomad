@@ -3,9 +3,10 @@
 @{
     ViewData["Title"] = Model.Country.Name + " Visa Policy";
     ViewData["MetaDescription"] = $"How to get tourist visa to {Model.Country.Name}. Visa fees. Last updates of {Model.Country.Name} COVID-19 travel requirements and restrictions. List of {Model.Country.Name} embassies.";
+    string bgimage = Model.Country.Name + ".jpg";
 }
 
-<div class="hero-bg px-4 py-5 text-white text-center">
+<div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/@bgimage') !important">
     <h1 class="display-5 fw-bold">@Model.Country.Name</h1>
     <h5 id="updatedate" class="my-3" data-utcdate="@Model.Country.UpdateDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture);"></h5>
 
@@ -30,7 +31,7 @@
             <a id="covid-tab" class="nav-link" role="tab" href="#covid" data-bs-toggle="tab" data-bs-target="#covid" aria-controls="covid" aria-selected="false">😷 Covid</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" href="/NoEntry">🖐 No Entry</a>
+            <a class="nav-link" href="./@Model.Country.Name/NoEntry">🖐 No Entry</a>
         </li>
     </ul>
 

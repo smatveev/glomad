@@ -57,16 +57,27 @@ namespace API.Controllers
         public IActionResult NoEntry(string country)
         {
             ViewBag.CountryName = country;
-            var model = (from ne in _context.NoVisaEntry
+            var countries = (from ne in _context.NoVisaEntry
                          join co in _context.Country on ne.CountryDestination.Id equals co.Id
                          where co.Name == country
                          select new CountryNoEntry
                          {
                              Details = ne.Description,
                              Id = co.Id,
-                             Iata = co.ISOalpha3,
-                             Name = ne.CountryPassport.Name
-                         }).ToList();
+                             Iata = ne.CountryPassport.ISOalpha3 != null ? ne.CountryPassport.ISOalpha3 : "No data",
+                             Name = ne.CountryPassport.Name != null ? ne.CountryPassport.Name : "No data"
+                         });
+
+            var model = new Dictionary<string, List<CountryNoEntry>>();
+            foreach (var c in countries)
+            {
+                var key = c.Details.Trim();
+                if (model.ContainsKey(key))
+                    model[key].Add(c);
+                else
+                    model.Add(key, new List<CountryNoEntry>() { c });
+            }
+
             return View("NoEntry", model);
         }
     }
