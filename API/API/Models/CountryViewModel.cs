@@ -29,4 +29,12 @@ namespace API.Models
         public string Iata { get; set; }
         public DateTime UpdateDate { get; set; }
     }
+
+    public struct CountryNoEntry
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Iata { get; set; }
+        public string Details { get; set; }
+    }
 }
