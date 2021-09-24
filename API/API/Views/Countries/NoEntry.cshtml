@@ -30,11 +30,11 @@
             <a class="nav-link" href="/@ViewBag.CountryName#covid">😷 Covid</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="/@ViewBag.CountryName/NoEntry">🖐 No Entry</a>
+            <a class="nav-link active" href="/@ViewBag.CountryName/NoEntry">🖐 No visa entry</a>
         </li>
     </ul>
 
-    <h2 class="fw-bold text-center p-4">🖐 No Entry to @ViewBag.CountryName</h2>
+    <h2 class="fw-bold text-center p-4">🖐 No visa entry to @ViewBag.CountryName</h2>
 
     <div id="accordion">
         @foreach (KeyValuePair<string, List<CountryNoEntry>> entry in Model)
