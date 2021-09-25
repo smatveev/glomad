@@ -54,16 +54,19 @@ namespace API.Controllers
             
             ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
 
+            var Ids = new List<int>() {10,32,57,67,86,107,143,181,220,244};
+            ViewBag.ToCountries = new SelectList(_context.Country.Where(c => Ids.Contains(c.Id)), "Id", "Name");
+
             //if (route == null || route.Length != 4)
             //    return View(mo);
 
             //string citizenship = route.Substring(0, 2);
             //string to = route.Substring(2, 2);
 
-            
+
             //mo.CitizenshipId = _context.Country.FirstOrDefault(c => c.ISOalpha2 == citizenship).Id; //CitizenshipId;
 
-            if(mo.Passport > 0)
+            if (mo.Passport > 0)
             {
                 mo.VisasNonEntry = (from co in _context.NoVisaEntry
                                     where co.CountryDestination.Id == To && co.CountryPassport.Id == mo.Passport

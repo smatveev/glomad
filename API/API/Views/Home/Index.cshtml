@@ -33,16 +33,15 @@
                                         class="form-select form-select-lg"
                                         asp-for="Passport"
                                         asp-items="@ViewBag.Countries">
-                                    <option disabled value="">Your citizenship</option>
+                                    <option disabled value="0">Your national passport</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="destinaion" class="form-label text-white">Destination country</label>
                                 <select id="Destinaion"
                                         class="form-select form-select-lg"
-                                        asp-for="To">
-                                    <option selected="selected" value="220">Thailand</option>
-                                    <option value="181">Russia</option>
+                                        asp-for="To" asp-items="@ViewBag.ToCountries">
+                                    <option disabled value="0">Destination country</option>
                                 </select>
                             </div>
 
