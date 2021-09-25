@@ -45,6 +45,13 @@ namespace API.Controllers
             var mo = new API.Models.IndexModel();
             mo.Passport = Passport;
             mo.To = To;
+
+            if(To > 0)
+            {
+                mo.ToCountryName = _context.Country.FirstOrDefault(c => c.Id == mo.To).Name;
+                mo.ToCapitalCode = _context.Country.FirstOrDefault(c => c.Id == mo.To).CapitalCode;
+            }
+            
             ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
 
             //if (route == null || route.Length != 4)
@@ -67,6 +74,7 @@ namespace API.Controllers
                                         VisaName = "No Entry Visa"
                                     });
                 mo.PassportCapitalCode = _context.Country.FirstOrDefault(c => c.Id == mo.Passport).CapitalCode;
+                mo.PassportCountryName = _context.Country.FirstOrDefault(c => c.Id == mo.Passport).Name;
 
                 mo.CovidInfo = _context.Country.FirstOrDefault(c => c.Id == To).CovidRestrictions; // Thai
 

@@ -16,9 +16,12 @@ namespace API.Models
 
         [BindProperty]
         public int Passport { get; set; }
+        public string PassportCountryName { get; set; }
         public string PassportCapitalCode { get; set; }
 
         public int To { get; set; }
+        public string ToCountryName { get; set; }
+        public string ToCapitalCode { get; set; }
 
         public string CovidInfo { get; set; }
 
