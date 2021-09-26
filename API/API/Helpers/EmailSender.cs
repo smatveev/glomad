@@ -35,5 +35,34 @@ namespace API.Helpers
 
             smtpClient.Send(mailMessage);
         }
+
+        public static void SendFeedback(CreateFeedback createFeedback)
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            var config = builder.Build();
+
+            var smtpClient = new SmtpClient(config["Smtp:Host"])
+            {
+                Port = int.Parse(config["Smtp:Port"]),
+                Credentials = new NetworkCredential(config["Smtp:Username"], config["Smtp:Password"]),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("matv33v@gmail.com"),
+                Subject = "Feedback: " + createFeedback.Email,
+                Body = string.Format("<h3>New feedback</h3>" +
+                    "<p>User name: {0}</p>" +
+                    "<p>Email: {1}</p>" +
+                    "<p>Selected Country: {2}</p>" +
+                    "<p>Is notify: {3}</p>",
+                    createFeedback.Username, createFeedback.Email, createFeedback.CountryId, createFeedback.IsNotify),
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");
+
+            smtpClient.Send(mailMessage);
+        }
     }
 }

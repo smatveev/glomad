@@ -42,7 +42,7 @@ namespace API.Controllers
         //[Route("Search/{route}")]
         public IActionResult Index(int Passport, int To)
         {
-            var mo = new API.Models.IndexModel();
+            var mo = new Models.IndexModel();
             mo.Passport = Passport;
             mo.To = To;
 
@@ -99,6 +99,31 @@ namespace API.Controllers
         public IActionResult SelectPrice([FromBody] SelectPlan plan)
         {
             Helpers.EmailSender.Send(plan);
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult CreateFeedback([FromBody] CreateFeedback createFeedback)
+        {
+            try
+            {
+                Feedback feedback = new()
+                {
+                    Country = _context.Country.First(c => c.Id == createFeedback.CountryId),
+                    Email = createFeedback.Email ?? "none",
+                    IsNotify = createFeedback.IsNotify,
+                    Username = createFeedback.Username ?? "none"
+                };
+
+                _context.Feedback.Add(feedback);
+                _context.SaveChanges();
+                Helpers.EmailSender.SendFeedback(createFeedback);
+            }
+            catch (Exception e)
+            {
+                return Error();
+            }
+
             return Ok();
         }
 

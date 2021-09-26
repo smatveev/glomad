@@ -98,22 +98,7 @@ namespace API.Controllers
             return q != null ? Ok(q) : NotFound();
         }
 
-        [HttpPost]
-        public IActionResult CreateFeedback(CreateFeedback createFeedback)
-        {
-            Feedback feedback = new()
-            {
-                Country = _context.Country.First(c => c.Id == createFeedback.CountryId),
-                Email = createFeedback.Email ?? "none",
-                IsNotify = createFeedback.IsNotify,
-                Username = createFeedback.Username ?? "none"
-            };
-
-            _context.Feedback.Add(feedback);
-            _context.SaveChanges();
-            
-            return Ok();
-        }
+ 
 
         [HttpPost("SelectPrice")]
         public IActionResult SelectPrice([FromBody] SelectPlan plan)
