@@ -210,14 +210,14 @@
                 type: 'POST',
                 url: "/SelectPrice",
                 data: JSON.stringify(plan),
-                dataType: 'json',
+                dataType: 'html',
                 contentType: "application/json"
             })
                 .done(function (response) {
                     $("#exampleModal #status").text("Thank you 🤝 We will contact you soon!")
                 })
                 .fail(function (response) {
-                    $("#exampleModal #status").text("Thank you 🤝 We will contact you soon!")
+                    $("#exampleModal #status").text("😥 Something went wrong. But pleace check your email")
                 });
         }
 
