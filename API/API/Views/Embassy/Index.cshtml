@@ -33,21 +33,27 @@
 
     <div class="tab-content">
         <div class="tab-pane fade show active" id="info">
-            <h2 class="fw-bold text-center p-4 mb-3">🏢 Embassy details</h2>
+            @if(Model.EmbassyWithCountry.Embassy != null && Model.EmbassyWithCountry.Embassy.Name != null){
+                <h2 class="fw-bold text-center p-4 mb-3">🏢 @Model.EmbassyWithCountry.Embassy.Name</h2>
+            }
+            else {
+                <h2 class="fw-bold text-center p-4 mb-3">🏢 Embassy details</h2>
+            }
+
             @if (Model.EmbassyWithCountry.Embassy != null)
             {
-                <p>📍 <small class="text-muted">Address: </small>@Model.EmbassyWithCountry.Embassy.Address</p>
-                <p>🕜 <small class="text-muted">Office hours: </small>@Html.Raw(Model.EmbassyWithCountry.Embassy.WorkingHours)</p>
-                <p>☎ <small class="text-muted">Phone: </small>@Model.EmbassyWithCountry.Embassy.Phone</p>
-                <p>📧 <small class="text-muted">Email: </small>@Model.EmbassyWithCountry.Embassy.Email</p>
-                <p>💻 <small class="text-muted">Website: </small><a href="@Model.EmbassyWithCountry.Embassy.Url" target="_blank">@Model.EmbassyWithCountry.Embassy.Url</a></p>
-                <p>🚴‍♂️ <small class="text-muted">Processing time: </small>@Model.EmbassyWithCountry.Embassy.ProcessingTime</p>
-                <p>☝ <small class="text-muted">Special conditions: </small>@Model.EmbassyWithCountry.Embassy.SpecialConditions</p>
-                <p>🐱‍💻 <small class="text-muted">Visa application form: </small><a href="@Model.EmbassyWithCountry.Embassy.ApplicationFormUrl" target="_blank"> link</a></p>
+            <p>📍 <small class="text-muted">Address: </small>@Model.EmbassyWithCountry.Embassy.Address</p>
+            <p>🕜 <small class="text-muted">Office hours: </small>@Html.Raw(Model.EmbassyWithCountry.Embassy.WorkingHours)</p>
+            <p>☎ <small class="text-muted">Phone: </small>@Model.EmbassyWithCountry.Embassy.Phone</p>
+            <p>📧 <small class="text-muted">Email: </small>@Model.EmbassyWithCountry.Embassy.Email</p>
+            <p>💻 <small class="text-muted">Website: </small><a href="@Model.EmbassyWithCountry.Embassy.Url" target="_blank">@Model.EmbassyWithCountry.Embassy.Url</a></p>
+            <p>🚴‍♂️ <small class="text-muted">Processing time: </small>@Model.EmbassyWithCountry.Embassy.ProcessingTime</p>
+            <p>☝ <small class="text-muted">Special conditions: </small>@Model.EmbassyWithCountry.Embassy.SpecialConditions</p>
+            <p>🐱‍💻 <small class="text-muted">Visa application form: </small><a href="@Model.EmbassyWithCountry.Embassy.ApplicationFormUrl" target="_blank"> link</a></p>
             }
             else
             {
-                <p>🤔 Details not found.. Working on it.</p>
+            <p>🤔 Details not found.. Working on it.</p>
             }
 
         </div>
