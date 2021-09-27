@@ -8,7 +8,10 @@
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/@bgimage') !important">
     <h1 class="display-5 fw-bold">@Model.Country.Name</h1>
-    <h5 id="updatedate" class="my-3" data-utcdate="@Model.Country.UpdateDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture);"></h5>
+    @if(@Model.Country.UpdateDate != null) {
+        <h5 id="updatedate" class="my-3" data-utcdate="@Model.Country.UpdateDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture);"></h5>
+    }
+
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
