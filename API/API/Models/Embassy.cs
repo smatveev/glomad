@@ -33,5 +33,6 @@ namespace Glomad.Models
 
         [Required]
         public Country OriginalCountry { get; set; }
+        public string Name { get; set; }
     }
 }
