@@ -13,13 +13,14 @@ namespace API.Models
         public List<VisaDoc> Docs { get; set; }
         public List<VisaDetails> VisaDetails { get; set; }
         public string Country { get; set; }
-        public EmbassyWithCountry EmbassyWithCountry { get; set; }
+        public EmbassyWithCountryAndCity EmbassyWithCountry { get; set; }
     }
 
-    public struct EmbassyWithCountry
+    public struct EmbassyWithCountryAndCity
     {
         public Embassy Embassy { get; set; }
         public string Country { get; set; }
+        public string City { get; set; }
     }
     public struct VisaDetails
     {

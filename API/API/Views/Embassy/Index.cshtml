@@ -1,19 +1,27 @@
 ﻿@model EmbassyViewModel
 
 @{
-    ViewData["Title"] = $"{Model.Country} embassy in {Model.EmbassyWithCountry.Country}";
-    ViewData["MetaDescription"] = $"Checklist tourist visa to {Model.Country}. Working hours and processing time. Visa fees and visa duration.";
+    ViewData["Title"] = $"{Model.Country} embassy in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City}";
+    ViewData["MetaDescription"] = $"Checklist tourist visa to {Model.Country}. Working hours and processing time of {Model.Country} embassy in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City}. Visa fees and visa duration.";
     string bgimage = Model.Country + ".jpg";
 }
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/@bgimage') !important">
-    <h1 class="display-5 fw-bold">@Model.EmbassyWithCountry.Country</h1>
+    @if (Model.EmbassyWithCountry.Embassy.Name != null)
+    {
+    <h1 class="display-5 fw-bold">@Model.EmbassyWithCountry.Embassy.Name</h1>
+    }
+    else
+    {
+    <h1 class="display-5 fw-bold">Embassy of @Model.Country in @Model.EmbassyWithCountry.Country, @Model.EmbassyWithCountry.City</h1>
+    }
+
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="/@Model.Country">@Model.Country</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Embassy of @Model.Country in @Model.EmbassyWithCountry.Country</li>
+            <li class="breadcrumb-item active" aria-current="page">Embassy of @Model.Country in @Model.EmbassyWithCountry.Country, @Model.EmbassyWithCountry.City</li>
         </ol>
     </nav>
 </div>
@@ -33,12 +41,7 @@
 
     <div class="tab-content">
         <div class="tab-pane fade show active" id="info">
-            @if(Model.EmbassyWithCountry.Embassy != null && Model.EmbassyWithCountry.Embassy.Name != null){
-                <h2 class="fw-bold text-center p-4 mb-3">🏢 @Model.EmbassyWithCountry.Embassy.Name</h2>
-            }
-            else {
-                <h2 class="fw-bold text-center p-4 mb-3">🏢 Embassy details</h2>
-            }
+            <h2 class="fw-bold text-center p-4 mb-3">🏢 Embassy details</h2>
 
             @if (Model.EmbassyWithCountry.Embassy != null)
             {

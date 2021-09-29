@@ -26,9 +26,10 @@ namespace API.Controllers
                                         join c in _context.Country
                                         on e.Country.Id equals c.Id
                                         where e.Id == id
-                                        select new EmbassyWithCountry { 
+                                        select new EmbassyWithCountryAndCity { 
                                             Embassy = e,
-                                            Country = c.Name
+                                            Country = c.Name,
+                                            City = e.City.Name
                                         }).FirstOrDefault();
             model.Docs = _context.VisaDoc.Where(m => m.Embassy.Id == id).ToList();
             model.VisaDetails = (from v in _context.Visa
