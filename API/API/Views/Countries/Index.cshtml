@@ -47,8 +47,8 @@
                 @foreach (var visa in Model.Visas)
                 {
                     <div>
-                        <div class="p-3 m-1 bg-light rounded-3">
-                            <div class="container-fluid">
+                        <div class="p-2 bg-light rounded-3 overflow-auto" style="height: 400px;">
+                            <div>
                                 <h5 class="fw-bold">@visa.VisaName</h5>
 
                                 <p class="col-md-12">@Html.Raw(visa.Description)</p>
