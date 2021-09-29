@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = Model.Country.Name + " Visa Policy";
     ViewData["MetaDescription"] = $"How to get tourist visa to {Model.Country.Name}. Visa fees. Last updates of {Model.Country.Name} COVID-19 travel requirements and restrictions. List of {Model.Country.Name} embassies.";
+    ViewData["Canonical"] = $"https://glomad.net/{Model.Country.Name}";
     string bgimage = Model.Country.Name + ".jpg";
 }
 
@@ -50,7 +51,7 @@
                             <div class="container-fluid">
                                 <h5 class="fw-bold">@visa.VisaName</h5>
 
-                                <p class="col-md-12">@visa.Description</p>
+                                <p class="col-md-12">@Html.Raw(visa.Description)</p>
 
                                 @if (visa.IsExdendable)
                                 {
