@@ -107,6 +107,19 @@
     <script>
         $(function () {
             $("#updatedate").html("⏱ Updated " + moment($("#updatedate").attr('data-utcdate'), "YYYYMMDDHHmmss").fromNow());
+
+            //set active tab
+            var hash = window.location.hash;
+            hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+            if (hash != '') {
+                $('.nav-pills a[href="#' + hash + '"]').tab('show');
+            }
+
+            // Change hash for page-reload
+            $('.nav-pills a').click(function (e) {
+                $(this).tab('show');
+                window.location.hash = this.hash;
+            });
         });
     </script>
 }
