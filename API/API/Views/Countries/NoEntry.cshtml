@@ -1,7 +1,7 @@
 ﻿@model Dictionary<string, List<CountryNoEntry>>;
 
 @{
-    ViewData["Title"] = $"No Entry to {ViewBag.CountryName}";
+    ViewData["Title"] = $"No Entry visa to {ViewBag.CountryName}";
     ViewData["MetaDescription"] = $"List of countries with visa - free (no entry) travel to {ViewBag.CountryName}";
     string bgimage = ViewBag.CountryName + ".jpg";
 }
@@ -31,6 +31,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="/@ViewBag.CountryName/NoEntry">🖐 No visa entry</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" href="/@ViewBag.CountryName/FreeEntry">🛂 Free entry with passport of @ViewBag.CountryName</a>
         </li>
     </ul>
 

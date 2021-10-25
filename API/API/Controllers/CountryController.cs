@@ -80,5 +80,23 @@ namespace API.Controllers
 
             return View("NoEntry", model);
         }
+
+        [Route("{country}/FreeEntry")]
+        public IActionResult FreeEntry(string country)
+        {
+            ViewBag.CountryName = country;
+            var countries = (from ne in _context.NoVisaEntry
+                             join co in _context.Country on ne.CountryPassport.Id equals co.Id
+                             where co.Name == country
+                             select new CountryNoEntry
+                             {
+                                 Details = ne.Description,
+                                 Id = ne.CountryDestination.Id,
+                                 Iata = ne.CountryDestination.ISOalpha3 != null ? ne.CountryDestination.ISOalpha3 : "No data",
+                                 Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data"
+                             }).ToList();
+
+            return View("FreeEntry", countries);
+        }
     }
 }
