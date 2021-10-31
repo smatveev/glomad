@@ -60,7 +60,7 @@ namespace API.Controllers
             var countries = (from ne in _context.NoVisaEntry
                          join co in _context.Country on ne.CountryDestination.Id equals co.Id
                          where co.Name == country
-                         select new CountryNoEntry
+                         select new CountryFreeEntry
                          {
                              Details = ne.Description,
                              Id = co.Id,
@@ -68,14 +68,14 @@ namespace API.Controllers
                              Name = ne.CountryPassport.Name != null ? ne.CountryPassport.Name : "No data"
                          });
 
-            var model = new Dictionary<string, List<CountryNoEntry>>();
+            var model = new Dictionary<string, List<CountryFreeEntry>>();
             foreach (var c in countries)
             {
                 var key = c.Details.Trim();
                 if (model.ContainsKey(key))
                     model[key].Add(c);
                 else
-                    model.Add(key, new List<CountryNoEntry>() { c });
+                    model.Add(key, new List<CountryFreeEntry>() { c });
             }
 
             return View("NoEntry", model);
@@ -88,7 +88,7 @@ namespace API.Controllers
             var countries = (from ne in _context.NoVisaEntry
                              join co in _context.Country on ne.CountryPassport.Id equals co.Id
                              where co.Name == country
-                             select new CountryNoEntry
+                             select new CountryFreeEntry
                              {
                                  Details = ne.Description,
                                  Id = ne.CountryDestination.Id,

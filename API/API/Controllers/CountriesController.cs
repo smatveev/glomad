@@ -27,8 +27,8 @@ namespace API.Controllers
                              select new
                              { id = c.Id,
                                  name = c.Name,
-                                 PhotoName = c.PhotoName,
-                                 DevelopmentLevel = c.DevelopmentLevel,
+                                 c.PhotoName,
+                                 c.DevelopmentLevel,
                                  Capital = c.CapitalCode
                              });
 
@@ -44,8 +44,8 @@ namespace API.Controllers
                      join c in _context.Country
                      on e.Country.Id equals c.Id
                      where e.OriginalCountry.Name == country
-                     select new { 
-                         Id = e.Id,
+                     select new {
+                         e.Id,
                          Country = c.Name,
                          City = e.City.Name,
                          Iata = c.ISOalpha2

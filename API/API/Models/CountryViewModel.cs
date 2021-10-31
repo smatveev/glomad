@@ -30,7 +30,7 @@ namespace API.Models
         public DateTime UpdateDate { get; set; }
     }
 
-    public struct CountryNoEntry
+    public struct CountryFreeEntry
     {
         public int Id { get; set; }
         public string Name { get; set; }

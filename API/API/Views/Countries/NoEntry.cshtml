@@ -1,4 +1,4 @@
-﻿@model Dictionary<string, List<CountryNoEntry>>;
+﻿@model Dictionary<string, List<CountryFreeEntry>>;
 
 @{
     ViewData["Title"] = $"No Entry visa to {ViewBag.CountryName}";
@@ -33,7 +33,7 @@
     <h2 class="fw-bold text-center p-4">🖐 No visa entry to @ViewBag.CountryName</h2>
 
     <div id="accordion">
-        @foreach (KeyValuePair<string, List<CountryNoEntry>> entry in Model)
+        @foreach (KeyValuePair<string, List<CountryFreeEntry>> entry in Model)
         {
             int id = 0;
             int id2 = 100;

@@ -1,8 +1,8 @@
-﻿@model List<CountryNoEntry>
+﻿@model List<CountryFreeEntry>
 
 @{
-    ViewData["Title"] = $"No Entry to {ViewBag.CountryName}";
-    ViewData["MetaDescription"] = $"List of countries with visa - free (no entry) travel to {ViewBag.CountryName}";
+    ViewData["Title"] = $"Free entry with passport of {ViewBag.CountryName}";
+    ViewData["MetaDescription"] = $"List of countries where you can free entry with passort of {ViewBag.CountryName}";
     string bgimage = ViewBag.CountryName.ToLower() + ".jpg";
 }
 
@@ -30,26 +30,24 @@
         </li>
     </ul>
 
-    <h2 class="fw-bold text-center p-4">🖐 Free entry with passport of @ViewBag.CountryName</h2>
+    <h2 class="fw-bold text-center p-4">🛂 Free entry with passport of @ViewBag.CountryName</h2>
 
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-        @foreach (var c in Model)
-        {
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="../@(c.Name.ToLower()).jpg" class="img-fluid rounded-start" srcset="../@c.Name.ToLower()_300.jpg 384w, ../@(c.Name.ToLower()).jpg 1920w" sizes="50vw" alt="@c.Name image">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <a href="./@c.Name"><h5 class="card-title">@c.Name</h5></a>
-                            <p class="card-text">@c.Details</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
+    @foreach (var c in Model)
+    {
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="../@(c.Name.ToLower()).jpg" class="img-fluid rounded-start" srcset="../@c.Name.ToLower()_300.jpg 384w, ../@(c.Name.ToLower()).jpg 1920w" sizes="50vw" alt="@c.Name image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <a href="./@c.Name"><h5 class="card-title">@c.Name</h5></a>
+                        <p class="card-text">@c.Details</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
 
 </section>
