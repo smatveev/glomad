@@ -1,9 +1,17 @@
-﻿@model Dictionary<string, List<CountryFreeEntry>>;
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+@model Dictionary<string, List<CountryFreeEntry>>;
 
 @{
     ViewData["Title"] = $"No Entry visa to {ViewBag.CountryName}";
     ViewData["MetaDescription"] = $"List of countries with visa - free (no entry) travel to {ViewBag.CountryName}";
+
     string bgimage = ViewBag.CountryName + ".jpg";
+    var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);
+    if (!System.IO.File.Exists(path))
+    {
+        bgimage = "nocover.jpg";
+    }
 }
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/@bgimage') !important">

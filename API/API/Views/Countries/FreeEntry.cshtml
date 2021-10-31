@@ -1,9 +1,17 @@
-﻿@model List<CountryFreeEntry>
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+@model List<CountryFreeEntry>
 
 @{
     ViewData["Title"] = $"Free entry with passport of {ViewBag.CountryName}";
     ViewData["MetaDescription"] = $"List of countries where you can free entry with passort of {ViewBag.CountryName}";
+
     string bgimage = ViewBag.CountryName.ToLower() + ".jpg";
+    var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);
+    if (!System.IO.File.Exists(path))
+    {
+        bgimage = "nocover.jpg";
+    }
 }
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/@bgimage') !important">
@@ -37,7 +45,15 @@
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="../@(c.Name.ToLower()).jpg" class="img-fluid rounded-start" srcset="../@c.Name.ToLower()_300.jpg 384w, ../@(c.Name.ToLower()).jpg 1920w" sizes="50vw" alt="@c.Name image">
+                    @{ 
+                        var countryImage = c.Name.ToLower();
+                        var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
+                        if (!System.IO.File.Exists(path2))
+                        {
+                            countryImage = "nocover";
+                        }
+                    }
+                    <img src="../@(countryImage).jpg" class="img-fluid rounded-start" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">

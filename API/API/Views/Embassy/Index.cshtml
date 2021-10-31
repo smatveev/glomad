@@ -1,19 +1,27 @@
-﻿@model EmbassyViewModel
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+@model EmbassyViewModel
 
 @{
     ViewData["Title"] = $"{Model.Country} embassy in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City}";
     ViewData["MetaDescription"] = $"Checklist tourist visa to {Model.Country}. Working hours and processing time of {Model.Country} embassy in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City}. Visa fees and visa duration.";
+
     string bgimage = Model.Country + ".jpg";
+    var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);
+    if (!System.IO.File.Exists(path))
+    {
+        bgimage = "nocover.jpg";
+    }
 }
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/@bgimage') !important">
     @if (Model.EmbassyWithCountry.Embassy.Name != null)
     {
-    <h1 class="display-5 fw-bold">@Model.EmbassyWithCountry.Embassy.Name</h1>
+        <h1 class="display-5 fw-bold">@Model.EmbassyWithCountry.Embassy.Name</h1>
     }
     else
     {
-    <h1 class="display-5 fw-bold">Embassy of @Model.Country in @Model.EmbassyWithCountry.Country, @Model.EmbassyWithCountry.City</h1>
+        <h1 class="display-5 fw-bold">Embassy of @Model.Country in @Model.EmbassyWithCountry.Country, @Model.EmbassyWithCountry.City</h1>
     }
 
 
@@ -45,18 +53,18 @@
 
             @if (Model.EmbassyWithCountry.Embassy != null)
             {
-            <p>📍 <small class="text-muted">Address: </small>@Model.EmbassyWithCountry.Embassy.Address</p>
-            <p>🕜 <small class="text-muted">Office hours: </small>@Html.Raw(Model.EmbassyWithCountry.Embassy.WorkingHours)</p>
-            <p>☎ <small class="text-muted">Phone: </small>@Model.EmbassyWithCountry.Embassy.Phone</p>
-            <p>📧 <small class="text-muted">Email: </small>@Model.EmbassyWithCountry.Embassy.Email</p>
-            <p>💻 <small class="text-muted">Website: </small><a href="@Model.EmbassyWithCountry.Embassy.Url" target="_blank">@Model.EmbassyWithCountry.Embassy.Url</a></p>
-            <p>🚴‍♂️ <small class="text-muted">Processing time: </small>@Model.EmbassyWithCountry.Embassy.ProcessingTime</p>
-            <p>☝ <small class="text-muted">Special conditions: </small>@Model.EmbassyWithCountry.Embassy.SpecialConditions</p>
-            <p>🐱‍💻 <small class="text-muted">Visa application form: </small><a href="@Model.EmbassyWithCountry.Embassy.ApplicationFormUrl" target="_blank"> link</a></p>
+                <p>📍 <small class="text-muted">Address: </small>@Model.EmbassyWithCountry.Embassy.Address</p>
+                <p>🕜 <small class="text-muted">Office hours: </small>@Html.Raw(Model.EmbassyWithCountry.Embassy.WorkingHours)</p>
+                <p>☎ <small class="text-muted">Phone: </small>@Model.EmbassyWithCountry.Embassy.Phone</p>
+                <p>📧 <small class="text-muted">Email: </small>@Model.EmbassyWithCountry.Embassy.Email</p>
+                <p>💻 <small class="text-muted">Website: </small><a href="@Model.EmbassyWithCountry.Embassy.Url" target="_blank">@Model.EmbassyWithCountry.Embassy.Url</a></p>
+                <p>🚴‍♂️ <small class="text-muted">Processing time: </small>@Model.EmbassyWithCountry.Embassy.ProcessingTime</p>
+                <p>☝ <small class="text-muted">Special conditions: </small>@Model.EmbassyWithCountry.Embassy.SpecialConditions</p>
+                <p>🐱‍💻 <small class="text-muted">Visa application form: </small><a href="@Model.EmbassyWithCountry.Embassy.ApplicationFormUrl" target="_blank"> link</a></p>
             }
             else
             {
-            <p>🤔 Details not found.. Working on it.</p>
+                <p>🤔 Details not found.. Working on it.</p>
             }
 
         </div>
