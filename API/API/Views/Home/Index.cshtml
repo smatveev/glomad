@@ -58,70 +58,70 @@
 
 @if (Model.Visas != null || Model.VisasNonEntry != null)
 {
-    <section class="container my-5">
+<section class="container my-5">
 
-        <h2 class="mb-5 fw-bold text-center">
-            💳 Here are the types of visas available to visit <a href="/@Model.ToCountryName">@Model.ToCountryName</a>
-        </h2>
+    <h2 class="mb-5 fw-bold text-center">
+        💳 Here are the types of visas available to visit <a href="/@Model.ToCountryName">@Model.ToCountryName</a>
+    </h2>
 
-        @if (Model.Visas != null)
+    @if (Model.VisasNonEntry != null)
+    {
+        @foreach (var nonEntry in Model.VisasNonEntry)
         {
-            @foreach (var visa in Model.Visas)
-            {
-                <div class="py-2">
-                    <div class="p-3 bg-light rounded-3">
-                        <div class="container-fluid">
-                            <h5 class="fw-bold">@visa.VisaName</h5>
-                            <div class="col-md-12 fs-6">@Html.Raw(visa.Description)</div>
-                            @if (visa.IsExdendable)
-                            {
-                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                    ✨ Extendable
-                                </span>
-                            }
-                            @if (visa.Duration > 0)
-                            {
-                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                    🕜 Duration @visa.Duration days
-                                </span>
-                            }
-                        </div>
+            <div class="py-2">
+                <div class="p-3 bg-light rounded-3">
+                    <div class="container-fluid">
+                        <h5 class="fw-bold">@nonEntry.VisaName</h5>
+                        <div class="col-md-12">@Html.Raw(nonEntry.Description)</div>
+
+                        @if (@nonEntry.IsExdendable)
+                        {
+                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                ✨ Extendable
+                            </span>
+                        }
+
+                        @if (nonEntry.Duration > 0)
+                        {
+                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                🕜 Duration @nonEntry.Duration days
+                            </span>
+                        }
+
                     </div>
                 </div>
-            }
+            </div>
         }
+    }
 
-        @if (Model.VisasNonEntry != null)
+    @if (Model.Visas != null)
+    {
+        @foreach (var visa in Model.Visas)
         {
-            @foreach (var nonEntry in Model.VisasNonEntry)
-            {
-                <div class="py-2">
-                    <div class="p-3 bg-light rounded-3">
-                        <div class="container-fluid">
-                            <h5 class="fw-bold">@nonEntry.VisaName</h5>
-                            <div class="col-md-12">@Html.Raw(nonEntry.Description)</div>
-
-                            @if (@nonEntry.IsExdendable)
-                            {
-                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                    ✨ Extendable
-                                </span>
-                            }
-
-                            @if (nonEntry.Duration > 0)
-                            {
-                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                    🕜 Duration @nonEntry.Duration days
-                                </span>
-                            }
-
-                        </div>
+            <div class="py-2">
+                <div class="p-3 bg-light rounded-3">
+                    <div class="container-fluid">
+                        <h5 class="fw-bold">@visa.VisaName</h5>
+                        <div class="col-md-12 fs-6">@Html.Raw(visa.Description)</div>
+                        @if (visa.IsExdendable)
+                        {
+                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                ✨ Extendable
+                            </span>
+                        }
+                        @if (visa.Duration > 0)
+                        {
+                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                🕜 Duration @visa.Duration days
+                            </span>
+                        }
                     </div>
                 </div>
-            }
+            </div>
         }
+    }
 
-    </section>
+</section>
 }
 
 
