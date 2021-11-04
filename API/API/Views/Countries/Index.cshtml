@@ -63,9 +63,13 @@
                                         ✨ Extendable
                                     </span>
                                 }
-                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                    🕜 Duration @visa.Duration days
-                                </span>
+                                @if (visa.Duration > 0)
+                                {
+                                    <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                        🕜 Duration @visa.Duration days
+                                    </span>
+                                }
+
                             </div>
                         </div>
                     </div>

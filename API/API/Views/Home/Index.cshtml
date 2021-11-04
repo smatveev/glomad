@@ -79,7 +79,7 @@
                                     ✨ Extendable
                                 </span>
                             }
-                            @if (visa.Duration != null && visa.Duration > 0)
+                            @if (visa.Duration > 0)
                             {
                                 <span class="badge badge-card bg-info text-dark m-2 fs-6">
                                     🕜 Duration @visa.Duration days
@@ -108,9 +108,13 @@
                                 </span>
                             }
 
-                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                🕜 Duration @nonEntry.Duration days
-                            </span>
+                            @if (nonEntry.Duration > 0)
+                            {
+                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                    🕜 Duration @nonEntry.Duration days
+                                </span>
+                            }
+
                         </div>
                     </div>
                 </div>
