@@ -19,5 +19,6 @@ namespace API.Models
 
         public string Description { get; set; }
         public short Duration { get; set; }
+        public string EVisaUrl { get; set; }
     }
 }
