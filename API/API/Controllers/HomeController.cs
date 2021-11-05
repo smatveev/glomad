@@ -73,7 +73,8 @@ namespace API.Controllers
                                     {
                                         Id = co.Id,
                                         Description = co.Description,
-                                        VisaName = "No Entry Visa"
+                                        VisaName = "No Entry Visa",
+                                        Duration = co.Duration
                                     });
                 mo.PassportCapitalCode = _context.Country.FirstOrDefault(c => c.Id == mo.Passport).CapitalCode;
                 mo.PassportCountryName = _context.Country.FirstOrDefault(c => c.Id == mo.Passport).Name;
