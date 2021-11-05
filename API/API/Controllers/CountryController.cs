@@ -87,13 +87,14 @@ namespace API.Controllers
             ViewBag.CountryName = country;
             var countries = (from ne in _context.NoVisaEntry
                              join co in _context.Country on ne.CountryPassport.Id equals co.Id
-                             where co.Name == country
+                             where co.Name == country && ne.IsVisaRequired == false
                              select new CountryFreeEntry
                              {
                                  Details = ne.Description,
                                  Id = ne.CountryDestination.Id,
                                  Iata = ne.CountryDestination.ISOalpha3 != null ? ne.CountryDestination.ISOalpha3 : "No data",
-                                 Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data"
+                                 Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data",
+                                 EVisaAvailable = ne.IsEVisaAvailable
                              }).ToList();
 
             return View("FreeEntry", countries);

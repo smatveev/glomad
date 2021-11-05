@@ -40,7 +40,7 @@
 
     <h2 class="fw-bold text-center p-4">🛂 Free entry with passport of @ViewBag.CountryName</h2>
 
-    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         @foreach (var c in Model)
         {
         <div class="col">
@@ -56,8 +56,12 @@
                     }
                     <img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">
                     <div class="card-img-overlay">
-                        <h5 class="card-title shadowed text-center align-middle pt-5 pb-5 lh-1 fw-bold">@c.Name</h5>
-                        <span class="position-absolute shadowed bottom-0 start-0 p-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
+                        @if(c.EVisaAvailable) {
+                            <span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa</span>
+                        }
+
+                        <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
+                        <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
                     </div>
                 </div>
             </a>
