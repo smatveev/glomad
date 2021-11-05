@@ -40,12 +40,13 @@
 
     <h2 class="fw-bold text-center p-4">🛂 Free entry with passport of @ViewBag.CountryName</h2>
 
-    @foreach (var c in Model)
-    {
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    @{ 
+    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @foreach (var c in Model)
+        {
+        <div class="col">
+            <a href="/@c.Name">
+                <div class="card bg-dark text-white border-0 rounded-5">
+                    @{
                         var countryImage = c.Name.ToLower();
                         var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
                         if (!System.IO.File.Exists(path2))
@@ -53,17 +54,23 @@
                             countryImage = "nocover";
                         }
                     }
-                    <img src="../@(countryImage).jpg" class="img-fluid rounded-start" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <a href="/@c.Name"><h5 class="card-title">@c.Name</h5></a>
-                        <p class="card-text">@c.Details</p>
-                        <p class="card-text"><small class="text-muted">Last updated 2 days ago</small></p>
+                    <img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title shadowed text-center align-middle pt-5 pb-5 lh-1 fw-bold">@c.Name</h5>
+                        <span class="position-absolute shadowed bottom-0 start-0 p-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
-    }
+        }
+    </div>
 
 </section>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        })
+    </script>
+}
