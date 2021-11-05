@@ -57,7 +57,10 @@ namespace API.Controllers
         public IActionResult NoEntry(string country)
         {
             ViewBag.CountryName = country;
-            var countries = (from ne in _context.NoVisaEntry
+
+            var model = new List<CountryFreeEntry>();
+
+            model = (from ne in _context.NoVisaEntry
                          join co in _context.Country on ne.CountryDestination.Id equals co.Id
                          where co.Name == country
                          select new CountryFreeEntry
@@ -65,18 +68,20 @@ namespace API.Controllers
                              Details = ne.Description,
                              Id = co.Id,
                              Iata = ne.CountryPassport.ISOalpha3 != null ? ne.CountryPassport.ISOalpha3 : "No data",
-                             Name = ne.CountryPassport.Name != null ? ne.CountryPassport.Name : "No data"
-                         });
+                             Name = ne.CountryPassport.Name != null ? ne.CountryPassport.Name : "No data",
+                             EVisaAvailable = ne.IsEVisaAvailable,
+                             IsVisaRequired = ne.IsVisaRequired
+                         }).ToList();
 
-            var model = new Dictionary<string, List<CountryFreeEntry>>();
-            foreach (var c in countries)
-            {
-                var key = c.Details.Trim();
-                if (model.ContainsKey(key))
-                    model[key].Add(c);
-                else
-                    model.Add(key, new List<CountryFreeEntry>() { c });
-            }
+            
+            //foreach (var c in countries)
+            //{
+            //    var key = API.Helpers.Strings.StripHTML(c.Details.Trim());
+            //    if (model.ContainsKey(key))
+            //        model[key].Add(c);
+            //    else
+            //        model.Add(key, new List<CountryFreeEntry>() { c });
+            //}
 
             return View("NoEntry", model);
         }

@@ -1,6 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
-@model Dictionary<string, List<CountryFreeEntry>>;
+@model List<CountryFreeEntry>;
 
 @{
     ViewData["Title"] = $"No Entry visa to {ViewBag.CountryName}";
@@ -40,36 +40,110 @@
 
     <h2 class="fw-bold text-center p-4">🖐 No visa entry to @ViewBag.CountryName</h2>
 
-    <div id="accordion">
-        @foreach (KeyValuePair<string, List<CountryFreeEntry>> entry in Model)
-        {
-            int id = 0;
-            int id2 = 100;
-            <div class="card mb-4">
-                <div class="card-header" id="@id">
-                    <h5 class="mb-0">
-                        <button class="btn" data-toggle="collapse" data-target="#@id2" aria-expanded="true" aria-controls="@id2">
-                            👉 @entry.Key;
-                        </button>
-                    </h5>
-                </div>
-
-                <div id="@id2" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 collapse show" aria-labelledby="@id" data-parent="#accordion">
-                    @foreach (var country in entry.Value)
-                    {
-                        <div class="col">
-                            <div class="card-body">
-                                <span class="flag-icon flag-icon-@country.Iata.ToLower()"></span>
-                                <a href="/@country.Name" class="card-link m-2">@country.Name</a>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-            id++;
-            id2++;
-        }
-
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="cb_novisaentry" value="novisaentry">
+        <label class="form-check-label" for="cb_novisaentry">No visa entry</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="cb_evisa" value="evisa">
+        <label class="form-check-label" for="cb_evisa">E-Visa available</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="cb_visareq" value="visareq">
+        <label class="form-check-label" for="cb_visareq">Visa required</label>
     </div>
 
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @foreach (var c in Model)
+        {
+            <div class="col">
+                <a href="/@c.Name">
+                    <div class="card bg-dark text-white border-0 rounded-5">
+                        @{
+                            var countryImage = c.Name.ToLower();
+                            var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
+                            if (!System.IO.File.Exists(path2))
+                            {
+                                countryImage = "nocover";
+                            }
+                        }
+                        <img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">
+                        <div class="card-img-overlay">
+                            <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
+                            <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+
+    @*<div class="pb-3" id="filters">
+        @foreach (KeyValuePair<string, List<CountryFreeEntry>> entry in Model)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="@entry.Key" id="filter_@entry.Key">
+                <label class="form-check-label" for="filter_@entry.Key">
+                    @entry.Key
+                </label>
+            </div>
+        }
+    </div>
+
+    <div>
+        @foreach (KeyValuePair<string, List<CountryFreeEntry>> entry in Model)
+        {
+            @foreach (var country in entry.Value)
+            {
+                <span class="class_@entry.Key m-2 badge rounded-pill bg-light text-dark">
+                    <span class="flag-icon flag-icon-@country.Iata.ToLower()"></span>
+                    <a href="/@country.Name" class="card-link m-2">@country.Name</a>
+                </span>
+            }
+        }
+    </div>*@
+
+    @*<div id="accordion">
+            @foreach (KeyValuePair<string, List<CountryFreeEntry>> entry in Model)
+            {
+                int id = 0;
+                int id2 = 100;
+                <div class="card mb-4">
+                    <div class="card-header" id="@id">
+                        <h5 class="mb-0">
+                            <button class="btn" data-toggle="collapse" data-target="#@id2" aria-expanded="true" aria-controls="@id2">
+                                👉 @entry.Key;
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="@id2" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 collapse show" aria-labelledby="@id" data-parent="#accordion">
+                        @foreach (var country in entry.Value)
+                        {
+                            <div class="col">
+                                <div class="card-body">
+                                    <span class="flag-icon flag-icon-@country.Iata.ToLower()"></span>
+                                    <a href="/@country.Name" class="card-link m-2">@country.Name</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                id++;
+                id2++;
+            }
+
+        </div>*@
+
 </section>
+
+@section Scripts {
+    @*<script>
+        $("#filters :checkbox").click(function () {
+            $("div").hide();
+            $("#filters :checkbox:checked").each(function () {
+                $("." + $(this).val()).show();
+            });
+        });
+    </script>*@
+}

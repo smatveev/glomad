@@ -37,5 +37,6 @@ namespace API.Models
         public string Iata { get; set; }
         public string Details { get; set; }
         public bool EVisaAvailable { get; set; }
+        public bool IsVisaRequired { get; set; }
     }
 }
