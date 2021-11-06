@@ -1,33 +1,56 @@
-﻿@{
-    var countries = ViewBag.Countries as List<UpdatedCountries>;
-}
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @{
+    var countries = ViewBag.Countries as List<UpdatedCountries>;
+
     ViewData["Title"] = "Countries' Visa Policy";
     ViewData["MetaDescription"] = "List of countries with last updates of visa info.";
 }
 
-<h2 class="fw-bold text-center p-4">All countries</h2>
-
-<div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-    @foreach (var c in countries)
-    {
-        <div class="col">
-            <div class="card-body">
-                <span class="flag-icon flag-icon-@c.Iata.ToLower()"></span>
-                <a href="@c.Name" class="card-link m-2">@c.Name</a>
-                <p data-utcdate="@c.UpdateDate.ToString("s", System.Globalization.CultureInfo.InvariantCulture)"></p>
-            </div>
-        </div>
-    }
+<div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/nocover.jpg') !important">
+    <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / All countries to Travel</h1>
+    <h5 class="col-lg-6 mx-auto shadowed lead">
+        There are @countries.Count countries to visit with @ViewBag.VisaOptions visa options. 
+        It contains @ViewBag.Embassies embassies with reviews and actual requirements list.
+    </h5>
 </div>
+
+<section class="container py-3">
+
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pt-4">
+        @foreach (var c in countries)
+        {
+            <div class="col">
+                <a href="/@c.Name">
+                    @{
+                        var countryImage = c.Name.ToLower();
+                        var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
+                        if (!System.IO.File.Exists(path2))
+                        {
+                            countryImage = "nocover";
+                        }
+                    }
+                    <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
+
+                        <div class="card-img-overlay">
+                            <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
+                            <p data-utcdate="@c.UpdateDate.ToString("s", System.Globalization.CultureInfo.InvariantCulture)" 
+                                  class="m-2 badge rounded-pill bg-light text-dark" >⏱ Updated: </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+
+</section>
 
 @section Scripts{
     <script>
         $(function () {
             $('[data-utcdate]').each(function () {
                 var d = moment($(this).attr('data-utcdate'), "YYYYMMDDHHmmss").fromNow(); //moment($(this).attr('data-utcdate'));
-                $(this).html("⏱ Updated " + d);
+                $(this).html("⏱ Updated: " + d);
             });
         });
     </script>

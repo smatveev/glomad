@@ -34,7 +34,10 @@ namespace API.Controllers
                            Iata = c.ISOalpha3,
                            UpdateDate = c.UpdateDate.Value
                        }).ToList();
+
             ViewBag.Countries = res;
+            ViewBag.VisaOptions = _context.NoVisaEntry.Count();
+            ViewBag.Embassies = _context.Embassy.Count();
             return View("Countries");
         }
 
