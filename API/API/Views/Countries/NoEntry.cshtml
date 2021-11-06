@@ -41,22 +41,18 @@
     <h2 class="fw-bold text-center p-4">🖐 No visa entry to @ViewBag.CountryName</h2>
 
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="cb_novisaentry" value="novisaentry">
+        <input class="form-check-input" type="checkbox" id="cb_novisaentry" value="novisaentry" checked>
         <label class="form-check-label" for="cb_novisaentry">No visa entry</label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="cb_evisa" value="evisa">
         <label class="form-check-label" for="cb_evisa">E-Visa available</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="cb_visareq" value="visareq">
-        <label class="form-check-label" for="cb_visareq">Visa required</label>
-    </div>
 
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pt-4">
         @foreach (var c in Model)
         {
-            <div class="col">
+            <div class="col novisaentry @(c.EVisaAvailable ? "evisa display-none" : "")">
                 <a href="/@c.Name">
                     <div class="card bg-dark text-white border-0 rounded-5">
                         @{
@@ -69,6 +65,12 @@
                         }
                         <img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">
                         <div class="card-img-overlay">
+                            <span class="position-absolute top-0 end-0 m-2 badge rounded-pill bg-success text-white">👋 No visa entry</span>
+                            @if (c.EVisaAvailable)
+                            {
+                                <span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa</span>
+                            }
+
                             <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
                             <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
                         </div>
@@ -138,12 +140,12 @@
 </section>
 
 @section Scripts {
-    @*<script>
-        $("#filters :checkbox").click(function () {
-            $("div").hide();
-            $("#filters :checkbox:checked").each(function () {
+    <script>
+        $(":checkbox").click(function () {
+            $(".col").hide();
+            $(":checkbox:checked").each(function () {
                 $("." + $(this).val()).show();
             });
         });
-    </script>*@
+    </script>
 }

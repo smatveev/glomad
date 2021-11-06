@@ -99,7 +99,8 @@ namespace API.Controllers
                                  Id = ne.CountryDestination.Id,
                                  Iata = ne.CountryDestination.ISOalpha3 != null ? ne.CountryDestination.ISOalpha3 : "No data",
                                  Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data",
-                                 EVisaAvailable = ne.IsEVisaAvailable
+                                 EVisaAvailable = ne.IsEVisaAvailable,
+                                 IsVisaRequired = ne.IsVisaRequired
                              }).ToList();
 
             return View("FreeEntry", countries);
