@@ -45,19 +45,19 @@
         {
         <div class="col">
             <a href="/@c.Name">
-                <div class="card bg-dark text-white border-0 rounded-5">
-                    @{
+                @{
                         var countryImage = c.Name.ToLower();
                         var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
                         if (!System.IO.File.Exists(path2))
                         {
                             countryImage = "nocover";
                         }
-                    }
-                    <img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">
+                }
+                <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
+                    @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
                     <div class="card-img-overlay">
                         @if(c.EVisaAvailable) {
-                            <span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa</span>
+                        <span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa</span>
                         }
 
                         <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
