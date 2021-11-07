@@ -1,4 +1,7 @@
-﻿@model API.Models.IndexModel
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+
+@model API.Models.IndexModel
 
 @{
     ViewData["Title"] = "How to get a visa easily anywhere?";
@@ -56,7 +59,7 @@
     </div>
 </header>
 
-@if (Model.Visas != null || Model.VisasNonEntry != null)
+@if (Model.Visas != null && Model.Visas.Any())
 {
 <section class="container my-5">
 
@@ -64,61 +67,28 @@
         💳 Here are the types of visas available to visit <a href="/@Model.ToCountryName">@Model.ToCountryName</a>
     </h2>
 
-    @if (Model.VisasNonEntry != null)
+    @foreach (var visa in Model.Visas)
     {
-        @foreach (var nonEntry in Model.VisasNonEntry)
-        {
-            <div class="py-2">
-                <div class="p-3 bg-light rounded-3">
-                    <div class="container-fluid">
-                        <h5 class="fw-bold">@nonEntry.VisaName</h5>
-                        <div class="col-md-12">@Html.Raw(nonEntry.Description)</div>
-
-                        @if (@nonEntry.IsExdendable)
-                        {
-                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                ✨ Extendable
-                            </span>
-                        }
-
-                        @if (nonEntry.Duration > 0)
-                        {
-                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                🕜 Duration @nonEntry.Duration days
-                            </span>
-                        }
-
-                    </div>
+        <div class="py-2">
+            <div class="p-3 bg-light rounded-3">
+                <div class="container-fluid">
+                    <h5 class="fw-bold">@visa.VisaName</h5>
+                    <div class="col-md-12 fs-6">@Html.Raw(visa.Description)</div>
+                    @if (visa.IsExdendable)
+                    {
+                        <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                            ✨ Extendable
+                        </span>
+                    }
+                    @if (visa.Duration > 0)
+                    {
+                        <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                            🕜 Duration @visa.Duration days
+                        </span>
+                    }
                 </div>
             </div>
-        }
-    }
-
-    @if (Model.Visas != null)
-    {
-        @foreach (var visa in Model.Visas)
-        {
-            <div class="py-2">
-                <div class="p-3 bg-light rounded-3">
-                    <div class="container-fluid">
-                        <h5 class="fw-bold">@visa.VisaName</h5>
-                        <div class="col-md-12 fs-6">@Html.Raw(visa.Description)</div>
-                        @if (visa.IsExdendable)
-                        {
-                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                ✨ Extendable
-                            </span>
-                        }
-                        @if (visa.Duration > 0)
-                        {
-                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                🕜 Duration @visa.Duration days
-                            </span>
-                        }
-                    </div>
-                </div>
-            </div>
-        }
+        </div>
     }
 
 </section>
@@ -146,6 +116,60 @@
     </section>
 }
 
+@if (Model.FreeCountries != null && Model.FreeCountries.Any())
+{
+    <section class="container -py-4 my-5">
+        <h2 class="mb-5 fw-bold text-center">🛂 Free entry with passport of <a href="/@Model.PassportCountryName">@Model.PassportCountryName</a></h2>
+        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+            @{ int count = 0; }
+            @foreach (var c in Model.FreeCountries)
+            {
+                if (count == 3)
+                {
+                    <div class="col">
+                        <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
+                            <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../safetywind_300.jpg');">
+                                <div class="card-img-overlay text-center">
+                                    <h3 class="card-title shadowed mt-5 lh-1 fw-bold">Global travel medical insurance</h3>
+                                    <p class="m-1 badge rounded-pill bg-info text-dark">for $1.5/day!</p>
+                                    <p class="m-1 badge rounded-pill bg-warning text-dark">Covid-19 coverage</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                };
+                count++;
+
+                <div class="col">
+                    <a href="/@c.Name">
+                        @{
+                            var countryImage = c.Name.ToLower();
+                            var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
+                            if (!System.IO.File.Exists(path2))
+                            {
+                                countryImage = "nocover";
+                            }
+                        }
+                        <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
+                            @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
+                            <div class="card-img-overlay">
+                                @if (c.EVisaAvailable)
+                                {
+                                    <span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa</span>
+                                }
+
+                                <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
+                                <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </section>
+}
+
 <partial name="_Nomad" />
 
 <section class="container mb-5">
@@ -162,7 +186,7 @@
         </p>
 
         <form class="p-4 p-md-5 border rounded-3 bg-light" id="feedback" method="post"
-               asp-action="CreateFeedback">
+              asp-action="CreateFeedback">
             <div class="form-floating mb-3">
                 <select id="CountryId" class="form-select" asp-items="@ViewBag.Countries">
                     <option disabled selected value="0">Select country</option>

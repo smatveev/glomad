@@ -25,7 +25,8 @@ namespace API.Models
 
         public string CovidInfo { get; set; }
 
-        public IEnumerable<VisaSearchResult> Visas { get; set; }
-        public IEnumerable<VisaSearchResult> VisasNonEntry { get; set; }
+        public List<VisaSearchResult> Visas { get; set; }
+        //public IEnumerable<VisaSearchResult> VisasNonEntry { get; set; }
+        public List<CountryFreeEntry> FreeCountries { get; set; }
     }
 }

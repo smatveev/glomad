@@ -69,7 +69,7 @@ namespace API.Controllers
 
             if (mo.Passport > 0)
             {
-                mo.VisasNonEntry = (from co in _context.NoVisaEntry
+                mo.Visas = (from co in _context.NoVisaEntry
                                     where co.CountryDestination.Id == To && co.CountryPassport.Id == mo.Passport
                                     select new VisaSearchResult
                                     {
@@ -77,22 +77,39 @@ namespace API.Controllers
                                         Description = co.Description,
                                         VisaName = "No Entry Visa",
                                         Duration = co.Duration
-                                    });
+                                    }).ToList();
+
                 mo.PassportCapitalCode = _context.Country.FirstOrDefault(c => c.Id == mo.Passport).CapitalCode;
                 mo.PassportCountryName = _context.Country.FirstOrDefault(c => c.Id == mo.Passport).Name;
 
-                mo.CovidInfo = _context.Country.FirstOrDefault(c => c.Id == To).CovidRestrictions; // Thai
+                if(To > 0)
+                {
+                    mo.CovidInfo = _context.Country.FirstOrDefault(c => c.Id == To).CovidRestrictions; // Thai
 
-                mo.Visas = (from co in _context.Visa
-                            where co.Country.Id == To
-                            select new VisaSearchResult
-                            {
-                                Id = co.Id,
-                                Description = co.Description,
-                                VisaName = co.Name,
-                                IsExdendable = co.IsExtendable,
-                                Duration = co.Duration
-                            });
+                    mo.Visas.AddRange(from co in _context.Visa
+                                where co.Country.Id == To
+                                select new VisaSearchResult
+                                {
+                                    Id = co.Id,
+                                    Description = co.Description,
+                                    VisaName = co.Name,
+                                    IsExdendable = co.IsExtendable,
+                                    Duration = co.Duration
+                                });
+                }
+
+                mo.FreeCountries = (from ne in _context.NoVisaEntry
+                                    join co in _context.Country on ne.CountryPassport.Id equals co.Id
+                                    where ne.CountryPassport.Id == mo.Passport && ne.IsVisaRequired == false
+                                    select new CountryFreeEntry
+                                    {
+                                        Details = ne.Description,
+                                        Id = ne.CountryDestination.Id,
+                                        Iata = ne.CountryDestination.ISOalpha3 != null ? ne.CountryDestination.ISOalpha3 : "No data",
+                                        Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data",
+                                        EVisaAvailable = ne.IsEVisaAvailable,
+                                        IsVisaRequired = ne.IsVisaRequired
+                                    }).ToList();
             }
             return View(mo);
         }
