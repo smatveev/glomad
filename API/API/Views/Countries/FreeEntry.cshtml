@@ -41,31 +41,50 @@
     <h2 class="fw-bold text-center p-4">🛂 Free entry with passport of @ViewBag.CountryName</h2>
 
     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        
+        @{ int count = 0; }
         @foreach (var c in Model)
         {
-        <div class="col">
-            <a href="/@c.Name">
-                @{
+            if (count == 3)
+            {
+                <div class="col">
+                    <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
+                        <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../safetywind_300.jpg');">
+                            <div class="card-img-overlay text-center">
+                                <h3 class="card-title shadowed mt-5 lh-1 fw-bold">Global travel medical insurance</h3>
+                                <p class="m-1 badge rounded-pill bg-info text-dark">for $1.5/day!</p>
+                                <p class="m-1 badge rounded-pill bg-warning text-dark">Covid-19 coverage</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            };
+            count++;
+
+            <div class="col">
+                <a href="/@c.Name">
+                    @{
                         var countryImage = c.Name.ToLower();
                         var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
                         if (!System.IO.File.Exists(path2))
                         {
                             countryImage = "nocover";
                         }
-                }
-                <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
-                    @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
-                    <div class="card-img-overlay">
-                        @if(c.EVisaAvailable) {
-                        <span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa</span>
-                        }
+                    }
+                    <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
+                        @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
+                        <div class="card-img-overlay">
+                            @if (c.EVisaAvailable)
+                            {
+                                <span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa</span>
+                            }
 
-                        <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
-                        <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
+                            <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
+                            <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
         }
     </div>
 
