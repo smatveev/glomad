@@ -26,7 +26,6 @@ namespace API.Controllers
         public IActionResult Index()
         {
             List<UpdatedCountries> res = (from c in _context.Country
-                       where c.UpdateDate != null
                        select new UpdatedCountries
                        {
                            Id = c.Id,

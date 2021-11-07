@@ -9,7 +9,7 @@
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/nocover.jpg') !important">
     <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / All countries to Travel</h1>
-    <h5 class="col-lg-6 mx-auto shadowed lead">
+    <h5 class="col-lg-6 mx-auto shadowed">
         There are @countries.Count countries to visit with @ViewBag.VisaOptions visa options. 
         It contains @ViewBag.Embassies embassies with reviews and actual requirements list.
     </h5>
@@ -32,10 +32,13 @@
                     }
                     <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
 
-                        <div class="card-img-overlay">
-                            <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
-                            <p data-utcdate="@c.UpdateDate.ToString("s", System.Globalization.CultureInfo.InvariantCulture)" 
-                                  class="m-2 badge rounded-pill bg-light text-dark" >⏱ Updated: </p>
+                        <div class="card-img-overlay text-center">
+                            <h3 class="card-title shadowed mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
+                            @if(c.UpdateDate != null) {
+                                <p data-utcdate="@c.UpdateDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture)"
+                                   class="m-2 badge rounded-pill bg-light text-dark">⏱ Updated: </p>
+                            }
+
                         </div>
                     </div>
                 </a>
