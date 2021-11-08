@@ -25,6 +25,9 @@ namespace Glomad.Models
         public DateTime? UpdateDate { get; set; }
         [StringLength(20)]
         public string CapitalCode { get; set; }
+        public short LetNoEntryVisaCount { get; set; }
+        public short LetEVisaCount { get; set; }
+        public short LetVisaCount { get; set; }
     }
 
     public class CountryVM
