@@ -59,7 +59,7 @@
     </div>
 </header>
 
-@if (Model.Visas != null && Model.Visas.Any())
+@if (Model.Visas?.Count > 0)
 {
 <section class="container my-5">
 
@@ -116,7 +116,7 @@
     </section>
 }
 
-@if (Model.FreeCountries != null && Model.FreeCountries.Any())
+@if (Model.FreeCountries?.Count > 0)
 {
     <section class="container -py-4 my-5">
         <h2 class="mb-5 fw-bold text-center">🛂 Free entry with passport of <a href="/@Model.PassportCountryName">@Model.PassportCountryName</a></h2>
