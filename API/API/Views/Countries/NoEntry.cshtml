@@ -24,7 +24,10 @@
     <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @ViewBag.CountryName</h1>
     <div class="col-lg-6 lead mx-auto shadowed">
         There are @Model.Count no visa entry countries to visit @ViewBag.CountryName
-        and @evisa coutries with simply obtaining E-Visa among them.
+        @if (evisa > 0)
+        {
+            @: and @evisa coutries with simply obtaining E - Visa among them.
+        }
         For the citizens of @String.Join(", ", top.Select(r => r.Name)) the best conditions of entry are provided right now,
         that are longest visa of @top.First().Duration days.
     </div>
