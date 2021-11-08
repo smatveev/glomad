@@ -3,6 +3,9 @@
 @model List<CountryFreeEntry>
 
 @{
+    int evisa = Model.Where(CountryFreeEntry => CountryFreeEntry.EVisaAvailable == true).Count();
+    List<CountryFreeEntry> top = Model.OrderByDescending(CountryFreeEntry => CountryFreeEntry.Duration).Take(3).ToList();
+
     ViewData["Title"] = $"Free entry with passport of {ViewBag.CountryName}";
     ViewData["MetaDescription"] = $"List of countries where you can free entry with passort of {ViewBag.CountryName}";
 
@@ -14,8 +17,14 @@
     }
 }
 
-<div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/@bgimage') !important">
+<div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
     <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @ViewBag.CountryName</h1>
+    <div class="col-lg-6 lead mx-auto shadowed">
+        For you as a holder the passport of @ViewBag.CountryName available @Model.Count countries with no visa entry.
+        It also contains @evisa coutries with simply obtaining E-Visa among them.
+        With passport of @ViewBag.CountryName the best visa conditions provided by @String.Join(", ", top.Select(r => r.Name)) with
+        visa duration of @top.First().Duration days.
+    </div>
 </div>
 
 <section class="container py-3">
@@ -81,6 +90,7 @@
 
                             <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
                             <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
+                            <span class="position-absolute bottom-0 end-0 m-2 badge rounded-pill bg-info text-dark">@c.Duration days</span>
                         </div>
                     </div>
                 </a>

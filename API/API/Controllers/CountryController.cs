@@ -73,7 +73,7 @@ namespace API.Controllers
                              EVisaAvailable = ne.IsEVisaAvailable,
                              IsVisaRequired = ne.IsVisaRequired,
                              Duration = ne.Duration
-                         }).ToList();
+                         }).OrderByDescending(d => d.Duration).ToList();
 
             return View("NoEntry", model);
         }
@@ -92,8 +92,9 @@ namespace API.Controllers
                                  Iata = ne.CountryDestination.ISOalpha3 != null ? ne.CountryDestination.ISOalpha3 : "No data",
                                  Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data",
                                  EVisaAvailable = ne.IsEVisaAvailable,
-                                 IsVisaRequired = ne.IsVisaRequired
-                             }).ToList();
+                                 IsVisaRequired = ne.IsVisaRequired,
+                                 Duration = ne.Duration
+                             }).OrderByDescending(d => d.Duration).ToList();
 
             return View("FreeEntry", countries);
         }
