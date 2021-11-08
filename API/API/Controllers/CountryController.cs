@@ -57,6 +57,7 @@ namespace API.Controllers
         public IActionResult NoEntry(string country)
         {
             ViewBag.CountryName = country;
+            ViewBag.LastUpdates = _context.Country.Where(c => c.Name == country).Select(r => r.UpdateDate.Value).ToString();
 
             var model = new List<CountryFreeEntry>();
 
@@ -70,18 +71,9 @@ namespace API.Controllers
                              Iata = ne.CountryPassport.ISOalpha3 != null ? ne.CountryPassport.ISOalpha3 : "No data",
                              Name = ne.CountryPassport.Name != null ? ne.CountryPassport.Name : "No data",
                              EVisaAvailable = ne.IsEVisaAvailable,
-                             IsVisaRequired = ne.IsVisaRequired
+                             IsVisaRequired = ne.IsVisaRequired,
+                             Duration = ne.Duration
                          }).ToList();
-
-            
-            //foreach (var c in countries)
-            //{
-            //    var key = API.Helpers.Strings.StripHTML(c.Details.Trim());
-            //    if (model.ContainsKey(key))
-            //        model[key].Add(c);
-            //    else
-            //        model.Add(key, new List<CountryFreeEntry>() { c });
-            //}
 
             return View("NoEntry", model);
         }
