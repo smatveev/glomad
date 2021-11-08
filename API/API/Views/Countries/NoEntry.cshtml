@@ -26,7 +26,7 @@
         There are @Model.Count no visa entry countries to visit @ViewBag.CountryName
         @if (evisa > 0)
         {
-            @: and @evisa coutries with simply obtaining E - Visa among them.
+            @: and @evisa countries with simply obtaining E - Visa among them.
         }
         For the citizens of @String.Join(", ", top.Select(r => r.Name)) the best conditions of entry are provided right now,
         that are longest visa of @top.First().Duration days.

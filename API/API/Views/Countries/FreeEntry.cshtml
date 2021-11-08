@@ -22,7 +22,7 @@
     <div class="col-lg-6 lead mx-auto shadowed">
         For you as a holder the passport of @ViewBag.CountryName available @Model.Count countries with no visa entry.
         @if(evisa > 0) {
-        @: It also contains @evisa coutries with simply obtaining E-Visa among them.
+        @: It also contains @evisa countries with simply obtaining E-Visa among them.
         }
         With passport of @ViewBag.CountryName the best visa conditions provided by @String.Join(", ", top.Select(r => r.Name)) with
         visa duration of @top.First().Duration days.
