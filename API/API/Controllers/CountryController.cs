@@ -83,7 +83,7 @@ namespace API.Controllers
         public IActionResult FreeEntry(string country)
         {
             ViewBag.CountryName = country;
-            ViewBag.Citizen = _context.Country.Where(c => c.Name == country).Select(r => r.Citizen);
+            ViewBag.Citizen = _context.Country.Where(c => c.Name == country).FirstOrDefault().Citizen;
 
             var countries = (from ne in _context.NoVisaEntry
                              join co in _context.Country on ne.CountryPassport.Id equals co.Id
