@@ -28,6 +28,7 @@ namespace Glomad.Models
         public short LetNoEntryVisaCount { get; set; }
         public short LetEVisaCount { get; set; }
         public short LetVisaCount { get; set; }
+        public string Citizen { get; set; }
     }
 
     public class CountryVM
