@@ -23,13 +23,21 @@
 <div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
     <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @ViewBag.CountryName</h1>
     <div class="col-lg-6 lead mx-auto shadowed">
-        There are @Model.Count no visa entry countries to visit @ViewBag.CountryName
+        There are @Model.Count visa-free countries available for
+        @if (string.IsNullOrEmpty(ViewBag.Citizen.ToString()))
+        {
+            @:@ViewBag.Citizen citizens.
+        }
+        else
+        {
+            @:citizens of @ViewBag.CountryName.
+        }
         @if (evisa > 0)
         {
-            @: and @evisa countries with simply obtaining E - Visa among them.
+            @: These also include @evisa countries that only require easily obtainable E - visas.
         }
-        For the citizens of @String.Join(", ", top.Select(r => r.Name)) the best conditions of entry are provided right now,
-        that are longest visa of @top.First().Duration days.
+        The countries, which offer the most extended visa-free stay period (i.e., @top.First().Duration days),
+        are @String.Join(", ", top.Select(r => r.Name)).
     </div>
 </div>
 

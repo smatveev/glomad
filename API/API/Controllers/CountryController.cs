@@ -58,6 +58,7 @@ namespace API.Controllers
         {
             ViewBag.CountryName = country;
             ViewBag.LastUpdates = _context.Country.Where(c => c.Name == country).Select(r => r.UpdateDate.Value).ToString();
+            ViewBag.Citizen = _context.Country.Where(c => c.Name == country).Select(r => r.Citizen);
 
             var model = new List<CountryFreeEntry>();
 
@@ -82,6 +83,8 @@ namespace API.Controllers
         public IActionResult FreeEntry(string country)
         {
             ViewBag.CountryName = country;
+            ViewBag.Citizen = _context.Country.Where(c => c.Name == country).Select(r => r.Citizen);
+
             var countries = (from ne in _context.NoVisaEntry
                              join co in _context.Country on ne.CountryPassport.Id equals co.Id
                              where co.Name == country && ne.IsVisaRequired == false
