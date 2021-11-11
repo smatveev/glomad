@@ -82,32 +82,34 @@
             count++;
 
             <div class="col">
-                <a href="/@c.Name">
-                    @{
-                        var countryImage = c.Name.ToLower();
-                        var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
-                        if (!System.IO.File.Exists(path2))
-                        {
-                            countryImage = "nocover";
-                        }
+                @{
+                    var countryImage = c.Name.ToLower();
+                    var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
+                    if (!System.IO.File.Exists(path2))
+                    {
+                        countryImage = "nocover";
                     }
-                    <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
-                        @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
-                        <div class="card-img-overlay">
-                            @if (c.EVisaAvailable)
-                            {
-                                <span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa</span>
-                            }
+                }
+                <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
+                    @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
+                    <div class="card-img-overlay">
+                        @if (c.EVisaAvailable)
+                        {
+                            <a href="@c.EVisaUrl" target="_blank" rel="noopener nofollow noreferrer">
+                                <span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa 👈</span>
+                            </a>
+                        }
 
+                        <a class="text-white text-decoration-none" href="/@c.Name">
                             <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
+                        </a>
                             <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
                             @if (c.Duration > 0)
                             {
                                 <span class="position-absolute bottom-0 end-0 m-2 badge rounded-pill bg-info text-dark">@c.Duration days</span>
                             }
-                        </div>
                     </div>
-                </a>
+                </div>
             </div>
         }
     </div>

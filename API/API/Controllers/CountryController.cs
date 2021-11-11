@@ -73,7 +73,8 @@ namespace API.Controllers
                              Name = ne.CountryPassport.Name != null ? ne.CountryPassport.Name : "No data",
                              EVisaAvailable = ne.IsEVisaAvailable,
                              IsVisaRequired = ne.IsVisaRequired,
-                             Duration = ne.Duration
+                             Duration = ne.Duration,
+                             EVisaUrl = ne.EVisaUrl
                          }).OrderByDescending(d => d.Duration).ToList();
 
             return View("NoEntry", model);
@@ -96,7 +97,8 @@ namespace API.Controllers
                                  Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data",
                                  EVisaAvailable = ne.IsEVisaAvailable,
                                  IsVisaRequired = ne.IsVisaRequired,
-                                 Duration = ne.Duration
+                                 Duration = ne.Duration,
+                                 EVisaUrl = ne.EVisaUrl
                              }).OrderByDescending(d => d.Duration).ToList();
 
             return View("FreeEntry", countries);

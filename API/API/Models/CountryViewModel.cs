@@ -39,5 +39,6 @@ namespace API.Models
         public bool EVisaAvailable { get; set; }
         public bool IsVisaRequired { get; set; }
         public short Duration { get; set; }
+        public string EVisaUrl { get; set; }
     }
 }
