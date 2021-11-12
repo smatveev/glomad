@@ -8,6 +8,7 @@
 
     ViewData["Title"] = $"Free entry with passport of {ViewBag.CountryName}";
     ViewData["MetaDescription"] = $"List of countries where you can free entry with passort of {ViewBag.CountryName}";
+    ViewData["Canonical"] = $"https://glomad.net/{ViewBag.CountryName}/FreeEntry";
 
     string bgimage = ViewBag.CountryName.ToLower() + ".jpg";
     var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);

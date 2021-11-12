@@ -11,6 +11,7 @@
     ViewData["Title"] = $"No Entry visa to {ViewBag.CountryName}";
     ViewData["MetaDescription"] = $"List of countries with visa - free (no entry) travel to {ViewBag.CountryName}. " +
                 $"Last update {ViewBag.LastUpdates}";
+    ViewData["Canonical"] = $"https://glomad.net/{ViewBag.CountryName}/NoEntry";
 
     string bgimage = ViewBag.CountryName + ".jpg";
     var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);

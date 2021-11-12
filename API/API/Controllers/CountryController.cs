@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Helpers;
+using API.Models;
 using Glomad.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -56,7 +57,7 @@ namespace API.Controllers
         [Route("{country}/NoEntry")]
         public IActionResult NoEntry(string country)
         {
-            ViewBag.CountryName = country;
+            ViewBag.CountryName = country.FirstCharToUpper();
             ViewBag.LastUpdates = _context.Country.Where(c => c.Name == country).Select(r => r.UpdateDate.Value).ToString();
             ViewBag.Citizen = _context.Country.Where(c => c.Name == country).Select(r => r.Citizen);
 
@@ -83,7 +84,7 @@ namespace API.Controllers
         [Route("{country}/FreeEntry")]
         public IActionResult FreeEntry(string country)
         {
-            ViewBag.CountryName = country;
+            ViewBag.CountryName = country.FirstCharToUpper();
             ViewBag.Citizen = _context.Country.Where(c => c.Name == country).FirstOrDefault().Citizen;
 
             var countries = (from ne in _context.NoVisaEntry
