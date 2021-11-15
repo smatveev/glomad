@@ -41,6 +41,7 @@ namespace API.Controllers
                                }).Distinct().ToList();
 
             model.Visas = (from co in _context.Visa
+                           join r in _context.Review on co.Id equals r.Visa.Id
                            where co.Country.Id == model.Country.Id
                            select new VisaSearchResult
                            {
@@ -48,7 +49,8 @@ namespace API.Controllers
                                Description = co.Description,
                                VisaName = co.Name,
                                IsExdendable = co.IsExtendable,
-                               Duration = co.Duration
+                               Duration = co.Duration,
+                               Review = r
                            }).ToList();
 
             return View(model);

@@ -69,9 +69,93 @@
                     <div>
                         <div class="p-2 bg-light rounded-3 overflow-auto" style="height: 400px;">
                             <div>
-                                <h5 class="fw-bold">@visa.VisaName</h5>
+                                <h5 class="fw-bold m-2">@visa.VisaName</h5>
 
-                                <p class="col-md-12">@Html.Raw(visa.Description)</p>
+                                <table class="table table-borderless m-0">
+                                    <tbody>
+                                        @if (visa.Review != null)
+                                        {
+                                            string simpleR = "r1";
+                                            string simpleT = "🤯 Complicated";
+                                            int simple = visa.Review.Simplicity * 100 / 5;
+                                            if (simple > 35 && simple < 75)
+                                            {
+                                                simpleR = "r3";
+                                                simpleT = "🤨 Avarage";
+                                            }
+                                            if (simple >= 75)
+                                            {
+                                                simpleR = "r5";
+                                                simpleT = "😎 Easy";
+                                            }
+
+                                            string waitR = "r1";
+                                            string waitT = "🐢 Very slow";
+                                            int wait = visa.Review.Waiting * 100 / 5;
+                                            if (wait > 35 && wait < 75)
+                                            {
+                                                waitR = "r3";
+                                                waitT = "🦘 Avarage";
+                                            }
+                                            if (wait >= 75)
+                                            {
+                                                waitR = "r5";
+                                                waitT = "🐎 Quick";
+                                            }
+
+
+                                            int loy = visa.Review.Loyalty * 100 / 5;
+                                            string loyR = "r1";
+                                            string loyT = "👎 Low";
+                                            if (loy > 35 && loy < 75)
+                                            {
+                                                loyR = "r3";
+                                                loyT = "👌 Avarage";
+                                            }
+                                            if (loy >= 75)
+                                            {
+                                                loyR = "r5";
+                                                loyT = "👋 Perfect";
+                                            }
+                                            <tr>
+                                                <td><a class="text-decoration-none" href="#">12 Reviews</a></td>
+                                                <td style="vertical-align: middle;">
+                                                    <button type="button" class="btn btn-outline-primary btn-sm">Add review</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>😎 Simplicity</td>
+                                                <td>
+                                                    <div class="rating rounded">
+                                                        <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
+                                                            @simpleT: @simple%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>🥱 Waiting time</td>
+                                                <td>
+                                                    <div class="rating rounded">
+                                                        <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
+                                                            @waitT: @wait%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>🤗 Loyalty</td>
+                                                <td>
+                                                    <div class="rating rounded">
+                                                        <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
+                                                            @loyT: @loy%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
 
                                 @if (visa.IsExdendable)
                                 {
@@ -86,6 +170,7 @@
                                     </span>
                                 }
 
+                                <p class="col-md-12 p-2">@Html.Raw(visa.Description)</p>
                             </div>
                         </div>
                     </div>
