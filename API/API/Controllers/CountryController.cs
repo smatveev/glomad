@@ -57,6 +57,12 @@ namespace API.Controllers
         [Route("{country}/NoEntry")]
         public IActionResult NoEntry(string country)
         {
+            return RedirectToActionPermanent(actionName: "NoVisaEntry", controllerName: country);
+        }
+
+        [Route("{country}/NoVisaEntry")]
+        public IActionResult NoVisaEntry(string country)
+        {
             ViewBag.CountryName = country.FirstCharToUpper();
             ViewBag.LastUpdates = _context.Country.Where(c => c.Name == country).Select(r => r.UpdateDate.Value).ToString();
             ViewBag.Citizen = _context.Country.Where(c => c.Name == country).Select(r => r.Citizen);
@@ -64,21 +70,21 @@ namespace API.Controllers
             var model = new List<CountryFreeEntry>();
 
             model = (from ne in _context.NoVisaEntry
-                         join co in _context.Country on ne.CountryDestination.Id equals co.Id
-                         where co.Name == country
-                         select new CountryFreeEntry
-                         {
-                             Details = ne.Description,
-                             Id = co.Id,
-                             Iata = ne.CountryPassport.ISOalpha3 != null ? ne.CountryPassport.ISOalpha3 : "No data",
-                             Name = ne.CountryPassport.Name != null ? ne.CountryPassport.Name : "No data",
-                             EVisaAvailable = ne.IsEVisaAvailable,
-                             IsVisaRequired = ne.IsVisaRequired,
-                             Duration = ne.Duration,
-                             EVisaUrl = ne.EVisaUrl
-                         }).OrderByDescending(d => d.Duration).ToList();
+                     join co in _context.Country on ne.CountryDestination.Id equals co.Id
+                     where co.Name == country
+                     select new CountryFreeEntry
+                     {
+                         Details = ne.Description,
+                         Id = co.Id,
+                         Iata = ne.CountryPassport.ISOalpha3 != null ? ne.CountryPassport.ISOalpha3 : "No data",
+                         Name = ne.CountryPassport.Name != null ? ne.CountryPassport.Name : "No data",
+                         EVisaAvailable = ne.IsEVisaAvailable,
+                         IsVisaRequired = ne.IsVisaRequired,
+                         Duration = ne.Duration,
+                         EVisaUrl = ne.EVisaUrl
+                     }).OrderByDescending(d => d.Duration).ToList();
 
-            return View("NoEntry", model);
+            return View("NoVisaEntry", model);
         }
 
         [Route("{country}/FreeEntry")]
