@@ -23,7 +23,7 @@
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
     <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @ViewBag.CountryName</h1>
-    <div class="col-lg-6 lead mx-auto shadowed">
+    <h5 class="col-lg-8 mx-auto shadowed">
         There are @Model.Count countries whose citizens are not required to obtain a visa to visit @ViewBag.CountryName,
         @if (evisa > 0)
         {
@@ -31,7 +31,7 @@
         }
         Citizens of @String.Join(", ", top.Select(r => r.Name))
         are allowed to stay in @ViewBag.CountryName without a visa for up to @top.First().Duration days.
-    </div>
+    </h5>
 </div>
 
 <section class="container py-3">

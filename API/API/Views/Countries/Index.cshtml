@@ -21,7 +21,7 @@
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
     <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @Model.Country.Name</h1>
-    <div class="col-lg-6 lead mx-auto shadowed">
+    <h5 class="col-lg-8 mx-auto shadowed">
         There @Model.Visas.Count are two types of visas in @Model.Country.Name.
         The longest is @topDuration days.
 
@@ -36,7 +36,7 @@
             <p id="updatedate" data-utcdate="@Model.Country.UpdateDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture);"></p>
         }
 
-    </div>
+    </h5>
 </div>
 
 <section class="container py-3">
