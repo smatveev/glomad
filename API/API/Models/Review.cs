@@ -23,4 +23,17 @@ namespace API.Models
         public string Pros { get; set; }
         public string Cons { get; set; }
     }
+
+    public class ReviewCreate
+    {
+        public int VisaId { get; set; }
+
+        public int EmbassyId { get; set; }
+        public byte Simplicity { get; set; }
+        public byte Waiting { get; set; }
+        public byte Loyalty { get; set; }
+        public bool IsObtained { get; set; }
+        public string Pros { get; set; }
+        public string Cons { get; set; }
+    }
 }

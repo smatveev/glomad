@@ -4,6 +4,7 @@ using Glomad.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,18 +41,20 @@ namespace API.Controllers
                                    Iata = c.ISOalpha3.ToLower()
                                }).Distinct().ToList();
 
-            model.Visas = (from co in _context.Visa
-                           join r in _context.Review on co.Id equals r.Visa.Id
-                           where co.Country.Id == model.Country.Id
+            model.Visas = (from v in _context.Visa
+                           where v.Country.Id == model.Country.Id
                            select new VisaSearchResult
                            {
-                               Id = co.Id,
-                               Description = co.Description,
-                               VisaName = co.Name,
-                               IsExdendable = co.IsExtendable,
-                               Duration = co.Duration,
-                               Review = r
+                               Id = v.Id,
+                               Description = v.Description,
+                               VisaName = v.Name,
+                               IsExdendable = v.IsExtendable,
+                               Duration = v.Duration
                            }).ToList();
+            foreach(var v in model.Visas)
+            {
+                v.Reviews = _context.Review.Where(r => r.Visa.Id == v.Id).ToList();
+            }
 
             return View(model);
         }
@@ -111,6 +114,45 @@ namespace API.Controllers
                              }).OrderByDescending(d => d.Duration).ToList();
 
             return View("FreeEntry", countries);
+        }
+
+        [Route("Country/CreateReview")]
+        [HttpPost("CreateReview")]
+        public IActionResult CreateReview([FromBody] ReviewCreate reviewCreate)
+        {
+            try
+            {
+
+                Visa v = _context.Visa.FirstOrDefault(c => c.Id == reviewCreate.VisaId);
+                Embassy e = _context.Embassy.FirstOrDefault(e => e.Id == reviewCreate.EmbassyId);
+                Review r = new()
+                {
+                    Visa = v,
+                    Embassy = e,
+                    Cons = reviewCreate.Cons,
+                    Pros = reviewCreate.Pros,
+                    Loyalty = reviewCreate.Loyalty,
+                    Simplicity = reviewCreate.Simplicity,
+                    Waiting = reviewCreate.Waiting,
+                    IsObtained = reviewCreate.IsObtained
+                };
+
+                _context.Review.Add(r);
+                _context.SaveChanges();
+                Helpers.EmailSender.SendReview(reviewCreate);
+            }
+            catch (Exception e)
+            {
+                return Error();
+            }
+
+            return Ok();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

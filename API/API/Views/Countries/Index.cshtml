@@ -73,11 +73,11 @@
 
                                 <table class="table table-borderless m-0">
                                     <tbody>
-                                        @if (visa.Review != null)
+                                        @if (visa.Reviews != null && visa.Reviews.Count > 0)
                                         {
                                             string simpleR = "r1";
                                             string simpleT = "🤯 Complicated";
-                                            int simple = visa.Review.Simplicity * 100 / 5;
+                                            int simple = (int)visa.Reviews.Average(i => i.Simplicity) * 100 / 5;
                                             if (simple > 35 && simple < 75)
                                             {
                                                 simpleR = "r3";
@@ -91,7 +91,7 @@
 
                                             string waitR = "r1";
                                             string waitT = "🐢 Very slow";
-                                            int wait = visa.Review.Waiting * 100 / 5;
+                                            int wait = (int)visa.Reviews.Average(i => i.Waiting) * 100 / 5;
                                             if (wait > 35 && wait < 75)
                                             {
                                                 waitR = "r3";
@@ -104,7 +104,7 @@
                                             }
 
 
-                                            int loy = visa.Review.Loyalty * 100 / 5;
+                                            int loy = (int)visa.Reviews.Average(i => i.Loyalty) * 100 / 5;
                                             string loyR = "r1";
                                             string loyT = "👎 Low";
                                             if (loy > 35 && loy < 75)
@@ -118,9 +118,10 @@
                                                 loyT = "👋 Perfect";
                                             }
                                             <tr>
-                                                <td><a class="text-decoration-none" href="#">12 Reviews</a></td>
+                                                <td><a class="text-decoration-none" href="#">@visa.Reviews.Count Reviews</a></td>
                                                 <td style="vertical-align: middle;">
-                                                    <button type="button" class="btn btn-outline-primary btn-sm">Add review</button>
+                                                    <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview"
+                                                            class="btn btn-outline-primary btn-sm">Add review</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -223,6 +224,81 @@
     </div>
 </section>
 
+
+<div class="modal fade" id="addReview" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Write an anonymous review about your experience with Thailand. How is it? What should people know about?</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row form-floating mb-3">
+                        <div class="col-6">
+                            <select id="embassy" class="form-select">
+                                <option value="" disabled>Choose embassy...</option>
+                                @foreach (var e in Model.Embassies)
+                                {
+                                    <option value="@e.Id">@e.Country, @e.City</option>
+                                }
+                                <option value="-1">Other embassy</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" id="visa">
+                                <option value="" disabled>Choose visa name</option>
+                                @foreach(var v in Model.Visas)
+                                {
+                                    <option value="@v.Id">@v.VisaName</option>
+                                }
+                                <option value="-1">Other visa type</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="simplicity" min="1" max="5">
+                        <label for="simplicity">Simplicity</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="waiting" min="1" max="5">
+                        <label for="waiting">Waiting time</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="loyalty" min="1" max="5">
+                        <label for="loyalty">Loyalty</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-check-input" type="checkbox" value="" id="gotVisa" checked>
+                        <label class="form-check-label" for="gotVisa">
+                            I've obtained the visa!
+                        </label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="proc" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">What advantages would you like to note? What did you like?</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="cons" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">What were the challenges? What to pay attention to?</label>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <span class="lead" id="status"></span>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="ReviewSubmit()">Send</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
         $(function () {
@@ -241,5 +317,32 @@
                 window.location.hash = this.hash;
             });
         });
+
+        function ReviewSubmit() {
+            var review = new Object();
+            review.VisaId = $('#visa').val();
+            review.EmbassyId = $('#embassy').val();
+            review.Loyalty = $('#loyalty').val();
+            review.Simplicity = $('#simplicity').val();
+            review.Waiting = $('#waiting').val();
+            review.Pros = $('#proc').val();
+            review.Cons = $('#cons').val();
+            review.IsObtained = $('#gotVisa').is(":checked");
+
+            $.ajax({
+                type: 'POST',
+                url: "Country/CreateReview",
+                data: JSON.stringify(review),
+                dataType: 'html',
+                contentType: "application/json"
+            })
+                .done(function (response) {
+                    $("#addReview #status").text("🤗 Thanks so much for contributing, I saved your review! It will take fe hours day to update the visa and embassy page and show your review everywhere and people will be able to read it!")
+                })
+                .fail(function (response) {
+                    $("#addReview #status").text("😥 Something went wrong. Pleace check the fields and try again")
+                });
+        }
+
     </script>
 }

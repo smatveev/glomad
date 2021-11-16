@@ -34,6 +34,6 @@ namespace API.Models
         public string Description { get; set; }
         public bool IsExdendable{ get; set; }
         public short Duration { get; set; }
-        public Review Review { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }
