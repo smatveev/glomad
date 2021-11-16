@@ -11,7 +11,7 @@
     ViewData["Title"] = $"No Entry visa to {ViewBag.CountryName}";
     ViewData["MetaDescription"] = $"List of countries with visa - free (no entry) travel to {ViewBag.CountryName}. " +
                 $"Last update {ViewBag.LastUpdates}";
-    ViewData["Canonical"] = $"https://glomad.net/{ViewBag.CountryName}/NoEntry";
+    ViewData["Canonical"] = $"https://glomad.net/{ViewBag.CountryName}/NoVisaEntry";
 
     string bgimage = ViewBag.CountryName + ".jpg";
     var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);
@@ -47,7 +47,7 @@
             <a class="nav-link" href="/@ViewBag.CountryName#covid">😷 Covid</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="/@ViewBag.CountryName/NoEntry">🖐 No visa entry</a>
+            <a class="nav-link active" href="/@ViewBag.CountryName/NoVisaEntry">🖐 No visa entry</a>
         </li>
         <li class="nav-item" role="presentation">
             <a class="nav-link" href="/@ViewBag.CountryName/FreeEntry">🛂 Free entry with passport of @ViewBag.CountryName</a>
