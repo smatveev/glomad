@@ -23,17 +23,17 @@
 <div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
     <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @Model.Country.Name</h1>
     <h5 class="col-lg-8 mx-auto shadowed">
-        There @Model.Visas.Count are two types of visas in @Model.Country.Name.
+        There are @Model.Visas.Count types of visas in @Model.Country.Name.
         @if (topDuration != null)
         {
             @:The longest is @topDuration.Duration days.
-        } 
-        
+        }
+
 
         @*The most popular is the Tourist visa up to 90 days.*@
         @*In addition, it is possible to apply for E-visa for 90 days.*@
 
-        You can get a visa to Russia in @Model.Embassies.Count embassies around the world.
+        You can get a visa to @Model.Country.Name in @Model.Embassies.Count embassies around the world.
         @*Our users best rated the Russian embassies in @String.Join(", ", top.Select(r => r.Name)) Baku, Azerbaijan_, Minsk, Belarus, Brussels, Belgium.*@
 
         @if (@Model.Country.UpdateDate != null)
