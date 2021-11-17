@@ -14,7 +14,8 @@
         bgimage = "nocover.jpg";
     }
 
-    var topDuration = Model.Visas.OrderByDescending(m => m.Duration).FirstOrDefault().Duration;
+
+    var topDuration = Model.Visas.OrderByDescending(m => m.Duration).FirstOrDefault();
 
     //VisaSearchResult evisa = Model.Visas.Where(m => m.ev)
 }
@@ -23,7 +24,11 @@
     <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @Model.Country.Name</h1>
     <h5 class="col-lg-8 mx-auto shadowed">
         There @Model.Visas.Count are two types of visas in @Model.Country.Name.
-        The longest is @topDuration days.
+        @if (topDuration != null)
+        {
+            @:The longest is @topDuration.Duration days.
+        } 
+        
 
         @*The most popular is the Tourist visa up to 90 days.*@
         @*In addition, it is possible to apply for E-visa for 90 days.*@
