@@ -78,6 +78,15 @@
 
                                 <table class="table table-borderless m-0">
                                     <tbody>
+                                        <tr>
+                                            <td><a class="text-decoration-none" href="#">@visa.Reviews.Count Reviews</a></td>
+                                            <td style="vertical-align: middle;">
+                                                <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview"
+                                                        class="btn btn-outline-primary btn-sm">
+                                                    Add review
+                                                </button>
+                                            </td>
+                                        </tr>
                                         @if (visa.Reviews != null && visa.Reviews.Count > 0)
                                         {
                                             string simpleR = "r1";
@@ -122,13 +131,6 @@
                                                 loyR = "r5";
                                                 loyT = "👋 Perfect";
                                             }
-                                            <tr>
-                                                <td><a class="text-decoration-none" href="#">@visa.Reviews.Count Reviews</a></td>
-                                                <td style="vertical-align: middle;">
-                                                    <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview"
-                                                            class="btn btn-outline-primary btn-sm">Add review</button>
-                                                </td>
-                                            </tr>
                                             <tr>
                                                 <td>😎 Simplicity</td>
                                                 <td>
