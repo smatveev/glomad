@@ -66,6 +66,6 @@ namespace API.Models
         public List<VisaSearchResult> Visas { get; set; }
         public List<EmbassyVM> Embassies { get; set; }
         public HeaderViewModel Header { get; set; }
-        public string CapitalCode { get; set; }
+        public Country Country { get; set; }
     }
 }

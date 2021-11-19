@@ -27,8 +27,6 @@ namespace API.Controllers
             if (Country == null)
                 return RedirectToAction("Index", "Home");
 
-            model.CapitalCode = Country.CapitalCode;
-
             model.Embassies = (from e in _context.Embassy
                                join c in _context.Country
                                on e.Country.Id equals c.Id
@@ -60,16 +58,20 @@ namespace API.Controllers
             header.CountryName = country.FirstCharToUpper();
 
             var topDuration = model.Visas.OrderByDescending(m => m.Duration).FirstOrDefault();
+            var days90 = model.Visas.OrderByDescending(m => m.Duration >= 90).ToList();
             //VisaSearchResult evisa = Model.Visas.Where(m => m.ev)
 
-            header.Text = $"There are {model.Visas.Count} types of visas in {Country.Name}. ";
+            header.Text = $"{model.Visas.Count} types of tourist visas for Mauritius are presented. ";
+
             if (topDuration != null)
-                header.Text += $"The longest is {topDuration.Duration} days. ";
+                header.Text += $"The longest period of stay is {topDuration} days. ";
+            if (days90.Count == 1)
+                header.Text += $"Good options for digital nomads on {model.Header.CountryName} is {@String.Join(", ", days90.Select(r => r.VisaName))}. ";
+            if(days90.Count > 2)
+                header.Text += $"Good options for digital nomads on {model.Header.CountryName} are {@String.Join(", ", days90.Select(r => r.VisaName))}. ";
 
             //The most popular is the Tourist visa up to 90 days.
             //In addition, it is possible to apply for E - visa for 90 days.
-
-            header.Text += $"You can get a visa to {Country.Name} in {model.Embassies.Count} embassies around the world. ";
 
             //Our users best rated the Russian embassies in @String.Join(", ", top.Select(r => r.Name)) Baku, Azerbaijan_, Minsk, Belarus, Brussels, Belgium.
 

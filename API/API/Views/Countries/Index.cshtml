@@ -3,8 +3,8 @@
 @model IndexPage
 
 @{
-    ViewData["Title"] = Model.Header.CountryName + " Visa Policy";
-    ViewData["MetaDescription"] = $"How to get tourist visa to {Model.Header.CountryName}. Visa fees.";
+    ViewData["Title"] = $"Types of {Model.Country.Citizen} visas – tourist, nomad and other in {DateTime.Now.Year}."; // Model.Header.CountryName + " Visa Policy";
+    ViewData["MetaDescription"] = $"List of {Model.Country.Citizen} visas types, period of validity, duration of stay, number of entries, and other parameters.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
 }
 
@@ -132,7 +132,7 @@
         }
         <div class="p-2 bg-light rounded-3">
             <div>
-                <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.CapitalCode" charset="utf-8"></script>
+                <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
             </div>
         </div>
     </div>
