@@ -51,6 +51,7 @@ namespace API.Models
 
     public struct EmbassiesPage
     {
+        public Country Country { get; set; }
         public List<EmbassyVM> Embassies { get; set; }
         public HeaderViewModel Header { get; set; }
     }

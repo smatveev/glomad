@@ -3,8 +3,8 @@
 @model EmbassiesPage
 
 @{
-    ViewData["Title"] = Model.Header.CountryName + " Visa Policy";
-    ViewData["MetaDescription"] = $"How to get tourist visa to {Model.Header.CountryName}. Visa fees. Last updates of {Model.Header.CountryName} COVID-19 travel requirements and restrictions. List of {Model.Header.CountryName} embassies.";
+    ViewData["Title"] = $"List of {Model.Country.Citizen}  Embassies and Consulates around the world in {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"{Model.Country.Name} embassies and consulates in different countries in {DateTime.Now.Year}. Find the needed embassy of {Model.Country.Name} and its information. Addresses, telephone numbers, email addresses, websites, opening hours.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Embassies";
 }
 

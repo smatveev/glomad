@@ -89,6 +89,8 @@ namespace API.Controllers
         {
             var model = new EmbassiesPage();
 
+            Country Country = _context.Country.FirstOrDefault(m => m.Name == country);
+
             model.Embassies = (from e in _context.Embassy
                                join c in _context.Country
                                on e.Country.Id equals c.Id
@@ -103,7 +105,7 @@ namespace API.Controllers
 
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
-            header.Text = $"List of Embassies and Consulates of {header.CountryName}. Find a list of country name embassies around the world below";
+            header.Text = $"List of Embassies and Consulates of {header.CountryName}. Find a list of country name embassies around the world below. You can get a visa to {header.CountryName} in {model.Embassies.Count} embassies around the world.";
 
             model.Header = header;
 
