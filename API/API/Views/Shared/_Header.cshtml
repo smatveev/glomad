@@ -1,0 +1,19 @@
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+@model HeaderViewModel
+
+@{
+    string bgimage = Model.CountryName.ToLower() + ".jpg";
+    var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);
+    if (!System.IO.File.Exists(path))
+    {
+        bgimage = "nocover.jpg";
+    }
+}
+
+<div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
+    <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @Model.CountryName</h1>
+    <h5 class="col-lg-8 mx-auto shadowed">
+        @Model.Text
+    </h5>
+</div>

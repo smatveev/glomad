@@ -13,6 +13,7 @@ namespace API.Models
         public string Covid { get; set; }
         public List<EmbassyVM> Embassies { get; set; }
         public List<VisaSearchResult> Visas { get; set; }
+        public HeaderViewModel Header { get; set; }
     }
 
     public struct EmbassyVM {
@@ -40,5 +41,31 @@ namespace API.Models
         public bool IsVisaRequired { get; set; }
         public short Duration { get; set; }
         public string EVisaUrl { get; set; }
+    }
+
+    public struct FreeEntry
+    {
+        public List<CountryFreeEntry> countries { get; set; }
+        public HeaderViewModel header { get; set; }
+    }
+
+    public struct EmbassiesPage
+    {
+        public List<EmbassyVM> Embassies { get; set; }
+        public HeaderViewModel Header { get; set; }
+    }
+
+    public struct CovidPage
+    {
+        public string Covid { get; set; }
+        public HeaderViewModel Header { get; set; }
+    }
+
+    public struct IndexPage
+    {
+        public List<VisaSearchResult> Visas { get; set; }
+        public List<EmbassyVM> Embassies { get; set; }
+        public HeaderViewModel Header { get; set; }
+        public string CapitalCode { get; set; }
     }
 }

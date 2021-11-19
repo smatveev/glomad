@@ -1,0 +1,21 @@
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+@model CovidPage
+
+@{
+    ViewData["Title"] = Model.Header.CountryName + " Visa Policy";
+    ViewData["MetaDescription"] = $"Last updates of {Model.Header.CountryName} COVID-19 travel requirements and restrictions.";
+    ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
+}
+
+@await Html.PartialAsync("_Header", Model.Header)
+
+<section class="container py-3">
+
+    @await Html.PartialAsync("_Menu", Model.Header.CountryName)
+
+    <h2 class="fw-bold text-center p-4">🦠 @Model.Header.CountryName COVID-19 travel requirements</h2>
+
+    <div class="p-3">@Html.Raw(Model.Covid)</div>
+
+</section>

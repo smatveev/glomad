@@ -1,70 +1,25 @@
 ﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
-@model List<CountryFreeEntry>
+@model FreeEntry
 
 @{
-    int evisa = Model.Where(CountryFreeEntry => CountryFreeEntry.EVisaAvailable == true).Count();
-    List<CountryFreeEntry> top = Model.OrderByDescending(CountryFreeEntry => CountryFreeEntry.Duration).Take(3).ToList();
-
-    ViewData["Title"] = $"Free entry with passport of {ViewBag.CountryName}";
-    ViewData["MetaDescription"] = $"List of countries where you can free entry with passort of {ViewBag.CountryName}";
-    ViewData["Canonical"] = $"https://glomad.net/{ViewBag.CountryName}/FreeEntry";
-
-    string bgimage = ViewBag.CountryName.ToLower() + ".jpg";
-    var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);
-    if (!System.IO.File.Exists(path))
-    {
-        bgimage = "nocover.jpg";
-    }
+    ViewData["Title"] = $"Free entry with passport of {Model.header.CountryName}";
+    ViewData["MetaDescription"] = $"List of countries where you can free entry with passort of {Model.header.CountryName}";
+    ViewData["Canonical"] = $"https://glomad.net/{Model.header.CountryName}/FreeEntry";
 }
 
-<div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
-    <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @ViewBag.CountryName</h1>
-    <h5 class="col-lg-8 mx-auto shadowed">
-        There are @Model.Count visa-free countries available for
-        @if (!string.IsNullOrEmpty(ViewBag.Citizen))
-        {
-            @:@ViewBag.Citizen citizens.
-        }
-        else
-        {
-            @:citizens of @ViewBag.CountryName.
-        }
-        @if (evisa > 0)
-        {
-            @: These also include @evisa countries that only require easily obtainable E - visas.
-        }
-        The countries, which offer the most extended visa-free stay period (i.e., @top.First().Duration days),
-        are @String.Join(", ", top.Select(r => r.Name)).
-    </h5>
-</div>
+@await Html.PartialAsync("_Header", Model.header)
 
 <section class="container py-3">
 
-    <ul class="nav nav-pills" id="mytabs">
-        <li class="nav-item">
-            <a class="nav-link" href="/@ViewBag.CountryName#visas">🎫 Visas</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/@ViewBag.CountryName#embassies">🏤 Embassies</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/@ViewBag.CountryName#covid">😷 Covid</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/@ViewBag.CountryName/NoVisaEntry">🖐 No visa entry</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="/@ViewBag.CountryName/FreeEntry">🛂 Free entry with passport of @ViewBag.CountryName</a>
-        </li>
-    </ul>
+    @await Html.PartialAsync("_Menu", Model.header.CountryName)
 
-    <h2 class="fw-bold text-center p-4">🛂 Free entry with passport of @ViewBag.CountryName</h2>
+    <h2 class="fw-bold text-center p-4">🛂 Free entry with passport of @Model.header.CountryName</h2>
 
     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        
+
         @{ int count = 0; }
-        @foreach (var c in Model)
+        @foreach (var c in Model.countries)
         {
             if (count == 3)
             {
@@ -104,11 +59,11 @@
                         <a class="text-white text-decoration-none" href="/@c.Name">
                             <h3 class="card-title shadowed text-center align-middle mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
                         </a>
-                            <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
-                            @if (c.Duration > 0)
-                            {
-                                <span class="position-absolute bottom-0 end-0 m-2 badge rounded-pill bg-info text-dark">@c.Duration days</span>
-                            }
+                        <span class="position-absolute bottom-0 start-0 m-2 badge rounded-pill bg-light text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@c.Details">👉 Details</span>
+                        @if (c.Duration > 0)
+                        {
+                            <span class="position-absolute bottom-0 end-0 m-2 badge rounded-pill bg-info text-dark">@c.Duration days</span>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,0 +1,19 @@
+﻿@model string
+
+<ul class="nav nav-pills" id="mytabs">
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].Equals("Index") ? "active" : "")" href="/@Model">🎫 Visas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("embassies") ? "active" : "")" href="/@Model/Embassies">🏤 Embassies</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("covid") ? "active" : "")" href="/@Model/Covid">😷 Covid</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("novisaentry") ? "active" : "")" href="/@Model/NoVisaEntry">🖐 No visa entry</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("freeentry") ? "active" : "")" href="/@Model/FreeEntry">🛂 Free entry with passport of @Model</a>
+    </li>
+</ul>

@@ -1,233 +1,140 @@
 ﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
-@model CountryViewModel
+@model IndexPage
 
 @{
-    ViewData["Title"] = Model.Country.Name + " Visa Policy";
-    ViewData["MetaDescription"] = $"How to get tourist visa to {Model.Country.Name}. Visa fees. Last updates of {Model.Country.Name} COVID-19 travel requirements and restrictions. List of {Model.Country.Name} embassies.";
-    ViewData["Canonical"] = $"https://glomad.net/{Model.Country.Name}";
-
-    string bgimage = Model.Country.Name + ".jpg";
-    var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);
-    if (!System.IO.File.Exists(path))
-    {
-        bgimage = "nocover.jpg";
-    }
-
-
-    var topDuration = Model.Visas.OrderByDescending(m => m.Duration).FirstOrDefault();
-
-    //VisaSearchResult evisa = Model.Visas.Where(m => m.ev)
+    ViewData["Title"] = Model.Header.CountryName + " Visa Policy";
+    ViewData["MetaDescription"] = $"How to get tourist visa to {Model.Header.CountryName}. Visa fees.";
+    ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
 }
 
-<div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
-    <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @Model.Country.Name</h1>
-    <h5 class="col-lg-8 mx-auto shadowed">
-        There are @Model.Visas.Count types of visas in @Model.Country.Name.
-        @if (topDuration != null)
-        {
-            @:The longest is @topDuration.Duration days.
-        }
-
-
-        @*The most popular is the Tourist visa up to 90 days.*@
-        @*In addition, it is possible to apply for E-visa for 90 days.*@
-
-        You can get a visa to @Model.Country.Name in @Model.Embassies.Count embassies around the world.
-        @*Our users best rated the Russian embassies in @String.Join(", ", top.Select(r => r.Name)) Baku, Azerbaijan_, Minsk, Belarus, Brussels, Belgium.*@
-
-        @if (@Model.Country.UpdateDate != null)
-        {
-            <p id="updatedate" data-utcdate="@Model.Country.UpdateDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture);"></p>
-        }
-
-    </h5>
-</div>
+@await Html.PartialAsync("_Header", Model.Header)
 
 <section class="container py-3">
 
-    <ul class="nav nav-pills" role="tablist" id="mytabs">
-        <li class="nav-item" role="presentation">
-            <a id="visas-tab" class="nav-link active" role="tab" aria-current="page" href="#visas" data-bs-toggle="tab" data-bs-target="#visas" aria-controls="visas" aria-selected="true">🎫 Visas</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a id="embassies-tab" class="nav-link" role="tab" href="#embassies" data-bs-toggle="tab" data-bs-target="#embassies" aria-controls="embassies" aria-selected="false">🏤 Embassies</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a id="covid-tab" class="nav-link" role="tab" href="#covid" data-bs-toggle="tab" data-bs-target="#covid" aria-controls="covid" aria-selected="false">😷 Covid</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" href="/@Model.Country.Name/NoVisaEntry">🖐 No visa entry</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" href="/@Model.Country.Name/FreeEntry">🛂 Free entry with passport of @Model.Country.Name</a>
-        </li>
-    </ul>
+    @await Html.PartialAsync("_Menu", Model.Header.CountryName)
 
-    <div class="tab-content" id="myTabContent">
-
-        <div class="tab-pane fade show active" id="visas" role="tabpanel" aria-labelledby="visas-tab">
-            <h2 class="fw-bold text-center p-4">💳 List of @Model.Country.Name visa types</h2>
-            <div class="row row-cols-sm-1  row-cols-lg-3 row-cols-md-2 g-4">
-                @foreach (var visa in Model.Visas)
-                {
+    <h2 class="fw-bold text-center p-4">💳 List of @Model.Header.CountryName visa types</h2>
+    <div class="row row-cols-sm-1  row-cols-lg-3 row-cols-md-2 g-4">
+        @foreach (var visa in Model.Visas)
+        {
+            <div>
+                <div class="p-2 bg-light rounded-3 overflow-auto" style="height: 400px;">
                     <div>
-                        <div class="p-2 bg-light rounded-3 overflow-auto" style="height: 400px;">
-                            <div>
-                                <h5 class="fw-bold m-2">@visa.VisaName</h5>
+                        <h5 class="fw-bold m-2">@visa.VisaName</h5>
 
-                                <table class="table table-borderless m-0">
-                                    <tbody>
-                                        <tr>
-                                            <td><a class="text-decoration-none" href="#">@visa.Reviews.Count Reviews</a></td>
-                                            <td style="vertical-align: middle;">
-                                                <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview"
-                                                        class="btn btn-outline-primary btn-sm">
-                                                    Add review
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        @if (visa.Reviews != null && visa.Reviews.Count > 0)
-                                        {
-                                            string simpleR = "r1";
-                                            string simpleT = "🤯 Complicated";
-                                            int simple = (int)visa.Reviews.Average(i => i.Simplicity) * 100 / 5;
-                                            if (simple > 35 && simple < 75)
-                                            {
-                                                simpleR = "r3";
-                                                simpleT = "🤨 Avarage";
-                                            }
-                                            if (simple >= 75)
-                                            {
-                                                simpleR = "r5";
-                                                simpleT = "😎 Easy";
-                                            }
-
-                                            string waitR = "r1";
-                                            string waitT = "🐢 Very slow";
-                                            int wait = (int)visa.Reviews.Average(i => i.Waiting) * 100 / 5;
-                                            if (wait > 35 && wait < 75)
-                                            {
-                                                waitR = "r3";
-                                                waitT = "🦘 Avarage";
-                                            }
-                                            if (wait >= 75)
-                                            {
-                                                waitR = "r5";
-                                                waitT = "🐎 Quick";
-                                            }
-
-
-                                            int loy = (int)visa.Reviews.Average(i => i.Loyalty) * 100 / 5;
-                                            string loyR = "r1";
-                                            string loyT = "👎 Low";
-                                            if (loy > 35 && loy < 75)
-                                            {
-                                                loyR = "r3";
-                                                loyT = "👌 Avarage";
-                                            }
-                                            if (loy >= 75)
-                                            {
-                                                loyR = "r5";
-                                                loyT = "👋 Perfect";
-                                            }
-                                            <tr>
-                                                <td>😎 Simplicity</td>
-                                                <td>
-                                                    <div class="rating rounded">
-                                                        <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
-                                                            @simpleT: @simple%
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>🥱 Waiting time</td>
-                                                <td>
-                                                    <div class="rating rounded">
-                                                        <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
-                                                            @waitT: @wait%
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>🤗 Loyalty</td>
-                                                <td>
-                                                    <div class="rating rounded">
-                                                        <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
-                                                            @loyT: @loy%
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-
-                                @if (visa.IsExdendable)
+                        <table class="table table-borderless m-0">
+                            <tbody>
+                                <tr>
+                                    <td><a class="text-decoration-none" href="#">@visa.Reviews.Count Reviews</a></td>
+                                    <td style="vertical-align: middle;">
+                                        <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview"
+                                                class="btn btn-outline-primary btn-sm">
+                                            Add review
+                                        </button>
+                                    </td>
+                                </tr>
+                                @if (visa.Reviews != null && visa.Reviews.Count > 0)
                                 {
-                                    <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                        ✨ Extendable
-                                    </span>
-                                }
-                                @if (visa.Duration > 0)
-                                {
-                                    <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                        🕜 Duration @visa.Duration days
-                                    </span>
-                                }
+                                    string simpleR = "r1";
+                                    string simpleT = "🤯 Complicated";
+                                    int simple = (int)visa.Reviews.Average(i => i.Simplicity) * 100 / 5;
+                                    if (simple > 35 && simple < 75)
+                                    {
+                                        simpleR = "r3";
+                                        simpleT = "🤨 Avarage";
+                                    }
+                                    if (simple >= 75)
+                                    {
+                                        simpleR = "r5";
+                                        simpleT = "😎 Easy";
+                                    }
 
-                                <p class="col-md-12 p-2">@Html.Raw(visa.Description)</p>
-                            </div>
-                        </div>
-                    </div>
-                }
-                <div class="p-2 bg-light rounded-3">
-                    <div>
-                        <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
+                                    string waitR = "r1";
+                                    string waitT = "🐢 Very slow";
+                                    int wait = (int)visa.Reviews.Average(i => i.Waiting) * 100 / 5;
+                                    if (wait > 35 && wait < 75)
+                                    {
+                                        waitR = "r3";
+                                        waitT = "🦘 Avarage";
+                                    }
+                                    if (wait >= 75)
+                                    {
+                                        waitR = "r5";
+                                        waitT = "🐎 Quick";
+                                    }
+
+
+                                    int loy = (int)visa.Reviews.Average(i => i.Loyalty) * 100 / 5;
+                                    string loyR = "r1";
+                                    string loyT = "👎 Low";
+                                    if (loy > 35 && loy < 75)
+                                    {
+                                        loyR = "r3";
+                                        loyT = "👌 Avarage";
+                                    }
+                                    if (loy >= 75)
+                                    {
+                                        loyR = "r5";
+                                        loyT = "👋 Perfect";
+                                    }
+                                    <tr>
+                                        <td>😎 Simplicity</td>
+                                        <td>
+                                            <div class="rating rounded">
+                                                <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
+                                                    @simpleT: @simple%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>🥱 Waiting time</td>
+                                        <td>
+                                            <div class="rating rounded">
+                                                <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
+                                                    @waitT: @wait%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>🤗 Loyalty</td>
+                                        <td>
+                                            <div class="rating rounded">
+                                                <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
+                                                    @loyT: @loy%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        @if (visa.IsExdendable)
+                        {
+                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                ✨ Extendable
+                            </span>
+                        }
+                        @if (visa.Duration > 0)
+                        {
+                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                🕜 Duration @visa.Duration days
+                            </span>
+                        }
+
+                        <p class="col-md-12 p-2">@Html.Raw(visa.Description)</p>
                     </div>
                 </div>
             </div>
-        </div>
-
-
-        <div class="tab-pane fade" id="embassies" role="tabpanel" aria-labelledby="embassies-tab">
-            <h2 class="fw-bold text-center p-4">🏢 List of @Model.Country.Name embassies</h2>
-            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                @foreach (var e in Model.Embassies)
-                {
-                    <div class="col">
-                        <a href="/@Model.Country.Name/Embassy/@e.Id">
-                            @{
-                                var countryImage = @e.Country.ToLower();
-                                var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
-                                if (!System.IO.File.Exists(path2))
-                                {
-                                    countryImage = "nocover";
-                                }
-                            }
-                            <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
-                                @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
-                                <div class="card-img-overlay">
-                                    <h3 class="card-title shadowed text-center align-middle mt-5 mb-3 lh-1 fw-bold">@e.Country</h3>
-                                    <h5 class="card-title shadowed text-center align-middle lh-1 fw-bold">@e.City</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                }
+        }
+        <div class="p-2 bg-light rounded-3">
+            <div>
+                <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.CapitalCode" charset="utf-8"></script>
             </div>
         </div>
-
-
-        <div class="tab-pane fade" id="covid" role="tabpanel" aria-labelledby="covid-tab">
-            <section>
-                <h2 class="fw-bold text-center p-4">🦠 @Model.Country.Name COVID-19 travel requirements</h2>
-                <div class="p-3">@Html.Raw(Model.Covid)</div>
-            </section>
-        </div>
-
     </div>
 </section>
 
@@ -254,7 +161,7 @@
                         <div class="col-6">
                             <select class="form-select" id="visa">
                                 <option value="" disabled>Choose visa name</option>
-                                @foreach(var v in Model.Visas)
+                                @foreach (var v in Model.Visas)
                                 {
                                     <option value="@v.Id">@v.VisaName</option>
                                 }
