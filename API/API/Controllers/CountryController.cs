@@ -23,8 +23,8 @@ namespace API.Controllers
         {
             var model = new IndexPage();
 
-            Country Country = _context.Country.FirstOrDefault(m => m.Name == country);
-            if (Country == null)
+            model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
+            if (model.Country == null)
                 return RedirectToAction("Index", "Home");
 
             model.Embassies = (from e in _context.Embassy
@@ -40,7 +40,7 @@ namespace API.Controllers
                                }).Distinct().ToList();
 
             model.Visas = (from v in _context.Visa
-                           where v.Country.Id == Country.Id
+                           where v.Country.Id == model.Country.Id
                            select new VisaSearchResult
                            {
                                Id = v.Id,
@@ -61,14 +61,24 @@ namespace API.Controllers
             var days90 = model.Visas.OrderByDescending(m => m.Duration >= 90).ToList();
             //VisaSearchResult evisa = Model.Visas.Where(m => m.ev)
 
-            header.Text = $"{model.Visas.Count} types of tourist visas for Mauritius are presented. ";
+            header.Text = $"{model.Visas.Count} types of tourist visas for {model.Country.Name} are presented. ";
 
             if (topDuration != null)
-                header.Text += $"The longest period of stay is {topDuration} days. ";
+                header.Text += $"The longest period of stay is {topDuration.Duration} days. ";
             if (days90.Count == 1)
-                header.Text += $"Good options for digital nomads on {model.Header.CountryName} is {@String.Join(", ", days90.Select(r => r.VisaName))}. ";
-            if(days90.Count > 2)
-                header.Text += $"Good options for digital nomads on {model.Header.CountryName} are {@String.Join(", ", days90.Select(r => r.VisaName))}. ";
+                header.Text += $"Good options for digital nomads on {model.Country.Name} is {@String.Join(", ", days90.Select(r => r.VisaName))}. ";
+            if(days90.Count >= 2)
+                header.Text += $"Good options for digital nomads on {model.Country.Name} are {@String.Join(", ", days90.Select(r => r.VisaName))}. ";
+
+
+//            если есть рейтинг
+//The most popular visa among Glomad's users is the {Visa name} up to {duration} days.
+
+//Евиза может прийти только если локация есть.
+//Если есть  евиза в спике
+//{ citezen}
+//            citezens can get E-visa up to { duration}
+//            days for travelling to { country Name}.
 
             //The most popular is the Tourist visa up to 90 days.
             //In addition, it is possible to apply for E - visa for 90 days.
@@ -89,7 +99,7 @@ namespace API.Controllers
         {
             var model = new EmbassiesPage();
 
-            Country Country = _context.Country.FirstOrDefault(m => m.Name == country);
+            model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
 
             model.Embassies = (from e in _context.Embassy
                                join c in _context.Country
@@ -117,12 +127,12 @@ namespace API.Controllers
         {
             var model = new CovidPage();
 
-            var Country = _context.Country.FirstOrDefault(m => m.Name == country);
-
-            model.Covid = _context.Country.FirstOrDefault(c => c.Id == Country.Id).CovidRestrictions;
+            model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
+            model.Covid = _context.Country.FirstOrDefault(c => c.Id == model.Country.Id).CovidRestrictions;
 
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
+            header.Text = $"Up-to-date info COVID-19 travel restrictions. Quarantine conditions, entry requrements, list of approved vaccines and etc., help you make decisions about future trips in {DateTime.Now.Year}.";
             model.Header = header;
 
             return View("Covid", model);
@@ -137,7 +147,7 @@ namespace API.Controllers
         [Route("{country}/NoVisaEntry")]
         public IActionResult NoVisaEntry(string country)
         {
-            ViewBag.LastUpdates = _context.Country.Where(c => c.Name == country).Select(r => r.UpdateDate.Value).ToString();
+            ViewBag.LastUpdates = _context.Country.Where(c => c.Name == country).Select(r => r.UpdateDate.Value);
 
             var model = new FreeEntry();
 

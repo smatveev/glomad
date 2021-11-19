@@ -3,9 +3,9 @@
 @model CovidPage
 
 @{
-    ViewData["Title"] = Model.Header.CountryName + " Visa Policy";
-    ViewData["MetaDescription"] = $"Last updates of {Model.Header.CountryName} COVID-19 travel requirements and restrictions.";
-    ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
+    ViewData["Title"] = $"{Model.Header.CountryName} COVID-19 travel restrictions, quarantine and entry requrements. Last update {Model.Country.UpdateDate}.";
+    ViewData["MetaDescription"] = $"Up-to-date info on COVID-19 travel restrictions for {Model.Header.CountryName}.  Explore entry and quarantine requirements for {Model.Header.CountryName} in {DateTime.Now.Year}.";
+    ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Covid";
 }
 
 @await Html.PartialAsync("_Header", Model.Header)

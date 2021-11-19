@@ -60,6 +60,7 @@ namespace API.Models
     {
         public string Covid { get; set; }
         public HeaderViewModel Header { get; set; }
+        public Country Country { get; set; }
     }
 
     public struct IndexPage
