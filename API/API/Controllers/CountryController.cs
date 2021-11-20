@@ -66,9 +66,9 @@ namespace API.Controllers
             if (topDuration != null)
                 header.Text += $"The longest period of stay is {topDuration.Duration} days. ";
             if (days90.Count == 1)
-                header.Text += $"Good options for digital nomads on {model.Country.Name} is {@String.Join(", ", days90.Select(r => r.VisaName))}. ";
+                header.Text += $"Good options for digital nomads on {model.Country.Name} is {string.Join(", ", days90.Select(r => r.VisaName))}. ";
             if(days90.Count >= 2)
-                header.Text += $"Good options for digital nomads on {model.Country.Name} are {@String.Join(", ", days90.Select(r => r.VisaName))}. ";
+                header.Text += $"Good options for digital nomads on {model.Country.Name} are {string.Join(", ", days90.Select(r => r.VisaName))}. ";
 
 
 //            если есть рейтинг
@@ -115,7 +115,7 @@ namespace API.Controllers
 
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
-            header.Text = $"List of Embassies and Consulates of {header.CountryName}. Find a list of country name embassies around the world below. You can get a visa to {header.CountryName} in {model.Embassies.Count} embassies around the world.";
+            header.Text = $"List of Embassies and Consulates of {header.CountryName}. You can get a visa to {header.CountryName} in {model.Embassies.Count} embassies around the world. Find a list of {header.CountryName} embassies around the world below.";
 
             model.Header = header;
 
