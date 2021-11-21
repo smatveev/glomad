@@ -79,5 +79,6 @@ namespace Glomad.Models
         public DbSet<Visa> Visa { get; set; }
         public DbSet<NoVisaEntry> NoVisaEntry { get; set; }
         public DbSet<Review> Review { get; set; }
+        public DbSet<ApprovedVaccines> ApprovedVaccines{ get; set; }
     }
 }
