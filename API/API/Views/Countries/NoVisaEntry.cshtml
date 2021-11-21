@@ -79,63 +79,6 @@
         }
     </div>
 
-    @*<div class="pb-3" id="filters">
-            @foreach (KeyValuePair<string, List<CountryFreeEntry>> entry in Model)
-            {
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="@entry.Key" id="filter_@entry.Key">
-                    <label class="form-check-label" for="filter_@entry.Key">
-                        @entry.Key
-                    </label>
-                </div>
-            }
-        </div>
-
-        <div>
-            @foreach (KeyValuePair<string, List<CountryFreeEntry>> entry in Model)
-            {
-                @foreach (var country in entry.Value)
-                {
-                    <span class="class_@entry.Key m-2 badge rounded-pill bg-light text-dark">
-                        <span class="flag-icon flag-icon-@country.Iata.ToLower()"></span>
-                        <a href="/@country.Name" class="card-link m-2">@country.Name</a>
-                    </span>
-                }
-            }
-        </div>*@
-
-    @*<div id="accordion">
-            @foreach (KeyValuePair<string, List<CountryFreeEntry>> entry in Model)
-            {
-                int id = 0;
-                int id2 = 100;
-                <div class="card mb-4">
-                    <div class="card-header" id="@id">
-                        <h5 class="mb-0">
-                            <button class="btn" data-toggle="collapse" data-target="#@id2" aria-expanded="true" aria-controls="@id2">
-                                👉 @entry.Key;
-                            </button>
-                        </h5>
-                    </div>
-
-                    <div id="@id2" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 collapse show" aria-labelledby="@id" data-parent="#accordion">
-                        @foreach (var country in entry.Value)
-                        {
-                            <div class="col">
-                                <div class="card-body">
-                                    <span class="flag-icon flag-icon-@country.Iata.ToLower()"></span>
-                                    <a href="/@country.Name" class="card-link m-2">@country.Name</a>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-                id++;
-                id2++;
-            }
-
-        </div>*@
-
 </section>
 
 @section Scripts {

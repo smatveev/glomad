@@ -1,9 +1,147 @@
-﻿@model VisaPage
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+@using Humanizer
+
+@model VisaPage
 
 @{
     ViewData["Title"] = $"This is VISA";
     ViewData["MetaDescription"] = $"And about";
-    //ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
+    ViewData["Canonical"] = $"https://glomad.net/{Model.Visa.Country.Name}/Visa/{Model.Visa.Id}";
 }
 
-<h2 class="fw-bold text-center p-4">💳 Visa name</h2>
+@await Html.PartialAsync("_Header", new HeaderViewModel() { CountryName = Model.Visa.Country.Name, Text = "" })
+
+<section class="container py-3">
+
+    @await Html.PartialAsync("_Menu", Model.Visa.Country.Name)
+
+    <h2 class="fw-bold text-center p-4">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
+    <div class="text-center">
+        @if (Model.Visa.Duration > 0)
+        {
+            <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                🕜 Duration @Model.Visa.Duration days
+            </span>
+        }
+
+        @if (Model.Visa.IsExtendable)
+        {
+            <span class="badge badge-card bg-success text-white m-2 fs-6">
+                ✨ Extendable
+            </span>
+        }
+    </div>
+
+    <div class="px-2 py-3">@Html.Raw(Model.Visa.Description)</div>
+
+    @if (Model.Reviews.Any())
+    {
+        <table class="table table-borderless m-0 table-autowidth">
+            <tbody>
+                @{
+                    string simpleR = "r1";
+                    string simpleT = "🤯 Complicated";
+                    int simple = (int)(@Model.Reviews.Average(i => i.Simplicity)) * 100 / 5;
+                    if (simple > 35 && simple < 75)
+                    {
+                        simpleR = "r3";
+                        simpleT = "🤨 Avarage";
+                    }
+                    if (simple >= 75)
+                    {
+                        simpleR = "r5";
+                        simpleT = "😎 Easy";
+                    }
+
+                    string waitR = "r1";
+                    string waitT = "🐢 Very slow";
+                    int wait = (int)(@Model.Reviews.Average(i => i.Waiting)) * 100 / 5;
+                    if (wait > 35 && wait < 75)
+                    {
+                        waitR = "r3";
+                        waitT = "🦘 Avarage";
+                    }
+                    if (wait >= 75)
+                    {
+                        waitR = "r5";
+                        waitT = "🐎 Quick";
+                    }
+
+
+                    int loy = (int)(@Model.Reviews.Average(i => i.Loyalty)) * 100 / 5;
+                    string loyR = "r1";
+                    string loyT = "👎 Low";
+                    if (loy > 35 && loy < 75)
+                    {
+                        loyR = "r3";
+                        loyT = "👌 Avarage";
+                    }
+                    if (loy >= 75)
+                    {
+                        loyR = "r5";
+                        loyT = "👋 Perfect";
+                    }
+                    <tr>
+                        <td>😎 Simplicity</td>
+                        <td>
+                            <div class="rating rounded">
+                                <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
+                                    @simpleT: @simple%
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>🥱 Waiting time</td>
+                        <td>
+                            <div class="rating rounded">
+                                <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
+                                    @waitT: @wait%
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>🤗 Loyalty</td>
+                        <td>
+                            <div class="rating rounded">
+                                <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
+                                    @loyT: @loy%
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h4 class="fw-bold text-center p-4">Reviews</h4>
+        <div class="row d-flex justify-content-center">
+            @foreach (var r in Model.Reviews)
+            {
+                <div class="col-md-12 col-xl-6">
+                    <div class="rounded-5 shadow-lg m-2" style="background-color: #f5f7fa;">
+                        <div class="card-body p-5">
+                            <i class="fas fa-quote-left fa-2x mb-4"></i>
+                            @if (r.Pros.Length > 0)
+                            {
+                                <p>✅ @r.Pros</p>
+                            }
+                            @if (r.Cons.Length > 0)
+                            {
+                                <p>❌ @r.Cons</p>
+                            }
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <p class="small fst-italic" style="color: #6c757d;">- @r.Date.Humanize()</p>
+                                <p class="mb-0"><span class="badge rounded-pill" style="background-color: rgba(0,0,0, 0.2);">@r.Likes</span> <span>👍</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+            }
+
+        </section>

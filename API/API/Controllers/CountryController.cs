@@ -19,7 +19,6 @@ namespace API.Controllers
         }
 
         [Route("{country}")]
-        [Route("{country}/Visa/{id}")]
         public IActionResult Index(string country)
         {
             var model = new IndexPage();
@@ -230,7 +229,6 @@ namespace API.Controllers
         {
             try
             {
-
                 Visa v = _context.Visa.FirstOrDefault(c => c.Id == reviewCreate.VisaId);
                 Embassy e = _context.Embassy.FirstOrDefault(e => e.Id == reviewCreate.EmbassyId);
                 Review r = new()
@@ -242,7 +240,9 @@ namespace API.Controllers
                     Loyalty = reviewCreate.Loyalty,
                     Simplicity = reviewCreate.Simplicity,
                     Waiting = reviewCreate.Waiting,
-                    IsObtained = reviewCreate.IsObtained
+                    IsObtained = reviewCreate.IsObtained,
+                    Date = DateTime.Now,
+                    Likes = 0
                 };
 
                 _context.Review.Add(r);
@@ -257,16 +257,17 @@ namespace API.Controllers
             return Ok();
         }
 
-        //[Route("{country}/Visa/{id}")]
-        //public IActionResult Visa(string country, int id)
-        //{
-        //    VisaPage model = new VisaPage();
+        [Route("{country}/Visa/{id}")]
+        public IActionResult Visa(string country, int id)
+        {
+            VisaPage model = new VisaPage();
 
-        //    model.Reviews = _context.Review.Where(r => r.Visa.Id == id).ToList();
-        //    model.Visa = _context.Visa.Where(v => v.Id == id).FirstOrDefault();
+            model.Reviews = _context.Review.Where(r => r.Visa.Id == id).ToList();
+            model.Visa = _context.Visa.Where(v => v.Id == id).FirstOrDefault();
+            model.Visa.Country = _context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
 
-        //    return View("Visa", model);
-        //}
+            return View("Visa", model);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
