@@ -266,6 +266,29 @@ namespace API.Controllers
             model.Visa = _context.Visa.Where(v => v.Id == id).FirstOrDefault();
             model.Visa.Country = _context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
 
+            model.Embassies = (from e in _context.Embassy
+                               join c in _context.Country
+                               on e.Country.Id equals c.Id
+                               where e.OriginalCountry.Name == country
+                               select new EmbassyVM
+                               {
+                                   Id = e.Id,
+                                   Country = c.Name,
+                                   City = e.City.Name,
+                                   Iata = c.ISOalpha3.ToLower()
+                               }).Distinct().ToList();
+
+            model.Visas = (from v in _context.Visa
+                           where v.Country.Name.ToLower() == country.ToLower()
+                           select new VisaSearchResult
+                           {
+                               Id = v.Id,
+                               Description = v.Description,
+                               VisaName = v.Name,
+                               IsExdendable = v.IsExtendable,
+                               Duration = v.Duration
+                           }).ToList();
+
             return View("Visa", model);
         }
 

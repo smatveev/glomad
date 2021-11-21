@@ -12,7 +12,19 @@
 }
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
-    <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-decoration-none text-white" href="/">🌎</a> / @Model.CountryName</h1>
+    <h1 class="fw-bold text-white py-5 my-3 shadowed">
+        @if (string.IsNullOrEmpty(Model.VisaName))
+        {
+            <a class="text-decoration-none text-white" href="/">🌎</a>@: / @Model.CountryName
+        }
+        else
+        {
+            <a class="text-decoration-none text-white" href="/">🌎</a>@: /
+            <a class="text-decoration-none text-white" href="/@Model.CountryName">@Model.CountryName</a>@: / 
+            <a class="text-decoration-none text-white" href="">@Model.VisaName</a>@Model.VisaName
+        }
+
+    </h1>
     <h5 class="col-lg-8 mx-auto shadowed">
         @Model.Text
     </h5>
