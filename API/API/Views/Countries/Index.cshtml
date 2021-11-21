@@ -14,128 +14,137 @@
 
     @await Html.PartialAsync("_Menu", Model.Header.CountryName)
 
-    <h2 class="fw-bold text-center p-4">💳 List of @Model.Header.CountryName visa types</h2>
-    <div class="row row-cols-sm-1  row-cols-lg-3 row-cols-md-2 g-4">
-        @foreach (var visa in Model.Visas)
-        {
-            <div>
-                <div class="p-2 bg-light rounded-3 overflow-auto" style="height: 400px;">
-                    <div>
-                        <h5 class="fw-bold m-2">@visa.VisaName</h5>
+    @if (ViewContext.HttpContext.Request.Path.Value.Contains("Visa"))
+    {
+        @await Html.PartialAsync("Visa")
+    }
+    else
+    {
+        <h2 class="fw-bold text-center p-4">💳 List of @Model.Header.CountryName visa types</h2>
+        <div class="row row-cols-sm-1  row-cols-lg-3 row-cols-md-2 g-4">
+            @foreach (var visa in Model.Visas)
+            {
+                <div>
+                    <div class="p-2 bg-light rounded-3 overflow-auto" style="height: 400px;">
+                        <div>
+                            <h5 class="fw-bold m-2">@visa.VisaName</h5>
 
-                        <table class="table table-borderless m-0">
-                            <tbody>
-                                <tr>
-                                    <td><a class="text-decoration-none" href="#">@visa.Reviews.Count Reviews</a></td>
-                                    <td style="vertical-align: middle;">
-                                        <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview"
-                                                class="btn btn-outline-primary btn-sm">
-                                            Add review
-                                        </button>
-                                    </td>
-                                </tr>
-                                @if (visa.Reviews != null && visa.Reviews.Count > 0)
-                                {
-                                    string simpleR = "r1";
-                                    string simpleT = "🤯 Complicated";
-                                    int simple = (int)visa.Reviews.Average(i => i.Simplicity) * 100 / 5;
-                                    if (simple > 35 && simple < 75)
-                                    {
-                                        simpleR = "r3";
-                                        simpleT = "🤨 Avarage";
-                                    }
-                                    if (simple >= 75)
-                                    {
-                                        simpleR = "r5";
-                                        simpleT = "😎 Easy";
-                                    }
-
-                                    string waitR = "r1";
-                                    string waitT = "🐢 Very slow";
-                                    int wait = (int)visa.Reviews.Average(i => i.Waiting) * 100 / 5;
-                                    if (wait > 35 && wait < 75)
-                                    {
-                                        waitR = "r3";
-                                        waitT = "🦘 Avarage";
-                                    }
-                                    if (wait >= 75)
-                                    {
-                                        waitR = "r5";
-                                        waitT = "🐎 Quick";
-                                    }
-
-
-                                    int loy = (int)visa.Reviews.Average(i => i.Loyalty) * 100 / 5;
-                                    string loyR = "r1";
-                                    string loyT = "👎 Low";
-                                    if (loy > 35 && loy < 75)
-                                    {
-                                        loyR = "r3";
-                                        loyT = "👌 Avarage";
-                                    }
-                                    if (loy >= 75)
-                                    {
-                                        loyR = "r5";
-                                        loyT = "👋 Perfect";
-                                    }
+                            <table class="table table-borderless m-0">
+                                <tbody>
                                     <tr>
-                                        <td>😎 Simplicity</td>
-                                        <td>
-                                            <div class="rating rounded">
-                                                <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
-                                                    @simpleT: @simple%
-                                                </div>
-                                            </div>
+                                        <td><a class="text-decoration-none" href="#">@visa.Reviews.Count Reviews</a></td>
+                                        <td style="vertical-align: middle;">
+                                            <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview"
+                                                    class="btn btn-outline-primary btn-sm">
+                                                Add review
+                                            </button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>🥱 Waiting time</td>
-                                        <td>
-                                            <div class="rating rounded">
-                                                <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
-                                                    @waitT: @wait%
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>🤗 Loyalty</td>
-                                        <td>
-                                            <div class="rating rounded">
-                                                <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
-                                                    @loyT: @loy%
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                    @if (visa.Reviews != null && visa.Reviews.Count > 0)
+                                    {
+                                        string simpleR = "r1";
+                                        string simpleT = "🤯 Complicated";
+                                        int simple = (int)visa.Reviews.Average(i => i.Simplicity) * 100 / 5;
+                                        if (simple > 35 && simple < 75)
+                                        {
+                                            simpleR = "r3";
+                                            simpleT = "🤨 Avarage";
+                                        }
+                                        if (simple >= 75)
+                                        {
+                                            simpleR = "r5";
+                                            simpleT = "😎 Easy";
+                                        }
 
-                        @if (visa.IsExdendable)
-                        {
-                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                ✨ Extendable
-                            </span>
-                        }
-                        @if (visa.Duration > 0)
-                        {
-                            <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                                🕜 Duration @visa.Duration days
-                            </span>
-                        }
+                                        string waitR = "r1";
+                                        string waitT = "🐢 Very slow";
+                                        int wait = (int)visa.Reviews.Average(i => i.Waiting) * 100 / 5;
+                                        if (wait > 35 && wait < 75)
+                                        {
+                                            waitR = "r3";
+                                            waitT = "🦘 Avarage";
+                                        }
+                                        if (wait >= 75)
+                                        {
+                                            waitR = "r5";
+                                            waitT = "🐎 Quick";
+                                        }
 
-                        <p class="col-md-12 p-2">@Html.Raw(visa.Description)</p>
+
+                                        int loy = (int)visa.Reviews.Average(i => i.Loyalty) * 100 / 5;
+                                        string loyR = "r1";
+                                        string loyT = "👎 Low";
+                                        if (loy > 35 && loy < 75)
+                                        {
+                                            loyR = "r3";
+                                            loyT = "👌 Avarage";
+                                        }
+                                        if (loy >= 75)
+                                        {
+                                            loyR = "r5";
+                                            loyT = "👋 Perfect";
+                                        }
+                                        <tr>
+                                            <td>😎 Simplicity</td>
+                                            <td>
+                                                <div class="rating rounded">
+                                                    <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
+                                                        @simpleT: @simple%
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>🥱 Waiting time</td>
+                                            <td>
+                                                <div class="rating rounded">
+                                                    <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
+                                                        @waitT: @wait%
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>🤗 Loyalty</td>
+                                            <td>
+                                                <div class="rating rounded">
+                                                    <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
+                                                        @loyT: @loy%
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            @if (visa.IsExdendable)
+                            {
+                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                    ✨ Extendable
+                                </span>
+                            }
+                            @if (visa.Duration > 0)
+                            {
+                                <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                                    🕜 Duration @visa.Duration days
+                                </span>
+                            }
+
+                            <p class="col-md-12 p-2">@Html.Raw(visa.Description)</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-        <div class="p-2 bg-light rounded-3">
-            <div>
-                <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
+            }
+            <div class="p-2 bg-light rounded-3">
+                <div>
+                    <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
+                </div>
             </div>
         </div>
-    </div>
+    }
+
+
 </section>
 
 

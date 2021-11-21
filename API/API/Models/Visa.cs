@@ -36,4 +36,10 @@ namespace API.Models
         public short Duration { get; set; }
         public List<Review> Reviews { get; set; }
     }
+
+    public class VisaPage
+    {
+        public Visa Visa { get; set; }
+        public List<Review> Reviews { get; set; }
+    }
 }

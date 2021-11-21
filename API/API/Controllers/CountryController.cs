@@ -19,6 +19,7 @@ namespace API.Controllers
         }
 
         [Route("{country}")]
+        [Route("{country}/Visa/{id}")]
         public IActionResult Index(string country)
         {
             var model = new IndexPage();
@@ -255,6 +256,17 @@ namespace API.Controllers
 
             return Ok();
         }
+
+        //[Route("{country}/Visa/{id}")]
+        //public IActionResult Visa(string country, int id)
+        //{
+        //    VisaPage model = new VisaPage();
+
+        //    model.Reviews = _context.Review.Where(r => r.Visa.Id == id).ToList();
+        //    model.Visa = _context.Visa.Where(v => v.Id == id).FirstOrDefault();
+
+        //    return View("Visa", model);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
