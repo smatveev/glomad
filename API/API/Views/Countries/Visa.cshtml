@@ -23,7 +23,7 @@
 
     @await Html.PartialAsync("_Menu", Model.Visa.Country.Name)
 
-    <h2 class="fw-bold text-center p-4">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
+    <h2 class="text-center p-4">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
     <div class="text-center">
         @if (Model.Visa.Duration > 0)
         {
