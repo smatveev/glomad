@@ -16,7 +16,7 @@
 
     <h2 class="text-center p-4">🦠 @Model.Header.CountryName COVID-19 travel requirements</h2>
 
-    <h2 class="text-center p-4">✅ List of approved vaccines in @Model.Header.CountryName</h2>
+    <h4 class="text-center p-4">✅ List of approved vaccines in @Model.Header.CountryName</h4>
     <div class="row -row-cols-auto d-flex justify-content-center">
         @foreach (var v in ApprovedVaccines.Vaccines.Where(v => Model.ApprovedVaccines.Contains(v.Key)))
         {
@@ -28,7 +28,7 @@
         }
     </div>
 
-    <h2 class="text-center p-4">🧾 Entry conditions</h2>
+    <h4 class="text-center pt-5">🧾 Entry conditions</h4>
     <div class="p-3">@Html.Raw(Model.Covid)</div>
 
 </section>
