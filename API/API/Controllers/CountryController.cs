@@ -143,6 +143,8 @@ namespace API.Controllers
             model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
             model.Covid = _context.Country.FirstOrDefault(c => c.Id == model.Country.Id).CovidRestrictions;
 
+            model.ApprovedVaccines = _context.ApprovedVaccines.Where(c => c.CountryId == model.Country.Id).Select(i => i.VaccineId).ToList();
+
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
             header.Text = $"Up-to-date info COVID-19 travel restrictions. Quarantine conditions, entry requrements, list of approved vaccines and etc., help you make decisions about future trips in {DateTime.Now.Year}.";
