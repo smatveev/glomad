@@ -57,28 +57,33 @@ namespace API.Controllers
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
 
-            var topDuration = model.Visas.OrderByDescending(m => m.Duration).FirstOrDefault();
-            var days90 = model.Visas.OrderByDescending(m => m.Duration >= 90).ToList();
-            //VisaSearchResult evisa = Model.Visas.Where(m => m.ev)
+            if(model.Visas.Count > 0)
+            {
+                var topDuration = model.Visas.OrderByDescending(m => m.Duration).FirstOrDefault();
+                var days90 = model.Visas.OrderByDescending(m => m.Duration >= 90).ToList();
+                //VisaSearchResult evisa = Model.Visas.Where(m => m.ev)
 
-            header.Text = $"{model.Visas.Count} types of tourist visas for {model.Country.Name} are presented. ";
+                header.Text = $"{model.Visas.Count} types of tourist visas for {model.Country.Name} are presented. ";
 
-            if (topDuration != null)
-                header.Text += $"The longest period of stay is {topDuration.Duration} days. ";
-            if (days90.Count == 1)
-                header.Text += $"Good options for digital nomads on {model.Country.Name} is {string.Join(", ", days90.Select(r => r.VisaName))}. ";
-            if(days90.Count >= 2)
-                header.Text += $"Good options for digital nomads on {model.Country.Name} are {string.Join(", ", days90.Select(r => r.VisaName))}. ";
+                if (topDuration != null)
+                    header.Text += $"The longest period of stay is {topDuration.Duration} days. ";
+                if (days90.Count == 1)
+                    header.Text += $"Good options for digital nomads on {model.Country.Name} is {string.Join(", ", days90.Select(r => r.VisaName))}. ";
+                if (days90.Count >= 2)
+                    header.Text += $"Good options for digital nomads on {model.Country.Name} are {string.Join(", ", days90.Select(r => r.VisaName))}. ";
+            }
+            else
+                header.Text = $"We are working to prepare updated list of visas of {model.Country.Name}. Stay tuned!";
 
 
-//            если есть рейтинг
-//The most popular visa among Glomad's users is the {Visa name} up to {duration} days.
+            //            если есть рейтинг
+            //The most popular visa among Glomad's users is the {Visa name} up to {duration} days.
 
-//Евиза может прийти только если локация есть.
-//Если есть  евиза в спике
-//{ citezen}
-//            citezens can get E-visa up to { duration}
-//            days for travelling to { country Name}.
+            //Евиза может прийти только если локация есть.
+            //Если есть  евиза в спике
+            //{ citezen}
+            //            citezens can get E-visa up to { duration}
+            //            days for travelling to { country Name}.
 
             //The most popular is the Tourist visa up to 90 days.
             //In addition, it is possible to apply for E - visa for 90 days.
@@ -115,7 +120,15 @@ namespace API.Controllers
 
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
-            header.Text = $"List of Embassies and Consulates of {header.CountryName}. You can get a visa to {header.CountryName} in {model.Embassies.Count} embassies around the world. Find a list of {header.CountryName} embassies around the world below.";
+            header.Text = $"List of Embassies and Consulates of {header.CountryName}. ";
+            if(model.Embassies.Count > 0)
+            {
+                header.Text += $"You can get a visa to {header.CountryName} in {model.Embassies.Count} embassies around the world. Find a list of {header.CountryName} embassies around the world below. ";
+            }
+            else
+            {
+                header.Text += $"We are working to prepare an actual list of embassies.. Stay tuned! ";
+            }
 
             model.Header = header;
 
