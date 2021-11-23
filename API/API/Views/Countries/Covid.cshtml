@@ -28,6 +28,19 @@
         }
     </div>
 
+    @*<h4 class="text-center p-4">⚠ Current covid restrictions in @Model.Header.CountryName</h4>
+    <div class="row -row-cols-auto d-flex justify-content-center">
+        @foreach (var v in CovidRestrictions.CovidRestriction.Where(v => Model.RestrictionPair.Contains(v.Key)))
+        {
+            <div class="-col col-12 col-sm-6 col-xl-2 col-md-4 text-center">
+                <div class="rounded-5 shadow-lg p-3 m-2 @v.level">
+                    @v.Value
+                </div>
+            </div>
+        }
+    </div>*@
+
+
     <h4 class="text-center pt-5">🧾 Entry conditions</h4>
     <div class="p-3">@Html.Raw(Model.Covid)</div>
 

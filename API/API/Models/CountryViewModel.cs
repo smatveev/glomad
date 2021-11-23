@@ -62,12 +62,12 @@ namespace API.Models
         public HeaderViewModel Header { get; set; }
         public Country Country { get; set; }
         public List<int> ApprovedVaccines { get; set; }
+        public List<KeyValuePair<int, byte>> RestrictionPair { get; set; }
     }
 
     public struct IndexPage
     {
         public List<VisaSearchResult> Visas { get; set; }
-        public List<EmbassyVM> Embassies { get; set; }
         public HeaderViewModel Header { get; set; }
         public Country Country { get; set; }
     }

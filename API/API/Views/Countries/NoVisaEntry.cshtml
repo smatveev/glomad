@@ -84,7 +84,8 @@
 @section Scripts {
     <script>
         $(":checkbox").click(function () {
-            $(".col").hide();
+            $(".novisaentry").hide();
+            $(".evisa").hide();
             $(":checkbox:checked").each(function () {
                 $("." + $(this).val()).show();
             });

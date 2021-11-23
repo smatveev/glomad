@@ -27,18 +27,6 @@ namespace API.Controllers
             if (model.Country == null)
                 return RedirectToAction("Index", "Home");
 
-            model.Embassies = (from e in _context.Embassy
-                               join c in _context.Country
-                               on e.Country.Id equals c.Id
-                               where e.OriginalCountry.Name == country
-                               select new EmbassyVM
-                               {
-                                   Id = e.Id,
-                                   Country = c.Name,
-                                   City = e.City.Name,
-                                   Iata = c.ISOalpha3.ToLower()
-                               }).Distinct().ToList();
-
             model.Visas = (from v in _context.Visa
                            where v.Country.Id == model.Country.Id
                            select new VisaSearchResult
@@ -145,6 +133,11 @@ namespace API.Controllers
 
             model.ApprovedVaccines = _context.ApprovedVaccines.Where(c => c.CountryId == model.Country.Id).Select(i => i.VaccineId).ToList();
 
+            //Dictionary<int, int> RestrictionLevel = _context.CovidRestrictions.Where(r => r.Country.Id == model.Country.Id)
+            //    .ToDictionary(i => i.Restriction, i => i.Level);
+
+            //model.RestrictionPair = 
+
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
             header.Text = $"Up-to-date info COVID-19 travel restrictions. Quarantine conditions, entry requrements, list of approved vaccines and etc., help you make decisions about future trips in {DateTime.Now.Year}.";
@@ -168,7 +161,7 @@ namespace API.Controllers
 
             model.countries = (from ne in _context.NoVisaEntry
                      join co in _context.Country on ne.CountryDestination.Id equals co.Id
-                     where co.Name == country
+                     where co.Name == country && (!ne.IsVisaRequired || ne.IsEVisaAvailable)
                      select new CountryFreeEntry
                      {
                          Details = ne.Description,
