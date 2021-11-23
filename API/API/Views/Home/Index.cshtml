@@ -14,9 +14,7 @@
             <div class="container">
                 <div class="py-5 m-0 row">
                     <div class="col-sm-12 col-lg-8">
-                        <h1 class="display-5 fw-bold text-white pb-4">
-                            🌏 Be Glomad <i class="flag flag-united-states"></i>
-                        </h1>
+                        <h1 class="text-white pb-4">🌏 Be Glomad</h1>
 
                         <div class="mb-3 col-lg-8 text-white lead">
                             Let's know where you can go with your 🛂 passport easily. <br />
@@ -63,7 +61,7 @@
 {
 <section class="container my-5">
 
-    <h2 class="mb-5 fw-bold text-center">
+    <h2 class="mb-5 text-center">
         💳 Here are the types of visas available to visit <a href="/@Model.ToCountryName">@Model.ToCountryName</a>
     </h2>
 
@@ -98,7 +96,7 @@
 @if (Model.To > 0)
 {
     <section class="container my-5">
-        <h2 class="mb-5 fw-bold text-center">Cheap tickets from @Model.PassportCountryName to @Model.ToCountryName</h2>
+        <h2 class="mb-5 text-center">Cheap tickets from @Model.PassportCountryName to @Model.ToCountryName</h2>
         <div class="py-2">
             <div class="p-3 bg-light rounded-3">
                 <script src="https://tp.media/content?currency=usd&promo_id=4041&shmarker=14510&campaign_id=100&trs=21653&searchUrl=search.jetradar.com&locale=en_us&powered_by=false&one_way=true&only_direct=false&period=year&range=7%2C21&primary=%230C73FE&color_background=%23ffffff&achieve=%2345AD35&dark=%23000000&light=%23FFFFFF&origin=@Model.PassportCapitalCode&destination=@Model.ToCapitalCode" charset="utf-8"></script>
@@ -111,7 +109,7 @@
 @if (Model.CovidInfo != null)
 {
     <section class="container -py-4 my-5">
-        <h2 class="mb-5 fw-bold text-center">🦠 @Model.ToCountryName COVID-19 travel requirements</h2>
+        <h2 class="mb-5 text-center">🦠 @Model.ToCountryName COVID-19 travel requirements</h2>
         <div class="p-3" style="height:400px; overflow-y: auto;">@Html.Raw(@Model.CovidInfo)</div>
     </section>
 }
@@ -119,7 +117,7 @@
 @if (Model.FreeCountries?.Count > 0)
 {
     <section class="container -py-4 my-5">
-        <h2 class="mb-5 fw-bold text-center">🛂 Free entry with passport of <a href="/@Model.PassportCountryName">@Model.PassportCountryName</a></h2>
+        <h2 class="mb-5 text-center">🛂 Free entry with passport of <a href="/@Model.PassportCountryName">@Model.PassportCountryName</a></h2>
         <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 
             @{ int count = 0; }
@@ -173,9 +171,7 @@
 <partial name="_Nomad" />
 
 <section class="container mb-5">
-    <h2 class="mb-5 text-center">
-        <strong>... what else you most interested in ❓</strong>
-    </h2>
+    <h2 class="mb-5 text-center">... what else you most interested in ❓</h2>
 
     <div class="col-md-10 mx-auto col-lg-8">
         <p class="mb-4 card-text text-secondary fs-5">

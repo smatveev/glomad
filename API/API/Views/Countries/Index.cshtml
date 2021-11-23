@@ -30,7 +30,15 @@
                         <div class="card-img-overlay">
 
                             <h3 class="card-title shadowed text-center align-middle lh-1 fw-bold">@visa.VisaName</h3>
-                            <h5 class="card-title shadowed text-center align-middle lh-1 fw-bold mb-4">@visa.Reviews.Count Reviews</h5>
+                            @if (visa.Reviews.Count > 0)
+                            {
+                                <h5 class="card-title shadowed text-center align-middle lh-1 mb-4">@visa.Reviews.Count Reviews</h5>
+                            }
+                            else
+                            {
+                                <h5 class="card-title shadowed text-center align-middle lh-1 mb-4">👋 Add an anonymous review</h5>
+                            }
+
 
                             @if (visa.Reviews != null && visa.Reviews.Count > 0)
                             {

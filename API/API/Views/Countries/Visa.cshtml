@@ -42,6 +42,20 @@
 
     <div class="px-2 py-3">@Html.Raw(Model.Visa.Description)</div>
 
+    @if (Model.Reviews.Count > 0)
+    {
+        <h4 class="text-center p-3">Read @Model.Reviews.Count trusted reviews</h4>
+    }
+    else
+    {
+        <h4 class="text-center p-3">Share your experience</h4>
+    }
+    <div class="text-center">
+        <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview" class="btn btn-primary mb-3">
+            Add an anonymous review
+        </button>
+    </div>
+
     @if (Model.Reviews.Any())
     {
         <table class="table table-borderless m-0 table-autowidth">
@@ -123,12 +137,6 @@
             </tbody>
         </table>
 
-        <h4 class="fw-bold text-center p-3">Reviews</h4>
-        <div class="text-center">
-            <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview" class="btn btn-primary mb-3">
-                Add review
-            </button>
-        </div>
         <div class="row d-flex justify-content-center">
             @foreach (var r in Model.Reviews)
             {
