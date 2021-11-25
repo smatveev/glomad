@@ -133,6 +133,9 @@ namespace API.Controllers
 
             model.ApprovedVaccines = _context.ApprovedVaccines.Where(c => c.CountryId == model.Country.Id).Select(i => i.VaccineId).ToList();
 
+            model.Restrictions = _context.CovidRestrictions.Where(r => r.Country.Id == model.Country.Id)
+                .ToDictionary(i => i.Restriction, i => i.Level);
+
             //Dictionary<int, int> RestrictionLevel = _context.CovidRestrictions.Where(r => r.Country.Id == model.Country.Id)
             //    .ToDictionary(i => i.Restriction, i => i.Level);
 

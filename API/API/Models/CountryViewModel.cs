@@ -62,7 +62,7 @@ namespace API.Models
         public HeaderViewModel Header { get; set; }
         public Country Country { get; set; }
         public List<int> ApprovedVaccines { get; set; }
-        public List<KeyValuePair<int, byte>> RestrictionPair { get; set; }
+        public Dictionary<int, byte> Restrictions { get; set; } // RestrictionId and its Levels
     }
 
     public struct IndexPage

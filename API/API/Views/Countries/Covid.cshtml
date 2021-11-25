@@ -4,7 +4,7 @@
 
 @{
     ViewData["Title"] = $"{Model.Header.CountryName} COVID-19 travel restrictions, quarantine and entry requrements. Last update {Model.Country.UpdateDate}.";
-    ViewData["MetaDescription"] = $"Up-to-date info on COVID-19 travel restrictions for {Model.Header.CountryName}.  Explore entry and quarantine requirements for {Model.Header.CountryName} in {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"Up-to-date info on COVID-19 travel restrictions for {Model.Header.CountryName}. Explore entry and quarantine requirements for {Model.Header.CountryName} in {DateTime.Now.Year}. What are covid restrictions in {Model.Country.Name} now.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Covid";
 }
 
@@ -28,17 +28,27 @@
         }
     </div>
 
-    @*<h4 class="text-center p-4">⚠ Current covid restrictions in @Model.Header.CountryName</h4>
-    <div class="row -row-cols-auto d-flex justify-content-center">
-        @foreach (var v in CovidRestrictions.CovidRestriction.Where(v => Model.RestrictionPair.Contains(v.Key)))
+    <h4 class="text-center p-4">⚠ Current covid restrictions in @Model.Header.CountryName</h4>
+    <div class="row row-cols-auto d-flex justify-content-center">
+        @foreach (var v in Model.Restrictions)
         {
-            <div class="-col col-12 col-sm-6 col-xl-2 col-md-4 text-center">
-                <div class="rounded-5 shadow-lg p-3 m-2 @v.level">
-                    @v.Value
+            string Restriction, Level;
+            try
+            {
+                CovidRestrictions.Restrictions.TryGetValue(v.Key, out Restriction);
+                CovidRestrictions.Levels[v.Key].TryGetValue(v.Value, out Level);
+                <div class="col text-center">
+                    <div class="rounded-5 shadow-lg p-3 m-2 @("c" + v.Value)">
+                        <p>@Restriction</p>
+                        <p>@Level</p>
+                    </div>
                 </div>
-            </div>
+            }
+            catch (Exception e)
+            {
+            }
         }
-    </div>*@
+    </div>
 
 
     <h4 class="text-center pt-5">🧾 Entry conditions</h4>
