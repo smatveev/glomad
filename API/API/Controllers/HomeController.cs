@@ -56,7 +56,7 @@ namespace API.Controllers
             }
             
             ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
-            ViewBag.ToCountries = new SelectList(_context.Country.Where(c => Helpers.Countries.Prepared.Contains(c.Id)), "Id", "Name");
+            ViewBag.ToCountries = ViewBag.Countries;//new SelectList(_context.Country.Where(c => Helpers.Countries.Prepared.Contains(c.Id)), "Id", "Name");
 
             //if (route == null || route.Length != 4)
             //    return View(mo);
