@@ -30,7 +30,7 @@
                         <div class="card-img-overlay">
                             <h3 class="card-title shadowed text-center align-middle lh-1 fw-bold">No visa entry</h3>
                             <h5 class="card-title shadowed text-center align-middle lh-1 p-2">
-                                For @(Model.HomeCountry.Citizen ?? "citizens of " + Model.HomeCountry.Name) @Model.NoVisaEntry.Duration days no visa entry.
+                                For @(Model.HomeCountry.Citizen + " citizens" ?? "citizens of " + Model.HomeCountry.Name) @Model.NoVisaEntry.Duration days no visa entry.
                             </h5>
                             <span class="m-2 badge rounded-pill bg-info text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@Model.NoVisaEntry.Description">👉 Details</span>
                             @if (Model.NoVisaEntry.IsEVisaAvailable)
