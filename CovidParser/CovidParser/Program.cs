@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AngleSharp;
 using System.Data.SqlClient;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CovidParser
 {
@@ -39,6 +40,8 @@ namespace CovidParser
                     var country = li.QuerySelector("p.travel-requirements-list__cards-header-title").TextContent;
                     var body = li.QuerySelector("div.travel-requirements-list__item");
                     body.LastElementChild.Remove();
+
+                    body.InnerHtml = body.InnerHtml.Replace("<a href", "<a rel=\"noopener nofollow noreferrer\" href");
                     //body.QuerySelector("div.travel-requirements-list__travel-requirements-wrapper").Remove();
 
                    Console.WriteLine("Country = " + country);
@@ -73,6 +76,12 @@ namespace CovidParser
             }
             
             //Console.ReadLine();
+        }
+
+        public static string MakeLink(string txt)
+        {
+            txt = txt.Replace("<a href", "<a rel=\"noopener nofollow noreferrer\" href");
+            return txt;
         }
     }
 }
