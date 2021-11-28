@@ -69,18 +69,20 @@ namespace API.Controllers
 
             if (mo.Passport > 0)
             {
+                var HomeCountry = _context.Country.Where(c => c.Id == mo.Passport).FirstOrDefault();
+
                 mo.Visas = (from co in _context.NoVisaEntry
                                     where co.CountryDestination.Id == To && co.CountryPassport.Id == mo.Passport
                                     select new VisaSearchResult
                                     {
                                         Id = co.Id,
                                         Description = co.Description,
-                                        VisaName = "No Entry Visa",
+                                        VisaName = $"Visa-free entry to {mo.ToCountryName} is available for {HomeCountry.Citizen + " citizens" ?? "citizens of " + HomeCountry.Name}",
                                         Duration = co.Duration
                                     }).ToList();
 
-                mo.PassportCapitalCode = _context.Country.FirstOrDefault(c => c.Id == mo.Passport).CapitalCode;
-                mo.PassportCountryName = _context.Country.FirstOrDefault(c => c.Id == mo.Passport).Name;
+                mo.PassportCapitalCode = HomeCountry.CapitalCode;
+                mo.PassportCountryName = HomeCountry.Name;
 
                 if(To > 0)
                 {
