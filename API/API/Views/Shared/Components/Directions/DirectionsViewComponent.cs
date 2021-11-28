@@ -1,4 +1,5 @@
-﻿using Glomad.Models;
+﻿using API.Helpers;
+using Glomad.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -13,20 +14,6 @@ namespace API.Views.Shared.Components.Directions
     public class DirectionsViewComponent : ViewComponent
     {
         private readonly AppDbContext _context;
-        partial class GeoIP
-        {
-            public string ip { get; set; }
-            public string country_code { get; set; }
-            public string country_name { get; set; }
-            public string region_code { get; set; }
-            public string region_name { get; set; }
-            public string city { get; set; }
-            public string zip_code { get; set; }
-            public string time_zone { get; set; }
-            public double latitude { get; set; }
-            public double longitude { get; set; }
-            public int metro_code { get; set; }
-        }
 
         public DirectionsViewComponent(AppDbContext context)
         {
@@ -34,13 +21,13 @@ namespace API.Views.Shared.Components.Directions
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await client.GetAsync("https://freegeoip.app/json/" + HttpContext.Connection.RemoteIpAddress.ToString());
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
+            //HttpClient client = new HttpClient();
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //HttpResponseMessage response = await client.GetAsync("https://freegeoip.app/json/" + HttpContext.Connection.RemoteIpAddress.ToString());
+            //response.EnsureSuccessStatusCode();
+            //string responseBody = await response.Content.ReadAsStringAsync();
 
-            GeoIP geoIP = JsonConvert.DeserializeObject<GeoIP>(responseBody);
+            GeoIp geoIP = await new GeoIp(HttpContext).GetAsync(); //JsonConvert.DeserializeObject<GeoIp>(responseBody);
 
             DirectionsModel model = new DirectionsModel();
 

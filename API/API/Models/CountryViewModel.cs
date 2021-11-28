@@ -70,5 +70,7 @@ namespace API.Models
         public List<VisaSearchResult> Visas { get; set; }
         public HeaderViewModel Header { get; set; }
         public Country Country { get; set; }
+        public Country HomeCountry { get; set; }
+        public NoVisaEntry NoVisaEntry { get; set; }
     }
 }

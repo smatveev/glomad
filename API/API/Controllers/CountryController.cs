@@ -19,7 +19,7 @@ namespace API.Controllers
         }
 
         [Route("{country}")]
-        public IActionResult Index(string country)
+        public async Task<IActionResult> Index(string country)
         {
             var model = new IndexPage();
 
@@ -41,6 +41,15 @@ namespace API.Controllers
             {
                 v.Reviews = _context.Review.Where(r => r.Visa.Id == v.Id).ToList();
             }
+
+
+            GeoIp geoIP = await new GeoIp(HttpContext).GetAsync();
+
+            model.HomeCountry = _context.Country.Where(c => c.ISOalpha2 == geoIP.country_code).FirstOrDefault();
+            //model.HomeCountry = _context.Country.Where(c => c.Name == "Russia").FirstOrDefault();
+
+            model.NoVisaEntry = _context.NoVisaEntry
+                .Where(i => i.CountryDestination.Id == model.Country.Id && i.CountryPassport.Id == model.HomeCountry.Id).FirstOrDefault();
 
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();

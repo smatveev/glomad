@@ -21,90 +21,112 @@
     else
     {
         <h2 class="text-center p-4">💳 List of @Model.Header.CountryName visa types</h2>
-        <div class="row row-cols-sm-1  row-cols-lg-3 row-cols-md-2 g-4">
-            @foreach (var visa in Model.Visas)
+        <div class="row row-cols-1 row-cols-lg-3 row-cols-md-3 g-4">
+
+            @if (Model.NoVisaEntry != null)
             {
-            <div class="col">
-                <a class="text-white text-decoration-none" href="/@Model.Header.CountryName/Visa/@visa.Id">
-                    <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="height: 380px; background-image: url('../nocover_300.jpg');">
+                <div class="col">
+                    <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="height: 380px; background-image: url('../@(Model.HomeCountry.Name)_300.jpg');">
                         <div class="card-img-overlay">
-
-                            <h3 class="card-title shadowed text-center align-middle lh-1 fw-bold">@visa.VisaName</h3>
-                            @if (visa.Reviews.Count > 0)
+                            <h3 class="card-title shadowed text-center align-middle lh-1 fw-bold">No visa entry</h3>
+                            <h5 class="card-title shadowed text-center align-middle lh-1 p-2">
+                                For @(Model.HomeCountry.Citizen ?? "citizens of " + Model.HomeCountry.Name) @Model.NoVisaEntry.Duration days no visa entry.
+                            </h5>
+                            <span class="m-2 badge rounded-pill bg-info text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@Model.NoVisaEntry.Description">👉 Details</span>
+                            @if (Model.NoVisaEntry.IsEVisaAvailable)
                             {
-                                <h5 class="card-title shadowed text-center align-middle lh-1 mb-4">@visa.Reviews.Count Reviews</h5>
-                            }
-                            else
-                            {
-                                <h5 class="card-title shadowed text-center align-middle lh-1 mb-4">👋 Add an anonymous review</h5>
-                            }
-
-
-                            @if (visa.Reviews != null && visa.Reviews.Count > 0)
-                            {
-                                string simpleR = "r1";
-                                string simpleT = "🤯 Complicated to get";
-                                int simple = (int)visa.Reviews.Average(i => i.Simplicity) * 100 / 5;
-                                if (simple > 35 && simple < 75)
-                                {
-                                    simpleR = "r3";
-                                    simpleT = "🤨 Medium to get";
-                                }
-                                if (simple >= 75)
-                                {
-                                    simpleR = "r5";
-                                    simpleT = "😎 Easy to get";
-                                }
-
-                                string waitR = "r1";
-                                string waitT = "🐢 Low prepare time";
-                                int wait = (int)visa.Reviews.Average(i => i.Waiting) * 100 / 5;
-                                if (wait > 35 && wait < 75)
-                                {
-                                    waitR = "r3";
-                                    waitT = "🦘 Medium prepate time";
-                                }
-                                if (wait >= 75)
-                                {
-                                    waitR = "r5";
-                                    waitT = "🐎 Prepare fast";
-                                }
-
-
-                                int loy = (int)visa.Reviews.Average(i => i.Loyalty) * 100 / 5;
-                                string loyR = "r1";
-                                string loyT = "👎 Low loyality";
-                                if (loy > 35 && loy < 75)
-                                {
-                                    loyR = "r3";
-                                    loyT = "👌 Avarage loyality";
-                                }
-                                if (loy >= 75)
-                                {
-                                    loyR = "r5";
-                                    loyT = "👋 Perfect loyality";
-                                }
-
-                                <span class="m-2 badge rounded-pill @simpleR text-dark">@simpleT</span>
-                                <span class="m-2 badge rounded-pill @waitR text-dark">@waitT</span>
-                                <span class="m-2 badge rounded-pill @loyR text-dark">@loyT</span>
-                            }
-
-                            @if (visa.IsExdendable)
-                            {
-                                <span class="m-2 badge rounded-pill bg-light text-dark">
-                                    ✨ Extendable
-                                </span>
-                            }
-                            @if (visa.Duration > 0)
-                            {
-                                <span class="m-2 badge rounded-pill bg-light text-dark">
-                                    🕜 Duration @visa.Duration days
-                                </span>
+                                <a href="@Model.NoVisaEntry.EVisaUrl" target="_blank" rel="noopener nofollow noreferrer">
+                                    <span class="m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa 👈</span>
+                                </a>
                             }
                         </div>
                     </div>
-                </a>
+                </div>
+            }
+
+            @foreach (var visa in Model.Visas)
+            {
+                <div class="col">
+                    <a class="text-white text-decoration-none" href="/@Model.Header.CountryName/Visa/@visa.Id">
+                        <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="height: 380px; background-image: url('../nocover_300.jpg');">
+                            <div class="card-img-overlay">
+
+                                <h3 class="card-title shadowed text-center align-middle lh-1 fw-bold">@visa.VisaName</h3>
+                                @if (visa.Reviews.Count > 0)
+                                {
+                                    <h5 class="card-title shadowed text-center align-middle lh-1 p-2">@visa.Reviews.Count Reviews</h5>
+                                }
+                                else
+                                {
+                                    <h5 class="card-title shadowed text-center align-middle lh-1 mb-4">👋 Add an anonymous review</h5>
+                                }
+
+
+                                @if (visa.Reviews != null && visa.Reviews.Count > 0)
+                                {
+                                    string simpleR = "r1";
+                                    string simpleT = "🤯 Complicated to get";
+                                    int simple = (int)visa.Reviews.Average(i => i.Simplicity) * 100 / 5;
+                                    if (simple > 35 && simple < 75)
+                                    {
+                                        simpleR = "r3";
+                                        simpleT = "🤨 Medium to get";
+                                    }
+                                    if (simple >= 75)
+                                    {
+                                        simpleR = "r5";
+                                        simpleT = "😎 Easy to get";
+                                    }
+
+                                    string waitR = "r1";
+                                    string waitT = "🐢 Low prepare time";
+                                    int wait = (int)visa.Reviews.Average(i => i.Waiting) * 100 / 5;
+                                    if (wait > 35 && wait < 75)
+                                    {
+                                        waitR = "r3";
+                                        waitT = "🦘 Medium prepate time";
+                                    }
+                                    if (wait >= 75)
+                                    {
+                                        waitR = "r5";
+                                        waitT = "🐎 Prepare fast";
+                                    }
+
+
+                                    int loy = (int)visa.Reviews.Average(i => i.Loyalty) * 100 / 5;
+                                    string loyR = "r1";
+                                    string loyT = "👎 Low loyality";
+                                    if (loy > 35 && loy < 75)
+                                    {
+                                        loyR = "r3";
+                                        loyT = "👌 Avarage loyality";
+                                    }
+                                    if (loy >= 75)
+                                    {
+                                        loyR = "r5";
+                                        loyT = "👋 Perfect loyality";
+                                    }
+
+                                    <span class="m-2 badge rounded-pill @simpleR text-dark">@simpleT</span>
+                                    <span class="m-2 badge rounded-pill @waitR text-dark">@waitT</span>
+                                    <span class="m-2 badge rounded-pill @loyR text-dark">@loyT</span>
+                                }
+
+                                @if (visa.IsExdendable)
+                                {
+                                    <span class="m-2 badge rounded-pill bg-light text-dark">
+                                        ✨ Extendable
+                                    </span>
+                                }
+                                @if (visa.Duration > 0)
+                                {
+                                    <span class="m-2 badge rounded-pill bg-light text-dark">
+                                        🕜 Duration @visa.Duration days
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </a>
                 </div>
             }
             <div class="p-2 bg-light rounded-3">
@@ -117,3 +139,11 @@
 
 
 </section>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        })
+    </script>
+}

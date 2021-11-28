@@ -18,13 +18,13 @@ namespace API.Models
         public static Dictionary<int, string> Restrictions = new Dictionary<int, string>()
         {
             { 1, "🧒 Schools closing" },
-            { 2, "🏢 On work place"},
+            { 2, "🏢 Workplace closing"},
             { 3, "🥳 Public events"},
             { 4, "🍻 Public gathering"},
             { 7, "😷 Face covering"},
             { 8, "🚌 Public transport"},
-            { 9, "✈ International movement"},
-            { 10, "🛫 International travel control"},
+            { 9, "✈ Internal movement"},
+            { 10, "🗺 International travel control"},
             { 11, "🧪 PCR testing"},
             { 12, "💉 Vaccination policy"},
             { 6, "🏡 Stay at home"}
@@ -34,7 +34,7 @@ namespace API.Models
         {
             { 1, new Dictionary<byte, string>(){
                 {0, "No measures"},
-                {1, "Reccomended"},
+                {1, "Recomended"},
                 {2, "Required (only at some levels)" },
                 {3, "Required (all levels)" }
             } },

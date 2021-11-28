@@ -39,8 +39,7 @@
                 CovidRestrictions.Levels[v.Key].TryGetValue(v.Value, out Level);
                 <div class="col text-center">
                     <div class="rounded-5 shadow-lg p-3 m-2 @("c" + v.Value)">
-                        <p>@Restriction</p>
-                        <p>@Level</p>
+                        @Restriction – @Level
                     </div>
                 </div>
             }
