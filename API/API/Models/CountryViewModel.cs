@@ -1,4 +1,5 @@
-﻿using Glomad.Models;
+﻿using API.Helpers;
+using Glomad.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +64,7 @@ namespace API.Models
         public Country Country { get; set; }
         public List<int> ApprovedVaccines { get; set; }
         public Dictionary<int, byte> Restrictions { get; set; } // RestrictionId and its Levels
+        public AmadeusTravelRestrictions AmadeusTravelRestrictions { get; set; }
     }
 
     public struct IndexPage

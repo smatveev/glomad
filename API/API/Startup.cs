@@ -1,3 +1,4 @@
+using API.Helpers;
 using Glomad.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +18,7 @@ namespace API
 
         public IConfiguration Configuration { get; }
 
-        readonly string policy = "GlomadPolicy";
+        //readonly string policy = "GlomadPolicy";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -44,6 +45,11 @@ namespace API
                 options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
 
             services.AddControllersWithViews();
+            
+            services.AddHttpClient("AmadeusAPI", client => {
+                client.BaseAddress = new System.Uri(Configuration.GetValue<string>("AmadeusAPI:BaseUrl"));
+            });
+            services.AddScoped<AmadeusAPI>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,15 +66,10 @@ namespace API
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             //app.UseCors(policy
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

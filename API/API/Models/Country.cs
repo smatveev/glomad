@@ -1,6 +1,10 @@
-﻿using System;
+﻿using API.Helpers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,6 +33,7 @@ namespace Glomad.Models
         public short LetEVisaCount { get; set; }
         public short LetVisaCount { get; set; }
         public string Citizen { get; set; }
+        public string AmadeusTravelRestrictions { get; set; }
     }
 
     public class CountryVM

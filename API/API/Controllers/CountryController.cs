@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -133,11 +134,47 @@ namespace API.Controllers
         }
 
         [Route("{country}/Covid")]
-        public IActionResult Covid(string country)
-        {
+        public async Task<IActionResult> Covid([FromServices] AmadeusAPI amadeusAPI, string country)
+        {            
             var model = new CovidPage();
 
-            model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
+            var curCountry = _context.Country.FirstOrDefault(m => m.Name == country);            
+
+            var amadeus = _context.AmadeusApi.SingleOrDefault();
+            if (amadeus.CallsLimit < 200 && curCountry.UpdateDate < DateTime.Now.AddDays(-15))
+            {
+                if (!string.IsNullOrEmpty(curCountry.ISOalpha2))
+                {
+                    await amadeusAPI.ConnectOAuth();
+                    try
+                    {
+                        var results = await amadeusAPI.GetTravelRestrictions(curCountry.ISOalpha2);
+                        curCountry.AmadeusTravelRestrictions = JsonSerializer.Serialize(results);
+                        curCountry.UpdateDate = DateTime.Now;
+
+                        if (amadeus.LastCall < DateTime.Now.AddMonths(-1))
+                        {
+                            amadeus.CallsLimit = 0;
+                            amadeus.LastCall = DateTime.Now;
+                        }
+                        else
+                            amadeus.CallsLimit = amadeus.CallsLimit + 1;
+
+                        _context.SaveChanges();
+
+                        model.AmadeusTravelRestrictions = results;
+                    }
+                    catch (NotImplementedException e)
+                    {
+                        throw new NotImplementedException();
+                    }
+                }
+            }
+            else
+                model.AmadeusTravelRestrictions = JsonSerializer.Deserialize<AmadeusTravelRestrictions>(curCountry.AmadeusTravelRestrictions);
+
+            model.Country = curCountry;
+
             model.Covid = _context.Country.FirstOrDefault(c => c.Id == model.Country.Id).CovidRestrictions;
 
             model.ApprovedVaccines = _context.ApprovedVaccines.Where(c => c.CountryId == model.Country.Id).Select(i => i.VaccineId).ToList();

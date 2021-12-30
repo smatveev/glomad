@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using API.Helpers;
 using API.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
-//using Microsoft.Extensions.Configuration.FileExtensions;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
 
 namespace Glomad.Models
 {
@@ -81,5 +77,6 @@ namespace Glomad.Models
         public DbSet<Review> Review { get; set; }
         public DbSet<ApprovedVaccines> ApprovedVaccines{ get; set; }
         public DbSet<CovidRestrictions> CovidRestrictions { get; set; }
+        public DbSet<AmadeusApi> AmadeusApi { get; set; }
     }
 }

@@ -28,6 +28,29 @@
         }
     </div>
 
+    <h4 class="text-center p-4">⚠ Current restrictions in @Model.Header.CountryName</h4>
+    <table class="table table-borderless m-0 table-autowidth">
+        <tbody>
+            <tr>
+                <td>Updated: @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.date</td>
+                <td>😷 Mask wearing - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.isRequired</td>
+                <td>@Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.text</td>
+            </tr>
+
+            <tr>
+                <td>Updated: @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.date</td>
+                <td>🚎 Transport banned - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.isBanned</td>
+                <td>@Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.text</td>
+            </tr>
+        </tbody>
+    </table>
+    @foreach (var area in Model.AmadeusTravelRestrictions.data.areaRestrictions)
+    {
+        <p>Date: @area.date</p>
+        <p>@area.text</p>
+        <p>@area.restrictionType</p>
+    }
+
     <h4 class="text-center p-4">⚠ Current covid restrictions in @Model.Header.CountryName</h4>
     <div class="row row-cols-auto d-flex justify-content-center">
         @foreach (var v in Model.Restrictions)
@@ -50,7 +73,7 @@
     </div>
 
 
-    <h4 class="text-center pt-5">🧾 Entry conditions</h4>
-    <div class="p-3">@Html.Raw(Model.Covid)</div>
+    @*<h4 class="text-center pt-5">🧾 Entry conditions</h4>
+        <div class="p-3">@Html.Raw(Model.Covid)</div>*@
 
 </section>
