@@ -34,21 +34,20 @@
             <tr>
                 <td>Updated: @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.date</td>
                 <td>😷 Mask wearing - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.isRequired</td>
-                <td>@Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.text</td>
+                <td>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.text)</td>
             </tr>
 
             <tr>
                 <td>Updated: @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.date</td>
                 <td>🚎 Transport banned - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.isBanned</td>
-                <td>@Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.text</td>
+                <td>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.text)</td>
             </tr>
         </tbody>
     </table>
     @foreach (var area in Model.AmadeusTravelRestrictions.data.areaRestrictions)
     {
-        <p>Date: @area.date</p>
-        <p>@area.text</p>
-        <p>@area.restrictionType</p>
+        <h4>@area.restrictionType from @area.date</h4>
+        <p>@Html.Raw(area.text)</p>
     }
 
     <h4 class="text-center p-4">⚠ Current covid restrictions in @Model.Header.CountryName</h4>

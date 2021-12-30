@@ -55,7 +55,7 @@
             {
                 <p>📍 <small class="text-muted">Address: </small>@Model.EmbassyWithCountry.Embassy.Address</p>
                 <p>🕜 <small class="text-muted">Office hours: </small>@Html.Raw(Model.EmbassyWithCountry.Embassy.WorkingHours)</p>
-                <p>☎ <small class="text-muted">Phone: </small>@Model.EmbassyWithCountry.Embassy.Phone</p>
+                <p>☎ <small class="text-muted">Phone: </small>@Html.Raw(Model.EmbassyWithCountry.Embassy.Phone)</p>
                 <p>📧 <small class="text-muted">Email: </small>@Model.EmbassyWithCountry.Embassy.Email</p>
                 <p>💻 <small class="text-muted">Website: </small><a href="@Model.EmbassyWithCountry.Embassy.Url" target="_blank" rel="noopener nofollow noreferrer">@Model.EmbassyWithCountry.Embassy.Url</a></p>
                 <p>🚴‍♂️ <small class="text-muted">Processing time: </small>@Model.EmbassyWithCountry.Embassy.ProcessingTime</p>
