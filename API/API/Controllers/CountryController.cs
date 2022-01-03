@@ -141,7 +141,7 @@ namespace API.Controllers
             var curCountry = _context.Country.FirstOrDefault(m => m.Name == country);            
 
             var amadeus = _context.AmadeusApi.SingleOrDefault();
-            if (amadeus.CallsLimit < 200 && curCountry.UpdateDate < DateTime.Now.AddDays(-15))
+            if (amadeus.CallsLimit < 200 && (curCountry.UpdateDate == null || curCountry.UpdateDate < DateTime.Now.AddDays(-15)))
             {
                 if (!string.IsNullOrEmpty(curCountry.ISOalpha2))
                 {
