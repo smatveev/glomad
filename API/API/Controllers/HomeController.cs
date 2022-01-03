@@ -77,7 +77,7 @@ namespace API.Controllers
                                     {
                                         Id = co.Id,
                                         Description = co.Description,
-                                        VisaName = $"Is visa-free entry to {mo.ToCountryName} available for {HomeCountry.Citizen + " citizens" ?? "citizens of " + HomeCountry.Name}",
+                                        VisaName = $"Is visa-free entry to {mo.ToCountryName} available for {HomeCountry.Citizen + " citizens" ?? "citizens of " + HomeCountry.Name}?",
                                         Duration = co.Duration
                                     }).ToList();
 
