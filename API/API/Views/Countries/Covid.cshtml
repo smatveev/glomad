@@ -1,11 +1,12 @@
 ﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+@using API.Helpers;
 
 @model CovidPage
 
 @{
     ViewData["Title"] = $"{Model.Header.CountryName} COVID-19 travel restrictions, quarantine and entry requrements. Last update {Model.Country.UpdateDate}.";
-    ViewData["MetaDescription"] = $"Up-to-date info on COVID-19 travel restrictions for {Model.Header.CountryName}. Explore entry and quarantine requirements for {Model.Header.CountryName} in {DateTime.Now.Year}. What are covid restrictions in {Model.Country.Name} now.";
-    ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Covid";
+ ViewData["MetaDescription"] = $"Up-to-date info on COVID-19 travel restrictions for {Model.Header.CountryName}. Explore entry and quarantine requirements for {Model.Header.CountryName} in {DateTime.Now.Year}. What are covid restrictions in {Model.Country.Name} now.";
+ ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Covid";
 }
 
 @await Html.PartialAsync("_Header", Model.Header)
@@ -21,27 +22,27 @@
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">😷 Mask wearing - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.isRequired</h5>
-                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.text)
+                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.text.AddRelAttrs())
             </div>
         </div>
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">🚎 Transport banned - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.isBanned</h5>
-                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.text)
+                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.text.AddRelAttrs())
             </div>
         </div>
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">📃 Declaration documnents - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.documentRequired</h5>
-                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.text)
+                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.text.AddRelAttrs())
             </div>
         </div>
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">🛂 Entry - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.ban</h5>
-                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text)
+                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text.AddRelAttrs())
                 <h5>Rules</h5>
-                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text)
+                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text.AddRelAttrs())
                 @if (Model.BannedCountries != null)
                 {
                     <h5>Banned area</h5>
@@ -73,11 +74,11 @@
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">✅ Disease testing required - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.isRequired</h5>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.text)</p>
+                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.text.AddRelAttrs())</p>
                 <h5>When</h5>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.when)</p>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.requirement)</p>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.rules)</p>
+                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.when.AddRelAttrs())</p>
+                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.requirement.AddRelAttrs())</p>
+                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.rules.AddRelAttrs())</p>
                 <h5>Test type</h5>
                 <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.testType)</p>
                 <h5>Validity period</h5>
@@ -87,15 +88,15 @@
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">📱 Tracing applicaiton required - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.isRequired</h5>
-                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.text)
+                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.text.AddRelAttrs())
             </div>
         </div>
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">🌐 Quarantine modality</h5>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.eligiblePerson)</p>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.rules)</p>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.text)</p>
+                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.eligiblePerson.AddRelAttrs())</p>
+                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.rules.AddRelAttrs())</p>
+                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.text.AddRelAttrs())</p>
             </div>
         </div>
         @if (!string.IsNullOrEmpty(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.otherRestriction.text))
@@ -103,7 +104,7 @@
             <div class="col text-center">
                 <div class="rounded-5 shadow-lg p-3 m-2">
                     <h4>🤚 Other restrictions</h4>
-                    <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.otherRestriction.text)</p>
+                    <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.otherRestriction.text.AddRelAttrs())</p>
                 </div>
             </div>
         }
@@ -123,11 +124,11 @@
     <div class="row -row-cols-auto d-flex justify-content-center">
         @foreach (var v in ApprovedVaccines.Vaccines.Where(v => Model.ApprovedVaccines.Contains(v.Key)))
         {
-        <div class="-col col-12 col-sm-6 col-xl-2 col-md-4 text-center">
-            <div class="rounded-5 shadow-lg p-3 m-2" style="background-color: #fafcfd;">
-                @v.Value
+            <div class="-col col-12 col-sm-6 col-xl-2 col-md-4 text-center">
+                <div class="rounded-5 shadow-lg p-3 m-2" style="background-color: #fafcfd;">
+                    @v.Value
+                </div>
             </div>
-        </div>
         }
     </div>
 
@@ -158,8 +159,8 @@
     <h4 class="text-center p-4">🤚 Area restrictions</h4>
     @foreach (var area in Model.AmadeusTravelRestrictions.data.areaRestrictions)
     {
-    <h5>@area.restrictionType (last update: @area.date)</h5>
-    <p>@Html.Raw(area.text)</p>
+        <h5>@area.restrictionType (last update: @area.date)</h5>
+        <p>@Html.Raw(area.text.AddRelAttrs())</p>
     }
 
 
@@ -172,11 +173,11 @@
             {
                 CovidRestrictions.Restrictions.TryGetValue(v.Key, out Restriction);
                 CovidRestrictions.Levels[v.Key].TryGetValue(v.Value, out Level);
-        <div class="col text-center">
-            <div class="rounded-5 shadow-lg p-3 m-2 @("c" + v.Value)">
-                @Restriction – @Level
-            </div>
-        </div>
+                <div class="col text-center">
+                    <div class="rounded-5 shadow-lg p-3 m-2 @("c" + v.Value)">
+                        @Restriction – @Level
+                    </div>
+                </div>
             }
             catch (Exception e)
             {
