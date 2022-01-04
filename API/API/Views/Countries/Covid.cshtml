@@ -76,12 +76,16 @@
                 <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.text)</p>
             </div>
         </div>
-        @*<div class="col text-center">
-            <div class="rounded-5 shadow-lg p-3 m-2">
-                <h4>🤚 Other restrictions</h4>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.otherRestriction)</p>
+        @if (!string.IsNullOrEmpty(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.otherRestriction.text))
+        {
+            <div class="col text-center">
+                <div class="rounded-5 shadow-lg p-3 m-2">
+                    <h4>🤚 Other restrictions</h4>
+                    <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.otherRestriction.text)</p>
+                </div>
             </div>
-        </div>*@
+        }
+
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">💉 Qualified vaccines</h5>
@@ -97,11 +101,11 @@
     <div class="row -row-cols-auto d-flex justify-content-center">
         @foreach (var v in ApprovedVaccines.Vaccines.Where(v => Model.ApprovedVaccines.Contains(v.Key)))
         {
-            <div class="-col col-12 col-sm-6 col-xl-2 col-md-4 text-center">
-                <div class="rounded-5 shadow-lg p-3 m-2" style="background-color: #fafcfd;">
-                    @v.Value
-                </div>
+        <div class="-col col-12 col-sm-6 col-xl-2 col-md-4 text-center">
+            <div class="rounded-5 shadow-lg p-3 m-2" style="background-color: #fafcfd;">
+                @v.Value
             </div>
+        </div>
         }
     </div>
 
@@ -114,7 +118,7 @@
                     Risk level: @Model.AmadeusTravelRestrictions.data.diseaseRiskLevel;
                     Rate: @Model.AmadeusTravelRestrictions.data.diseaseInfection.rate;
                     Level: @Model.AmadeusTravelRestrictions.data.diseaseInfection.level.
-                    Source: <a target="_blank" rel="noopener nofollow noreferrer" 
+                    Source: <a target="_blank" rel="noopener nofollow noreferrer"
                                href="@Model.AmadeusTravelRestrictions.data.dataSources.governmentSiteLink">
                         @Model.AmadeusTravelRestrictions.data.dataSources.governmentSiteLink
                     </a>
@@ -128,8 +132,8 @@
     <h4 class="text-center p-4">🤚 Area restrictions</h4>
     @foreach (var area in Model.AmadeusTravelRestrictions.data.areaRestrictions)
     {
-        <h5>@area.restrictionType (last update: @area.date)</h5>
-        <p>@Html.Raw(area.text)</p>
+    <h5>@area.restrictionType (last update: @area.date)</h5>
+    <p>@Html.Raw(area.text)</p>
     }
 
 
@@ -142,11 +146,11 @@
             {
                 CovidRestrictions.Restrictions.TryGetValue(v.Key, out Restriction);
                 CovidRestrictions.Levels[v.Key].TryGetValue(v.Value, out Level);
-                <div class="col text-center">
-                    <div class="rounded-5 shadow-lg p-3 m-2 @("c" + v.Value)">
-                        @Restriction – @Level
-                    </div>
-                </div>
+        <div class="col text-center">
+            <div class="rounded-5 shadow-lg p-3 m-2 @("c" + v.Value)">
+                @Restriction – @Level
+            </div>
+        </div>
             }
             catch (Exception e)
             {

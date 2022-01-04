@@ -194,6 +194,8 @@ namespace API.Helpers
 
         public class OtherRestriction
         {
+            public string date { get; set; }
+            public string text { get; set; }
         }
 
         public class DiseaseVaccination
