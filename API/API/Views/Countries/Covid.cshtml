@@ -42,10 +42,17 @@
                 @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text)
                 <h5>Rules</h5>
                 @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text)
-                <h5>Banned area</h5>
-                <p>@String.Join("; ", Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea.Select(r => $"{r.areaType} - {r.iataCode}"))</p>
-                <h5>Border ban</h5>
-                <p>@String.Join("; ", Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan.Select(r => $"{r.borderType} - {r.status}"))</p>
+                @if (Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea != null)
+                {
+                    <h5>Banned area</h5>
+                    <p>@String.Join("; ", Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea.Select(r => $"{r.areaType} - {r.iataCode}"))</p>
+                }
+                @if (Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan != null)
+                {
+                    <h5>Border ban</h5>
+                    <p>@String.Join("; ", Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan.Select(r => $"{r.borderType} - {r.status}").ToArray())</p>
+                }
+
             </div>
         </div>
         <div class="col">
@@ -123,8 +130,12 @@
                         @Model.AmadeusTravelRestrictions.data.dataSources.governmentSiteLink
                     </a>
                 </p>
-                <h5>Hot spots</h5>
-                @Html.Raw(string.Join(", ",@Model.AmadeusTravelRestrictions.data.hotspots))
+                @if (Model.AmadeusTravelRestrictions.data.hotspots != null)
+                {
+                    <h5>Hot spots</h5>
+                    @Html.Raw(string.Join(", ", @Model.AmadeusTravelRestrictions.data.hotspots))
+                }
+
             </div>
         </div>
     </div>
