@@ -159,7 +159,7 @@
     <h4 class="text-center p-4">🤚 Area restrictions</h4>
     @foreach (var area in Model.AmadeusTravelRestrictions.data.areaRestrictions)
     {
-        <h5>@area.restrictionType (last update: @area.date)</h5>
+        <h5>@area.restrictionType</h5>
         <p>@Html.Raw(area.text.AddRelAttrs())</p>
     }
 
