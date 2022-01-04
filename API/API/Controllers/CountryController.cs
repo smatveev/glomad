@@ -173,6 +173,12 @@ namespace API.Controllers
             else
                 model.AmadeusTravelRestrictions = JsonSerializer.Deserialize<AmadeusTravelRestrictions>(curCountry.AmadeusTravelRestrictions);
 
+            if(model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea != null)
+            {
+                var iatas = model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea.Select(a => a.iataCode).ToList();
+                model.BannedCountries = _context.Country.Where(t => iatas.Contains(t.ISOalpha2)).Select(t => t.Name).ToList();
+            }
+
             model.Country = curCountry;
 
             model.Covid = _context.Country.FirstOrDefault(c => c.Id == model.Country.Id).CovidRestrictions;

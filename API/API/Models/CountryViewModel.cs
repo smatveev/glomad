@@ -65,6 +65,7 @@ namespace API.Models
         public List<int> ApprovedVaccines { get; set; }
         public Dictionary<int, byte> Restrictions { get; set; } // RestrictionId and its Levels
         public AmadeusTravelRestrictions AmadeusTravelRestrictions { get; set; }
+        public List<string> BannedCountries { get; set; }
     }
 
     public struct IndexPage

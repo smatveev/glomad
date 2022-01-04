@@ -42,15 +42,30 @@
                 @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text)
                 <h5>Rules</h5>
                 @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text)
-                @if (Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea != null)
+                @if (Model.BannedCountries != null)
                 {
                     <h5>Banned area</h5>
-                    <p>@String.Join("; ", Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea.Select(r => $"{r.areaType} - {r.iataCode}"))</p>
+                    <p>@String.Join("; ", Model.BannedCountries)</p>
                 }
                 @if (Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan != null)
                 {
                     <h5>Border ban</h5>
-                    <p>@String.Join("; ", Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan.Select(r => $"{r.borderType} - {r.status}").ToArray())</p>
+                    foreach (var b in Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan)
+                    {
+                        if (b.borderType.Equals("landBorderBan"))
+                        {
+                            <p>🚊 Land border - @b.status</p>
+                        }
+                        if (b.borderType.Equals("maritimeBorderBan"))
+                        {
+                            <p>🚢 Maritime border - @b.status</p>
+                        }
+                        if (b.borderType.Equals("airBorderBan"))
+                        {
+                            <p>✈ Air border - @b.status</p>
+                        }
+
+                    }
                 }
 
             </div>
