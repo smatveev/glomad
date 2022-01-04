@@ -197,7 +197,10 @@ namespace API.Controllers
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
             header.Text = $"Up-to-date info COVID-19 travel restrictions. Quarantine conditions, entry requrements, list of approved vaccines and etc., help you make decisions about future trips in {DateTime.Now.Year}.";
-            header.LastUpdate = curCountry.UpdateDate.Humanize();
+
+            if(curCountry.UpdateDate != null)
+                header.LastUpdate = curCountry.UpdateDate.Humanize();
+
             model.Header = header;
 
             return View("Covid", model);
