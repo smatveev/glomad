@@ -32,7 +32,8 @@ namespace API.Helpers
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = client.GetAsync("https://freegeoip.app/json/" + _context.Connection.RemoteIpAddress.ToString()).Result;
+                var req = "https://api.ipbase.com/v2/info?apikey=CntgTKh7GBimFtEaDuKrjUA7naGd8xJXhcA1IWjI&ip=" + _context.Connection.RemoteIpAddress.ToString();
+                var response = client.GetAsync("https://api.ipbase.com/v2/info?apikey=CntgTKh7GBimFtEaDuKrjUA7naGd8xJXhcA1IWjI&ip=" + _context.Connection.RemoteIpAddress.ToString()).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     response.EnsureSuccessStatusCode();
