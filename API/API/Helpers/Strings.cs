@@ -17,8 +17,9 @@ namespace API.Helpers
 
         public static string AddRelAttrs(this string input)
         {
-            if (input == null)
-                throw new ArgumentNullException(nameof(input));
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+                //throw new ArgumentNullException(nameof(input));
 
             return input.Replace("<a href", "<a rel=\"noopener nofollow noreferrer\" href");
         }
