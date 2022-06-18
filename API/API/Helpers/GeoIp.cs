@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -28,7 +29,29 @@ namespace API.Helpers
             _context = context;
         }
 
-        public async Task<GeoIp> GetAsync()
+        public async Task<string> GetMyCountryAsync()
+        {
+            string homeCountry = _context.Request.Cookies["homeCountry"];
+
+            if (string.IsNullOrEmpty(homeCountry))
+            {
+                CookieOptions option = new CookieOptions();
+                option.Expires = DateTime.Now.AddMonths(1);
+                try
+                {
+                    homeCountry = (await GetAsync()).country_alpha_2.ToLower();
+                }
+                catch (Exception ex)
+                {
+                    homeCountry = "ru";
+                }
+                _context.Response.Cookies.Append("homeCountry", homeCountry, option);
+            }
+
+            return homeCountry;
+        }
+
+        private async Task<GeoIp> GetAsync()
         {
             using (var client = new HttpClient())
             {

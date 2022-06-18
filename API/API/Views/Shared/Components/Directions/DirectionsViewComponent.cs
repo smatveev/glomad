@@ -21,20 +21,24 @@ namespace API.Views.Shared.Components.Directions
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            
-            GeoIp geoIP = await new GeoIp(HttpContext).GetAsync(); 
+            //HttpClient client = new HttpClient();
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //HttpResponseMessage response = await client.GetAsync("https://freegeoip.app/json/" + HttpContext.Connection.RemoteIpAddress.ToString());
+            //response.EnsureSuccessStatusCode();
+            //string responseBody = await response.Content.ReadAsStringAsync();
+
+            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(); //JsonConvert.DeserializeObject<GeoIp>(responseBody);
 
             DirectionsModel model = new DirectionsModel();
             var countryCode = (geoIP.country_alpha_2 != null) ? geoIP.country_alpha_2 : "RU";
 
             model.directions = _context.Country
                 .Where(c => Helpers.Countries.Prepared.Contains(c.Id))
-                .Where(c => c.ISOalpha2.ToLower() != countryCode.ToLower())
+                .Where(c => c.ISOalpha2.ToLower() != myCountry)
                 .Select(c => new { c.Name, c.Id })
                 .ToDictionary(c => c.Id, c => c.Name);
 
-            
-            model.from = _context.Country.Where(c => c.ISOalpha2 == countryCode)
+            model.from = _context.Country.Where(c => c.ISOalpha2 == myCountry)
                 .Select(c => new KeyValuePair<int, string>(c.Id, c.Name)).FirstOrDefault();
 
             return View(model);
