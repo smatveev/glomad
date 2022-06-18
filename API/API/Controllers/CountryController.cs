@@ -141,6 +141,14 @@ namespace API.Controllers
             var curCountry = _context.Country.FirstOrDefault(m => m.Name == country);            
 
             var amadeus = _context.AmadeusApi.SingleOrDefault();
+            
+            if (amadeus.LastCall < DateTime.Now.AddMonths(-1)) {
+                amadeus.CallsLimit = 0;
+                amadeus.LastCall = DateTime.Now;              
+                _context.SaveChanges();
+                amadeus = _context.AmadeusApi.SingleOrDefault();
+            }
+
             if (amadeus.CallsLimit < 200 && (curCountry.UpdateDate == null || curCountry.UpdateDate < DateTime.Now.AddDays(-15)))
             {
                 if (!string.IsNullOrEmpty(curCountry.ISOalpha2))
@@ -151,17 +159,8 @@ namespace API.Controllers
                         var results = await amadeusAPI.GetTravelRestrictions(curCountry.ISOalpha2);
                         curCountry.AmadeusTravelRestrictions = JsonSerializer.Serialize(results);
                         curCountry.UpdateDate = DateTime.Now;
-
-                        if (amadeus.LastCall < DateTime.Now.AddMonths(-1))
-                        {
-                            amadeus.CallsLimit = 0;
-                            amadeus.LastCall = DateTime.Now;
-                        }
-                        else
-                            amadeus.CallsLimit = amadeus.CallsLimit + 1;
-
+                        amadeus.CallsLimit = amadeus.CallsLimit + 1;
                         _context.SaveChanges();
-
                         model.AmadeusTravelRestrictions = results;
                     }
                     catch (NotImplementedException e)
@@ -171,8 +170,9 @@ namespace API.Controllers
                 }
             }
             else
+            {
                 model.AmadeusTravelRestrictions = JsonSerializer.Deserialize<AmadeusTravelRestrictions>(curCountry.AmadeusTravelRestrictions);
-
+            }
             if(model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea != null)
             {
                 var iatas = model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea.Select(a => a.iataCode).ToList();
