@@ -46,12 +46,8 @@ namespace API.Controllers
 
 
             GeoIp geoIP = await new GeoIp(HttpContext).GetAsync();
-            var countryCode = (geoIP != null) ? geoIP.country_code : "DE";
+            var countryCode = (geoIP.country_alpha_2 != null) ? geoIP.country_alpha_2 : "RU";
             model.HomeCountry = _context.Country.Where(c => c.ISOalpha2 == countryCode).FirstOrDefault();
-            if (model.HomeCountry == null) {
-                model.HomeCountry = _context.Country.Where(c => c.ISOalpha2 == "DE").FirstOrDefault();
-            }
-            //model.HomeCountry = _context.Country.Where(c => c.Name == "Russia").FirstOrDefault();
 
             model.NoVisaEntry = _context.NoVisaEntry
                 .Where(i => i.CountryDestination.Id == model.Country.Id && i.CountryPassport.Id == model.HomeCountry.Id).FirstOrDefault();
