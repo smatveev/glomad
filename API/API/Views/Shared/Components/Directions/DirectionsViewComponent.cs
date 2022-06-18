@@ -27,17 +27,17 @@ namespace API.Views.Shared.Components.Directions
             //response.EnsureSuccessStatusCode();
             //string responseBody = await response.Content.ReadAsStringAsync();
 
-            GeoIp geoIP = await new GeoIp(HttpContext).GetAsync(); //JsonConvert.DeserializeObject<GeoIp>(responseBody);
+            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(); //JsonConvert.DeserializeObject<GeoIp>(responseBody);
 
             DirectionsModel model = new DirectionsModel();
 
             model.directions = _context.Country
                 .Where(c => Helpers.Countries.Prepared.Contains(c.Id))
-                .Where(c => c.ISOalpha2.ToLower() != geoIP.country_code.ToLower())
+                .Where(c => c.ISOalpha2.ToLower() != myCountry)
                 .Select(c => new { c.Name, c.Id })
                 .ToDictionary(c => c.Id, c => c.Name);
 
-            model.from = _context.Country.Where(c => c.ISOalpha2 == geoIP.country_code)
+            model.from = _context.Country.Where(c => c.ISOalpha2 == myCountry)
                 .Select(c => new KeyValuePair<int, string>(c.Id, c.Name)).FirstOrDefault();
 
             return View(model);
