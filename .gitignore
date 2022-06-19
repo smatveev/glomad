@@ -214,6 +214,8 @@ project.lock.json
 # Output folder used by Webpack or other FE stuff
 **/node_modules/*
 Glomad.net**/wwwroot/*
+appsettings.json
+appsettings.Development.json
 
 # SpecFlow specific
 *.feature.cs
