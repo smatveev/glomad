@@ -15,9 +15,9 @@
 
     @await Html.PartialAsync("_Menu", Model.Header.CountryName)
 
-    <h2 class="text-center p-4">🦠 @Model.Header.CountryName COVID-19 travel requirements</h2>
+    <h2 class="text-center p-4">🦠 The COVID-19 travel restrictions in @Model.Header.CountryName</h2>
     <div>@Html.Raw(Model.AmadeusTravelRestrictions.data.summary)</div>
-
+   
     <div class="row row-cols-auto d-flex justify-content-center">
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
@@ -71,8 +71,10 @@
 
             </div>
         </div>
-        <div class="col">
-            <div class="rounded-5 shadow-lg p-3 m-2">
+        @if (@Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.isRequired.ToString() != "No")
+        {
+            <div class="col">
+                <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">✅ Disease testing required - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.isRequired</h5>
                 <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.text.AddRelAttrs())</p>
                 <h5>When</h5>
@@ -85,12 +87,16 @@
                 <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.validityPeriod.delay)</p>
             </div>
         </div>
-        <div class="col">
-            <div class="rounded-5 shadow-lg p-3 m-2">
+        }
+        @if (@Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.isRequired != "No")
+        {
+            <div class="col">
+                <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">📱 Tracing applicaiton required - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.isRequired</h5>
                 @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.text.AddRelAttrs())
             </div>
         </div>
+        }
         <div class="col">
             <div class="rounded-5 shadow-lg p-3 m-2">
                 <h5 class="text-center">🌐 Quarantine modality</h5>
@@ -157,10 +163,14 @@
     </div>
 
     <h4 class="text-center p-4">🤚 Area restrictions</h4>
-    @foreach (var area in Model.AmadeusTravelRestrictions.data.areaRestrictions)
+    @if (Model.AmadeusTravelRestrictions.data.areaRestrictions != null)
     {
-        <h5>@area.restrictionType</h5>
-        <p>@Html.Raw(area.text.AddRelAttrs())</p>
+        @foreach (var area in Model.AmadeusTravelRestrictions.data.areaRestrictions)
+        {
+            <h5>@area.restrictionType</h5>
+            <p>@Html.Raw(area.text.AddRelAttrs())</p>
+        }
+
     }
 
 
