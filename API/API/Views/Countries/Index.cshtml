@@ -28,9 +28,9 @@
                 <div class="col">
                     <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="height: 380px; background-image: url('../@(Model.HomeCountry.Name)_300.jpg');">
                         <div class="card-img-overlay">
-                            <h3 class="card-title shadowed text-center align-middle lh-1 fw-bold">No visa entry</h3>
+                            <h3 class="card-title shadowed text-center align-middle lh-1 fw-bold">Visa-free entry</h3>
                             <h5 class="card-title shadowed text-center align-middle lh-1 p-2">
-                                For @(Model.HomeCountry.Citizen + " citizens" ?? "citizens of " + Model.HomeCountry.Name) @Model.NoVisaEntry.Duration days no visa entry.
+                                @(Model.HomeCountry.Citizen + " сitizens" ?? "Сitizens of " + Model.HomeCountry.Name) can stay in the @Model.Header.CountryName @Model.NoVisaEntry.Duration days without visa.
                             </h5>
                             <span class="m-2 badge rounded-pill bg-info text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="@Model.NoVisaEntry.Description">👉 Details</span>
                             @if (Model.NoVisaEntry.IsEVisaAvailable)

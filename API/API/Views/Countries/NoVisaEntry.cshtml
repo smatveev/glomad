@@ -14,11 +14,11 @@
 
     @await Html.PartialAsync("_Menu", Model.header.CountryName)
 
-    <h2 class="text-center p-4">🖐 No visa entry to @Model.header.CountryName</h2>
+    <h2 class="text-center p-4">🖐 Visa-free entry to @Model.header.CountryName</h2>
 
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="cb_novisaentry" value="novisaentry" checked>
-        <label class="form-check-label" for="cb_novisaentry">No visa entry</label>
+        <label class="form-check-label" for="cb_novisaentry">Visa-free entry</label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="cb_evisa" value="evisa">
@@ -57,7 +57,7 @@
 
                     @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
                     <div class="card-img-overlay">
-                        <span class="position-absolute top-0 end-0 m-2 badge rounded-pill bg-success text-white">👋 No visa entry</span>
+                        <span class="position-absolute top-0 end-0 m-2 badge rounded-pill bg-success text-white">👋 Visa-free entry</span>
                         @if (c.EVisaAvailable)
                         {
                             <a href="@c.EVisaUrl" rel="noopener nofollow noreferrer">
