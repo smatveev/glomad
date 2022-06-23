@@ -110,13 +110,13 @@
 }
 
 
-@if (Model.CovidInfo != null)
+@*@if (Model.CovidInfo != null)
 {
     <section class="container pt-4">
         <h2 class="pb-2 text-center">🦠 @Model.ToCountryName COVID-19 travel requirements</h2>
         <div class="mb-3" style="height:400px; overflow-y: auto;">@Html.Raw(@Model.CovidInfo)</div>
     </section>
-}
+}*@
 
 @if (Model.FreeCountries?.Count > 0)
 {
