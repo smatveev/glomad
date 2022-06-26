@@ -5,8 +5,8 @@
 
 @{
     ViewData["Title"] = $"{Model.Header.CountryName} COVID-19 travel restrictions, quarantine and entry requrements. Last update {Model.Country.UpdateDate}.";
- ViewData["MetaDescription"] = $"Up-to-date info on COVID-19 travel restrictions for {Model.Header.CountryName}. Explore entry and quarantine requirements for {Model.Header.CountryName} in {DateTime.Now.Year}. What are covid restrictions in {Model.Country.Name} now.";
- ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Covid";
+    ViewData["MetaDescription"] = $"Up-to-date info on COVID-19 travel restrictions for {Model.Header.CountryName}. Explore entry and quarantine requirements for {Model.Header.CountryName} in {DateTime.Now.Year}. What are covid restrictions in {Model.Country.Name} now.";
+    ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Covid";
 }
 
 @await Html.PartialAsync("_Header", Model.Header)
@@ -15,33 +15,95 @@
 
     @await Html.PartialAsync("_Menu", Model.Header.CountryName)
 
-    <h2 class="text-center p-4">🦠 The COVID-19 travel restrictions in @Model.Header.CountryName</h2>
-    <div>@Html.Raw(Model.AmadeusTravelRestrictions.data.summary)</div>
+    @*<h2 class="text-center p-4">🦠 The COVID-19 travel restrictions in @Model.Header.CountryName</h2>*@
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Travel guidelines</h2>
+
+                <h6>🛬 Quarantine on arrival in @Model.Header.CountryName</h6>
+                <p><a class="text-decoration-none" href="#quarantinemodality">@Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.eligiblePerson</a></p>
+
+                <h6 class="pt-4">🛬 Quarantine on return to 
+                    <a href="../@Model.HomeCountry">@Model.HomeCountry</a>
+                </h6>
+                <p>Quarantine is not required</p>
+            </div>
+
+            <div class="col-md-4">
+                <h2>COVID-19 statistics</h2>
+
+                @if(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.ban.ToLower().Equals("no"))
+                {
+                    <h4 style="color: green">Open</h4>    
+                }
+                else
+                {
+                    <h4 style="color: red">Closed</h4>
+                }
+
+                <h6 class="pt-4">Infection risk level</h6>
+                <h4>📉 @Model.AmadeusTravelRestrictions.data.diseaseRiskLevel</h4>
+                
+
+                <h6 class="pt-4">New COVID-19 cases in last 14 days</h6>
+                <h4>🦠 @Model.AmadeusTravelRestrictions.data.diseaseInfection.rate</h4>
+                <p class="small text-muted">out of 100,000 people</p>
+            </div>
+
+            <div class="col-md-4">
+                <h2>Ready to go?</h2>
+                <p>
+                    <a href="https://safetywing.com/?referenceID=24744359&amp;utm_source=24744359&amp;utm_medium=Ambassador" rel="noopener nofollow noreferrer" class="text-decoration-none">
+                        Nomad innsurance COVID-19 coverage
+                    </a>
+                </p>
+                <p>
+                    <a href="https://booking.tp.st/rml4gWLG" rel="noopener nofollow noreferrer" class="text-decoration-none">
+                        Book hotel in @Model.Header.CountryName
+                    </a>
+                </p>
+                <p>
+                    <a href="https://aviasales.tp.st/hJye4HU1" rel="noopener nofollow noreferrer" class="text-decoration-none">
+                        Cheap flight tickets to @Model.Header.CountryName
+                    </a>
+                </p>
+                <p>
+                    <a href="https://rentalcars.tp.st/dZJ6XQZa" rel="noopener nofollow noreferrer" class="text-decoration-none">
+                        Rent a car in @Model.Header.CountryName
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr />
    
-    <div class="row row-cols-auto d-flex justify-content-center">
-        <div class="col">
-            <div class="rounded-5 shadow-lg p-3 m-2">
-                <h5 class="text-center">😷 Mask wearing - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.isRequired</h5>
-                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.text.AddRelAttrs())
-            </div>
+    <div class="row">
+
+        <h2>Traveling to @Model.Header.CountryName during COVID-19: What you need to know</h2>
+
+        <div class="pb-4">@Html.Raw(Model.AmadeusTravelRestrictions.data.summary)</div>
+
+        <div class="pb-4">
+            <h4>😷 Mask wearing - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.isRequired</h4>
+            @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.text.AddRelAttrs())
         </div>
-        <div class="col">
-            <div class="rounded-5 shadow-lg p-3 m-2">
-                <h5 class="text-center">🚎 Transport banned - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.isBanned</h5>
-                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.text.AddRelAttrs())
-            </div>
+
+        <div class="pb-4">
+            <h4>🚎 Transport banned - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.isBanned</h4>
+            @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.text.AddRelAttrs())
         </div>
-        <div class="col">
-            <div class="rounded-5 shadow-lg p-3 m-2">
-                <h5 class="text-center">📃 Declaration documnents - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.documentRequired</h5>
-                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.text.AddRelAttrs())
-            </div>
+        
+        <div class="pb-4">
+            <h4>📃 Declaration documnents - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.documentRequired</h4>
+            @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.text.AddRelAttrs())
         </div>
-        <div class="col">
-            <div class="rounded-5 shadow-lg p-3 m-2">
-                <h5 class="text-center">🛂 Entry - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.ban</h5>
+
+        <div class="pb-4">
+                <h4>🛂 Entry - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.ban</h4>
                 @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text.AddRelAttrs())
-                <h5>Rules</h5>
+                <h4>Rules</h4>
                 @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.text.AddRelAttrs())
                 @if (Model.BannedCountries != null)
                 {
@@ -50,7 +112,7 @@
                 }
                 @if (Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan != null)
                 {
-                    <h5>Border ban</h5>
+                    <h4>Border ban</h4>
                     foreach (var b in Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan)
                     {
                         if (b.borderType.Equals("landBorderBan"))
@@ -70,59 +132,51 @@
                 }
 
             </div>
-        </div>
+
         @if (@Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.isRequired.ToString() != "No")
         {
-            <div class="col">
-                <div class="rounded-5 shadow-lg p-3 m-2">
-                <h5 class="text-center">✅ Disease testing required - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.isRequired</h5>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.text.AddRelAttrs())</p>
-                <h5>When</h5>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.when.AddRelAttrs())</p>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.requirement.AddRelAttrs())</p>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.rules.AddRelAttrs())</p>
-                <h5>Test type</h5>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.testType)</p>
-                <h5>Validity period</h5>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.validityPeriod.delay)</p>
-            </div>
+        <div class="pb-4">
+            <h4>✅ Disease testing required - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.isRequired</h4>
+            <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.text.AddRelAttrs())</p>
+            <h4>When</h4>
+            <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.when.AddRelAttrs())</p>
+            <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.requirement.AddRelAttrs())</p>
+            <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.rules.AddRelAttrs())</p>
+            <h4>Test type</h4>
+            <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.testType)</p>
+            <h4>Validity period</h4>
+            <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseTesting.validityPeriod.delay)</p>
         </div>
         }
         @if (@Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.isRequired != "No")
         {
-            <div class="col">
-                <div class="rounded-5 shadow-lg p-3 m-2">
-                <h5 class="text-center">📱 Tracing applicaiton required - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.isRequired</h5>
+            <div>
+                <h4>📱 Tracing applicaiton required - @Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.isRequired</h4>
                 @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.tracingApplication.text.AddRelAttrs())
             </div>
-        </div>
+
         }
-        <div class="col">
-            <div class="rounded-5 shadow-lg p-3 m-2">
-                <h5 class="text-center">🌐 Quarantine modality</h5>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.eligiblePerson.AddRelAttrs())</p>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.rules.AddRelAttrs())</p>
-                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.text.AddRelAttrs())</p>
-            </div>
+        <div class="pb-4" id="quarantinemodality">
+            <h4>🌐 Quarantine modality</h4>
+            <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.eligiblePerson.AddRelAttrs())</p>
+            <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.rules.AddRelAttrs())</p>
+            <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.quarantineModality.text.AddRelAttrs())</p>
         </div>
+
         @if (!string.IsNullOrEmpty(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.otherRestriction.text))
         {
-            <div class="col text-center">
-                <div class="rounded-5 shadow-lg p-3 m-2">
-                    <h4>🤚 Other restrictions</h4>
-                    <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.otherRestriction.text.AddRelAttrs())</p>
-                </div>
+            <div class="pb-4">
+                <h4>🤚 Other restrictions</h4>
+                <p>@Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.otherRestriction.text.AddRelAttrs())</p>
             </div>
         }
 
-        <div class="col">
-            <div class="rounded-5 shadow-lg p-3 m-2">
-                <h5 class="text-center">💉 Qualified vaccines in @Model.Header.CountryName</h5>
-                @foreach (var v in Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseVaccination.qualifiedVaccines)
-                {
-                    <p>@v</p>
-                }
-            </div>
+        <div class="pb-4">
+            <h4>💉 Qualified vaccines in @Model.Header.CountryName</h4>
+            @foreach (var v in Model.AmadeusTravelRestrictions.data.areaAccessRestriction.diseaseVaccination.qualifiedVaccines)
+            {
+                <p>@v</p>
+            }
         </div>
     </div>
 
@@ -138,40 +192,37 @@
         }
     </div>*@
 
-
-    <h4 class="text-center p-4">📈 Disease statistics</h4>
-    <div class="row row-cols-auto d-flex justify-content-center">
-        <div class="col">
-            <div class="rounded-5 shadow-lg p-3 m-2">
-                <p>
-                    Risk level: @Model.AmadeusTravelRestrictions.data.diseaseRiskLevel;
-                    Rate: @Model.AmadeusTravelRestrictions.data.diseaseInfection.rate;
-                    Level: @Model.AmadeusTravelRestrictions.data.diseaseInfection.level.
-                    Source: <a target="_blank" rel="noopener nofollow noreferrer"
-                               href="@Model.AmadeusTravelRestrictions.data.dataSources.governmentSiteLink">
-                        @Model.AmadeusTravelRestrictions.data.dataSources.governmentSiteLink
-                    </a>
-                </p>
-                @if (Model.AmadeusTravelRestrictions.data.hotspots != null)
-                {
-                    <h5>Hot spots</h5>
-                    @Html.Raw(string.Join(", ", @Model.AmadeusTravelRestrictions.data.hotspots))
-                }
-
-            </div>
-        </div>
+    <div class="pb-4">
+        <h4 >📈 Disease statistics</h4>
+        <p>
+            Risk level: @Model.AmadeusTravelRestrictions.data.diseaseRiskLevel;
+            Rate: @Model.AmadeusTravelRestrictions.data.diseaseInfection.rate;
+            Level: @Model.AmadeusTravelRestrictions.data.diseaseInfection.level.
+            Source: <a target="_blank" rel="noopener nofollow noreferrer"
+                        href="@Model.AmadeusTravelRestrictions.data.dataSources.governmentSiteLink">
+                @Model.AmadeusTravelRestrictions.data.dataSources.governmentSiteLink
+            </a>
+        </p>
+        @if (Model.AmadeusTravelRestrictions.data.hotspots != null)
+        {
+            <h5>Hot spots</h5>
+            @Html.Raw(string.Join(", ", @Model.AmadeusTravelRestrictions.data.hotspots))
+        }
     </div>
 
-    <h4 class="text-center p-4">🤚 Area restrictions</h4>
-    @if (Model.AmadeusTravelRestrictions.data.areaRestrictions != null)
-    {
-        @foreach (var area in Model.AmadeusTravelRestrictions.data.areaRestrictions)
+    <div class="pb-4">
+        <h4  >🤚 Area restrictions</h4>
+        @if (Model.AmadeusTravelRestrictions.data.areaRestrictions != null)
         {
-            <h5>@area.restrictionType</h5>
-            <p>@Html.Raw(area.text.AddRelAttrs())</p>
-        }
+            @foreach (var area in Model.AmadeusTravelRestrictions.data.areaRestrictions)
+            {
+                <h5>@area.restrictionType</h5>
+                <p>@Html.Raw(area.text.AddRelAttrs())</p>
+            }
 
-    }
+        }
+    </div>
+
 
 
     <h4 class="text-center p-4">⚠ Current covid restrictions in @Model.Header.CountryName</h4>
@@ -190,7 +241,7 @@
                 </div>
             }
             catch (Exception e)
-            {
+            {                
             }
         }
     </div>

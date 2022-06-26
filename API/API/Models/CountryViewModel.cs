@@ -66,6 +66,7 @@ namespace API.Models
         public Dictionary<int, byte> Restrictions { get; set; } // RestrictionId and its Levels
         public AmadeusTravelRestrictions AmadeusTravelRestrictions { get; set; }
         public List<string> BannedCountries { get; set; }
+        public string HomeCountry { get; set; }
     }
 
     public struct IndexPage

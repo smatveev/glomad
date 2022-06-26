@@ -137,7 +137,7 @@ namespace API.Controllers
         {            
             var model = new CovidPage();
 
-            var curCountry = _context.Country.FirstOrDefault(m => m.Name == country);            
+            var curCountry = _context.Country.FirstOrDefault(m => m.Name == country);
 
             var amadeus = _context.AmadeusApi.SingleOrDefault();
             
@@ -179,6 +179,9 @@ namespace API.Controllers
             }
 
             model.Country = curCountry;
+
+            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            model.HomeCountry = _context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault().Name;
 
             model.Covid = _context.Country.FirstOrDefault(c => c.Id == model.Country.Id).CovidRestrictions;
 
