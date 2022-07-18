@@ -116,7 +116,12 @@
         
         <div class="pb-4" id="Documnents">
             <h4>📃 Declaration documnents</h4>
-            @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.text.AddRelAttrs())
+            @if(string.IsNullOrEmpty(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.text))
+            {
+                <p>There are no any special documents for declaration are required</p>
+            }
+            else
+                @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.text.AddRelAttrs())
         </div>
 
         <div class="pb-4" id="Entry">
