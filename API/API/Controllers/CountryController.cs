@@ -19,6 +19,18 @@ namespace API.Controllers
         {
             _context = context;
         }
+        //protected override void OnActionExecuting(ActionExecutingContext context)
+        //{
+        //    base.OnActionExecuting(context);
+        //    // your code here
+        //}
+
+        private void IncreaseViewCouter(int countryId)
+        {
+            var Country = _context.Country.FirstOrDefault(m => m.Id == countryId);
+            Country.ViewCounter = Country.ViewCounter + 1;
+            _context.SaveChanges();
+        }
 
         [Route("{country}")]
         public async Task<IActionResult> Index(string country)
@@ -28,6 +40,8 @@ namespace API.Controllers
             model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
             if (model.Country == null)
                 return RedirectToAction("Index", "Home");
+
+            IncreaseViewCouter(model.Country.Id);
 
             model.Visas = (from v in _context.Visa
                            where v.Country.Id == model.Country.Id
@@ -103,6 +117,8 @@ namespace API.Controllers
 
             model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
 
+            IncreaseViewCouter(model.Country.Id);
+
             model.Embassies = (from e in _context.Embassy
                                join c in _context.Country
                                on e.Country.Id equals c.Id
@@ -138,6 +154,8 @@ namespace API.Controllers
             var model = new CovidPage();
 
             var curCountry = _context.Country.FirstOrDefault(m => m.Name == country);
+
+            IncreaseViewCouter(curCountry.Id);
 
             var amadeus = _context.AmadeusApi.SingleOrDefault();
             
@@ -216,7 +234,12 @@ namespace API.Controllers
         [Route("{country}/NoVisaEntry")]
         public IActionResult NoVisaEntry(string country)
         {
-            ViewBag.LastUpdates = _context.Country.Where(c => c.Name == country).Select(r => r.UpdateDate.Value);
+            var Country = _context.Country.Where(c => c.Name == country).FirstOrDefault();
+            IncreaseViewCouter(Country.Id);
+
+            ViewBag.LastUpdates = Country.UpdateDate.Value;
+
+            //IncreaseViewCouter(curCountry.Id);
 
             var model = new FreeEntry();
 
@@ -257,7 +280,11 @@ namespace API.Controllers
             FreeEntry model = new FreeEntry();
 
             string countryName = country.FirstCharToUpper();
-            string citizen = _context.Country.Where(c => c.Name == country).FirstOrDefault().Citizen;
+
+            var Country = _context.Country.Where(c => c.Name == country).FirstOrDefault();
+            IncreaseViewCouter(Country.Id);
+
+            string citizen = Country.Citizen;
 
             model.countries = (from ne in _context.NoVisaEntry
                              join co in _context.Country on ne.CountryPassport.Id equals co.Id
@@ -331,9 +358,12 @@ namespace API.Controllers
         {
             VisaPage model = new VisaPage();
 
+            var Country = _context.Country.Where(c => c.Name == country).FirstOrDefault();
+            IncreaseViewCouter(Country.Id);
+
             model.Reviews = _context.Review.Where(r => r.Visa.Id == id).ToList();
             model.Visa = _context.Visa.Where(v => v.Id == id).FirstOrDefault();
-            model.Visa.Country = _context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
+            model.Visa.Country = Country; //_context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
 
             model.Embassies = (from e in _context.Embassy
                                join c in _context.Country

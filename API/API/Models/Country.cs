@@ -34,6 +34,7 @@ namespace Glomad.Models
         public short LetVisaCount { get; set; }
         public string Citizen { get; set; }
         public string AmadeusTravelRestrictions { get; set; }
+        public ulong ViewCounter { get; set; }
     }
 
     public class CountryVM
