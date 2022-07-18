@@ -100,7 +100,8 @@
 @if (Model.To > 0)
 {
     <section class="container pt-4">
-        <h2 class="pb-2 text-center">Cheap tickets from @Model.PassportCountryName to @Model.ToCountryName</h2>
+        <h2 class="pb-2 text-center">Cheap tickets from 
+            <a href="/@Model.PassportCountryName">@Model.PassportCountryName</a> to <a href="/@Model.ToCountryName">@Model.ToCountryName</a></h2>
         <div class="py-2">
             <div class="p-3 bg-light rounded-3">
                 <script src="https://tp.media/content?currency=usd&promo_id=4041&shmarker=14510&campaign_id=100&trs=21653&searchUrl=search.jetradar.com&locale=en_us&powered_by=false&one_way=true&only_direct=false&period=year&range=7%2C21&primary=%230C73FE&color_background=%23ffffff&achieve=%2345AD35&dark=%23000000&light=%23FFFFFF&origin=@Model.PassportCapitalCode&destination=@Model.ToCapitalCode" charset="utf-8"></script>
