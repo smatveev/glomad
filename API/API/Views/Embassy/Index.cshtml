@@ -1,4 +1,5 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+﻿@using System.Web
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @model EmbassyViewModel
 
@@ -14,15 +15,16 @@
     }
 }
 
-<div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/@bgimage') !important">
-    @if (Model.EmbassyWithCountry.Embassy.Name != null)
+<div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage')">
+    <h1 class="text-white py-5 shadowed">Embassy of @Model.Country in @Model.EmbassyWithCountry.Country, @Model.EmbassyWithCountry.City</h1>
+    @*@if (Model.EmbassyWithCountry.Embassy.Name != null)
     {
         <h1 class="display-5 fw-bold">@Model.EmbassyWithCountry.Embassy.Name</h1>
     }
     else
     {
         <h1 class="display-5 fw-bold">Embassy of @Model.Country in @Model.EmbassyWithCountry.Country, @Model.EmbassyWithCountry.City</h1>
-    }
+    }*@
 
 
     <nav aria-label="breadcrumb">
@@ -48,15 +50,29 @@
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane fade show active" id="info">
-            <h2 class="fw-bold text-center p-4 mb-3">🏢 Embassy details</h2>
+        <div class="tab-pane fade show active" id="info" itemscope="" itemtype="http://schema.org/GovernmentPermit">
+            @if (Model.EmbassyWithCountry.Embassy.Name != null)
+            {
+                <h2 itemprop="name" class="fw-bold text-center p-4 mb-3">🏢 @Html.Raw(HttpUtility.HtmlDecode(Model.EmbassyWithCountry.Embassy.Name)) - information</h2>
+            }
+            else
+            {
+                <h2 itemprop="name" class="fw-bold text-center p-4 mb-3">🏢 @Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country} in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City} - information").Replace("\n", "<br/>"))</h2>
+            }
 
             @if (Model.EmbassyWithCountry.Embassy != null)
             {
-                <p>📍 <small class="text-muted">Address: </small>@Model.EmbassyWithCountry.Embassy.Address</p>
+                <p itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+                    📍 <small class="text-muted">Address: </small>@Model.EmbassyWithCountry.Embassy.Address</p>
+
                 <p>🕜 <small class="text-muted">Office hours: </small>@Html.Raw(Model.EmbassyWithCountry.Embassy.WorkingHours)</p>
-                <p>☎ <small class="text-muted">Phone: </small>@Html.Raw(Model.EmbassyWithCountry.Embassy.Phone)</p>
-                <p>📧 <small class="text-muted">Email: </small>@Model.EmbassyWithCountry.Embassy.Email</p>
+
+                <p itemprop="telephone">
+                    ☎ <small class="text-muted">Phone: </small>@Html.Raw(Model.EmbassyWithCountry.Embassy.Phone)</p>
+
+                <p itemprop="email">
+                    📧 <small class="text-muted">Email: </small>@Model.EmbassyWithCountry.Embassy.Email</p>
+
                 <p>💻 <small class="text-muted">Website: </small><a href="@Model.EmbassyWithCountry.Embassy.Url" target="_blank" rel="noopener nofollow noreferrer">@Model.EmbassyWithCountry.Embassy.Url</a></p>
                 <p>🚴‍♂️ <small class="text-muted">Processing time: </small>@Model.EmbassyWithCountry.Embassy.ProcessingTime</p>
                 <p>☝ <small class="text-muted">Special conditions: </small>@Model.EmbassyWithCountry.Embassy.SpecialConditions</p>
