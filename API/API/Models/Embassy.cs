@@ -36,5 +36,11 @@ namespace Glomad.Models
         public string Name { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public byte Complexity { get; set; }
+        public bool PermanentResidency { get; set; }
+        public bool ProvidesСitizenship { get; set; }
+        public decimal Price { get; set; }
+        public string Currency { get; set; }
+        public byte IssueDeadlines { get; set; }
     }
 }
