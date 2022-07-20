@@ -17,4 +17,10 @@ namespace API.Models
         public string Text { get; set; }
         public Visa Visa { get; set; }
     }
+
+    enum DocumentType : ushort
+    {
+        Passport,
+        Photo
+    }
 }
