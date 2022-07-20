@@ -27,6 +27,8 @@ namespace API.Controllers
 
         private void IncreaseViewCouter(int countryId)
         {
+            if (Request.IsLocal()) return;
+
             var Country = _context.Country.FirstOrDefault(m => m.Id == countryId);
             Country.ViewCounter = Country.ViewCounter + 1;
             _context.SaveChanges();
