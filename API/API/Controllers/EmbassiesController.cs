@@ -39,11 +39,11 @@ namespace API.Controllers
         [HttpGet("DocsById")]
         public IActionResult GetDocsById(int id)
         {
-            var res = _context.VisaDoc.Where(m => m.Embassy.Id == id).ToList();
+            //var res = _context.VisaDoc.Where(m => m.Embassy.Id == id).ToList();
+            return NotFound();
 
-            if (res == null) return NotFound();
-
-            return Ok(res);
+            //if (res == null) return NotFound();
+            //return Ok(res);
         }
 
         [HttpGet("VisasById")]

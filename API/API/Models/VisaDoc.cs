@@ -10,12 +10,9 @@ namespace API.Models
     public class VisaDoc
     {
         public int Id { get; set; }
-
-        [Required]
-        public Embassy Embassy { get; set; }
-
         public string Text { get; set; }
         public Visa Visa { get; set; }
+        public ushort DocumentType { get; set; }
     }
 
     enum DocumentType : ushort

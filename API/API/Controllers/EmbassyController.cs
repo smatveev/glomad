@@ -31,7 +31,7 @@ namespace API.Controllers
                                             Country = c.Name,
                                             City = e.City.Name
                                         }).FirstOrDefault();
-            model.Docs = _context.VisaDoc.Where(m => m.Embassy.Id == id).ToList();
+            //model.Docs = _context.VisaDoc.Where(m => m.Embassy.Id == id).ToList();
             model.VisaDetails = (from v in _context.Visa
                                  join ve in _context.VisaEmbassy
                                  on v.Id equals ve.Visa.Id
