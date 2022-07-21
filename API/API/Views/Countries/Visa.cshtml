@@ -1,5 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
+@using API.Helpers
 @using Humanizer
 
 @model VisaPage
@@ -40,7 +41,7 @@
         }
     </div>
 
-    <div class="px-2 py-3">@Html.Raw(Model.Visa.Description)</div>
+    <div class="px-2 py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
 
     @if (Model.Reviews.Count > 0)
     {
