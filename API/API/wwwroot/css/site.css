@@ -1,4 +1,16 @@
-﻿h3 {
+﻿:root {
+    --main-color: #23aaa3;
+}
+
+.bg-main-color {
+    background-color: #23aaa3 !important;
+}
+
+.bg-white-opacy {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+h3 {
     margin: 40px 0 0;
 }
 
