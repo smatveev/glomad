@@ -65,6 +65,35 @@ namespace API.Helpers
             smtpClient.Send(mailMessage);
         }
 
+        public static void SendImprovePage(ImprovePage improve)
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            var config = builder.Build();
+
+            var smtpClient = new SmtpClient(config["Smtp:Host"])
+            {
+                Port = int.Parse(config["Smtp:Port"]),
+                Credentials = new NetworkCredential(config["Smtp:Username"], config["Smtp:Password"]),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("matv33v@gmail.com"),
+                Subject = "Glomad.net: Improve Page fom: " + improve.Email,
+                Body = string.Format("<h3>Improve page details</h3>" +
+                    "<p>User name: {0}</p>" +
+                    "<p>Email: {1}</p>" +
+                    "<p>Link: {2}</p>" +
+                    "<p>Message: {3}</p>",
+                    improve.Name, improve.Email, improve.Link, improve.Message),
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");
+
+            smtpClient.Send(mailMessage);
+        }
+
         public static void SendReview(ReviewCreate review)
         {
             var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");

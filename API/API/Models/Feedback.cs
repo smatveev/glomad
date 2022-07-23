@@ -47,4 +47,12 @@ namespace API.Models
         public string Email { get; set; }
         public string Details { get; set; }
     }
+
+    public class ImprovePage
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Message { get; set; }
+        public string Link { get; set; }
+    }
 }

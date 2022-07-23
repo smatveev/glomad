@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --main-color: #23aaa3;
 }
 
@@ -51,7 +51,7 @@ nav {
     }
 
 .badge-card {
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .hero-bg {
@@ -177,13 +177,26 @@ nav {
 
 .by {
     border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
     border-top: 1px solid #ddd;
     border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
     box-shadow: 0 6px 6px rgb(0 0 0 / 25%) !important;
     font-weight: 500;
     color: #6c757d;
     background-color: #fff;
+    border-top-right-radius: 7;
 }
     .by:hover {
         background-color: #f8f9fa !important;
     }
+
+
+.right-105 {
+    right: 106px !important;
+}
+
+#showFeedback {
+    
+    cursor: pointer;
+}

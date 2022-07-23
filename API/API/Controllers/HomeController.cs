@@ -148,6 +148,29 @@ namespace API.Controllers
             return Ok();
         }
 
+        [Route("ImprovePage")]
+        [HttpPost]
+        public IActionResult ImprovePage([FromBody] ImprovePage improvePage)
+        {
+            try
+            {
+                ImprovePage improve = new()
+                {
+                    Name = improvePage.Name,
+                    Email = improvePage.Email,
+                    Message = improvePage.Message,
+                    Link = improvePage.Link
+                };
+
+                Helpers.EmailSender.SendImprovePage(improve);
+            }
+            catch (Exception e)
+            {
+                return Error();
+            }
+
+            return Ok();
+        }
         public IActionResult Privacy()
         {
             return View();

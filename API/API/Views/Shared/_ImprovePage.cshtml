@@ -1,0 +1,40 @@
+﻿<div class="feedpack-popup">
+    <span id="showFeedback" data-bs-toggle="modal" data-bs-target="#ImprovePageForm" role="button"
+          class="right-105 by position-fixed end-0 bottom-0 mx-2 p-2 text-decoration-none">
+        Improve page
+    </span>
+</div>
+
+<div id="ImprovePageForm" tabindex="-1" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Feedback?</h5>
+            </div>
+            <div class="modal-body">
+                <form asp-action="ImprovePage">
+                    <p>
+                        If you're having any trouble, found a bug, or have feedback, please write it here:
+                    </p>
+
+                    <div class="mb-2">
+                        <input type="text" id="Username" class="form-control" placeholder="Your name" />
+                    </div>
+
+                    <div class="mb-2">
+                        <input type="email" id="Email" class="form-control" placeholder="E-mail" />
+                    </div>
+
+                    <div class="mb-2">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="Message" style="height: 100px"></textarea>
+                    </div>
+                </form>
+                <span class="lead fw-5" id="status"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="ImprovePageSubmit()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
