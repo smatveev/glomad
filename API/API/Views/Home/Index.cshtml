@@ -74,9 +74,16 @@
         <div class="py-2">
             <div class="p-3 bg-light rounded-3">
                 <div class="container-fluid">
-                    <a href="/@Model.ToCountryName/Visa/@visa.Id" class="text-decoration-none">
+                    @if(visa.Id == null)
+                    {
                         <h5 class="fw-bold">@visa.VisaName</h5>
-                    </a>
+                    }
+                    else
+                    {
+                        <a href="/@Model.ToCountryName/Visa/@visa.Id" class="text-decoration-none">
+                            <h5 class="fw-bold">@visa.VisaName</h5>
+                        </a>
+                    }
                     <div class="col-md-12 fs-6">@Html.Raw(visa.Description)</div>
                     @if (visa.IsExdendable)
                     {

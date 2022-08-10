@@ -75,7 +75,6 @@ namespace API.Controllers
                                     where co.CountryDestination.Id == To && co.CountryPassport.Id == mo.Passport
                                     select new VisaSearchResult
                                     {
-                                        Id = co.Id,
                                         Description = co.Description,
                                         VisaName = $"Is visa-free entry to {mo.ToCountryName} available for {HomeCountry.Citizen + " citizens" ?? "citizens of " + HomeCountry.Name}?",
                                         Duration = co.Duration
