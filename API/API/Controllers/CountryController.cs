@@ -345,7 +345,7 @@ namespace API.Controllers
 
                 _context.Review.Add(r);
                 _context.SaveChanges();
-                Helpers.EmailSender.SendReview(reviewCreate);
+                EmailSender.SendReview(reviewCreate);
             }
             catch (Exception e)
             {
