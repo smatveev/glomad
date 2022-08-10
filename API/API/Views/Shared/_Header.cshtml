@@ -25,9 +25,9 @@
         }
 
     </h1>
-    <h6 class="col-lg-8 mx-auto shadowed">
-        @Model.Text
-    </h6>
+    <p class="col-lg-8 mx-auto col-lg-8 col-sm-12 mx-auto rounded-3 py-3 px-3 bg-black-opacy">
+        @Model.Text.Trim()
+    </p>
     @if (Model.LastUpdate != null)
     {
         <h6 class="col-lg-8 mx-auto shadowed">
