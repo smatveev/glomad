@@ -366,6 +366,7 @@ namespace API.Controllers
             model.Reviews = _context.Review.Where(r => r.Visa.Id == id).ToList();
             model.Visa = _context.Visa.Where(v => v.Id == id).FirstOrDefault();
             model.Visa.Country = Country; //_context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
+            model.VisaDocs = _context.VisaDoc.Where(v => v.Visa.Id == id).ToList();
 
             model.Embassies = (from e in _context.Embassy
                                join c in _context.Country

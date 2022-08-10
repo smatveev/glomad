@@ -43,5 +43,6 @@ namespace API.Models
         public List<Review> Reviews { get; set; }
         public List<VisaSearchResult> Visas { get; set; }
         public List<EmbassyVM> Embassies { get; set; }
+        public List<VisaDoc> VisaDocs { get; set; }
     }
 }
