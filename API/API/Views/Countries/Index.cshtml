@@ -1,4 +1,5 @@
 ﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+@using API.Helpers;
 
 @model IndexPage
 
@@ -49,7 +50,7 @@
                             </p>
                         }
                         <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
-                            ℹ @Model.NoVisaEntry.Description
+                            ℹ @Model.NoVisaEntry.Description.StripHTML()
                         </p>
                     </div>
                 </div>
@@ -69,12 +70,12 @@
                             </p>
                             @*<h5 class="card-title text-center align-middle lh-1 p-2">@visa.Reviews.Count Reviews</h5>*@
                         }
-                        else
+                        @*else
                         {
                             <p class="align-middle rounded-3 py-2 bg-white-opacy">
                                 👋 Add an anonymous review
                             </p>
-                        }
+                        }*@
                     </div>
                     <div class="col-md-5 p-3">
                         @if (visa.Reviews != null && visa.Reviews.Count > 0)
@@ -157,7 +158,7 @@
                     </div>
                     <div class="col-md-4 p-3">
                         <span>
-                            @visa.Description.Substring(0, 100)...
+                            @visa.Description.Substring(0, 100).StripHTML()...
                         </span>
                     </div>
                 </div>
