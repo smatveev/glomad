@@ -18,6 +18,17 @@ namespace API.Models
         public short Duration { get; set; }
         public bool IsExtendable { get; set; }
         public string Description { get; set; }
+
+        public ushort Type { get; set; }
+        public float CostOfProgramm { get;set; }
+
+        public float Income { get; set; }
+    }
+
+    enum VisaType : ushort
+    {
+        Startup,
+        Work
     }
 
     public class VisaSearch
