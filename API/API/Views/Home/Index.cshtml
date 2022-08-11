@@ -71,35 +71,7 @@
 
     @foreach (var visa in Model.Visas)
     {
-        <div class="py-2">
-            <div class="p-3 bg-light rounded-3">
-                <div class="container-fluid">
-                    @if(visa.Id == null)
-                    {
-                        <h5 class="fw-bold">@visa.VisaName</h5>
-                    }
-                    else
-                    {
-                        <a href="/@Model.ToCountryName/Visa/@visa.Id" class="text-decoration-none">
-                            <h5 class="fw-bold">@visa.VisaName</h5>
-                        </a>
-                    }
-                    <div class="col-md-12 fs-6">@Html.Raw(visa.Description)</div>
-                    @if (visa.IsExdendable)
-                    {
-                        <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                            ✨ Extendable
-                        </span>
-                    }
-                    @if (visa.Duration > 0)
-                    {
-                        <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                            🕜 Duration @visa.Duration days
-                        </span>
-                    }
-                </div>
-            </div>
-        </div>
+        @await Component.InvokeAsync("VisaRow", visa)
     }
 
 </section>
