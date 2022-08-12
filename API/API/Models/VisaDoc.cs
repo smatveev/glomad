@@ -21,6 +21,17 @@ namespace API.Models
         Photo, 
         Ticket,
         FinanceProof,
-        ApplicationForm
+        ApplicationForm,
+        HealthInsurance,
+        Contract, 
+        Criminal,
+        PlaceOfStay,
+        PaymentProof,
+        Copies,
+        Diplom,
+        CV,
+        CheckList,
+        BirthCertificate,
+        Other
     }
 }
