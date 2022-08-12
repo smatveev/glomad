@@ -29,7 +29,10 @@ namespace API.Models
     enum VisaType : ushort
     {
         Startup,
-        Work
+        Work, 
+        Tourist,
+        Nomad,
+        Student
     }
 
     public class VisaSearch

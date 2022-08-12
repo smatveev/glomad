@@ -18,6 +18,9 @@ namespace API.Models
     enum DocumentType : ushort
     {
         Passport,
-        Photo
+        Photo, 
+        Ticket,
+        FinanceProof,
+        ApplicationForm
     }
 }
