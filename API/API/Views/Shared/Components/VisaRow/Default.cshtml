@@ -98,6 +98,13 @@
                 🕜 Duration @Model.Duration days
             </span>
         }
+        @if(!string.IsNullOrEmpty(Model.Type))
+        {
+            <span class="m-2 p-2 badge rounded-pill bg-info">
+                🐱‍👤 @Model.Type
+            </span>    
+        }
+        
     </div>
     <div class="col-md-4 p-3">
         <span>

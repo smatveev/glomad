@@ -54,7 +54,8 @@ namespace API.Controllers
                                VisaName = v.Name,
                                IsExdendable = v.IsExtendable,
                                Duration = v.Duration,
-                               CountryName = country
+                               CountryName = country,
+                               Type = ((VisaType)v.Type).ToString()
                            }).ToList();
             foreach(var v in model.Visas)
             {

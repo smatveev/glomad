@@ -51,6 +51,7 @@ namespace API.Models
         public short Duration { get; set; }
         public List<Review> Reviews { get; set; }
         public string CountryName { get; set; }
+        public string Type { get; set; }
     }
 
     public class VisaPage

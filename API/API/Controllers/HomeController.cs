@@ -66,7 +66,8 @@ namespace API.Controllers
                                 IsExdendable = co.IsExtendable,
                                 Duration = co.Duration,
                                 CountryName = mo.ToCountryName,
-                                Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList()
+                                Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+                                Type = ((VisaType)co.Type).ToString()
                             }).ToList();
             }
 
