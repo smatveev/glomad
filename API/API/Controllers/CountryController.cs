@@ -63,7 +63,7 @@ namespace API.Controllers
 
 
             string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
-            model.HomeCountry = _context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault();
+            model.HomeCountry = _context.Country.Where(c => c.Name.ToLower() == myCountry.ToLower()).FirstOrDefault(); // _context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault();
 
             model.NoVisaEntry = _context.NoVisaEntry
                 .Where(i => i.CountryDestination.Id == model.Country.Id && i.CountryPassport.Id == model.HomeCountry.Id).FirstOrDefault();
@@ -202,7 +202,7 @@ namespace API.Controllers
             model.Country = curCountry;
 
             string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
-            model.HomeCountry = _context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault().Name;
+            model.HomeCountry = myCountry;//_context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault().Name;
 
             model.Covid = _context.Country.FirstOrDefault(c => c.Id == model.Country.Id).CovidRestrictions;
 
