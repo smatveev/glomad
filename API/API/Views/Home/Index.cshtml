@@ -66,9 +66,18 @@
 {
     <section class="container pt-4">
 
-        <h2 class="pb-2 text-center">
-            💳 Here are the types of visas available to visit <a class="text-decoration-none" href="/@Model.ToCountryName">@Model.ToCountryName</a>
-        </h2>
+        @if (string.IsNullOrEmpty(Model.PassportCountryName))
+        {
+            <h2 class="pb-2 text-center">
+                💳 List of actual <a class="text-decoration-none" href="/@Model.ToCountryName">@Model.ToCountryName</a> visas
+            </h2>
+        }
+        else
+        {
+            <h2 class="pb-2 text-center">
+                💳 @Model.Visas.Count <a class="text-decoration-none" href="/@Model.ToCountryName">@Model.ToCountryName</a> visas available for citizens of <a class="text-decoration-none" href="/@Model.PassportCountryName">@Model.PassportCountryName</a>
+            </h2>
+        }
 
         @if (Model.NoVisaEntry != null)
             {
