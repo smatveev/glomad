@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace API.Helpers
@@ -22,6 +23,11 @@ namespace API.Helpers
                 //throw new ArgumentNullException(nameof(input));
 
             return input.Replace("<a href", "<a rel=\"noopener nofollow noreferrer\" href");
+        }
+
+        public static string StripHTML(this string input)
+        {
+            return Regex.Replace(input, "<.*?>", string.Empty);
         }
     }
 }

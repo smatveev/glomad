@@ -71,14 +71,15 @@ namespace API.Controllers
             {
                 var HomeCountry = _context.Country.Where(c => c.Id == mo.Passport).FirstOrDefault();
 
-                mo.Visas = (from co in _context.NoVisaEntry
-                                    where co.CountryDestination.Id == To && co.CountryPassport.Id == mo.Passport
-                                    select new VisaSearchResult
-                                    {
-                                        Description = co.Description,
-                                        VisaName = $"Is visa-free entry to {mo.ToCountryName} available for {HomeCountry.Citizen + " citizens" ?? "citizens of " + HomeCountry.Name}?",
-                                        Duration = co.Duration
-                                    }).ToList();
+                // НЕ зНАЮ ЧТО ЭТО БЫЛО !!!
+                //mo.Visas = (from co in _context.NoVisaEntry
+                //                    where co.CountryDestination.Id == To && co.CountryPassport.Id == mo.Passport
+                //                    select new VisaSearchResult
+                //                    {
+                //                        Description = co.Description,
+                //                        VisaName = $"Is visa-free entry to {mo.ToCountryName} available for {HomeCountry.Citizen + " citizens" ?? "citizens of " + HomeCountry.Name}?",
+                //                        Duration = co.Duration
+                //                    }).ToList();
 
                 mo.PassportCapitalCode = HomeCountry.CapitalCode;
                 mo.PassportCountryName = HomeCountry.Name;
@@ -87,7 +88,7 @@ namespace API.Controllers
                 {
                     mo.CovidInfo = _context.Country.FirstOrDefault(c => c.Id == To).CovidRestrictions; // Thai
 
-                    mo.Visas.AddRange(from co in _context.Visa
+                    mo.Visas = (from co in _context.Visa
                                 where co.Country.Id == To
                                 select new VisaSearchResult
                                 {
@@ -95,8 +96,10 @@ namespace API.Controllers
                                     Description = co.Description,
                                     VisaName = co.Name,
                                     IsExdendable = co.IsExtendable,
-                                    Duration = co.Duration
-                                });
+                                    Duration = co.Duration,
+                                    CountryName = mo.ToCountryName,
+                                    Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList()
+                                }).ToList();
                 }
 
                 mo.FreeCountries = (from ne in _context.NoVisaEntry

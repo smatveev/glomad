@@ -53,7 +53,8 @@ namespace API.Controllers
                                Description = v.Description,
                                VisaName = v.Name,
                                IsExdendable = v.IsExtendable,
-                               Duration = v.Duration
+                               Duration = v.Duration,
+                               CountryName = country
                            }).ToList();
             foreach(var v in model.Visas)
             {

@@ -47,6 +47,7 @@ namespace API.Models
         public bool IsExdendable{ get; set; }
         public short Duration { get; set; }
         public List<Review> Reviews { get; set; }
+        public string CountryName { get; set; }
     }
 
     public class VisaPage
