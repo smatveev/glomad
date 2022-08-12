@@ -22,6 +22,7 @@ namespace API.Models
         public ushort Type { get; set; }
         public float CostOfProgramm { get;set; }
 
+        public string CostCurrency { get; set; }
         public float Income { get; set; }
     }
 
