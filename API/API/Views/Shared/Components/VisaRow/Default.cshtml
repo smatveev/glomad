@@ -101,7 +101,7 @@
     </div>
     <div class="col-md-4 p-3">
         <span>
-            @Model.Description.Substring(0, 100).StripHTML()...
+            @Model.Description.Truncate(100).StripHTML()...
         </span>
     </div>
 </div>
