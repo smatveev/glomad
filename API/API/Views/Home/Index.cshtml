@@ -1,4 +1,5 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+﻿@using API.Helpers
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 
 @model API.Models.IndexModel
@@ -63,26 +64,56 @@
 
 @if (Model.Visas?.Count > 0)
 {
-<section class="container pt-4">
+    <section class="container pt-4">
 
-    <h2 class="pb-2 text-center">
-        💳 Here are the types of visas available to visit <a class="text-decoration-none" href="/@Model.ToCountryName">@Model.ToCountryName</a>
-    </h2>
+        <h2 class="pb-2 text-center">
+            💳 Here are the types of visas available to visit <a class="text-decoration-none" href="/@Model.ToCountryName">@Model.ToCountryName</a>
+        </h2>
 
-    @foreach (var visa in Model.Visas)
-    {
-        @await Component.InvokeAsync("VisaRow", visa)
-    }
+        @if (Model.NoVisaEntry != null)
+            {
+                <div class="row mb-3 rounded-3 border shadow-sm bg-info bg-gradient">
+                    <div class="col-md-3 p-3">
+                        <p class="card-title text-white align-middle pb-3 fw-bold">Visa-free entry</p>
+                        @if (Model.NoVisaEntry.IsEVisaAvailable)
+                        {
+                            <p>
+                                <a href="@Model.NoVisaEntry.EVisaUrl" target="_blank" rel="noopener nofollow noreferrer">
+                                    <span class="m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa 👈</span>
+                                </a>
+                            </p>
+                        }
+                    </div>
+                    <div class="col-md-9 p-3">
+                        @if(Model.NoVisaEntry.Duration > 0)
+                        {
+                            <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
+                                🙌 @(Model.PassportCountryName + " сitizens" ?? "Сitizens of " + Model.PassportCountryName) can stay in the @Model.ToCountryName @Model.NoVisaEntry.Duration days without visa.
+                            </p>
+                        }
+                        <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
+                            ℹ @Model.NoVisaEntry.Description.StripHTML()
+                        </p>
+                    </div>
+                </div>
+            }
 
-</section>
+        @foreach (var visa in Model.Visas)
+        {
+            @await Component.InvokeAsync("VisaRow", visa)
+        }
+
+    </section>
 }
 
 
 @if (Model.To > 0)
 {
     <section class="container pt-4">
-        <h2 class="pb-2 text-center">Cheap tickets from 
-            <a href="/@Model.PassportCountryName">@Model.PassportCountryName</a> to <a href="/@Model.ToCountryName">@Model.ToCountryName</a></h2>
+        <h2 class="pb-2 text-center">
+            Cheap tickets from
+            <a href="/@Model.PassportCountryName">@Model.PassportCountryName</a> to <a href="/@Model.ToCountryName">@Model.ToCountryName</a>
+        </h2>
         <div class="py-2">
             <div class="p-3 bg-light rounded-3">
                 <script src="https://tp.media/content?currency=usd&promo_id=4041&shmarker=14510&campaign_id=100&trs=21653&searchUrl=search.jetradar.com&locale=en_us&powered_by=false&one_way=true&only_direct=false&period=year&range=7%2C21&primary=%230C73FE&color_background=%23ffffff&achieve=%2345AD35&dark=%23000000&light=%23FFFFFF&origin=@Model.PassportCapitalCode&destination=@Model.ToCapitalCode" charset="utf-8"></script>
@@ -106,7 +137,9 @@
         <h2 class="pb-2 text-center">🛂 Free entry with passport of <a href="/@Model.PassportCountryName">@Model.PassportCountryName</a></h2>
         <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 
-            @{ int count = 0; }
+            @{
+                int count = 0;
+            }
             @foreach (var c in Model.FreeCountries)
             {
                 if (count == 3)
@@ -207,8 +240,8 @@
 
 @section Scripts {
     <script>
-        $(function () {
-            $('#exampleModal').bind('show.bs.modal', function (event) {
+        $(function() {
+            $('#exampleModal').bind('show.bs.modal', function(event) {
                 // Button that triggered the modal
                 var button = event.relatedTarget
                 // Extract info from data-bs-* attributes
@@ -233,10 +266,10 @@
                 dataType: 'html',
                 contentType: "application/json"
             })
-                .done(function (response) {
+                .done(function(response) {
                     $("#exampleModal #status").text("Thank you 🤝 We will contact you soon!")
                 })
-                .fail(function (response) {
+                .fail(function(response) {
                     $("#exampleModal #status").text("😥 Something went wrong. But pleace check your email")
                 });
         }
@@ -257,18 +290,18 @@
                 data: JSON.stringify(fb),
                 dataType: 'html',
                 contentType: "application/json",
-                success: function () {
+                success: function() {
                     console.log("success", arguments);
                     $("#feedback #status").text("Got it! Thank you 👌")
                 },
-                error: function () {
+                error: function() {
                     console.log("error", arguments);
                     $("#feedback #status").text("😣 Something went wrong. Please try again.")
                 },
-                complete: function () {
+                complete: function() {
                     console.log("complete", arguments);
                 }
-            }).done(function () {
+            }).done(function() {
                 console.log("done", arguments);
             });
         }
