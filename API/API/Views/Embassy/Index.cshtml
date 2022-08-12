@@ -41,12 +41,6 @@
         <li class="nav-item">
             <a class="nav-link active" href="#info" data-bs-toggle="tab">🧐 Info</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#docs" data-bs-toggle="tab">🧾 Docs</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#visas" data-bs-toggle="tab">🎫 Visas</a>
-        </li>
     </ul>
 
     <div class="tab-content">
@@ -110,46 +104,6 @@
                 <p>🤔 Details not found.. Working on it.</p>
             }
 
-        </div>
-
-        <div class="tab-pane fade" id="docs">
-            <h2 class="fw-bold text-center p-4">Checklist of documents for visa to @Model.Country</h2>
-
-            <p>🤖 Comming soon...</p>
-            @*@foreach (var d in Model.Docs)
-            {
-                <ul>
-                    <li>@d.Text</li>
-                </ul>
-            }*@
-        </div>
-
-        <div class="tab-pane fade" id="visas">
-            <h2 class="fw-bold text-center p-4">Types of visas allowed at the embassy</h2>
-
-            @foreach (var visa in Model.VisaDetails)
-            {
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Duration</th>
-                            <th scope="col">Extendable</th>
-                            <th scope="col">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="v in visas" :key="v.name">
-                            <th scope="row">@visa.Name</th>
-                            <td>@visa.Description</td>
-                            <td>@visa.Duration</td>
-                            <td>@visa.IsExtendable ? "Yes" : "No"</td>
-                            <td>@visa.Currency @visa.Price</td>
-                        </tr>
-                    </tbody>
-                </table>
-            }
         </div>
     </div>
 
