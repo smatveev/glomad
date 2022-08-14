@@ -52,6 +52,8 @@ namespace API.Models
         public List<Review> Reviews { get; set; }
         public string CountryName { get; set; }
         public string Type { get; set; }
+        public float Income { get; set; }
+        public string Cost{ get; set; }
     }
 
     public class VisaPage
