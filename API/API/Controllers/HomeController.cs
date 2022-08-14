@@ -67,7 +67,9 @@ namespace API.Controllers
                                 Duration = co.Duration,
                                 CountryName = mo.ToCountryName,
                                 Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
-                                Type = ((VisaType)co.Type).ToString()
+                                Type = ((VisaType)co.Type).ToString(),
+                                Income = co.Income,
+                                Cost = $"{co.CostOfProgramm} {co.CostCurrency}"
                             }).ToList();
             }
 
