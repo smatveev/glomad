@@ -26,7 +26,7 @@ namespace API.Models
         public float Income { get; set; }
     }
 
-    enum VisaType : ushort
+    public enum VisaType : ushort
     {
         Startup,
         Work, 
