@@ -15,7 +15,7 @@ namespace API.Models
         public ushort DocumentType { get; set; }
     }
 
-    enum DocumentType : ushort
+    public enum DocumentType : ushort
     {
         Passport,
         Photo, 

@@ -51,7 +51,16 @@
         <ol>
         @foreach (var item in Model.VisaDocs)
        {
-           <li>@item.Text</li>
+           @if((DocumentType)item.DocumentType == DocumentType.HealthInsurance) 
+           {
+                <li><a rel="noopener nofollow noreferrer" target="_blank" 
+                    href="https://safetywing.com/?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador">
+                    @item.Text
+                </a></li>
+           }
+           else {
+               <li>@item.Text</li>
+           }
        }
        </ol>
     }
