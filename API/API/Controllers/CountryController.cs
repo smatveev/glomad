@@ -340,6 +340,7 @@ namespace API.Controllers
                     Embassy = e,
                     Cons = reviewCreate.Cons,
                     Pros = reviewCreate.Pros,
+                    Text = reviewCreate.Text,
                     Loyalty = reviewCreate.Loyalty,
                     Simplicity = reviewCreate.Simplicity,
                     Waiting = reviewCreate.Waiting,

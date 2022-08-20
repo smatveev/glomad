@@ -38,5 +38,6 @@ namespace API.Models
         public bool IsObtained { get; set; }
         public string Pros { get; set; }
         public string Cons { get; set; }
+        public string Text { get; set; }
     }
 }

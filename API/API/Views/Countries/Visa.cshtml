@@ -212,8 +212,8 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-3 col-form-label">Simplicity</label>
-                        <div class="col-sm-9">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Simplicity</label>
+                        <div class="col-sm-8">
                             <div id="starsSimplicity" class="stars" style="--s:40px">
                                 <input type="radio" name="simplicity" value="1" />
                                 <input type="radio" name="simplicity" value="2" />
@@ -226,8 +226,8 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-3 col-form-label">Processing time</label>
-                        <div class="col-sm-9">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Processing time</label>
+                        <div class="col-sm-8">
                             <div id="starsWaiting" class="stars" style="--s:40px">
                                 <input type="radio" name="waiting" value="1" />
                                 <input type="radio" name="waiting" value="2" />
@@ -240,8 +240,8 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-3 col-form-label">Loyalty</label>
-                        <div class="col-sm-9">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Loyalty</label>
+                        <div class="col-sm-8">
                             <div id="starsLoyalty" class="stars" style="--s:40px">
                                 <input type="radio" name="loyalty" value="1" />
                                 <input type="radio" name="loyalty" value="2" />
@@ -260,6 +260,10 @@
                         </label>
                     </div>
 
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="text" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">How was it? What would you share with other?</label>
+                    </div>
                     <div class="form-floating mb-3">
                         <textarea class="form-control" placeholder="Leave a comment here" id="proc" style="height: 100px"></textarea>
                         <label for="floatingTextarea2">What advantages would you like to note? What did you like?</label>
@@ -309,6 +313,7 @@
             review.Waiting = $('input[name=waiting]:checked', '#starsWaiting').val();
             review.Pros = $('#proc').val();
             review.Cons = $('#cons').val();
+            review.Text = $('#text').val();
             review.IsObtained = $('#gotVisa').is(":checked");
 
 
