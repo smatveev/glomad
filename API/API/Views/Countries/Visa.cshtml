@@ -166,6 +166,10 @@
                             {
                                 <p>❌ @r.Cons</p>
                             }
+                            @if (r.Text != null && r.Text.Length > 0)
+                            {
+                                <p>🗨 @r.Text</p>
+                            }
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <p class="small fst-italic" style="color: #6c757d;"> - @r.Date.Humanize()</p>
