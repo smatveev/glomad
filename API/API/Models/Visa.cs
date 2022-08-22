@@ -33,7 +33,8 @@ namespace API.Models
         Tourist,
         Nomad,
         Student,
-        Invest
+        Invest, 
+        Business
     }
 
     public class VisaSearch
