@@ -110,7 +110,12 @@ namespace API.Helpers
             {
                 From = new MailAddress("matv33v@gmail.com"),
                 Subject = $"Review for visa {review.VisaId} and embassy {review.EmbassyId}",
-                Body = string.Format($"<h3>New Review</h3> for visa {review.VisaId} and embassy {review.EmbassyId}"),
+                Body = string.Format($"<h3>New Review</h3> " +
+                    $"for visa: <b>{review.VisaId}<b> " +
+                    $"and embassy: <b>{review.EmbassyId}<b>" +
+                    $"text: {review.Text}" +
+                    $"proc: {review.Pros}" +
+                    $"cons: {review.Cons}"),
                 IsBodyHtml = true,
             };
             mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");

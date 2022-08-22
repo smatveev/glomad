@@ -26,7 +26,7 @@ namespace API.Models
         public float Income { get; set; }
     }
 
-    enum VisaType : ushort
+    public enum VisaType : ushort
     {
         Startup,
         Work, 
@@ -52,6 +52,9 @@ namespace API.Models
         public short Duration { get; set; }
         public List<Review> Reviews { get; set; }
         public string CountryName { get; set; }
+        public string Type { get; set; }
+        public float Income { get; set; }
+        public string Cost{ get; set; }
     }
 
     public class VisaPage

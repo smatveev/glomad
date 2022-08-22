@@ -39,16 +39,28 @@
                 ✨ Extendable
             </span>
         }
+        <span class="badge badge-card bg-info text-dark m-2 fs-6">
+            🐱‍👤 For @((VisaType)Model.Visa.Type)
+        </span>
     </div>
     <div class="px-2 py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
 
     @if(Model.VisaDocs.Count > 0)
     {
-        <h2 class="text-center p-4">✔ Required documents list</h2>
+        <h2 class="text-center p-4">✔ Checklist of required documents</h2>
         <ol>
         @foreach (var item in Model.VisaDocs)
        {
-           <li>@item.Text</li>
+           @if((DocumentType)item.DocumentType == DocumentType.HealthInsurance) 
+           {
+                <li><a rel="noopener nofollow noreferrer" target="_blank" 
+                    href="https://safetywing.com/?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador">
+                    @item.Text
+                </a></li>
+           }
+           else {
+               <li>@item.Text</li>
+           }
        }
        </ol>
     }
@@ -114,36 +126,36 @@
                         loyR = "r5";
                         loyT = "👋 Perfect";
                     }
-                    <tr>
-                        <td>😎 Simplicity</td>
-                        <td>
-                            <div class="rating rounded">
-                                <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
-                                    @simpleT: @simple%
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>🥱 Waiting time</td>
-                        <td>
-                            <div class="rating rounded">
-                                <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
-                                    @waitT: @wait%
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>🤗 Loyalty</td>
-                        <td>
-                            <div class="rating rounded">
-                                <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
-                                    @loyT: @loy%
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                            <tr>
+                                <td>😎 Simplicity</td>
+                                <td>
+                                    <div class="rating rounded">
+                                        <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
+                                            @simpleT: @simple%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>🥱 Waiting time</td>
+                                <td>
+                                    <div class="rating rounded">
+                                        <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
+                                            @waitT: @wait%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>🤗 Loyalty</td>
+                                <td>
+                                    <div class="rating rounded">
+                                        <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
+                                            @loyT: @loy%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                 }
             </tbody>
         </table>
@@ -162,6 +174,10 @@
                             @if (r.Cons.Length > 0)
                             {
                                 <p>❌ @r.Cons</p>
+                            }
+                            @if (r.Text != null && r.Text.Length > 0)
+                            {
+                                <p>🗨 @r.Text</p>
                             }
                             <hr>
                             <div class="d-flex justify-content-between">
@@ -208,19 +224,46 @@
                         </div>
                     </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="simplicity" min="1" max="5">
-                        <label for="simplicity">Simplicity</label>
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Simplicity</label>
+                        <div class="col-sm-8">
+                            <div id="starsSimplicity" class="stars" style="--s:40px">
+                                <input type="radio" name="simplicity" value="1" />
+                                <input type="radio" name="simplicity" value="2" />
+                                <input type="radio" name="simplicity" value="3" />
+                                <input type="radio" name="simplicity" value="4" />
+                                <input type="radio" name="simplicity" value="5" />
+                                <i></i>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="waiting" min="1" max="5">
-                        <label for="waiting">Waiting time</label>
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Processing time</label>
+                        <div class="col-sm-8">
+                            <div id="starsWaiting" class="stars" style="--s:40px">
+                                <input type="radio" name="waiting" value="1" />
+                                <input type="radio" name="waiting" value="2" />
+                                <input type="radio" name="waiting" value="3" />
+                                <input type="radio" name="waiting" value="4" />
+                                <input type="radio" name="waiting" value="5" />
+                                <i></i>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="loyalty" min="1" max="5">
-                        <label for="loyalty">Loyalty</label>
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Loyalty</label>
+                        <div class="col-sm-8">
+                            <div id="starsLoyalty" class="stars" style="--s:40px">
+                                <input type="radio" name="loyalty" value="1" />
+                                <input type="radio" name="loyalty" value="2" />
+                                <input type="radio" name="loyalty" value="3" />
+                                <input type="radio" name="loyalty" value="4" />
+                                <input type="radio" name="loyalty" value="5" />
+                                <i></i>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -230,6 +273,10 @@
                         </label>
                     </div>
 
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="text" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">How was it? What would you share with other?</label>
+                    </div>
                     <div class="form-floating mb-3">
                         <textarea class="form-control" placeholder="Leave a comment here" id="proc" style="height: 100px"></textarea>
                         <label for="floatingTextarea2">What advantages would you like to note? What did you like?</label>
@@ -274,13 +321,16 @@
             var review = new Object();
             review.VisaId = $('#visa').val();
             review.EmbassyId = $('#embassy').val();
-            review.Loyalty = $('#loyalty').val();
-            review.Simplicity = $('#simplicity').val();
-            review.Waiting = $('#waiting').val();
+            review.Loyalty = $('input[name=loyalty]:checked', '#starsLoyalty').val();
+            review.Simplicity = $('input[name=simplicity]:checked', '#starsSimplicity').val();
+            review.Waiting = $('input[name=waiting]:checked', '#starsWaiting').val();
             review.Pros = $('#proc').val();
             review.Cons = $('#cons').val();
+            review.Text = $('#text').val();
             review.IsObtained = $('#gotVisa').is(":checked");
 
+
+            //console.log("review", review);
             $.ajax({
                 type: 'POST',
                 url: "/Country/CreateReview",
@@ -289,7 +339,7 @@
                 contentType: "application/json"
             })
                 .done(function (response) {
-                    $("#addReview #status").text("🤗 Thanks so much for contributing, I saved your review! It will take fe hours day to update the visa and embassy page and show your review everywhere and people will be able to read it!")
+                    $("#addReview #status").text("🤗 Thanks so much for contributing, I saved your review! It will take few hours to update the visa and embassy page and show your review everywhere and people will be able to read it!")
                 })
                 .fail(function (response) {
                     $("#addReview #status").text("😥 Something went wrong. Pleace check the fields and try again")

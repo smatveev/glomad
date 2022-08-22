@@ -53,54 +53,35 @@ namespace API.Controllers
             {
                 mo.ToCountryName = _context.Country.FirstOrDefault(c => c.Id == mo.To).Name;
                 mo.ToCapitalCode = _context.Country.FirstOrDefault(c => c.Id == mo.To).CapitalCode;
+
+                mo.CovidInfo = _context.Country.FirstOrDefault(c => c.Id == To).CovidRestrictions;
+
+                mo.Visas = (from co in _context.Visa
+                            where co.Country.Id == To
+                            select new VisaSearchResult
+                            {
+                                Id = co.Id,
+                                Description = co.Description,
+                                VisaName = co.Name,
+                                IsExdendable = co.IsExtendable,
+                                Duration = co.Duration,
+                                CountryName = mo.ToCountryName,
+                                Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+                                Type = ((VisaType)co.Type).ToString(),
+                                Income = co.Income,
+                                Cost = $"{co.CostOfProgramm} {co.CostCurrency}"
+                            }).ToList();
             }
-            
-            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
-            ViewBag.ToCountries = ViewBag.Countries;//new SelectList(_context.Country.Where(c => Helpers.Countries.Prepared.Contains(c.Id)), "Id", "Name");
-
-            //if (route == null || route.Length != 4)
-            //    return View(mo);
-
-            //string citizenship = route.Substring(0, 2);
-            //string to = route.Substring(2, 2);
-
-
-            //mo.CitizenshipId = _context.Country.FirstOrDefault(c => c.ISOalpha2 == citizenship).Id; //CitizenshipId;
 
             if (mo.Passport > 0)
             {
                 var HomeCountry = _context.Country.Where(c => c.Id == mo.Passport).FirstOrDefault();
 
-                // НЕ зНАЮ ЧТО ЭТО БЫЛО !!!
-                //mo.Visas = (from co in _context.NoVisaEntry
-                //                    where co.CountryDestination.Id == To && co.CountryPassport.Id == mo.Passport
-                //                    select new VisaSearchResult
-                //                    {
-                //                        Description = co.Description,
-                //                        VisaName = $"Is visa-free entry to {mo.ToCountryName} available for {HomeCountry.Citizen + " citizens" ?? "citizens of " + HomeCountry.Name}?",
-                //                        Duration = co.Duration
-                //                    }).ToList();
+                mo.NoVisaEntry = _context.NoVisaEntry
+                    .Where(i => i.CountryDestination.Id == To && i.CountryPassport.Id == mo.Passport).FirstOrDefault();
 
                 mo.PassportCapitalCode = HomeCountry.CapitalCode;
                 mo.PassportCountryName = HomeCountry.Name;
-
-                if(To > 0)
-                {
-                    mo.CovidInfo = _context.Country.FirstOrDefault(c => c.Id == To).CovidRestrictions; // Thai
-
-                    mo.Visas = (from co in _context.Visa
-                                where co.Country.Id == To
-                                select new VisaSearchResult
-                                {
-                                    Id = co.Id,
-                                    Description = co.Description,
-                                    VisaName = co.Name,
-                                    IsExdendable = co.IsExtendable,
-                                    Duration = co.Duration,
-                                    CountryName = mo.ToCountryName,
-                                    Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList()
-                                }).ToList();
-                }
 
                 mo.FreeCountries = (from ne in _context.NoVisaEntry
                                     join co in _context.Country on ne.CountryPassport.Id equals co.Id
@@ -115,6 +96,10 @@ namespace API.Controllers
                                         IsVisaRequired = ne.IsVisaRequired
                                     }).ToList();
             }
+
+            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+            ViewBag.ToCountries = ViewBag.Countries;
+
             return View(mo);
         }
 

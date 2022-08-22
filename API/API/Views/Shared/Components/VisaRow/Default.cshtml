@@ -1,4 +1,5 @@
 ﻿@using API.Helpers
+@using API.Models
 @model VisaSearchResult
 
 <div class="row mb-3 bg-light rounded-3 border shadow-sm">
@@ -8,11 +9,26 @@
         </a>
         @if (Model.Reviews.Count > 0)
         {
-            <p class="align-middle rounded-3 py-2 bg-white-opacy">
+            <p class="align-middle rounded-3 ms-0 m-2 p-0 bg-white-opacy">
                 ⭐ @Model.Reviews.Count Reviews
             </p>
             @*<h5 class="card-title text-center align-middle lh-1 p-2">@visa.Reviews.Count Reviews</h5>*@
         }
+        <p class="align-left rounded-3 my-2 p-0 bg-white-opacy">
+            @if (Model.Income > 0)
+            {
+                <span class="m-2 p-2 badge rounded-pill bg-secondary">
+                    🤑 Income $ @Model.Income
+                </span>
+            }
+            @if (!string.IsNullOrEmpty(Model.Cost))
+            {
+                <span class="m-2 p-2 badge rounded-pill bg-secondary">
+                    💰 Cost of program $ @Model.Cost
+                </span>
+            }
+        </p>
+
         @*else
         {
         <p class="align-middle rounded-3 py-2 bg-white-opacy">
@@ -85,7 +101,7 @@
             @*<p class="align-middle text-white rounded-3 py-2 px-3 bg-white-opacy">
         ✨ Extendable
         </p>*@
-            <span class="m-2 p-2 badge rounded-pill bg-info">
+            <span class="m-1 p-2 badge rounded-pill text-dark border border-secondary border-1">
                 ✨ Extendable
             </span>
         }
@@ -94,14 +110,21 @@
             @*<p class="align-middle text-white rounded-3 py-2 px-3 bg-white-opacy">
         🕜 Duration @visa.Duration days
         </p>*@
-            <span class="m-2 p-2 badge rounded-pill bg-info">
+            <span class="m-1 p-2 badge rounded-pill text-dark border border-secondary border-1">
                 🕜 Duration @Model.Duration days
             </span>
         }
+        @if(!string.IsNullOrEmpty(Model.Type))
+        {
+            <span class="m-1 p-2 badge rounded-pill text-dark border border-secondary border-1">
+                🐱‍👤 @Model.Type
+            </span>    
+        }
+        
     </div>
     <div class="col-md-4 p-3">
         <span>
-            @Model.Description.Substring(0, 100).StripHTML()...
+            @Model.Description.Truncate(100).StripHTML()...
         </span>
     </div>
 </div>
