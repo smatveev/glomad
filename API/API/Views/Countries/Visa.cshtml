@@ -58,10 +58,26 @@
                     @item.Text
                 </a></li>
            }
-           else {
-               <li>@item.Text</li>
-           }
-       }
+           else if((DocumentType)item.DocumentType == DocumentType.PlaceOfStay) {
+               <li><a rel="noopener nofollow noreferrer" target="_blank" 
+                    href="https://booking.tp.st/zqey1Nwh">
+                    @item.Text
+                </a></li>
+               
+                   
+                } else if ((DocumentType)item.DocumentType == DocumentType.Ticket)
+                {
+                    <li><a rel="noopener nofollow noreferrer" target="_blank" 
+                    href="https://aviasales.tp.st/hJye4HU1">
+                    @item.Text
+                        </a></li>
+                }
+                else
+                {
+                     <li>@item.Text</li>
+                }
+
+        }
        </ol>
     }
 
