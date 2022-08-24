@@ -6,7 +6,7 @@
 @model VisaPage
 
 @{
-    ViewData["Title"] = $"This is VISA";
+    ViewData["Title"] = $"{Model.Visa.Name} of {Model.Visa.Country.Name}";
     ViewData["MetaDescription"] = $"And about";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Visa.Country.Name}/Visa/{Model.Visa.Id}";
 
