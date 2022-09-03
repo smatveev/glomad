@@ -49,13 +49,16 @@ function buildLink() {
         url: `api/Visas/GetVisas/${link}`,
         //data: JSON.stringify(data),
         dataType: 'html',
-        contentType: "application/json",
-        success: function () {
-            console.log("success", arguments);
+        //contentType: "application/json",
+        success: function (result) {
+            console.log("success", result);
+            //const div = document.querySelector("#res")
+            //div.append(result)
+            $("#res").append(result);
             //$("#ImprovePageForm #status").text("Got it! Thank you 👌")
         },
-        error: function () {
-            console.log("error", arguments);
+        error: function (req, status, error) {
+            console.log(error, status);
             //$("#ImprovePageForm #status").text("😣 Something went wrong. Please try again.")
         },
         complete: function () {
