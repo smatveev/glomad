@@ -54,7 +54,8 @@ function buildLink() {
             console.log("success", result);
             //const div = document.querySelector("#res")
             //div.append(result)
-            $("#res").append(result);
+            //$("#res").append(result);
+            document.getElementById("res").innerHTML = result;
             //$("#ImprovePageForm #status").text("Got it! Thank you 👌")
         },
         error: function (req, status, error) {
