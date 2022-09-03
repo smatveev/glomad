@@ -54,17 +54,17 @@
             }
 
             string waitR = "r1";
-            string waitT = "🐢 Low prepare time";
+            string waitT = "🐢 Slow processing";
             int wait = (int)Model.Reviews.Average(i => i.Waiting) * 100 / 5;
             if (wait > 35 && wait < 75)
             {
                 waitR = "r3";
-                waitT = "🦘 Medium prepate time";
+                waitT = "🦘 Medium processing";
             }
             if (wait >= 75)
             {
                 waitR = "r5";
-                waitT = "🐎 Prepare fast";
+                waitT = "🐎 Fast processing";
             }
 
 
@@ -74,7 +74,7 @@
             if (loy > 35 && loy < 75)
             {
                 loyR = "r3";
-                loyT = "👌 Avarage loyality";
+                loyT = "👌 Average loyality";
             }
             if (loy >= 75)
             {
