@@ -60,7 +60,38 @@
 
 <partial name="_News" />
 
+<section class="container pt-4">
+    <div class="row g-3" id="filters" onload="buildLink()">
 
+    <div class="col-md-4">
+    <select class="form-select" data-prior=1>
+        <option value="" disabled selected>Visa type</option>
+        <option value="-for-nomads">Nomad</option>
+        <option value="-for-tourist">Tourist</option>
+        <option value="-for-startup">Start-up</option>
+    </select>
+    </div>
+
+    <div class="col-md-4">
+    <select class="form-select" data-prior=2>
+        <option value="" disabled selected>Income</option>
+        <option value="-low-income"> <= 5000</option>
+        <option value="-med-income"> 5000</option>
+        <option value="-high-income"> >= 5000</option>
+    </select>
+    </div>
+
+    <div class="col-md-4">
+    <select class="form-select" data-prior=0>
+        <option value="" disabled selected>Duration?</option>
+        <option value="-low-income">One month</option>
+        <option value="-half-year">Long stay</option>
+        <option value="-more-year">Expats</option>
+    </select>
+    </div>
+
+    </div>
+</section>
 
 @if (Model.Visas?.Count > 0)
 {
@@ -250,6 +281,10 @@
 @section Scripts {
     <script>
         $(function() {
+
+
+
+
             $('#exampleModal').bind('show.bs.modal', function(event) {
                 // Button that triggered the modal
                 var button = event.relatedTarget

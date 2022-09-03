@@ -103,6 +103,16 @@ namespace API.Controllers
             return View(mo);
         }
 
+        [Route("visa-{query}")]
+        //[Route("Search")]
+        //[Route("Search/{route}")]
+        public IActionResult Index(string query)
+        {
+            var mo = new Models.IndexModel();
+
+            return View(mo);
+        }
+
         [HttpPost("SelectPrice")]
         public IActionResult SelectPrice([FromBody] SelectPlan plan)
         {

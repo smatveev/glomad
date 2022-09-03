@@ -15,6 +15,12 @@ namespace API.Controllers
     {
         private readonly AppDbContext _context;
 
+        [HttpGet("GetVisas/{q}")]
+        public ActionResult GetVisas(string q)
+        {
+            return Ok("1 " + q);
+        }
+
         public VisasController(AppDbContext context)
         {
             _context = context;
