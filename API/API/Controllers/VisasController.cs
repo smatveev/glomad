@@ -51,14 +51,27 @@ namespace API.Controllers
             if (q.Contains("for-nomads")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Nomad));
             if (q.Contains("for-tourist")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Tourist));
             if (q.Contains("for-startup")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Startup));
+            if (q.Contains("for-business")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Business));
+            if (q.Contains("for-student")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Student));
+            if (q.Contains("for-work")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Work));
 
-            if (q.Contains("low-income")) result.RemoveAll(v => v.Income > 100);
-            if (q.Contains("med-income")) result.RemoveAll(v => v.Income > 3000);
-            //if (q.Contains("high-income")) result.RemoveAll(v => v.Income >= 3000));
+            if (q.Contains("low-income")) result.RemoveAll(v => v.Income > 1500);
+            if (q.Contains("middle-income")) result.RemoveAll(v => v.Income > 4000);
+            if (q.Contains("high-income")) result.RemoveAll(v => v.Income > 10000);
 
-            if (q.Contains("one-month")) result.RemoveAll(v => v.Duration > 30);
-            if (q.Contains("half-year")) result.RemoveAll(v => v.Duration > 365 && v.Duration < 90);
-            if (q.Contains("more-year")) result.RemoveAll(v => v.Duration < 360);
+            if (q.Contains("short-stay")) result.RemoveAll(v => v.Duration > 30);
+            if (q.Contains("middle-short-stay")) result.RemoveAll(v => v.Duration < 30 && v.Duration > 180);
+            if (q.Contains("long-stay")) result.RemoveAll(v => v.Duration > 365 && v.Duration < 180);
+            if (q.Contains("for-expats")) result.RemoveAll(v => v.Duration < 360);
+
+            if (q.Contains("are-extendable")) result.RemoveAll(v => !v.IsExdendable);
+            if (q.Contains("not-renewed")) result.RemoveAll(v => v.IsExdendable);
+
+            //if (q.Contains("no-criminal-need")) result.RemoveAll(v => v.);
+            //if (q.Contains("no-avia-tickets")) result.RemoveAll(v => v.Duration < 30 && v.Duration > 180);
+            //if (q.Contains("no-accomodation-proof")) result.RemoveAll(v => v.Duration > 365 && v.Duration < 180);
+            //if (q.Contains("no-finance-proof")) result.RemoveAll(v => v.Duration < 360);
+            //if (q.Contains("no-insuranse")) result.RemoveAll(v => v.Duration < 360);
 
             return ViewComponent("VisaSearchResult", result);
         }

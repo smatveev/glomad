@@ -64,37 +64,59 @@
     <div class="row g-3" id="filters" onload="buildLink()">
 
     <div class="col-md-4">
-            <select aria-label="State" class="form-select" data-prior=1 onChange="selectFilter(this);">
+    <select aria-label="State" class="form-select" data-prior=0 onChange="selectFilter(this);">
         <option value="" disabled selected>💳 Visa type</option>
-        <option value="for-nomads" title="🐱‍👓 Nomad">Nomad</option>
+        <option value="for-nomads">Nomad</option>
         <option value="for-tourist">Tourist</option>
-        <option value="for-startup">Start-up</option>
+        <option value="for-startup">Startup</option>
+        <option value="for-business">Business</option>
+        <option value="for-student">Student</option>
+        <option value="for-work">Work</option>
     </select>
     </div>
 
     <div class="col-md-4">
-            <select class="form-select" data-prior=2 onChange="selectFilter(this);">
-        <option value="" disabled selected>Income</option>
-        <option value="low-income"> up to 1k</option>
-        <option value="med-income"> 1k - 3k</option>
-        <option value="high-income"> 5k+</option>
+    <select class="form-select" data-prior=1 onChange="selectFilter(this);">
+        <option value="" disabled selected>⏳ Duration?</option>
+        <option value="short-stay">One month</option>
+        <option value="middle-short-stay">2+ months</option>
+        <option value="long-stay">6+ months</option>
+        <option value="for-expats">1+ year</option>
     </select>
     </div>
 
     <div class="col-md-4">
-            <select class="form-select" data-prior=0 onChange="selectFilter(this);">
-        <option value="" disabled selected>Duration?</option>
-        <option value="one-month">One month</option>
-        <option value="half-year">Long stay</option>
-        <option value="more-year">Expats</option>
+    <select class="form-select" data-prior=2 onChange="selectFilter(this);">
+        <option value="" disabled selected>✨ Extendable</option>
+        <option value="are-extendable">Yes</option>
+        <option value="not-renewed">No</option>
+    </select>
+    </div>
+
+    <div class="col-md-4">
+    <select class="form-select" data-prior=3 onChange="selectFilter(this);">
+        <option value="" disabled selected>🤑 Monthly income</option>
+        <option value="low-income">&lt;US$ 1500</option>
+        <option value="middle-income">&lt;US$ 4000</option>
+        <option value="high-income">&lt;US$ 10000</option>
+    </select>
+    </div>
+
+    <div class="col-md-4">
+    <select class="form-select" data-prior=4 onChange="selectFilter(this);">
+        <option value="" disabled selected>🐣 No need</option>
+        <option value="no-criminal-need">Criminal records</option>
+        <option value="no-avia-tickets">Tickets</option>
+        <option value="no-accomodation-proof">Proof of accomadation</option>
+        <option value="no-finance-proof">Proof of finance</option>
+        <option value="no-insuranse">Health insuranse</option>
     </select>
     </div>
 
     </div>
 
-    <div id="criterias"></div>
-
-    <div id="res"></div>
+    <div class="py-2" id="criterias"></div>
+    <div class="py-2" id="res"></div>
 </section>
 
 
