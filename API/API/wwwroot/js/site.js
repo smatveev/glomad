@@ -71,7 +71,7 @@ function buildLink() {
 
     console.log("priors", priors)
 
-    let link = ""
+    let link = "";
 
     for (let prior of priors) {
         var spans = $(`span[data-prior=${prior}]`)
@@ -104,8 +104,12 @@ function buildLink() {
     link = link.substring(0, link.lastIndexOf("-and-"))
 
     console.log("result", link)
+    if (link) console.log("link bool TRUE")
+    else console.log("link bool FASLE")
 
-    window.history.pushState("filter", "", `/visa-${link}`);
+    if (link) window.history.pushState("filter", "", `/visa-${link}`);
+    else window.history.pushState("filter", "", "/");
+
     document.title = `Best visas for ${link}`
     $('meta[name="description"]').attr("content", `Here are best visas for ${link}`);
 
