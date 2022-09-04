@@ -49,19 +49,20 @@ namespace API.Controllers
             var result = new List<VisaSearchResult>();
 
             if (q.Contains("for-nomads")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Nomad));
-            if (q.Contains("for-tourist")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Tourist));
-            if (q.Contains("for-startup")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Startup));
-            if (q.Contains("for-business")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Business));
-            if (q.Contains("for-student")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Student));
-            if (q.Contains("for-work")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Work));
+            else if (q.Contains("for-tourist")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Tourist));
+            else if (q.Contains("for-startup")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Startup));
+            else if (q.Contains("for-business")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Business));
+            else if (q.Contains("for-student")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Student));
+            else if (q.Contains("for-work")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Work));
+            else result = new List<VisaSearchResult>(Visas);
 
             if (q.Contains("low-income")) result.RemoveAll(v => v.Income > 1500);
             if (q.Contains("middle-income")) result.RemoveAll(v => v.Income > 4000);
             if (q.Contains("high-income")) result.RemoveAll(v => v.Income > 10000);
 
             if (q.Contains("short-stay")) result.RemoveAll(v => v.Duration > 30);
-            if (q.Contains("middle-short-stay")) result.RemoveAll(v => v.Duration < 30 && v.Duration > 180);
-            if (q.Contains("long-stay")) result.RemoveAll(v => v.Duration > 365 && v.Duration < 180);
+            if (q.Contains("middle-stay")) result.RemoveAll(v => v.Duration < 30 || v.Duration > 180);
+            if (q.Contains("long-stay")) result.RemoveAll(v => v.Duration > 365 || v.Duration < 180);
             if (q.Contains("for-expats")) result.RemoveAll(v => v.Duration < 360);
 
             if (q.Contains("are-extendable")) result.RemoveAll(v => !v.IsExdendable);
