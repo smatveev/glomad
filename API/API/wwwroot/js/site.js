@@ -24,6 +24,7 @@ function selectFilter(e) {
     if (!document.getElementById(`span-${text}`)) {
         const span = document.createElement("span");
         span.setAttribute("id", `span-${text}`)
+        span.setAttribute("data-prior", e.dataset.prior)
         span.setAttribute("class", "me-2 px-2 badge rounded-pill text-dark border border-secondary border-1")
         span.textContent = text
 
@@ -31,7 +32,7 @@ function selectFilter(e) {
         btn.src = "../css/times-circle.svg"
         btn.alt = "Remove this filter"
         btn.setAttribute("class", "cursor-out remove-filter")
-        btn.addEventListener('click', () => { span.remove() })
+        btn.addEventListener('click', () => { span.remove(); buildLink(); })
 
         span.appendChild(btn);
 
@@ -41,24 +42,64 @@ function selectFilter(e) {
     buildLink()
 }
 
+function indexMatchingText(ele, text) {
+    for (var i = 0; i < ele.length; i++) {
+        if (ele[i].childNodes[0].nodeValue === text) {
+            return i;
+        }
+    }
+    return undefined;
+}
+
 
 function buildLink() {
-    var $wrapper = $('#filters');
+    var div = $('#criterias');
 
-    var res = $wrapper.find('select').sort(function (a, b) {
+    var res = div.find('span').sort(function (a, b) {
         return a.dataset.prior - b.dataset.prior;
+        //if (indexMatchingText(a, a.text) < indexMatchingText(b, b.text)) return -1;
     })
 
     console.log("result selects", res)
 
-    let link = ""
-
+    const priors = new Set();
     for (let s of res) {
-        s.value ? link = link + s.value + "-and" : null
-        //console.log("res", s.value)
+        priors.add(s.dataset.prior);
     }
 
-    link = link.substring(0, link.lastIndexOf("-"))
+    console.log("priors", priors)
+
+    let link = ""
+
+    for (let prior of priors) {
+        var spans = $(`span[data-prior=${prior}]`)
+        spans = spans.sort(function (a, b) {
+            console.log("data", a.textContent, b.textContent)
+            return a.textContent.localeCompare(b.textContent);
+        })
+        for (var i = 0 in spans) {
+            spans[i].textContent ? link = link + spans[i].textContent : null
+
+            if (i < spans.length - 1) link = link + "-or-"
+        }
+        link = link + "-and-"
+        //console.log("spans", spans)
+    }
+
+    //console.log("link", link)
+
+    //if (res[0]) {
+    //    startPrior = res[0].dataset.prior;
+    //    link = res[0].value;
+    //}
+    //else return;
+
+    //for (let s of res) {
+    //    s.value ? link = link + s.value + "-and" : null
+    //    //console.log("res", s.value)
+    //}
+
+    link = link.substring(0, link.lastIndexOf("-and-"))
 
     console.log("result", link)
 
