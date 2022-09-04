@@ -2,6 +2,7 @@
 
 @using API.Helpers
 @using Humanizer
+@using Microsoft.AspNetCore.Http
 
 @model VisaPage
 
@@ -53,29 +54,36 @@
        {
            @if((DocumentType)item.DocumentType == DocumentType.HealthInsurance) 
            {
-                <li><a rel="noopener nofollow noreferrer" target="_blank" 
-                    href="https://safetywing.com/?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador">
+                if(new GeoIp(Context).GetMyCountryAsync().ToString().ToLower() == "russia") {
+                    <li><a rel="noopener nofollow noreferrer" target="_blank"
+                   href="https://cherehapa.ru/insurance/medicine/?partnerId=2879">
                     @item.Text
                 </a></li>
+                }
+                else {
+                    <li><a rel="noopener nofollow noreferrer" target="_blank" 
+                        href="https://safetywing.com/?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador">
+                        @item.Text
+                    </a></li>
+                }
            }
            else if((DocumentType)item.DocumentType == DocumentType.PlaceOfStay) {
                <li><a rel="noopener nofollow noreferrer" target="_blank" 
                     href="https://booking.tp.st/zqey1Nwh">
                     @item.Text
-                </a></li>
-               
-                   
-                } else if ((DocumentType)item.DocumentType == DocumentType.Ticket)
-                {
-                    <li><a rel="noopener nofollow noreferrer" target="_blank" 
+                </a></li>       
+            } 
+            else if ((DocumentType)item.DocumentType == DocumentType.Ticket)
+            {
+                <li><a rel="noopener nofollow noreferrer" target="_blank" 
                     href="https://aviasales.tp.st/hJye4HU1">
                     @item.Text
-                        </a></li>
-                }
-                else
-                {
-                     <li>@item.Text</li>
-                }
+                </a></li>
+            }
+            else
+            {
+                <li>@item.Text</li>
+            }
 
         }
        </ol>
