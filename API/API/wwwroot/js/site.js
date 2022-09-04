@@ -18,6 +18,7 @@ window.onload = function () {
 function selectFilter(e) {
     console.log("filters change", e)
     let text = e.options[e.selectedIndex].text;
+    let value = e.options[e.selectedIndex].value;
 
     const div = document.querySelector("#criterias")
 
@@ -27,6 +28,7 @@ function selectFilter(e) {
         span.setAttribute("data-prior", e.dataset.prior)
         span.setAttribute("class", "me-2 px-2 badge rounded-pill text-dark border border-secondary border-1")
         span.textContent = text
+        span.title = value
 
         const btn = document.createElement("img");
         btn.src = "../css/times-circle.svg"
@@ -78,7 +80,7 @@ function buildLink() {
             return a.textContent.localeCompare(b.textContent);
         })
         for (var i = 0 in spans) {
-            spans[i].textContent ? link = link + spans[i].textContent : null
+            spans[i].title ? link = link + spans[i].title : null
 
             if (i < spans.length - 1) link = link + "-or-"
         }
@@ -103,7 +105,7 @@ function buildLink() {
 
     console.log("result", link)
 
-    window.history.pushState("filter", "", `/visa${link}`);
+    window.history.pushState("filter", "", `/visa-${link}`);
     document.title = `Best visas for ${link}`
     $('meta[name="description"]').attr("content", `Here are best visas for ${link}`);
 
