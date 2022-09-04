@@ -1,5 +1,16 @@
+@import url('site.css');
 :root {
     --main-color: #23aaa3;
+}
+
+.remove-filter {
+    margin: 3px;
+    width: 20px;
+    opacity: 0.3;
+}
+
+.cursor-out {
+    cursor: zoom-out;
 }
 
 .bg-main-color {
@@ -45,14 +56,15 @@ nav {
     /*text-shadow: 0rem 0.15em 0.2rem rgb(0 0 0 / 80%);*/
     text-shadow: 0rem 0.15rem 0.2rem rgb(0 0 0 / 80%);
 }
+
 .shadowed-l {
     text-shadow: 0rem 0.1em 0.15rem rgb(0 0 0 / 30%);
 }
 
-    .preparing {
-        background-color: black;
-        opacity: .555;
-    }
+.preparing {
+    background-color: black;
+    opacity: .555;
+}
 
 .badge-card {
     /* z-index: 1; */
@@ -90,9 +102,10 @@ nav {
     height: 41px;
     background-image: url('/press/ph-black.png');
 }
-.press-ph:hover {
-    background-image: url('/press/ph-orange.png');
-}
+
+    .press-ph:hover {
+        background-image: url('/press/ph-orange.png');
+    }
 
 .rounded-5 {
     border-radius: 1rem;
@@ -134,17 +147,21 @@ nav {
 .c1 {
     background-color: #eae2b7;
 }
+
 .c2 {
     background-color: #fcbf49;
 }
+
 .c3 {
     background-color: #f77f00;
     color: #fff;
 }
+
 .c4 {
     background-color: #d62828;
     color: #fff;
 }
+
 .c5 {
     background-color: #003049;
     color: #fff;
@@ -166,18 +183,19 @@ nav {
     overflow: hidden;
     width: 300px;
 }
+
     .newstick:hover {
         background-color: #f8f9fa !important;
     }
 
-.newstick img {
-    width: 50px;
-    height: 50px;
-}
+    .newstick img {
+        width: 50px;
+        height: 50px;
+    }
 
-.newstick div {
-    overflow: hidden;
-}
+    .newstick div {
+        overflow: hidden;
+    }
 
 .by {
     border-top-left-radius: 7px;
@@ -191,6 +209,7 @@ nav {
     background-color: #fff;
     border-top-right-radius: 7;
 }
+
     .by:hover {
         background-color: #f8f9fa !important;
     }
@@ -201,7 +220,6 @@ nav {
 }
 
 #showFeedback {
-    
     cursor: pointer;
 }
 
@@ -339,3 +357,44 @@ input:nth-of-type(10):hover ~ i {
     --l: 10
 }
 /*input:nth-of-type(N):hover ~ i {--l:N}*/
+
+
+
+
+/* SELECT BOX CSS */
+
+/*body {
+    background: linear-gradient(35deg, red, purple);
+}*/
+
+/* <select> styles */
+select {
+    /* Reset */
+    /*border: 1px solid #6c757d; */
+    appearance: none;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    /* Personalize */
+    width: 20em;
+    height: 3em;
+    padding: 0 4em 0 1em;
+    background: url(Caret_down_font_awesome_whitevariation.svg) no-repeat right 0.8em center / 1.4em, linear-gradient(to left, rgba(255, 255, 255, 0.3) 3em, rgba(255, 255, 255, 0.2) 3em);
+    color: white;
+    border-radius: 0.25em;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    /* <option> colors */
+    option {
+        color: inherit;
+        background-color: #320a28;
+    }
+    /* Remove focus outline */
+    &:focus {
+        outline: none;
+    }
+    /* Remove IE arrow */
+    &::-ms-expand {
+        display: none;
+    }
+}

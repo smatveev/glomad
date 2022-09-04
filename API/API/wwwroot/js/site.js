@@ -4,18 +4,41 @@
 // Write your JavaScript code.
 
 window.onload = function () {
-    const wrapper = document.querySelector("#filters")
-    const filters = wrapper.querySelectorAll('div > select');
+    //const wrapper = document.querySelector("#filters")
+    //const filters = wrapper.querySelectorAll('div > select');
 
-    console.log("on load filters ", filters)
+    //console.log("on load filters ", filters)
 
-    for (const filter of filters) {
-        console.log("filter ", filter)
-        filter.addEventListener('change', (event) => {
-            console.log("filters change", event.target.value)
-            buildLink()
-        });
+    //for (const filter of filters) {
+    //    console.log("filter ", filter)
+    //    filter.addEventListener('change', selectFilter);
+    //}
+}
+
+function selectFilter(e) {
+    console.log("filters change", e)
+    let text = e.options[e.selectedIndex].text;
+
+    const div = document.querySelector("#criterias")
+
+    if (!document.getElementById(`span-${text}`)) {
+        const span = document.createElement("span");
+        span.setAttribute("id", `span-${text}`)
+        span.setAttribute("class", "me-2 px-2 badge rounded-pill text-dark border border-secondary border-1")
+        span.textContent = text
+
+        const btn = document.createElement("img");
+        btn.src = "../css/times-circle.svg"
+        btn.alt = "Remove this filter"
+        btn.setAttribute("class", "cursor-out remove-filter")
+        btn.addEventListener('click', () => { span.remove() })
+
+        span.appendChild(btn);
+
+        
+        div.appendChild(span);
     }
+    buildLink()
 }
 
 
@@ -32,7 +55,7 @@ function buildLink() {
 
     for (let s of res) {
         s.value ? link = link + s.value + "-and" : null
-        console.log("res", s.value)
+        //console.log("res", s.value)
     }
 
     link = link.substring(0, link.lastIndexOf("-"))
@@ -51,7 +74,7 @@ function buildLink() {
         dataType: 'html',
         //contentType: "application/json",
         success: function (result) {
-            console.log("success", result);
+            //console.log("success", result);
             //const div = document.querySelector("#res")
             //div.append(result)
             //$("#res").append(result);
@@ -63,10 +86,10 @@ function buildLink() {
             //$("#ImprovePageForm #status").text("😣 Something went wrong. Please try again.")
         },
         complete: function () {
-            console.log("complete", arguments);
+            //console.log("complete", arguments);
         }
     }).done(function () {
-        console.log("done", arguments);
+        //console.log("done", arguments);
     });
     
 }

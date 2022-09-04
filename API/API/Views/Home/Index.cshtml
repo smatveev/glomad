@@ -64,11 +64,11 @@
     <div class="row g-3" id="filters" onload="buildLink()">
 
     <div class="col-md-4">
-    <select class="form-select" data-prior=1>
-        <option value="" disabled selected>Visa type</option>
-        <option value="-for-nomads">Nomad</option>
-        <option value="-for-tourist">Tourist</option>
-        <option value="-for-startup">Start-up</option>
+            <select aria-label="State" class="form-select" data-prior=1 onChange="selectFilter(this);">
+        <option value="" disabled selected>💳 Visa type</option>
+        <option value="-for-nomads" title="🐱‍👓 Nomad">🐱‍👓 Nomad</option>
+        <option value="-for-tourist">😻 Tourist</option>
+        <option value="-for-startup">🐱‍💻 Start-up</option>
     </select>
     </div>
 
@@ -91,6 +91,8 @@
     </div>
 
     </div>
+
+    <div id="criterias"></div>
 
     <div id="res"></div>
 </section>
