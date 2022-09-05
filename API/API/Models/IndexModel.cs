@@ -29,5 +29,6 @@ namespace API.Models
         //public IEnumerable<VisaSearchResult> VisasNonEntry { get; set; }
         public List<CountryFreeEntry> FreeCountries { get; set; }
         public NoVisaEntry NoVisaEntry { get; set; }
+        public string Query { get; set; }
     }
 }

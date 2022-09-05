@@ -109,6 +109,7 @@ namespace API.Controllers
         public IActionResult Index(string query)
         {
             var mo = new Models.IndexModel();
+            mo.Query = query;
 
             return View(mo);
         }
