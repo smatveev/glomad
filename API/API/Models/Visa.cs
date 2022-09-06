@@ -11,7 +11,7 @@ namespace API.Models
     {
         public static Dictionary<string, KeyValuePair<string, int>> Criterias = new Dictionary<string, KeyValuePair<string, int>>()
         {
-            //{ "", new KeyValuePair<string, int>("💳 Visa type", 0) },
+            { "0", new KeyValuePair<string, int>("💳 Visa type", 0) },
             { "for-nomads", new KeyValuePair<string, int>("Nomad", 0) },
             { "for-tourist", new KeyValuePair<string, int>("Tourist", 0) },
             { "for-startup", new KeyValuePair<string, int>("Startup", 0) },
@@ -19,18 +19,18 @@ namespace API.Models
             { "for-student", new KeyValuePair<string, int>("Studens", 0) },
             { "for-work", new KeyValuePair<string, int>("W", 0) },
 
-            //{ "", new KeyValuePair<string, int>("⏳ Duration", 1) },
+            { "1", new KeyValuePair<string, int>("⏳ Duration", 1) },
             { "short-stay", new KeyValuePair<string, int>("One month", 1) },
             { "middle-stay", new KeyValuePair<string, int>("2+ months", 1) },
             { "long-stay", new KeyValuePair<string, int>("6+ months", 1) },
             { "for-expats", new KeyValuePair<string, int>("1+ year", 1) },
 
-            //{ "", new KeyValuePair<string, int>("🤑 Monthly income", 2) },
+            { "2", new KeyValuePair<string, int>("🤑 Monthly income", 2) },
             { "low-income", new KeyValuePair<string, int>("< $1500", 2) },
             { "middle-income", new KeyValuePair<string, int>("< $4000", 2) },
             { "high-income", new KeyValuePair<string, int>("< $10000", 2) },
 
-            //{ "", new KeyValuePair<string, int>("🤑 Benefites", 3) },
+            { "3", new KeyValuePair<string, int>("🤑 Benefites", 3) },
             { "are-extendable", new KeyValuePair<string, int>("Extendable", 3) },
             { "not-renewed", new KeyValuePair<string, int>("Not renewed", 3) },
         };
