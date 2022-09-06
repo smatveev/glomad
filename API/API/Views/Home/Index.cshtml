@@ -124,26 +124,30 @@
 
     </div>
 
-    <div class="py-2" id="criterias">
+    <div class="my-3" id="criterias">
         @{
             try {
                 var slugs = Model.Query.Split(new string[] { "-and-", "-or-"}, StringSplitOptions.None);
                 foreach (var s in slugs)
                 {
-                        <span id="span-Tourist" class="p-2 ps-3 badge rounded-pill text-dark border border-secondary border-1"
-                            data-prior="@VisaSearchCriteria.Criterias[s].Value" 
-                            onclick="() => { span.remove(); buildLink();}"
-                            title="for-tourist">
-                            @VisaSearchCriteria.Criterias[s].Key
-                            <img src="../css/times-circle.svg" alt="Remove this filter" class="cursor-out remove-filter">
-                        </span>
+                    <span id="span-Tourist" class="cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-secondary border-1 shadow-sm"
+                        data-prior="@VisaSearchCriteria.Criterias[s].Value" 
+                        onclick= '() => { this.remove(); buildLink();}'
+                        title="for-tourist">
+                        @VisaSearchCriteria.Criterias[s].Key
+                        <img src="../css/times-circle.svg" alt="Remove this filter" class="remove-filter">
+                    </span>
                 }
             }
             catch (Exception e) {}
         }
     </div>
 
-    <div class="py-2" id="res"></div>
+    <div id="res">
+        @if(Model.Visas?.Count > 0) {
+            @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
+        }
+    </div>
 </section>
 
 

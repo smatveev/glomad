@@ -8,6 +8,7 @@ using Glomad.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Net.Http;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -110,6 +111,7 @@ namespace API.Controllers
         {
             var mo = new Models.IndexModel();
             mo.Query = query;
+            mo.Visas = VisaHelper.GetVisasFromLink(query, _context);
 
             return View(mo);
         }

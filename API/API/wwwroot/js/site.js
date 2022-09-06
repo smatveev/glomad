@@ -26,15 +26,15 @@ function selectFilter(e) {
         const span = document.createElement("span");
         span.setAttribute("id", `span-${text}`)
         span.setAttribute("data-prior", e.dataset.prior)
-        span.setAttribute("class", "p-2 ps-3 badge rounded-pill text-dark border border-secondary border-1")
+        span.setAttribute("class", "cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-secondary border-1 shadow-sm")
         span.textContent = text
         span.title = value
 
         const btn = document.createElement("img");
         btn.src = "../css/times-circle.svg"
         btn.alt = "Remove this filter"
-        btn.setAttribute("class", "cursor-out remove-filter")
-        btn.addEventListener('click', () => { span.remove(); buildLink(); })
+        btn.setAttribute("class", "remove-filter")
+        span.addEventListener('click', () => { span.remove(); buildLink(); })
 
         span.appendChild(btn);
 
@@ -102,10 +102,6 @@ function buildLink() {
     //}
 
     link = link.substring(0, link.lastIndexOf("-and-"))
-
-    console.log("result", link)
-    if (link) console.log("link bool TRUE")
-    else console.log("link bool FASLE")
 
     if (link) window.history.pushState("filter", "", `/visa-${link}`);
     else window.history.pushState("filter", "", "/");
