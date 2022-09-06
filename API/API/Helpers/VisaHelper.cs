@@ -19,6 +19,31 @@ namespace API.Helpers
         {
             var result = new List<VisaSearchResult>();
 
+            if (string.IsNullOrEmpty(q))
+            {
+                result = (from co in _context.Visa
+                          join c in _context.Country on co.Country.Id equals c.Id
+                          select new VisaSearchResult
+                          {
+                              Id = co.Id,
+                              Description = co.Description,
+                              VisaName = co.Name,
+                              IsExdendable = co.IsExtendable,
+                              Duration = co.Duration,
+                              CountryName = c.Name,
+                              Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+                              Type = ((VisaType)co.Type).ToString(),
+                              TypeId = co.Type,
+                              Income = co.Income,
+                              Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
+                              CostNum = co.CostOfProgramm
+                          }).Take(10).OrderByDescending(r => r.Reviews.Count).ToList();
+
+                return result;
+            }
+
+            
+
             var Visas = (from co in _context.Visa
                          join c in _context.Country on co.Country.Id equals c.Id
                          select new VisaSearchResult

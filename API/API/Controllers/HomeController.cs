@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Net.Http;
 using API.Helpers;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace API.Controllers
 {
@@ -50,7 +51,10 @@ namespace API.Controllers
             mo.Passport = Passport;
             mo.To = To;
 
-            if(To > 0)
+            //TODO: refactor this shit
+            mo.Visas = VisaHelper.GetVisasFromLink("", _context);
+
+            if (To > 0)
             {
                 mo.ToCountryName = _context.Country.FirstOrDefault(c => c.Id == mo.To).Name;
                 mo.ToCapitalCode = _context.Country.FirstOrDefault(c => c.Id == mo.To).CapitalCode;
