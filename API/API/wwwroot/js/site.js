@@ -15,6 +15,12 @@ window.onload = function () {
     //}
 }
 
+function remove(el) {
+    var elem = el
+    elem.remove()
+    buildLink()
+}
+
 function selectFilter(e) {
     console.log("filters change", e)
     let text = e.options[e.selectedIndex].text;
