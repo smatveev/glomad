@@ -50,11 +50,11 @@ namespace API.Helpers
             //                (q.Contains("for-student") ? co.Type == (int)VisaType.Student : true) ||
             //                (q.Contains("for-work") ? co.Type == (int)VisaType.Work : true)
 
-            short[] test = { 1, 2, 3 };
+            var test = new int[] { 1, 3 };
 
             result = (from co in _context.Visa
                          join c in _context.Country on co.Country.Id equals c.Id
-                         //where (co.Type => test.Contains(co.Type))
+                      where test.Contains(co.Type)
                          select new VisaSearchResult
                          {
                              Id = co.Id,
