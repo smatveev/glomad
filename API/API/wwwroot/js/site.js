@@ -37,10 +37,11 @@ function selectFilter(e) {
         span.addEventListener('click', () => { span.remove(); buildLink(); })
 
         span.appendChild(btn);
-
-        
         div.appendChild(span);
     }
+
+    e.selectedIndex = "0";
+
     buildLink()
 }
 
