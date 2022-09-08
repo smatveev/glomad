@@ -23,6 +23,7 @@ namespace API.Controllers
             _context = context;
         }
 
+        [HttpGet("GetVisas/")]
         [HttpGet("GetVisas/{q}")]
         public IActionResult GetVisas(string q)
         {

@@ -126,6 +126,7 @@
 
     <div class="my-3" id="criterias">
         @{
+            if(Model.Query != null){
             try {
                 var slugs = Model.Query.Split(new string[] { "-and-", "-or-"}, StringSplitOptions.None);
                 foreach (var s in slugs)
@@ -140,6 +141,7 @@
                 }
             }
             catch (Exception e) {}
+            }
         }
     </div>
 
