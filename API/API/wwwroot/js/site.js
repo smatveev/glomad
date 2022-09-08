@@ -15,14 +15,44 @@ window.onload = function () {
     //}
 }
 
+function buildClearFilters() {
+
+    const id = "span-clear-filters"
+    if (document.getElementById(id))
+        document.getElementById(id).remove();
+
+    if (!document.querySelector("#criterias > span")) return
+
+    const div = document.querySelector("#criterias")
+
+    const span = document.createElement("span");
+    span.setAttribute("id", id)
+    span.setAttribute("class", "cursor-out p-2 ps-3 me-2 badge rounded-pill bg-danger border border-1 shadow-sm")
+    span.textContent = "Clear filters"
+
+    const btn = document.createElement("img");
+    btn.src = "../css/times-circle.svg"
+    btn.alt = "Clear filters"
+    btn.setAttribute("class", "remove-filter")
+    span.addEventListener('click', () => { clearFilters() })
+    span.appendChild(btn);
+    div.appendChild(span);
+}
+
+function clearFilters() {
+    document.querySelector("#criterias").replaceChildren()
+    buildLink()
+}
+
 function remove(el) {
     var elem = el
     elem.remove()
+    buildClearFilters()
     buildLink()
 }
 
 function selectFilter(e) {
-    console.log("filters change", e)
+    //console.log("filters change", e)
     let text = e.options[e.selectedIndex].text;
     let value = e.options[e.selectedIndex].value;
 
@@ -48,6 +78,7 @@ function selectFilter(e) {
 
     e.selectedIndex = "0";
 
+    buildClearFilters()
     buildLink()
 }
 
@@ -62,24 +93,25 @@ function indexMatchingText(ele, text) {
 
 
 function buildLink() {
-    var div = $('#criterias');
+    var div = document.getElementById('criterias')
+    var spans = div.querySelectorAll('[data-prior]');
 
-    var res = div.find('span').sort(function (a, b) {
+    console.log("div > ", div)
+    console.log("div > spans", spans)
+    
+
+    var res = [].slice.call(spans).sort(function (a, b) {
         return a.dataset.prior - b.dataset.prior;
-        //if (indexMatchingText(a, a.text) < indexMatchingText(b, b.text)) return -1;
     })
-
-    console.log("result selects", res)
+    //console.log("result selects", res)
 
     const priors = new Set();
     for (let s of res) {
         priors.add(s.dataset.prior);
     }
-
-    console.log("priors", priors)
+    //console.log("priors", priors)
 
     let link = "";
-
     for (let prior of priors) {
         var spans = $(`span[data-prior=${prior}]`)
         spans = spans.sort(function (a, b) {
@@ -92,21 +124,7 @@ function buildLink() {
             if (i < spans.length - 1) link = link + "-or-"
         }
         link = link + "-and-"
-        //console.log("spans", spans)
     }
-
-    //console.log("link", link)
-
-    //if (res[0]) {
-    //    startPrior = res[0].dataset.prior;
-    //    link = res[0].value;
-    //}
-    //else return;
-
-    //for (let s of res) {
-    //    s.value ? link = link + s.value + "-and" : null
-    //    //console.log("res", s.value)
-    //}
 
     link = link.substring(0, link.lastIndexOf("-and-"))
 
@@ -125,15 +143,10 @@ function buildLink() {
         //contentType: "application/json",
         success: function (result) {
             //console.log("success", result);
-            //const div = document.querySelector("#res")
-            //div.append(result)
-            //$("#res").append(result);
             document.getElementById("res").innerHTML = result;
-            //$("#ImprovePageForm #status").text("Got it! Thank you 👌")
         },
         error: function (req, status, error) {
             console.log(error, status);
-            //$("#ImprovePageForm #status").text("😣 Something went wrong. Please try again.")
         },
         complete: function () {
             //console.log("complete", arguments);

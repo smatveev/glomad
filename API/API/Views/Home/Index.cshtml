@@ -103,9 +103,9 @@
     <div class="col-md-3">
         <select class="form-select" data-prior=2 onChange="selectFilter(this);">
             <option value="" disabled selected>🤑 Monthly income</option>
-            <option value="low-income">&lt;US$ 1500</option>
-            <option value="middle-income">&lt;US$ 4000</option>
-            <option value="high-income">&lt;US$ 10000</option>
+            <option value="low-income">&lt; $1500</option>
+            <option value="middle-income">&lt; $4000</option>
+            <option value="high-income">&lt; $10000</option>
         </select>
     </div>
 
@@ -131,7 +131,7 @@
                 var slugs = Model.Query.Split(new string[] { "-and-", "-or-"}, StringSplitOptions.None);
                 foreach (var s in slugs)
                 {
-                    <span id="span-Tourist" class="cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-secondary border-1 shadow-sm"
+                    <span id="span-Tourist" class="cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-1 shadow-sm"
                         data-prior="@VisaSearchCriteria.Criterias[s].Value" 
                         onclick="remove(this)"
                         title="for-tourist">
@@ -139,6 +139,11 @@
                         <img src="../css/times-circle.svg" alt="Remove this filter" class="remove-filter">
                     </span>
                 }
+                <span id="span-clear-filters" onclick="clearFilters()"
+                    class="cursor-out p-2 ps-3 me-2 badge rounded-pill bg-danger border border-1 shadow-sm">
+                    Clear filters
+                    <img src="../css/times-circle.svg" alt="Clear filters" class="remove-filter">
+                </span>
             }
             catch (Exception e) {}
             }
@@ -153,7 +158,7 @@
 </section>
 
 
-@if (Model.Visas?.Count > 0)
+@*@if (Model.Visas?.Count > 0)
 {
     <section class="container pt-4">
 
@@ -204,7 +209,7 @@
         }
 
     </section>
-}
+}*@
 
 
 @if (Model.To > 0)
