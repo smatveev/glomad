@@ -15,6 +15,18 @@ namespace API.Helpers
             "-for-startup"
         };
 
+        public static List<string> Filters = new List<string>()
+        {
+             "for-startup",
+             "for-work",
+             "for-tourist",
+             "for-nomads",
+             "for-student",
+             "for-invest",
+             "for-business"
+
+        };
+
         public static List<VisaSearchResult> GetVisasFromLink(string q, AppDbContext _context)
         {
             var result = new List<VisaSearchResult>();
@@ -50,7 +62,14 @@ namespace API.Helpers
             //                (q.Contains("for-student") ? co.Type == (int)VisaType.Student : true) ||
             //                (q.Contains("for-work") ? co.Type == (int)VisaType.Work : true)
 
-            var test = new int[] { 1, 3 };
+            var test = new List<int>();
+            
+            for (int i = 0; i < Filters.Count; i++) {
+
+                if (q.Contains(Filters[i])) {
+                    test.Add(i);
+                }
+            }
 
             result = (from co in _context.Visa
                          join c in _context.Country on co.Country.Id equals c.Id
