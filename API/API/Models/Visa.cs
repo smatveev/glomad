@@ -53,6 +53,8 @@ namespace API.Models
 
         public string CostCurrency { get; set; }
         public float Income { get; set; }
+
+        public string ProgramUrl { get; set; }
     }
 
     public enum VisaType : ushort

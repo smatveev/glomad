@@ -70,25 +70,48 @@ namespace API.Helpers
                     test.Add(i);
                 }
             }
+            if (test.Count > 0)
+            {
+                result = (from co in _context.Visa
+                          join c in _context.Country on co.Country.Id equals c.Id
+                          where test.Contains(co.Type)
+                          select new VisaSearchResult
+                          {
+                              Id = co.Id,
+                              Description = co.Description,
+                              VisaName = co.Name,
+                              IsExdendable = co.IsExtendable,
+                              Duration = co.Duration,
+                              CountryName = c.Name,
+                              Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+                              Type = ((VisaType)co.Type).ToString(),
+                              TypeId = co.Type,
+                              Income = co.Income,
+                              Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
+                              CostNum = co.CostOfProgramm
+                          }).ToList();
+            }
+            else {
+                result = (from co in _context.Visa
+                          join c in _context.Country on co.Country.Id equals c.Id
+                         // where test.Contains(co.Type)
+                          select new VisaSearchResult
+                          {
+                              Id = co.Id,
+                              Description = co.Description,
+                              VisaName = co.Name,
+                              IsExdendable = co.IsExtendable,
+                              Duration = co.Duration,
+                              CountryName = c.Name,
+                              Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+                              Type = ((VisaType)co.Type).ToString(),
+                              TypeId = co.Type,
+                              Income = co.Income,
+                              Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
+                              CostNum = co.CostOfProgramm
+                          }).ToList();
 
-            result = (from co in _context.Visa
-                      join c in _context.Country on co.Country.Id equals c.Id
-                      where test.Contains(co.Type)
-                        select new VisaSearchResult
-                        {
-                            Id = co.Id,
-                            Description = co.Description,
-                            VisaName = co.Name,
-                            IsExdendable = co.IsExtendable,
-                            Duration = co.Duration,
-                            CountryName = c.Name,
-                            Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
-                            Type = ((VisaType)co.Type).ToString(),
-                            TypeId = co.Type,
-                            Income = co.Income,
-                            Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
-                            CostNum = co.CostOfProgramm
-                        }).ToList();
+            }
 
             
 
@@ -104,7 +127,10 @@ namespace API.Helpers
             if (q.Contains("middle-income")) result.RemoveAll(v => v.Income > 4000);
             if (q.Contains("high-income")) result.RemoveAll(v => v.Income > 10000);
 
-            if (q.Contains("short-stay")) result.RemoveAll(v => v.Duration > 30);
+            if (q.Contains("short-stay")) { 
+                result.RemoveAll(v => v.Duration > 30); 
+            
+            }
             if (q.Contains("middle-stay")) result.RemoveAll(v => v.Duration < 30 || v.Duration > 180);
             if (q.Contains("long-stay")) result.RemoveAll(v => v.Duration > 365 || v.Duration < 180);
             if (q.Contains("for-expats")) result.RemoveAll(v => v.Duration < 360);
