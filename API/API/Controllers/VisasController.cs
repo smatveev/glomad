@@ -31,6 +31,25 @@ namespace API.Controllers
             return ViewComponent("VisaSearchResult", visas);
         }
 
+        [HttpGet("GetNoVisaCountries/")]
+        [HttpGet("GetNoVisaCountries/{countryId}")]
+        public IActionResult GetNoVisaCountries(int countryId)
+        {
+            var res = (from ne in _context.NoVisaEntry
+                            join co in _context.Country on ne.CountryPassport.Id equals co.Id
+                            where ne.CountryPassport.Id == countryId && ne.IsVisaRequired == false
+                            select new CountryFreeEntry
+                            {
+                                Details = ne.Description,
+                                Id = ne.CountryDestination.Id,
+                                Iata = ne.CountryDestination.ISOalpha3 != null ? ne.CountryDestination.ISOalpha3 : "No data",
+                                Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data",
+                                EVisaAvailable = ne.IsEVisaAvailable,
+                                IsVisaRequired = ne.IsVisaRequired
+                            }).ToList();
+            return ViewComponent("NoVisaCountries", res);
+        }
+
         [HttpGet("GetNonEntry")]
         public ActionResult<VisaSearchResult> GetNonEntry(int DestinationId, int PassportId)
         {

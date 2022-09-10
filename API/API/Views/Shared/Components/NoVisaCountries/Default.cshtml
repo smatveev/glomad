@@ -1,0 +1,15 @@
+﻿@using API.Helpers
+@using API.Models
+@model List<CountryFreeEntry>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <p>
+            <a class="text-decoration-none" href="/@item.Name">
+                @item.Name
+            </a>
+        </p>
+    }
+
+</div>

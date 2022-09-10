@@ -2,7 +2,7 @@
 @using API.Models
 @model List<VisaSearchResult>
 
-<div class="row mb-2 row-cols-1 row-cols-md-2">
+<div class="row mb-2 row-cols-1 g-0">
     @foreach (var visa in Model)
     {
         @await Component.InvokeAsync("VisaRow", visa)

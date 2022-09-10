@@ -91,6 +91,28 @@ function indexMatchingText(ele, text) {
     return undefined;
 }
 
+function selectCountry(e) {
+    var countryId = e.options[e.selectedIndex].value;
+    $.ajax({
+        type: 'GET',
+        url: `api/Visas/GetNoVisaCountries/${countryId}`,
+        //data: JSON.stringify(data),
+        dataType: 'html',
+        //contentType: "application/json",
+        success: function (result) {
+            //console.log("success", result);
+            document.getElementById("noVisaCountry").innerHTML = result;
+        },
+        error: function (req, status, error) {
+            console.log(error, status);
+        },
+        complete: function () {
+            //console.log("complete", arguments);
+        }
+    }).done(function () {
+        //console.log("done", arguments);
+    });
+}
 
 function buildLink() {
     var div = document.getElementById('criterias')

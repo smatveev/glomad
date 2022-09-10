@@ -3,6 +3,10 @@
     --main-color: #23aaa3;
 }
 
+body {
+    background-color: #fbfaf8;
+}
+
 .remove-filter {
     margin: 0px 3px 0 12px;
     width: 22px;
@@ -132,16 +136,20 @@ nav {
     /*text-align: center;*/
 }
 
+.bg-light {
+    background-color: #e9ecef !important;
+}
+
 .r1 {
-    background-color: #ff4742;
+    background-color: #ffc6ff;
 }
 
 .r3 {
-    background-color: #ffc924;
+    background-color: #fdffb6;
 }
 
 .r5 {
-    background-color: #2bde73;
+    background-color: #caffbf;
 }
 
 .c1 {
