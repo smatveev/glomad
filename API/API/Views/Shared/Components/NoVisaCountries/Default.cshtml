@@ -1,15 +1,22 @@
 ﻿@using API.Helpers
 @using API.Models
-@model List<CountryFreeEntry>
+@using static API.Views.Shared.ViewComponents.NoVisaCountriesViewComponent
+@model NoVisaCountriesModel
 
-<div>
-    @foreach (var item in Model)
-    {
-        <p>
-            <a class="text-decoration-none" href="/@item.Name">
-                @item.Name
-            </a>
-        </p>
-    }
-
+@if(Model.countries != null && Model.countries.Count > 0) {
+    <div class="position-sticky" style="top: 2rem;">
+    <div class="p-3 mb-3 bg-white border rounded">
+        <h5 class="mb-3">No visa entry for citizens of @Model.myCountry</h5>
+        <div style="max-height: 20rem; overflow-y:scroll;">
+            @foreach (var item in Model.countries)
+            {
+                <p>
+                    <a class="text-decoration-none" href="/@item.Name">
+                        @item.Name
+                    </a>
+                </p>
+            }
+        </div>
+    </div>
 </div>
+}

@@ -91,6 +91,11 @@ function indexMatchingText(ele, text) {
     return undefined;
 }
 
+function toggleDisplay(el) {
+    console.log($(`#${el}`))
+    $(`#${el}`).toggle();
+}
+
 function selectCountry(e) {
     var countryId = e.options[e.selectedIndex].value;
     $.ajax({

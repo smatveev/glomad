@@ -35,6 +35,7 @@ namespace API.Controllers
         [HttpGet("GetNoVisaCountries/{countryId}")]
         public IActionResult GetNoVisaCountries(int countryId)
         {
+            string myCountry = new GeoIp(HttpContext).GetMyCountryAsync().ToString().ToLower();
             var res = (from ne in _context.NoVisaEntry
                             join co in _context.Country on ne.CountryPassport.Id equals co.Id
                             where ne.CountryPassport.Id == countryId && ne.IsVisaRequired == false
