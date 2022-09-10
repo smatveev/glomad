@@ -18,8 +18,9 @@
 
                        <div class="position-absolute btn p-1 m-1 top-0 " style="z-index: 1; right: 200px;">
                             <select id="CitizenshipId"
+                                    aria-label="CitizenshipId"
                                     onChange="selectCountry(this);"
-                                    class="form-select"
+                                    class="form-select-sm"
                                     style="display: none;"
                                     asp-for="Passport"
                                     asp-items="@ViewBag.Countries">
