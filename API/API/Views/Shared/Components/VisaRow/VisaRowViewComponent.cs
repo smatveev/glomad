@@ -7,6 +7,10 @@ namespace API.Views.Shared.ViewComponents
     {
         public IViewComponentResult Invoke(VisaSearchResult visa)
         {
+            if(HttpContext.Request.Path.Equals("/"))
+            {
+                return View(visa);
+            }
             return View("RowCountry", visa);
         }
     }    
