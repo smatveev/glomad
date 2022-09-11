@@ -4,6 +4,10 @@
 // Write your JavaScript code.
 
 window.onload = function () {
+    var country = document.getElementById("CitizenshipId")
+    console.log(country)
+
+    country.selectedIndex = [...country.options].findIndex(op => op.text === getCookie("myCountry"))
     //const wrapper = document.querySelector("#filters")
     //const filters = wrapper.querySelectorAll('div > select');
 
@@ -96,27 +100,50 @@ function toggleDisplay(el) {
     $(`#${el}`).toggle();
 }
 
-function selectCountry(e) {
-    var countryId = e.options[e.selectedIndex].value;
-    $.ajax({
-        type: 'GET',
-        url: `api/Visas/GetNoVisaCountries/${countryId}`,
-        //data: JSON.stringify(data),
-        dataType: 'html',
-        //contentType: "application/json",
-        success: function (result) {
-            //console.log("success", result);
-            document.getElementById("noVisaCountry").innerHTML = result;
-        },
-        error: function (req, status, error) {
-            console.log(error, status);
-        },
-        complete: function () {
-            //console.log("complete", arguments);
-        }
-    }).done(function () {
-        //console.log("done", arguments);
-    });
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function setCountry(e) {
+    var countryName = e.options[e.selectedIndex].text
+    setCookie("myCountry", countryName, 14)
+
+    //$.ajax({
+    //    type: 'GET',
+    //    url: `api/Visas/GetNoVisaCountries/${countryId}`,
+    //    //data: JSON.stringify(data),
+    //    dataType: 'html',
+    //    //contentType: "application/json",
+    //    success: function (result) {
+    //        //console.log("success", result);
+    //        document.getElementById("noVisaCountry").innerHTML = result;
+    //    },
+    //    error: function (req, status, error) {
+    //        console.log(error, status);
+    //    },
+    //    complete: function () {
+    //        //console.log("complete", arguments);
+    //    }
+    //}).done(function () {
+    //    //console.log("done", arguments);
+    //});
 }
 
 function buildLink() {

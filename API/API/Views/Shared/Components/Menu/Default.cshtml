@@ -1,7 +1,17 @@
-﻿@model string
+﻿@model SelectList
 
 
-<button onclick="toggleDisplay('CitizenshipId')"
+@*<button onclick="toggleDisplay('CitizenshipId')"
     class="r1 position-absolute -w-100 btn p-2 m-2 fw-bold top-0 end-0" style="z-index: 1;">
     👉 My country is @Model
-</button>
+</button>*@
+
+<div class="box position-absolute btn p-1 m-1 top-0 end-0" style="z-index: 1;">
+    <select id="CitizenshipId"
+            aria-label="CitizenshipId"
+            onChange="setCountry(this);"
+            class="p-1"
+            asp-items="@Model">
+        <option disabled selected value="0">🛂 Your national passport</option>
+    </select>
+</div>

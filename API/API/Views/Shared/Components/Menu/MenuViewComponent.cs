@@ -1,6 +1,8 @@
 ﻿using API.Helpers;
+using API.Models;
 using Glomad.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,11 @@ namespace API.Views.Shared.Components.Directions
     {
         private readonly AppDbContext _context;
 
+        public class MenuModel
+        {
+            public List<UpdatedCountries> countries { get; set; }
+        }
+
         public MenuViewComponent(AppDbContext context)
         {
             _context = context;
@@ -22,19 +29,20 @@ namespace API.Views.Shared.Components.Directions
         public async Task<IViewComponentResult> InvokeAsync()
         {
             string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
-            //DirectionsModel model = new DirectionsModel();
-            //string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(); //JsonConvert.DeserializeObject<GeoIp>(responseBody);
-            //model.directions = _context.Country
-            //    .Where(c => Countries.Prepared.Contains(c.Id))
-            //    //.Where(c => c.ISOalpha2.ToLower() != myCountry)
-            //    .Where(c => c.Name.ToLower() != myCountry.ToLower())
-            //    .Select(c => new { c.Name, c.Id })
-            //    .ToDictionary(c => c.Id, c => c.Name);
 
-            //model.from = _context.Country.Where(c => c.Name.ToLower() == myCountry.ToLower())
-            //    .Select(c => new KeyValuePair<int, string>(c.Id, c.Name)).FirstOrDefault();
 
-            return View(model: myCountry);
+            List<UpdatedCountries> countries = (from c in _context.Country
+                                          select new UpdatedCountries
+                                          {
+                                              Id = c.Id,
+                                              Name = c.Name,
+                                              Iata = c.ISOalpha3,
+                                              UpdateDate = c.UpdateDate.Value
+                                          }).ToList();
+
+            var list = new SelectList(_context.Country, "Id", "Name");
+
+            return View(model: list);
         }
     }
 }

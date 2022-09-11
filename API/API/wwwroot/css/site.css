@@ -5,6 +5,7 @@
 
 body {
     background-color: #fbfaf8;
+    color: #0f1115;
 }
 
 .remove-filter {
@@ -371,38 +372,50 @@ input:nth-of-type(10):hover ~ i {
 
 /* SELECT BOX CSS */
 
-/*body {
-    background: linear-gradient(35deg, red, purple);
-}*/
+.box select {
+    background-color: #fbfaf8;
+    border: none;
+    /*-webkit-appearance: none;
+    appearance: none;
+    outline: none;*/
+    
+    /* Reset */
+    border: 1px solid #6c757d;
+    border: 0;
+    outline: 0;
+    /* Personalize */
+    width: 20em;
+    /*background: url(Caret_down_font_awesome_whitevariation.svg) no-repeat right 0.8em center / 1.4em, linear-gradient(to left, rgba(255, 255, 255, 0.3) 3em, rgba(255, 255, 255, 0.2) 3em);*/
+    border-radius: 0.25em;
+}
+
+    /*.box::before {
+        content: "\f13a";
+        font-family: FontAwesome;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20%;
+        height: 100%;
+        text-align: center;
+        font-size: 28px;
+        line-height: 45px;
+        color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+    }*/
+
+    .box:hover::before {
+        color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .box select option {
+        padding: 30px;
+    }
 
 /* <select> styles */
 select {
-    /* Reset */
-    border: 1px solid #6c757d; 
-    appearance: none;
-    border: 0;
-    outline: 0;
-    font: inherit;
-    /* Personalize */
-    width: 20em;
-    height: 3em;
-    padding: 0 4em 0 1em;
-    background: url(Caret_down_font_awesome_whitevariation.svg) no-repeat right 0.8em center / 1.4em, linear-gradient(to left, rgba(255, 255, 255, 0.5) 3em, rgba(255, 255, 255, 0.4) 3em);
-    color: black;
-    border-radius: 0.25em;
     box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    /* <option> colors */
-    option {
-        color: black;
-        background-color: #320a28;
-    }
-    /* Remove focus outline */
-    &:focus {
-        outline: none;
-    }
-    /* Remove IE arrow */
-    &::-ms-expand {
-        display: none;
-    }
 }
