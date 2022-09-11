@@ -1,0 +1,128 @@
+﻿@using API.Helpers
+@using API.Models
+@model VisaSearchResult
+
+<div class="row mb-4 bg-white border rounded">
+
+    <div class="col-2 p-3 m-0">
+
+        <a class="card-title align-middle -fw-bold text-decoration-none" href="/@Model.CountryName/Visa/@Model.Id">
+            <h6 class="-card-title font-weight-bold">
+                @Model.VisaName
+            </h6>
+        </a>
+
+        @if (Model.Reviews.Count > 0)
+        {
+            <p class="align-middle rounded-3 ms-0 m-2 p-0 bg-white-opacy">
+                ⭐ @Model.Reviews.Count Reviews
+            </p>
+        }
+        <small class="text-muted">⏱ 3 mins ago</small>
+
+    </div>
+
+    <div class="col-5 p-3 m-0">
+        @if (Model.Income > 0)
+        {
+            <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                🤑 Income $ @Model.Income
+            </span>
+        }
+        @if (!string.IsNullOrEmpty(Model.Cost))
+        {
+            <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                💰 Cost of program $ @Model.Cost
+            </span>
+        }
+        @if (Model.IsExdendable)
+        {
+            <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                ✨ Extendable
+            </span>
+        }
+        @if (Model.Duration > 0)
+        {
+            <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                🕜 Duration @Model.Duration days
+            </span>
+        }
+        @if (!string.IsNullOrEmpty(Model.Type))
+        {
+            <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                🐱‍👤 @Model.Type
+            </span>
+        }
+
+        @if (Model.Reviews != null && Model.Reviews.Count > 0)
+        {
+            string simpleR = "r1";
+            string simpleT = "🤯 Complicated to get";
+            int simple = (int)Model.Reviews.Average(i => i.Simplicity) * 100 / 5;
+            if (simple > 35 && simple < 75)
+            {
+                simpleR = "r3";
+                simpleT = "🤨 Medium to get";
+            }
+            if (simple >= 75)
+            {
+                simpleR = "r5";
+                simpleT = "😎 Easy to get";
+            }
+
+            string waitR = "r1";
+            string waitT = "🐢 Slow processing";
+            int wait = (int)Model.Reviews.Average(i => i.Waiting) * 100 / 5;
+            if (wait > 35 && wait < 75)
+            {
+                waitR = "r3";
+                waitT = "🦘 Medium processing";
+            }
+            if (wait >= 75)
+            {
+                waitR = "r5";
+                waitT = "🐎 Fast processing";
+            }
+
+
+            int loy = (int)Model.Reviews.Average(i => i.Loyalty) * 100 / 5;
+            string loyR = "r1";
+            string loyT = "👎 Low loyality";
+            if (loy > 35 && loy < 75)
+            {
+                loyR = "r3";
+                loyT = "👌 Average loyality";
+            }
+            if (loy >= 75)
+            {
+                loyR = "r5";
+                loyT = "👋 Perfect loyality";
+            }
+
+            @*<p class="align-middle text-white rounded-3 py-2 px-3 bg-white-opacy">
+        @simpleT
+        </p>
+        <p class="align-middle text-white rounded-3 py-2 px-3 bg-white-opacy">
+        @waitT
+        </p>
+        <p class="align-middle text-white rounded-3 py-2 px-3 bg-white-opacy">
+        @loyT
+        </p>*@
+            <span class="me-2 mb-2 p-2 badge rounded-pill @simpleR text-dark">@simpleT</span>
+            <span class="me-2 mb-2 p-2 badge rounded-pill @waitR text-dark">@waitT</span>
+            <span class="me-2 mb-2 p-2 badge rounded-pill @loyR text-dark">@loyT</span>
+        }
+        @*<p data-utcdate="2022-08-18T17:31:16" class="m-2 badge rounded-pill bg-light text-dark">⏱ Updated: 21 days ago</p>*@
+
+    </div>
+
+
+    <div class="col-5">
+        <p class="card-text">
+            @Model.Description.Truncate(150).StripHTML()...
+            <a href="/@Model.CountryName/Visa/@Model.Id" class="stretched-link">Continue reading</a>
+    </p>
+    </div>
+
+
+</div>

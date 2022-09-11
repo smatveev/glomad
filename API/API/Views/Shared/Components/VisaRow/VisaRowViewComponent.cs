@@ -7,7 +7,7 @@ namespace API.Views.Shared.ViewComponents
     {
         public IViewComponentResult Invoke(VisaSearchResult visa)
         {
-            return View(visa);
+            return View("RowCountry", visa);
         }
     }    
 }
