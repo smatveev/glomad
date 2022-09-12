@@ -10,6 +10,7 @@ using System;
 using System.Net.Http;
 using API.Helpers;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -45,7 +46,7 @@ namespace API.Controllers
         [Route("")]
         //[Route("Search")]
         //[Route("Search/{route}")]
-        public IActionResult Index(int Passport, int To)
+        public async Task<IActionResult> Index(int Passport, int To)
         {
             var mo = new Models.IndexModel();
             mo.Passport = Passport;
@@ -102,8 +103,12 @@ namespace API.Controllers
                                     }).ToList();
             }
 
-            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
-            ViewBag.ToCountries = ViewBag.Countries;
+            //ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+            //ViewBag.ToCountries = ViewBag.Countries;
+
+            var country = await new GeoIp(HttpContext).GetMyCountryAsync();
+            var hc = _context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
+            ViewBag.MyCountry = hc.CapitalCode;
 
             return View(mo);
         }

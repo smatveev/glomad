@@ -8,6 +8,8 @@ body {
     color: #0f1115;
 }
 
+
+
 .remove-filter {
     margin: 0px 3px 0 12px;
     width: 22px;
@@ -81,26 +83,40 @@ nav {
     height: 50vh;
 }
 
-.carousel-item:nth-child(1) {
+/*.carousel-item:nth-child(1) {
     background-image: url('/bg-1.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+}*/
+
+.mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-attachment: fixed;
 }
 
-.carousel-item:nth-child(2) {
-    background-image: url('https://mdbootstrap.com/img/Photos/Others/images/77.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+#introCarousel,
+.carousel-inner,
+.carousel-item,
+.carousel-item.active {
+    height: 50vh;
 }
 
-.carousel-item:nth-child(3) {
-    background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-}
+    .carousel-item:nth-child(1) {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+    }
+
+
+
 
 .press-ph {
     width: 168px;
@@ -114,6 +130,10 @@ nav {
 
 .rounded-5 {
     border-radius: 1rem;
+}
+
+.rounded-booking {
+    border-radius: 8px;
 }
 
 .display-none {
@@ -384,7 +404,7 @@ input:nth-of-type(10):hover ~ i {
     border: 0;
     outline: 0;
     /* Personalize */
-    width: 20em;
+    width: 10em;
     /*background: url(Caret_down_font_awesome_whitevariation.svg) no-repeat right 0.8em center / 1.4em, linear-gradient(to left, rgba(255, 255, 255, 0.3) 3em, rgba(255, 255, 255, 0.2) 3em);*/
     border-radius: 0.25em;
 }
