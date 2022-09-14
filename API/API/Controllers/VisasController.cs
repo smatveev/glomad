@@ -31,6 +31,18 @@ namespace API.Controllers
             return ViewComponent("VisaSearchResult", visas);
         }
 
+        [HttpGet("NoVisasEntry/")]
+        public IActionResult NoVisasEntry()
+        {
+            return ViewComponent("NoVisaCountries");
+        }
+
+        [HttpGet("BookingW/")]
+        public IActionResult BookingW()
+        {
+            return ViewComponent("Booking", _context);
+        }
+
         [HttpGet("GetNoVisaCountries/")]
         [HttpGet("GetNoVisaCountries/{countryId}")]
         public IActionResult GetNoVisaCountries(int countryId)

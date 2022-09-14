@@ -4,6 +4,10 @@
 // Write your JavaScript code.
 
 window.onload = function () {
+
+    loadNoVisaEntry()
+    loadBookingW()
+
     var country = document.getElementById("CitizenshipId")
     console.log(country)
 
@@ -20,6 +24,66 @@ window.onload = function () {
     //    console.log("filter ", filter)
     //    filter.addEventListener('change', selectFilter);
     //}
+}
+
+function wait(ms) {
+    var start = new Date().getTime();
+    var end = start;
+    while (end < start + ms) {
+        end = new Date().getTime();
+    }
+}
+
+function loadNoVisaEntry() {
+    const div = document.getElementById("noVisaCountry")
+    if (!div) return
+
+    $("#noVisaCountry .loader").show()
+
+    $.ajax({
+        type: 'GET',
+        url: `api/Visas/NoVisasEntry`,
+        dataType: 'html',
+        success: function (result) {
+            $("#noVisaCountry .loader").hide()
+            div.innerHTML = result;
+        },
+        error: function (req, status, error) {
+            console.log(error, status);
+        },
+        complete: function () {
+            //console.log("complete", arguments);
+        }
+    }).done(function () {
+        //console.log("done", arguments);
+    });
+}
+
+function loadBookingW() {
+    const div = document.getElementById("bookingW")
+    if (!div) return
+
+    $("#bookingW .loader").show()
+
+    wait(7000)
+
+    $.ajax({
+        type: 'GET',
+        url: `api/Visas/BookingW`,
+        dataType: 'html',
+        success: function (result) {
+            $("#bookingW .loader").hide()
+            div.innerHTML = result;
+        },
+        error: function (req, status, error) {
+            console.log(error, status);
+        },
+        complete: function () {
+            //console.log("complete", arguments);
+        }
+    }).done(function () {
+        //console.log("done", arguments);
+    }); 
 }
 
 function buildClearFilters() {
@@ -128,25 +192,7 @@ function setCountry(e) {
     var countryName = e.options[e.selectedIndex].text
     setCookie("myCountry", countryName, 14)
 
-    //$.ajax({
-    //    type: 'GET',
-    //    url: `api/Visas/GetNoVisaCountries/${countryId}`,
-    //    //data: JSON.stringify(data),
-    //    dataType: 'html',
-    //    //contentType: "application/json",
-    //    success: function (result) {
-    //        //console.log("success", result);
-    //        document.getElementById("noVisaCountry").innerHTML = result;
-    //    },
-    //    error: function (req, status, error) {
-    //        console.log(error, status);
-    //    },
-    //    complete: function () {
-    //        //console.log("complete", arguments);
-    //    }
-    //}).done(function () {
-    //    //console.log("done", arguments);
-    //});
+    loadNoVisaEntry()
 }
 
 function buildLink() {
