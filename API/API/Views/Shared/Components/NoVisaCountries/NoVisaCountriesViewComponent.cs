@@ -38,7 +38,8 @@ namespace API.Views.Shared.ViewComponents
                            Iata = ne.CountryDestination.ISOalpha3 != null ? ne.CountryDestination.ISOalpha3 : "No data",
                            Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data",
                            EVisaAvailable = ne.IsEVisaAvailable,
-                           IsVisaRequired = ne.IsVisaRequired
+                           IsVisaRequired = ne.IsVisaRequired,
+                           Duration = ne.Duration,
                        }).ToList();
 
             model.countries = res;

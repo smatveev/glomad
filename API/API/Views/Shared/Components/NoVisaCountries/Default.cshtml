@@ -12,8 +12,12 @@
             {
                 <p>
                     <a class="text-decoration-none" href="/@item.Name">
-                        @item.Name
+                        @item.Name 
                     </a>
+                    @if (item.Duration > 0)
+                    {
+                        <span>(@item.Duration days)</span>
+                    }
                 </p>
             }
         </div>
