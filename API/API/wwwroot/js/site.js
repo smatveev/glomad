@@ -4,18 +4,8 @@
 // Write your JavaScript code.
 
 window.onload = function () {
-
-    
-    //console.log(l)
-
-
-    
-    //console.log(div)
-
-    
-    //console.log(div.getElementsByClassName("results"))
     loadNoVisaEntry()
-   // loadBookingW()
+    //loadBookingW()
 
     var country = document.getElementById("CitizenshipId")
     //console.log(country)
@@ -48,8 +38,6 @@ function loadNoVisaEntry() {
     if (!div) return
 
     const l = document.getElementById("loader")
-    console.log(l)
-    console.log(div)
     div.innerHTML = ''
     div.append(l.content.cloneNode(true));
 
@@ -58,10 +46,7 @@ function loadNoVisaEntry() {
         url: `api/Visas/NoVisasEntry`,
         dataType: 'html',
         success: function (result) {
-            //$("#noVisaCountry .loader").hide()
-            //$("#noVisaCountry > .results").html(result)
             div.innerHTML = result
-            //div.querySelector(".results").innerHTML = result
         },
         error: function (req, status, error) {
             console.log(error, status);
@@ -75,20 +60,19 @@ function loadNoVisaEntry() {
 }
 
 function loadBookingW() {
-    const div = document.getElementById("bookingW")
+    const div = document.querySelector("#bookingW")
     if (!div) return
 
-    $("#bookingW .loader").show()
-
-    wait(7000)
+    const l = document.getElementById("loader")
+    div.innerHTML = ''
+    div.append(l.content.cloneNode(true));
 
     $.ajax({
         type: 'GET',
         url: `api/Visas/BookingW`,
         dataType: 'html',
         success: function (result) {
-            $("#bookingW .loader").hide()
-            div.appendChild(result)
+            div.innerHTML = result
         },
         error: function (req, status, error) {
             console.log(error, status);

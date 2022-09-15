@@ -106,7 +106,9 @@ namespace API.Controllers
             //ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
             //ViewBag.ToCountries = ViewBag.Countries;
 
-
+            var country = await new GeoIp(HttpContext).GetMyCountryAsync();
+            var hc = _context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
+            ViewBag.MyCountry = hc.CapitalCode;
 
             return View(mo);
         }
