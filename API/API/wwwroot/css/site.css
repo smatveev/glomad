@@ -439,11 +439,6 @@ select {
     cursor: pointer;
 }
 
-
-.loader {
-    display: none;
-}
-
 .skeleton {
     animation: skeleton-loading 1s linear infinite alternate;
     
