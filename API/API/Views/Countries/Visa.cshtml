@@ -21,30 +21,30 @@
 
 @await Html.PartialAsync("_Header", header)
 
-<section class="container py-3">
-
+<section class="container">
     @await Html.PartialAsync("_Menu", Model.Visa.Country.Name)
 
-    <h2 class="text-center p-4">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
-    <div class="text-center">
-        @if (Model.Visa.Duration > 0)
-        {
-            <span class="badge badge-card bg-info text-dark m-2 fs-6">
-                🕜 Duration @Model.Visa.Duration days
-            </span>
-        }
+    <div class="row sectionstyle my-3 pt-3">
+        <h2 class="text-center p-4">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
+        <div class="text-center">
+            @if (Model.Visa.Duration > 0)
+            {
+                <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                    🕜 Duration @Model.Visa.Duration days
+                </span>
+            }
 
-        @if (Model.Visa.IsExtendable)
-        {
-            <span class="badge badge-card bg-success text-white m-2 fs-6">
-                ✨ Extendable
+            @if (Model.Visa.IsExtendable)
+            {
+                <span class="badge badge-card bg-success text-white m-2 fs-6">
+                    ✨ Extendable
+                </span>
+            }
+            <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                🐱‍👤 For @((VisaType)Model.Visa.Type)
             </span>
-        }
-        <span class="badge badge-card bg-info text-dark m-2 fs-6">
-            🐱‍👤 For @((VisaType)Model.Visa.Type)
-        </span>
-    </div>
-    <div class="px-2 py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
+        </div>
+        <div class="px-2 py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
 
     @if(Model.VisaDocs.Count > 0)
     {
@@ -214,7 +214,7 @@
             }
         </div>
     }
-
+    </div>
 </section>
 
 <div class="modal fade" id="addReview" tabindex="-1" aria-hidden="true">
