@@ -24,8 +24,13 @@
 <section class="container">
     @await Html.PartialAsync("_Menu", Model.Visa.Country.Name)
 
-    <div class="row sectionstyle my-3 pt-3">
-        <h2 class="text-center p-4">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
+    <div class="row sectionstyle my-3 p-3">
+        <a href="/@Model.Visa.Country.Name">
+        <button type="button" class="btn btn-warning mb-3 position-absolute w-auto">
+            ⬅ Go back
+        </button>
+        </a>
+        <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
         <div class="text-center">
             @if (Model.Visa.Duration > 0)
             {
