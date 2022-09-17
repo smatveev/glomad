@@ -11,13 +11,13 @@
 
     <div class="col-4 p-3 m-0">
 
-        <a href="/@Model.CountryName" class="text-decoration-none">
+        <a href="/@Model.CountryName">
             <h5 class="-card-title -shadowed -mb-3 -mt-2 lh-1 -fw-bold">
                 @Model.CountryName
             </h5>
         </a>
 
-        <a class="card-title align-middle -fw-bold text-decoration-none" href="/@Model.CountryName/Visa/@Model.Id">
+        <a class="card-title align-middle" href="/@Model.CountryName/Visa/@Model.Id">
             <h6 class="-card-title font-weight-bold">
             @Model.VisaName
             </h6>
@@ -126,14 +126,5 @@
         @*<p data-utcdate="2022-08-18T17:31:16" class="m-2 badge rounded-pill bg-light text-dark">⏱ Updated: 21 days ago</p>*@
 
     </div>
-
-    
-    @*<div class="col">
-            <p class="card-text">
-                @Model.Description.Truncate(100).StripHTML()...
-                <a href="#" class="stretched-link">Continue reading</a>
-            </p>
-    </div>*@
-
     
 </div>

@@ -8,6 +8,9 @@ body {
     color: #0f1115;
 }
 
+a {
+    text-decoration: none !important;
+}
 
 
 .remove-filter {

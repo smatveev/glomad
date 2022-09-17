@@ -56,9 +56,9 @@
                 </div>
             }
 
-            @foreach (var visa in Model.Visas)
+            @if(Model.Visas?.Count > 0)
             {
-                @await Component.InvokeAsync("VisaRow", visa)
+                    @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
             }
             <div class="p-2 bg-light rounded-3">
                 <div>

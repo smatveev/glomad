@@ -37,9 +37,9 @@
 </head>
 <body>
     <main role="main">
-        @await Component.InvokeAsync("Menu")
-
-        
+        <cache expires-after="@TimeSpan.FromMinutes(60)">
+            @await Component.InvokeAsync("Menu")
+        </cache>
 
         @RenderBody()
     </main>
@@ -60,7 +60,7 @@
             </div>*@
         </div>
         <a href="https://twitter.com/smatveev">
-            <span class="by position-fixed end-0 bottom-0 p-2 mx-2 text-decoration-none">My twitter</span>
+            <span class="by position-fixed end-0 bottom-0 p-2 mx-2">My twitter</span>
         </a>
 
         <partial name="_ImprovePage" />

@@ -6,7 +6,7 @@
 
     <div class="col-2 p-3 m-0">
 
-        <a class="card-title align-middle -fw-bold text-decoration-none" href="/@Model.CountryName/Visa/@Model.Id">
+        <a class="card-title align-middle" href="/@Model.CountryName/Visa/@Model.Id">
             <h6 class="-card-title font-weight-bold">
                 @Model.VisaName
             </h6>
@@ -120,8 +120,8 @@
     <div class="col-5">
         <p class="card-text py-3">
             @Model.Description.Truncate(150).StripHTML()...
-            <a href="/@Model.CountryName/Visa/@Model.Id" class="stretched-link">Continue reading</a>
-    </p>
+            <a href="/@Model.CountryName/Visa/@Model.Id" >Continue reading</a>
+        </p>
     </div>
 
 

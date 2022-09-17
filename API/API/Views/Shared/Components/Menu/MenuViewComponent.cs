@@ -26,19 +26,20 @@ namespace API.Views.Shared.Components.Directions
         {
             _context = context;
         }
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            //string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
 
 
-            List<UpdatedCountries> countries = (from c in _context.Country
-                                          select new UpdatedCountries
-                                          {
-                                              Id = c.Id,
-                                              Name = c.Name,
-                                              Iata = c.ISOalpha3,
-                                              UpdateDate = c.UpdateDate.Value
-                                          }).ToList();
+            //List<UpdatedCountries> countries = (from c in _context.Country
+            //                              select new UpdatedCountries
+            //                              {
+            //                                  Id = c.Id,
+            //                                  Name = c.Name,
+            //                                  Iata = c.ISOalpha3,
+            //                                  UpdateDate = c.UpdateDate.Value
+            //                              }).ToList();
 
             var list = new SelectList(_context.Country, "Id", "Name");
 

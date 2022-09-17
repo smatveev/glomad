@@ -48,6 +48,8 @@ namespace API.Controllers
         //[Route("Search/{route}")]
         public async Task<IActionResult> Index(int Passport, int To)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             var mo = new Models.IndexModel();
             mo.Passport = Passport;
             mo.To = To;
@@ -109,6 +111,9 @@ namespace API.Controllers
             var country = await new GeoIp(HttpContext).GetMyCountryAsync();
             var hc = _context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
             ViewBag.MyCountry = hc.CapitalCode;
+
+            sw.Stop();
+            Console.WriteLine("Elapsed = {0}", sw.Elapsed);
 
             return View(mo);
         }
