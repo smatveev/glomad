@@ -231,23 +231,26 @@ nav {
 .by {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    box-shadow: 0 6px 6px rgb(0 0 0 / 25%) !important;
-    font-weight: 500;
-    color: #6c757d;
-    background-color: #fff;
-    border-top-right-radius: 7;
+    box-shadow: 2px -2px 5px rgb(0 0 0 / 30%) !important;
+    color: #fff;
 }
 
-    .by:hover {
-        background-color: #f8f9fa !important;
+.blue {
+    background-color: #0096c7;
+}
+    .blue:hover {
+        background-color: #023e8a !important;
     }
 
+.deepblue {
+    background-color: #0077b6;
+}
+.deepblue:hover {
+    background-color: #023e8a !important;
+}
 
-.right-105 {
-    right: 106px !important;
+.right-140 {
+    right: 155px !important;
 }
 
 #showFeedback {
