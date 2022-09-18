@@ -48,8 +48,8 @@ namespace API.Controllers
         //[Route("Search/{route}")]
         public async Task<IActionResult> Index(int Passport, int To)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+            //Stopwatch sw = new Stopwatch();
+            //sw.Start();
             var mo = new Models.IndexModel();
             mo.Passport = Passport;
             mo.To = To;
@@ -105,15 +105,15 @@ namespace API.Controllers
                                     }).ToList();
             }
 
-            //ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
-            //ViewBag.ToCountries = ViewBag.Countries;
+            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+            ViewBag.ToCountries = ViewBag.Countries;
 
             var country = await new GeoIp(HttpContext).GetMyCountryAsync();
             var hc = _context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
             ViewBag.MyCountry = hc.CapitalCode;
 
-            sw.Stop();
-            Console.WriteLine("Elapsed = {0}", sw.Elapsed);
+            //sw.Stop();
+            //Console.WriteLine("Elapsed = {0}", sw.Elapsed);
 
             return View(mo);
         }
@@ -126,6 +126,9 @@ namespace API.Controllers
             var mo = new Models.IndexModel();
             mo.Query = query;
             mo.Visas = VisaHelper.GetVisasFromLink(query, _context);
+
+            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+            ViewBag.ToCountries = ViewBag.Countries;
 
             return View(mo);
         }
@@ -142,16 +145,16 @@ namespace API.Controllers
         {
             try
             {
-                Feedback feedback = new()
-                {
-                    Country = _context.Country.First(c => c.Id == createFeedback.CountryId),
-                    Email = createFeedback.Email ?? "none",
-                    IsNotify = createFeedback.IsNotify,
-                    Username = createFeedback.Username ?? "none"
-                };
+                //Feedback feedback = new()
+                //{
+                //    Country = _context.Country.First(c => c.Id == createFeedback.CountryId),
+                //    Email = createFeedback.Email ?? "none",
+                //    IsNotify = createFeedback.IsNotify,
+                //    Username = createFeedback.Username ?? "none"
+                //};
 
-                _context.Feedback.Add(feedback);
-                _context.SaveChanges();
+                //_context.Feedback.Add(feedback);
+                //_context.SaveChanges();
                 Helpers.EmailSender.SendFeedback(createFeedback);
             }
             catch (Exception e)

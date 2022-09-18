@@ -133,19 +133,19 @@
                 var slugs = Model.Query.Split(new string[] { "-and-", "-or-"}, StringSplitOptions.None);
                 foreach (var s in slugs)
                 {
-                                                <span id="span-Tourist" class="cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-1 shadow-sm"
-                                                    data-prior="@VisaSearchCriteria.Criterias[s].Value" 
-                                                    onclick="remove(this)"
-                                                    title="for-tourist">
-                                                    @VisaSearchCriteria.Criterias[s].Key
-                                                    <img src="../css/times-circle.svg" alt="Remove this filter" class="remove-filter">
-                                                </span>
+                                                    <span id="span-Tourist" class="cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-1 shadow-sm"
+                                                        data-prior="@VisaSearchCriteria.Criterias[s].Value" 
+                                                        onclick="remove(this)"
+                                                        title="for-tourist">
+                                                        @VisaSearchCriteria.Criterias[s].Key
+                                                        <img src="../css/times-circle.svg" alt="Remove this filter" class="remove-filter">
+                                                    </span>
                 }
-                                            <span id="span-clear-filters" onclick="clearFilters()"
-                                                class="cursor-out p-2 ps-3 me-2 badge rounded-pill bg-danger border border-1 shadow-sm">
-                                                Clear filters
-                                                <img src="../css/times-circle.svg" alt="Clear filters" class="remove-filter">
-                                            </span>
+                                                <span id="span-clear-filters" onclick="clearFilters()"
+                                                    class="cursor-out p-2 ps-3 me-2 badge rounded-pill bg-danger border border-1 shadow-sm">
+                                                    Clear filters
+                                                    <img src="../css/times-circle.svg" alt="Clear filters" class="remove-filter">
+                                                </span>
             }
             catch (Exception e) {}
             }
@@ -333,31 +333,28 @@
 
         <form class="p-4 p-md-5 border rounded-3 bg-light" id="feedback" method="post"
               asp-action="CreateFeedback">
-            <div class="form-floating mb-3">
+            <div class="mb-3">
                 <select id="CountryId" class="form-select" asp-items="@ViewBag.Countries">
                     <option disabled selected value="0">Select country</option>
                 </select>
             </div>
 
-            <div class="form-floating mb-3">
-                <input type="email"
-                       id="Email"
-                       class="form-control"
-                       placeholder="name@example.com" />
-                <label>Email address</label>
-                <span class="text-muted">(Optional)</span>
+            <div class="mb-3">
+                <textarea class="form-control" placeholder="Leave you comment here" id="Message" style="height: 100px"></textarea>
             </div>
-            <div class="form-floating mb-3">
-                <input type="text"
-                       id="Username"
-                       class="form-control"
-                       placeholder="Your name" />
-                <label>Your name</label>
-                <span class="text-muted">(Optional)</span>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <input type="email" id="Email" class="form-control" placeholder="email (optional)" />
+                </div>
+                <div class="col-6">
+                    <input type="text" id="Username" class="form-control" placeholder="Your name (optional)" />
+                </div>
             </div>
+            
             <div class="checkbox mb-3">
                 <label>
-                    <input id="IsNotify" type="checkbox" checked /> Notify me about data update
+                    <input id="IsNotify" type="checkbox" checked /> Notifydd me about updates
                 </label>
             </div>
             <input class="w-100 btn btn-lg btn-primary" type="button" onclick="FeedbackSubmit()" value="Thank you ✌" />

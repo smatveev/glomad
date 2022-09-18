@@ -51,13 +51,15 @@ namespace API.Helpers
             var mailMessage = new MailMessage
             {
                 From = new MailAddress("matv33v@gmail.com"),
-                Subject = "Feedback: " + createFeedback.Email,
+                Subject = "Feedback from " + createFeedback.Email,
                 Body = string.Format("<h3>New feedback</h3>" +
                     "<p>User name: {0}</p>" +
                     "<p>Email: {1}</p>" +
                     "<p>Selected Country: {2}</p>" +
-                    "<p>Is notify: {3}</p>",
-                    createFeedback.Username, createFeedback.Email, createFeedback.CountryId, createFeedback.IsNotify),
+                    "<p>Is notify: {3}</p>" +
+                    "<p>Text: {3}</p>",
+                    createFeedback.Username, createFeedback.Email, 
+                    createFeedback.CountryId, createFeedback.IsNotify, createFeedback.Text),
                 IsBodyHtml = true,
             };
             mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");

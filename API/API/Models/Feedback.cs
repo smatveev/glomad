@@ -31,6 +31,7 @@ namespace API.Models
 
         [StringLength(50, MinimumLength = 3)]
         public string Email { get; set; }
+        public string Text { get; set; }
 
         [Required]
         public bool IsNotify { get; set; }
