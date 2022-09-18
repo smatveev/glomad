@@ -55,4 +55,10 @@ namespace API.Models
         public string Message { get; set; }
         public string Link { get; set; }
     }
+
+    public class ReportVisa
+    {
+        public string Text { get; set; }
+        public string Url { get; set; }
+    }
 }

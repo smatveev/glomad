@@ -26,29 +26,27 @@
 
     <div class="row sectionstyle my-3 p-3">
         <a href="/@Model.Visa.Country.Name">
-        <button type="button" class="btn btn-secondary mb-3 position-absolute w-auto">
-            ⬅ Go back
-        </button>
-        @*<button type="button" class="btn btn-danger mb-3 position-absolute end-0 w-auto">
-            ❕ Fix incorrect 
-        </button>*@
+            <div class="btn btn-secondary mb-3 position-absolute w-auto">
+                Go back
+            </div>
         </a>
+
         <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
         <div class="text-center">
             @if (Model.Visa.Duration > 0)
             {
-                <span class="badge badge-card bg-info text-dark m-2 fs-6">
+                <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
                     🕜 Duration @Model.Visa.Duration days
                 </span>
             }
 
             @if (Model.Visa.IsExtendable)
             {
-                <span class="badge badge-card bg-success text-white m-2 fs-6">
+                <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
                     ✨ Extendable
                 </span>
             }
-            <span class="badge badge-card bg-info text-dark m-2 fs-6">
+            <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
                 🐱‍👤 For @((VisaType)Model.Visa.Type)
             </span>
         </div>
@@ -56,7 +54,12 @@
 
     @if(Model.VisaDocs.Count > 0)
     {
-        <h2 class="text-center p-4">✔ Checklist of required documents</h2>
+        <h4 class="text-center p-3">✔ Checklist of required documents</h4>
+        <div class="text-center">
+                <button type="button" id="showFormReport" data-bs-toggle="modal" data-bs-target="#addReport" class="btn btn-danger mb-3 w-auto">
+                Report incorrect info
+            </button>
+        </div>
         <ol>
         @foreach (var item in Model.VisaDocs)
        {
@@ -99,11 +102,11 @@
 
     @if (Model.Reviews.Count > 0)
     {
-        <h4 class="text-center p-3">Read @Model.Reviews.Count trusted reviews</h4>
+        <h4 class="text-center p-3">💬 Read @Model.Reviews.Count trusted reviews</h4>
     }
     else
     {
-        <h4 class="text-center p-3">Share your experience</h4>
+        <h4 class="text-center p-3">💬 Share your experience</h4>
     }
     <div class="text-center">
         <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview" class="btn btn-primary mb-3">
@@ -330,6 +333,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="addReport" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">If you find an incorrect data please let me know 🙏</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="textReport" style="height: 200px"></textarea>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <span class="lead" id="statusReport"></span>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="ReportSubmit()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
         $(function () {
@@ -348,6 +373,28 @@
                 window.location.hash = this.hash;
             });
         });
+
+        function ReportSubmit() {
+            var report = new Object();
+            report.Text = $('#textReport').val();
+            report.Url = window.location.href;
+
+
+            //console.log("review", review);
+            $.ajax({
+                type: 'POST',
+                url: "/Country/CreateVisaReport",
+                data: JSON.stringify(report),
+                dataType: 'html',
+                contentType: "application/json"
+            })
+                .done(function (response) {
+                    $("#addReport #statusReport").text("🤗 Thanks so much for contributing, I saved your report! It will take few hours to update the visa and people will be able to read it!")
+                })
+                .fail(function (response) {
+                    $("#addReport #statusReport").text("😥 Something went wrong. Pleace check the fields and try again")
+                });
+        }
 
         function ReviewSubmit() {
             var review = new Object();

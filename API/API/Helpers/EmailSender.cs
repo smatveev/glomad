@@ -94,6 +94,33 @@ namespace API.Helpers
             smtpClient.Send(mailMessage);
         }
 
+        public static void SendVisaReport(ReportVisa report)
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            var config = builder.Build();
+
+            var smtpClient = new SmtpClient(config["Smtp:Host"])
+            {
+                Port = int.Parse(config["Smtp:Port"]),
+                Credentials = new NetworkCredential(config["Smtp:Username"], config["Smtp:Password"]),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("matv33v@gmail.com"),
+                Subject = "Glomad.net: Incorrect visa report",
+                Body = string.Format("<h3>Incorrect visa info</h3>" +
+                    "<p>Link: {0}</p>" +
+                    "<p>Text: {1}</p>",
+                    report.Url, report.Text),
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");
+
+            smtpClient.Send(mailMessage);
+        }
+
         public static void SendReview(ReviewCreate review)
         {
             var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");

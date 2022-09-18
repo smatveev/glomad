@@ -361,6 +361,22 @@ namespace API.Controllers
             return Ok();
         }
 
+        [Route("Country/CreateVisaReport")]
+        [HttpPost("CreateVisaReport")]
+        public IActionResult CreateVisaReport([FromBody] ReportVisa report)
+        {
+            try
+            {
+                EmailSender.SendVisaReport(report);
+            }
+            catch (Exception e)
+            {
+                return Error();
+            }
+
+            return Ok();
+        }
+
         [Route("{country}/Visa/{id}")]
         public IActionResult Visa(string country, int id)
         {
