@@ -22,16 +22,16 @@
 
         <div class="row">
             <div class="col-md-3">
-                @if(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.ban.ToLower().Equals("no"))
+                @if(Model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.entry?.ban?.ToLower() == "no")
                 {
                     <h2 style="color: green">Open to visit</h2>
                     <p>International travel to @Model.Header.CountryName is allowed, but you’ll have to meet some requirements to enter.</p>
                 }
-                else if(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.ban.ToLower().Equals("yes"))
+                else if (Model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.entry?.ban?.ToLower() == "yes")
                 {
                     <h2 style="color: red">Major restrictions</h2>
                     <p>Travel to @Model.Header.CountryName may not be possible or there are very strict requirements in place on arrival or return.</p>
-                } 
+                }
                 else
                 {
                     <h2 style="color: orange">Partially open</h2>
@@ -91,7 +91,7 @@
         <div class="col-md-8">
 
         <div class="pb-4" id="Masks">
-            @if(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.isRequired.ToLower().Equals("yes"))
+            @if(Model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.mask?.isRequired?.ToLower() == "yes")
             {
                 <h4 style="color: red">😷 Masks are required</h4>
             }
@@ -99,11 +99,11 @@
             {
                 <h4 style="color: green">😷 Masks are optional</h4>
             }
-            @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.mask.text.AddRelAttrs())
+            @Html.Raw(Model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.mask?.text?.AddRelAttrs())
         </div>
 
         <div class="pb-4" id="Transport">
-            @if(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.isBanned.ToLower().Equals("yes"))
+            @if(Model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.transportation?.isBanned?.ToLower() == "yes")
             {
                 <h4 style="color: red">🚎 Transport is banned</h4>
             }
@@ -111,12 +111,12 @@
             {
                 <h4 style="color: green">🚎 Transport is allowed</h4>
             }
-            @Html.Raw(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.transportation.text.AddRelAttrs())
+            @Html.Raw(Model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.transportation?.text?.AddRelAttrs())
         </div>
         
         <div class="pb-4" id="Documnents">
             <h4>📃 Declaration documnents</h4>
-            @if(string.IsNullOrEmpty(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.declarationDocuments.text))
+            @if(Model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.declarationDocuments?.text != null)
             {
                 <p>There are no any special documents for declaration are required</p>
             }
@@ -125,11 +125,11 @@
         </div>
 
         <div class="pb-4" id="Entry">
-            @if(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.ban.ToLower().Equals("no"))
+            @if(Model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.entry?.ban?.ToLower() == "no")
             {
                 <h4 style="color: green">🛂 Open to visit</h4>
             }
-            else if(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.ban.ToLower().Equals("yes"))
+            else if(Model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.entry?.ban?.ToLower() == "yes")
             {
                 <h4 style="color: red">🛂 Closed for travel</h4>
             } 
@@ -145,7 +145,7 @@
                 <h6>Banned countries</h6>
                 <p>@String.Join("; ", Model.BannedCountries)</p>
             }
-            @if (Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan != null)
+            @if(Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan != null)
             {
                 <h6>Border ban</h6>
                 foreach (var b in Model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.borderBan)
