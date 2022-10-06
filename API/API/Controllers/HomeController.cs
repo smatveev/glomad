@@ -7,10 +7,9 @@ using API.Models;
 using Glomad.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Net.Http;
 using API.Helpers;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace API.Controllers
 {
@@ -41,6 +40,45 @@ namespace API.Controllers
             ViewBag.VisaOptions = _context.NoVisaEntry.Count();
             ViewBag.Embassies = _context.Embassy.Count();
             return View("Countries");
+        }
+
+        [Route("sitemap.xml")]
+        public IActionResult Sitemap()
+        {
+            var countries = _context.Country.Where(c => c.UpdateDate != null);
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<?xml version='1.0' encoding='UTF-8' ?><urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>");
+
+            string site = "https://glomad.net/";
+
+            //sb.Append(
+            //    $"<url><loc>/{site}</loc>" +
+            //    $"<lastmod>{item.UpdateDate.Value.ToString("yyyy-MM-dd")}</lastmod>" +
+            //    $"<changefreq>weekly</changefreq>" +
+            //    $"<priority>0.8</priority></url>");
+
+            try {
+                foreach (var item in countries)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}{item.Name}</loc>" +
+                        $"<lastmod>{item.UpdateDate.Value.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.8</priority></url>");
+                }
+            }
+            catch { }
+            
+            sb.Append("</urlset>");
+
+            return new ContentResult
+            {
+                ContentType = "application/xml",
+                Content = sb.ToString(),
+                StatusCode = 200
+            };
+
+            //return View("Sitemap");
         }
 
         [Route("")]
