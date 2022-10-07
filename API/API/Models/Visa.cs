@@ -55,6 +55,7 @@ namespace API.Models
         public float Income { get; set; }
 
         public string ProgramUrl { get; set; }
+        public DateTime? UpdateDate { get; set; }
     }
 
     public enum VisaType : ushort
