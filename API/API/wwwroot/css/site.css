@@ -241,6 +241,20 @@ nav {
     color: #fff;
 }
 
+
+.back {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.added {
+    font-weight: bold;
+    font-size: small;
+}
+
 .blue {
     background-color: #0096c7;
 }

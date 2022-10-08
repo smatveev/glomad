@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using Glomad.Models;
+using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,8 @@ namespace API.Helpers
                               TypeId = co.Type,
                               Income = co.Income,
                               Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
-                              CostNum = co.CostOfProgramm
+                              CostNum = co.CostOfProgramm,
+                              UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value
                           }).Take(10).OrderByDescending(r => r.Reviews.Count).ToList();
 
                 return result;
