@@ -51,7 +51,7 @@ namespace API.Controllers
             string site = "https://glomad.net/";
 
             sb.Append(
-                $"<url><loc>/{site}</loc>" +
+                $"<url><loc>{site}</loc>" +
                 $"<lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod>" +
                 $"<changefreq>daily</changefreq>" +
                 $"<priority>0.8</priority></url>");
@@ -64,7 +64,7 @@ namespace API.Controllers
                              {
                                  Name = c.Name,
                                  UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
-                             }).ToList();
+                             }).Distinct().ToList();
 
             try {
                 foreach (var item in countries)
