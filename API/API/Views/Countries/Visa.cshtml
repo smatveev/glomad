@@ -50,7 +50,13 @@
                 🐱‍👤 For @((VisaType)Model.Visa.Type)
             </span>
         </div>
+
         <div class="px-2 py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
+
+        @if(!string.IsNullOrEmpty(Model.Visa.ProgramUrl)){
+            <div class="px-2 py-3">Link to program: <a href="@Model.Visa.ProgramUrl">@Model.Visa.ProgramUrl</a></div>
+        }
+        
 
     @if(Model.VisaDocs.Count > 0)
     {
