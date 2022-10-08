@@ -245,18 +245,30 @@ nav {
     background-color: #0096c7;
 }
     .blue:hover {
-        background-color: #023e8a !important;
+        background-color: #8d99ae !important;
     }
 
 .deepblue {
     background-color: #0077b6;
 }
-.deepblue:hover {
-    background-color: #023e8a !important;
+    .deepblue:hover {
+        background-color: #8d99ae !important;
+    }
+
+.grayblue {
+    background-color: #457b9d;
 }
+
+    .grayblue:hover {
+        background-color: #8d99ae !important;
+    }
 
 .right-140 {
     right: 155px !important;
+}
+
+.right-305 {
+    right: 305px !important;
 }
 
 #showFeedback {
