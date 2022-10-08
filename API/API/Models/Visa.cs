@@ -90,6 +90,7 @@ namespace API.Models
         public float Income { get; set; }
         public string Cost{ get; set; }
         public float CostNum { get; set; }
+        public DateTime UpdateDate { get; set; }
     }
 
     public class VisaPage

@@ -45,30 +45,170 @@ namespace API.Controllers
         [Route("sitemap.xml")]
         public IActionResult Sitemap()
         {
-            var countries = _context.Country.Where(c => c.UpdateDate != null);
             StringBuilder sb = new StringBuilder();
             sb.Append("<?xml version='1.0' encoding='UTF-8' ?><urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>");
 
             string site = "https://glomad.net/";
 
-            //sb.Append(
-            //    $"<url><loc>/{site}</loc>" +
-            //    $"<lastmod>{item.UpdateDate.Value.ToString("yyyy-MM-dd")}</lastmod>" +
-            //    $"<changefreq>weekly</changefreq>" +
-            //    $"<priority>0.8</priority></url>");
+            sb.Append(
+                $"<url><loc>/{site}</loc>" +
+                $"<lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod>" +
+                $"<changefreq>daily</changefreq>" +
+                $"<priority>0.8</priority></url>");
+
+
+            var countries = (from c in _context.Country
+                             join v in _context.Visa
+                             on c.Id equals v.Country.Id
+                             select new
+                             {
+                                 Name = c.Name,
+                                 UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                             }).ToList();
 
             try {
                 foreach (var item in countries)
                 {
                     sb.Append(
                         $"<url><loc>{site}{item.Name}</loc>" +
-                        $"<lastmod>{item.UpdateDate.Value.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<lastmod>{item.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
                         $"<changefreq>weekly</changefreq>" +
                         $"<priority>0.8</priority></url>");
                 }
             }
             catch { }
-            
+
+            List<VisaSearchResult> visas = (from v in _context.Visa
+                        join c in _context.Country
+                        on v.Country.Id equals c.Id
+                        //where v.UpdateDate != null
+                        select new VisaSearchResult
+                        {
+                            CountryName = c.Name,
+                            Id = v.Id,
+                            UpdateDate = v.UpdateDate.HasValue ? v.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                        }).ToList();
+
+            try
+            {
+                foreach (var visa in visas)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}{visa.CountryName}/visa/{visa.Id}</loc>" +
+                        $"<lastmod>{visa.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.8</priority></url>");
+                }
+            }
+            catch { }
+
+            var countrywithembassies = (from c in _context.Country
+                             join e in _context.Embassy
+                             on c.Id equals e.Country.Id
+                             select new
+                             {
+                                 Country = c.Name,
+                                 UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                             }).Distinct().ToList();
+            try
+            {
+                foreach (var ce in countrywithembassies)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}{ce.Country}/Embassies</loc>" +
+                        $"<lastmod>{ce.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.8</priority></url>");
+                }
+            }
+            catch { }
+
+            var embassies = (from e in _context.Embassy
+                            join c in _context.Country
+                            on e.Country.Id equals c.Id
+                            select new
+                            {
+                                Id = e.Id,
+                                Country = c.Name,
+                                UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                            }).ToList();
+
+            try
+            {
+                foreach (var e in embassies)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}{e.Country}/Embassy/{e.Id}</loc>" +
+                        $"<lastmod>{e.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.8</priority></url>");
+                }
+            }
+            catch { }
+
+
+            var cCovid = (from c in _context.Country
+                             where c.UpdateDate != null
+                             select new
+                             {
+                                 Name = c.Name,
+                                 UpdateDate = c.UpdateDate.Value
+                             }).ToList();
+            try
+            {
+                foreach (var c in cCovid)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}{c.Name}/Covid</loc>" +
+                        $"<lastmod>{c.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.8</priority></url>");
+                }
+            }
+            catch { }
+
+            var neCountry = (from ne in _context.NoVisaEntry
+                             join co in _context.Country on ne.CountryDestination.Id equals co.Id
+                             where !ne.IsVisaRequired || ne.IsEVisaAvailable
+                             select new
+                             {
+                                 Name = co.Name,
+                                 UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : DateTime.Now.AddDays(-7)
+                             }).Distinct().ToList();
+            try
+            {
+                foreach (var c in neCountry)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}{c.Name}/NoVisaEntry</loc>" +
+                        $"<lastmod>{c.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.8</priority></url>");
+                }
+            }
+            catch { }
+
+            var freeEntry = (from ne in _context.NoVisaEntry
+                             join co in _context.Country on ne.CountryPassport.Id equals co.Id
+                             where ne.IsVisaRequired == false
+                             select new
+                             {
+                                 Name = co.Name,
+                                 UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : DateTime.Now.AddDays(-7)
+                             }).Distinct().ToList();
+            try
+            {
+                foreach (var c in freeEntry)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}{c.Name}/FreeEntry</loc>" +
+                        $"<lastmod>{c.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.8</priority></url>");
+                }
+            }
+            catch { }
+
             sb.Append("</urlset>");
 
             return new ContentResult
