@@ -3,7 +3,7 @@
 @model EmbassiesPage
 
 @{
-    ViewData["Title"] = $"List of {Model.Country.Citizen}  Embassies and Consulates around the world in {DateTime.Now.Year}.";
+    ViewData["Title"] = String.IsNullOrEmpty(Model.Country.Citizen) ? $"List of Embassies and Consulates of {Model.Country.Name} around the world in {DateTime.Now.Year}." : $"List of {Model.Country.Citizen} Embassies and Consulates around the world in {DateTime.Now.Year}.";
     ViewData["MetaDescription"] = $"{Model.Country.Name} embassies and consulates in different countries in {DateTime.Now.Year}. Find the needed embassy of {Model.Country.Name} and its information. Addresses, telephone numbers, email addresses, websites, opening hours.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Embassies";
 }
