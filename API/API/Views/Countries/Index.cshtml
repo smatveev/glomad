@@ -20,16 +20,14 @@
     }
     else
     {
-        <div class="row">
-
-            <div class="col-md-12">
-                <h2 class="text-center p-4">💳 List of @Model.Header.CountryName visa types</h2>
+        <div class="px-3">
+            <h2 class="text-center p-4">💳 List of @Model.Header.CountryName visa types</h2>
 
 @*        <div class="row row-cols-1 row-cols-lg-4 row-cols-md-3 g-4">*@
 
             @if (Model.NoVisaEntry != null)
             {
-                <div class="row mb-3 rounded-3 border shadow-sm bg-info bg-gradient">
+                <div class="row mb-2 rounded-booking border shadow-sm bg-info bg-gradient">
                     <div class="col-md-3 p-3">
                         <p class="card-title text-white align-middle pb-3 fw-bold">Visa-free entry</p>
                         @if (Model.NoVisaEntry.IsEVisaAvailable)
@@ -59,11 +57,10 @@
             {
                     @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
             }
-            <div class="p-2 bg-light rounded-3">
+            <div class="bg-light rounded-booking">
                 <div>
                     <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
                 </div>
-            </div>
             </div>
 
             @*<div class="col-md-4">
