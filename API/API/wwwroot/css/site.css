@@ -15,8 +15,9 @@ a {
 .sectionstyle {
     background-color: #fff;
     border: 1px solid #ced4da;
-    border-radius: 0.25em;
-    box-shadow: 0 0 1em 0 rgb(0 0 0 / 20%);
+    border-top: none;
+    /*border-radius: 0.25em;*/
+    /*box-shadow: 0 0 1em 0 rgb(0 0 0 / 20%);*/
 }
 
 .remove-filter {
@@ -515,4 +516,22 @@ select {
 
 .skeleton-footer {
     width: 30%;
+}
+
+.nav-link {
+    color: #1c1c1c !important;
+    border-bottom: 3px solid #fff !important;
+}
+
+.nav-link:focus, .nav-link:hover, .nav-link.active {
+    border-bottom: 3px solid #0077b6 !important;
+    background-color: #fff !important;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.menu {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    margin-top: -25px;
 }

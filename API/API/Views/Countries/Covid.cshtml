@@ -11,14 +11,13 @@
 }
 
 @await Html.PartialAsync("_Header", Model.Header)
+@await Html.PartialAsync("_Menu", Model.Header.CountryName)
 
-<section class="container py-3">
-
-    @await Html.PartialAsync("_Menu", Model.Header.CountryName)
+<section class="container sectionstyle">
 
     @*<h2 class="text-center p-4">🦠 The COVID-19 travel restrictions in @Model.Header.CountryName</h2>*@
 
-    <div class="container mt-5">
+    <div class="row p-2 pt-4">
 
         <div class="row">
             <div class="col-md-3">

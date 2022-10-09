@@ -20,10 +20,9 @@
 }
 
 @await Html.PartialAsync("_Header", header)
+@await Html.PartialAsync("_Menu", Model.Visa.Country.Name)
 
-<section class="container">
-    @await Html.PartialAsync("_Menu", Model.Visa.Country.Name)
-
+<section class="container sectionstyle">
     <div class="sectionstyle p-3">
         <a href="/@Model.Visa.Country.Name">
             <div class="btn btn-secondary mb-3 position-absolute w-auto">

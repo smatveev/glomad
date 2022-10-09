@@ -10,10 +10,9 @@
 }
 
 @await Html.PartialAsync("_Header", Model.Header)
+@await Html.PartialAsync("_Menu", Model.Header.CountryName)
 
-<section class="container py-3">
-
-    @await Html.PartialAsync("_Menu", Model.Header.CountryName)
+<section class="container sectionstyle">
 
     @if (ViewContext.HttpContext.Request.Path.Value.Contains("Visa"))
     {

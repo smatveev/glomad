@@ -1,19 +1,19 @@
 ﻿@model string
 
-<ul class="nav nav-pills" id="mytabs">
+<ul class="container nav flex-nowrap sectionstyle menu" id="mytabs">
     <li class="nav-item">
-        <a class="nav-link @(ViewContext.RouteData.Values["action"].Equals("Index") ? "active" : "")" href="/@Model">🎫 Visas</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].Equals("Index") ? "active" : "")" href="/@Model">Visas</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("embassies") ? "active" : "")" href="/@Model/Embassies">🏤 Embassies</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("embassies") ? "active" : "")" href="/@Model/Embassies">Embassies</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("covid") ? "active" : "")" href="/@Model/Covid">😷 Covid</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("covid") ? "active" : "")" href="/@Model/Covid">Covid</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("novisaentry") ? "active" : "")" href="/@Model/NoVisaEntry">🖐 Visa-free entry to @Model</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("novisaentry") ? "active" : "")" href="/@Model/NoVisaEntry">Visa-free entry to @Model</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("freeentry") ? "active" : "")" href="/@Model/FreeEntry">🛂 Visa-free entry with passport of @Model</a>
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("freeentry") ? "active" : "")" href="/@Model/FreeEntry">Visa-free entry with passport of @Model</a>
     </li>
 </ul>

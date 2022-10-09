@@ -9,10 +9,9 @@
 }
 
 @await Html.PartialAsync("_Header", Model.header)
+@await Html.PartialAsync("_Menu", Model.header.CountryName)
 
-<section class="container py-3">
-
-    @await Html.PartialAsync("_Menu", Model.header.CountryName)
+<section class="container sectionstyle">
 
     <h2 class="text-center p-4">🛂 Free entry with passport of @Model.header.CountryName</h2>
 

@@ -9,10 +9,10 @@
 }
 
 @await Html.PartialAsync("_Header", Model.Header)
+@await Html.PartialAsync("_Menu", Model.Header.CountryName)
 
-<section class="container py-3">
 
-    @await Html.PartialAsync("_Menu", Model.Header.CountryName)
+<section class="container sectionstyle">
 
     <h2 class="text-center p-4">🏢 List of @Model.Header.CountryName embassies</h2>
 
