@@ -7,7 +7,9 @@ namespace API.Views.Shared.ViewComponents
     {
         public IViewComponentResult Invoke(VisaSearchResult visa)
         {
-            if(HttpContext.Request.Path.Equals("/"))
+            if (HttpContext.Request.Path.Equals("/") 
+                || HttpContext.Request.Path.Value.Contains("api/") 
+                || HttpContext.Request.Path.Value.Contains("visa-"))
             {
                 return View(visa);
             }

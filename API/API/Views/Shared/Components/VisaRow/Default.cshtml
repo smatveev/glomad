@@ -5,7 +5,7 @@
 
 <div class="mb-3 rounded-booking bg-white border">
     <div class="row g-0">
-        <div class="col-md-2 back rounded-booking" style="background-image: url(/@(Model.CountryName.ToLower())_300.jpg)">
+        <div class="col-md-2 back rounded-booking" style="background-image: url(/@Uri.EscapeUriString(Model.CountryName.ToLower())_300.jpg)">
             @*<img src="/@(Model.CountryName.ToLower())_300.jpg" class="img-fluid rounded-start" alt="Country beauty image">*@
         </div>
         <div class="col-md-5">

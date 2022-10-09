@@ -16,7 +16,7 @@ namespace API.Helpers
             "-for-startup"
         };
 
-        public static List<string> Filters = new List<string>()
+        public static List<string> TypeFilters = new List<string>()
         {
              "for-startup",
              "for-work",
@@ -64,19 +64,19 @@ namespace API.Helpers
             //                (q.Contains("for-student") ? co.Type == (int)VisaType.Student : true) ||
             //                (q.Contains("for-work") ? co.Type == (int)VisaType.Work : true)
 
-            var test = new List<int>();
+            var filters = new List<int>();
             
-            for (int i = 0; i < Filters.Count; i++) {
+            for (int i = 0; i < TypeFilters.Count; i++) {
 
-                if (q.Contains(Filters[i])) {
-                    test.Add(i);
+                if (q.Contains(TypeFilters[i])) {
+                    filters.Add(i);
                 }
             }
-            if (test.Count > 0)
+            if (filters.Count > 0)
             {
                 result = (from co in _context.Visa
                           join c in _context.Country on co.Country.Id equals c.Id
-                          where test.Contains(co.Type)
+                          where filters.Contains(co.Type)
                           select new VisaSearchResult
                           {
                               Id = co.Id,
@@ -90,7 +90,8 @@ namespace API.Helpers
                               TypeId = co.Type,
                               Income = co.Income,
                               Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
-                              CostNum = co.CostOfProgramm
+                              CostNum = co.CostOfProgramm,
+                              UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value
                           }).ToList();
             }
             else {
@@ -110,20 +111,12 @@ namespace API.Helpers
                               TypeId = co.Type,
                               Income = co.Income,
                               Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
-                              CostNum = co.CostOfProgramm
+                              CostNum = co.CostOfProgramm,
+                              UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value
                           }).ToList();
 
             }
 
-            
-
-            //if (q.Contains("for-nomads")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Nomad));
-            //if (q.Contains("for-tourist")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Tourist));
-            //if (q.Contains("for-startup")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Startup));
-            //if (q.Contains("for-business")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Business));
-            //if (q.Contains("for-student")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Student));
-            //if (q.Contains("for-work")) result.AddRange(Visas.Where(v => v.TypeId == (int)VisaType.Work));
-            //else result = new List<VisaSearchResult>(Visas);
 
             if (q.Contains("low-income")) result.RemoveAll(v => v.Income > 1500);
             if (q.Contains("middle-income")) result.RemoveAll(v => v.Income > 4000);
