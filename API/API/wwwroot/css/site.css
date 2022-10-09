@@ -255,6 +255,16 @@ nav {
     font-size: small;
 }
 
+.btn-main {
+    background-color: #0096c7;
+    border-color: #0077b6;
+    color: #fff;
+}
+    .btn-main:hover {
+        background-color: #0077b6;
+        color: #fff;
+    }
+
 .blue {
     background-color: #0096c7;
 }

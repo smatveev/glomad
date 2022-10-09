@@ -366,6 +366,30 @@ namespace API.Controllers
 
             return Ok();
         }
+
+        [Route("ShareExperience")]
+        [HttpPost]
+        public IActionResult ShareExperience([FromBody] ShareExperience exp)
+        {
+            try
+            {
+                ShareExperience E = new()
+                {
+                    Email = exp.Email,
+                    Message = exp.Message,
+                    Link = exp.Link
+                };
+
+                Helpers.EmailSender.SendShareExperience(E);
+            }
+            catch (Exception e)
+            {
+                return Error();
+            }
+
+            return Ok();
+        }
+
         public IActionResult Privacy()
         {
             return View();

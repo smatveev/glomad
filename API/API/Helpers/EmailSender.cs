@@ -96,6 +96,34 @@ namespace API.Helpers
             smtpClient.Send(mailMessage);
         }
 
+        public static void SendShareExperience(ShareExperience exp)
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            var config = builder.Build();
+
+            var smtpClient = new SmtpClient(config["Smtp:Host"])
+            {
+                Port = int.Parse(config["Smtp:Port"]),
+                Credentials = new NetworkCredential(config["Smtp:Username"], config["Smtp:Password"]),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("matv33v@gmail.com"),
+                Subject = "Glomad.net: SHARE EXPERIENCE: " + exp.Email,
+                Body = string.Format("<h3>Details</h3>" +
+                    "<p>Email: {0}</p>" +
+                    "<p>Link: {1}</p>" +
+                    "<p>Message: {2}</p>",
+                    exp.Email, exp.Link, exp.Message),
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");
+
+            smtpClient.Send(mailMessage);
+        }
+
         public static void SendVisaReport(ReportVisa report)
         {
             var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");

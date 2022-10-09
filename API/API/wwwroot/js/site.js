@@ -290,3 +290,31 @@ function ImprovePageSubmit() {
         console.log("done", arguments);
     });
 }
+
+function ShareExpSubmit() {
+    var data = new Object();
+    data.email = $('#ShareExpForm #Email').val();
+    data.message = $('#ShareExpForm #Message').val();
+    data.link = window.location.href;
+
+    $.ajax({
+        type: 'POST',
+        url: "/ShareExperience",
+        data: JSON.stringify(data),
+        dataType: 'html',
+        contentType: "application/json",
+        success: function () {
+            console.log("success", arguments);
+            $("#ShareExpForm #status").text("Got it! Thank you 👌")
+        },
+        error: function () {
+            console.log("error", arguments);
+            $("#ShareExpForm #status").text("😣 Something went wrong. Please try again.")
+        },
+        complete: function () {
+            console.log("complete", arguments);
+        }
+    }).done(function () {
+        console.log("done", arguments);
+    });
+}

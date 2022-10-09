@@ -62,4 +62,11 @@ namespace API.Models
         public string Text { get; set; }
         public string Url { get; set; }
     }
+
+    public class ShareExperience
+    {
+        public string Email { get; set; }
+        public string Message { get; set; }
+        public string Link { get; set; }
+    }
 }

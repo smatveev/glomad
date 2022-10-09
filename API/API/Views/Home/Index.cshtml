@@ -11,7 +11,7 @@
 
 <header>
 
-    <div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel">
+    <div id="introCarousel" class="carousel shadow-2-strong" data-mdb-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <video style="min-width: 100%; min-height: 100%" playsinline autoplay muted loop
@@ -31,6 +31,7 @@
                                 🎫 Find visa requirements and needed documents for countries.<br />
                                 😷 Check last COVID-19 travel restrictions for a country. <br />
                                 😎 Forget about visa headaches. Be ready to travel at any time.<br />
+                                <partial name="_ShareExperience" />
                             </div>
                         </div>
                     </div>
@@ -363,6 +364,32 @@
         </form>
     </div>
 </section>
+
+<div id="ShareExpForm" tabindex="-1" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share your experience</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-2">
+                        <input type="email" id="Email" class="form-control" placeholder="email (optional)" />
+                    </div>
+
+                    <div class="mb-2">
+                        <textarea class="form-control" id="Message" style="height: 100px" placeholder="What visa you used? For what embassy? How was it?"></textarea>
+                    </div>
+                </form>
+                <span class="lead fw-5" id="status"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="ShareExpSubmit()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @*<partial name="_Pricing" />*@
 
