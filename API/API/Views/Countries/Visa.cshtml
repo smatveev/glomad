@@ -24,7 +24,7 @@
 <section class="container">
     @await Html.PartialAsync("_Menu", Model.Visa.Country.Name)
 
-    <div class="row sectionstyle my-3 p-3">
+    <div class="sectionstyle p-3">
         <a href="/@Model.Visa.Country.Name">
             <div class="btn btn-secondary mb-3 position-absolute w-auto">
                 Go back
@@ -51,71 +51,73 @@
             </span>
         </div>
 
-        <div class="px-2 py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
+        <div class="py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
 
         @if(!string.IsNullOrEmpty(Model.Visa.ProgramUrl)){
-            <div class="px-2 py-3">Link to program: <a href="@Model.Visa.ProgramUrl">@Model.Visa.ProgramUrl</a></div>
+            <div class="py-3">Link to program: <a href="@Model.Visa.ProgramUrl">@Model.Visa.ProgramUrl</a></div>
         }
         
 
     @if(Model.VisaDocs.Count > 0)
     {
-        <h4 class="text-center p-3">✔ Checklist of required documents</h4>
+        <h4 class="text-center py-3">✔ Checklist of required documents</h4>
         <div class="text-center">
                 <button type="button" id="showFormReport" data-bs-toggle="modal" data-bs-target="#addReport" class="btn btn-danger mb-3 w-auto">
                 Report incorrect info
             </button>
         </div>
-        <ol>
-        @foreach (var item in Model.VisaDocs)
-       {
-           @if((DocumentType)item.DocumentType == DocumentType.HealthInsurance) 
+        <div>
+            <ul>
+            @foreach (var item in Model.VisaDocs)
            {
-                if(new GeoIp(Context).GetMyCountryAsync().ToString().ToLower() == "russia") {
-                    <li><a rel="noopener nofollow noreferrer" target="_blank"
-                   href="https://cherehapa.ru/insurance/medicine/?partnerId=2879">
-                    @item.Text
-                </a></li>
-                }
-                else {
+               @if((DocumentType)item.DocumentType == DocumentType.HealthInsurance) 
+               {
+                    if(new GeoIp(Context).GetMyCountryAsync().ToString().ToLower() == "russia") {
+                        <li><a rel="noopener nofollow noreferrer" target="_blank"
+                       href="https://cherehapa.ru/insurance/medicine/?partnerId=2879">
+                        @item.Text
+                    </a></li>
+                    }
+                    else {
+                        <li><a rel="noopener nofollow noreferrer" target="_blank" 
+                            href="https://safetywing.com/?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador">
+                            @item.Text
+                        </a></li>
+                    }
+               }
+               else if((DocumentType)item.DocumentType == DocumentType.PlaceOfStay) {
+                   <li><a rel="noopener nofollow noreferrer" target="_blank" 
+                        href="https://booking.tp.st/zqey1Nwh">
+                        @item.Text
+                    </a></li>       
+                } 
+                else if ((DocumentType)item.DocumentType == DocumentType.Ticket)
+                {
                     <li><a rel="noopener nofollow noreferrer" target="_blank" 
-                        href="https://safetywing.com/?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador">
+                        href="https://aviasales.tp.st/hJye4HU1">
                         @item.Text
                     </a></li>
                 }
-           }
-           else if((DocumentType)item.DocumentType == DocumentType.PlaceOfStay) {
-               <li><a rel="noopener nofollow noreferrer" target="_blank" 
-                    href="https://booking.tp.st/zqey1Nwh">
-                    @item.Text
-                </a></li>       
-            } 
-            else if ((DocumentType)item.DocumentType == DocumentType.Ticket)
-            {
-                <li><a rel="noopener nofollow noreferrer" target="_blank" 
-                    href="https://aviasales.tp.st/hJye4HU1">
-                    @item.Text
-                </a></li>
-            }
-            else
-            {
-                <li>@item.Text</li>
-            }
+                else
+                {
+                    <li>@item.Text</li>
+                }
 
-        }
-       </ol>
+            }
+           </ul>
+       </div>
     }
 
     @if (Model.Reviews.Count > 0)
     {
-        <h4 class="text-center p-3">💬 Read @Model.Reviews.Count trusted reviews</h4>
+        <h4 class="text-center py-3">💬 Read @Model.Reviews.Count trusted reviews</h4>
     }
     else
     {
-        <h4 class="text-center p-3">💬 Share your experience</h4>
+        <h4 class="text-center py-3">💬 Share your experience</h4>
     }
     <div class="text-center">
-        <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview" class="btn btn-primary mb-3">
+        <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview" class="btn btn-main mb-3">
             Add an anonymous review
         </button>
     </div>
