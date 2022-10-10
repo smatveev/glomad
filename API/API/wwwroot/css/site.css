@@ -244,11 +244,11 @@ nav {
 
 
 .back {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .added {
@@ -535,3 +535,10 @@ select {
     border-top-right-radius: 1rem;
     margin-top: -25px;
 }
+
+.card-title {
+    color: #fff;
+}
+    .card-title:hover {
+        color: #ccc !important;
+    }
