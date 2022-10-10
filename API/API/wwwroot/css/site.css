@@ -538,7 +538,3 @@ select {
     overflow-y: hidden;
     overflow-x: auto;
 }
-
-.text-white:hover {
-    color: #ccc !important;
-}
