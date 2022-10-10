@@ -521,6 +521,7 @@ select {
 .nav-link {
     color: #1c1c1c !important;
     border-bottom: 3px solid #fff !important;
+    white-space: nowrap;
 }
 
 .nav-link:focus, .nav-link:hover, .nav-link.active {
@@ -534,6 +535,8 @@ select {
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     margin-top: -25px;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 .card-title {
