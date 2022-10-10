@@ -9,10 +9,10 @@
             @*<img src="/@(Model.CountryName.ToLower())_300.jpg" class="img-fluid rounded-start" alt="Country beauty image">*@
             <div class="card-body text-center">
                 <a href="/@Model.CountryName">
-                    <h4 class="card-title shadowed" >@Model.CountryName</h4>
+                    <h4 class="card-title shadowed text-white" >@Model.CountryName</h4>
                 </a>
                 <a href="/@Model.CountryName/Visa/@Model.Id">
-                    <h6 class="card-title shadowed fw-bold py-2 mb-5" >@Model.VisaName</h6>
+                    <h6 class="card-title shadowed fw-bold py-2 mb-5 text-white">@Model.VisaName</h6>
                 </a>
             </div>
             @if (Model.Reviews.Count > 0)

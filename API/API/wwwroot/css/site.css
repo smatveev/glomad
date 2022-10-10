@@ -539,9 +539,6 @@ select {
     overflow-x: auto;
 }
 
-.card-title {
-    color: #fff;
+.text-white:hover {
+    color: #ccc !important;
 }
-    .card-title:hover {
-        color: #ccc !important;
-    }
