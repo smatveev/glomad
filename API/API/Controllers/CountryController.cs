@@ -310,15 +310,17 @@ namespace API.Controllers
 
             HeaderViewModel header = new HeaderViewModel();
             header.Text = $"There are {model.countries.Count} visa-free countries available for {citizen ?? countryName}. ";
+            
+            if(model.countries.Any())
+            {
+                int evisa = model.countries.Where(CountryFreeEntry => CountryFreeEntry.EVisaAvailable == true).Count();
+                if (evisa > 0)
+                    header.Text += $"These also include {evisa} countries that only require easily obtainable E - visas. ";
 
-            int evisa = model.countries.Where(CountryFreeEntry => CountryFreeEntry.EVisaAvailable == true).Count();
-            if (evisa > 0)
-                header.Text += $"These also include {evisa} countries that only require easily obtainable E - visas. ";
-
-            var top = model.countries.OrderByDescending(CountryFreeEntry => CountryFreeEntry.Duration).Take(3);
-            header.Text += $"The countries, which offer the most extended visa - free stay period (i.e., {top.First().Duration} days), " +
-                           $"are {string.Join(", ", top.Select(r => r.Name))}.";
-
+                var top = model.countries.OrderByDescending(CountryFreeEntry => CountryFreeEntry.Duration).Take(3);
+                header.Text += $"The countries, which offer the most extended visa - free stay period (i.e., {top.First().Duration} days), " +
+                               $"are {string.Join(", ", top.Select(r => r.Name))}.";
+            }
             header.CountryName = countryName;
 
             model.header = header;
