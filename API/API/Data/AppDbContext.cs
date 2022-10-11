@@ -78,5 +78,6 @@ namespace Glomad.Models
         public DbSet<ApprovedVaccines> ApprovedVaccines{ get; set; }
         public DbSet<CovidRestrictions> CovidRestrictions { get; set; }
         public DbSet<AmadeusApi> AmadeusApi { get; set; }
+        public DbSet<CountryQuestion> CountryQuestion { get; set; }
     }
 }
