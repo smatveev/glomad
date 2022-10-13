@@ -47,11 +47,11 @@
         <div class="tab-pane fade show active" id="info" itemscope="" itemtype="http://schema.org/GovernmentPermit">
             @if (Model.EmbassyWithCountry.Embassy.Name != null)
             {
-                <h2 itemprop="name" class="fw-bold text-center p-4 mb-3">🏢 @Html.Raw(HttpUtility.HtmlDecode(Model.EmbassyWithCountry.Embassy.Name)) - information</h2>
+                <h2 itemprop="name" class="text-break fw-bold text-center p-4 mb-3">🏢 @Html.Raw(HttpUtility.HtmlDecode(Model.EmbassyWithCountry.Embassy.Name)) - information</h2>
             }
             else
             {
-                <h2 itemprop="name" class="fw-bold text-center p-4 mb-3">🏢 @Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country} in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City} - information").Replace("\n", "<br/>"))</h2>
+                <h2 itemprop="name" class="text-break fw-bold text-center p-4 mb-3">🏢 @Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country} in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City} - information").Replace("\n", "<br/>"))</h2>
             }
 
             @if (Model.EmbassyWithCountry.Embassy != null)
