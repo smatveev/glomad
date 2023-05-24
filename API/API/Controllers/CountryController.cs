@@ -328,7 +328,7 @@ namespace API.Controllers
             return View("FreeEntry", model);
         }
 
-        [Route("{country}/faq")]
+        [Route("{country}/FAQ")]
         public IActionResult Faq(string country)
         {
             FaqPage model = new FaqPage();
