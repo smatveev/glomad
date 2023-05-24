@@ -77,4 +77,10 @@ namespace API.Models
         public Country HomeCountry { get; set; }
         public NoVisaEntry NoVisaEntry { get; set; }
     }
+
+    public struct FaqPage
+    {
+        public List<CountryQuestion> questions { get; set; }
+        public HeaderViewModel header { get; set; }
+    }
 }
