@@ -341,7 +341,7 @@ namespace API.Controllers
             string citizen = Country.Citizen;
 
             model.questions = (from cc in _context.CountryQuestion
-                               join co in _context.Country on cc.Country.Id equals co.Id
+                               where cc.Country.Id == Country.Id
                                select new CountryQuestion
                                {
                                    Text = cc.Text,
