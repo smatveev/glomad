@@ -14,13 +14,29 @@
 <section class="container sectionstyle">
     <h2 class="text-center p-4">❓ FAQ about @Model.header.CountryName</h2>
 
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pt-4">
-        @foreach (var c in Model.questions)
-        {
-            <b>@c.Text</b>
-            <br />
-            <p>@c.Answer</p>
-        }
+    <div class="row p-4">
+        <div class="accordion" id="accordion">
+            @{                
+                int i = 0;
+                
+                foreach (var c in Model.questions)
+                {
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="header-@i">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="false" aria-controls="collapse-@i">
+                                @c.Text
+                            </button>
+                        </h2>
+                        <div id="collapse-@i" class="accordion-collapse collapse" aria-labelledby="header-@i" data-bs-parent="#accordion">
+                            <div class="accordion-body">
+                                @c.Answer
+                            </div>
+                        </div>
+                    </div>
+                    i++;
+                }
+            }
+        </div>        
     </div>
 
 </section>
