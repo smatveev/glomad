@@ -42,5 +42,6 @@ namespace Glomad.Models
         public decimal Price { get; set; }
         public string Currency { get; set; }
         public byte IssueDeadlines { get; set; }
+        public string CityIataCode { get; set; }
     }
 }
