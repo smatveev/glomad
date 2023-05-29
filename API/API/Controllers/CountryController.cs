@@ -197,7 +197,7 @@ namespace API.Controllers
             {
                 model.AmadeusTravelRestrictions = JsonSerializer.Deserialize<AmadeusTravelRestrictions>(curCountry.AmadeusTravelRestrictions);
             }
-            if(model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea != null)
+            if(model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.entry?.bannedArea != null)
             {
                 var iatas = model.AmadeusTravelRestrictions.data.areaAccessRestriction.entry.bannedArea.Select(a => a.iataCode).ToList();
                 model.BannedCountries = _context.Country.Where(t => iatas.Contains(t.ISOalpha2)).Select(t => t.Name).ToList();
