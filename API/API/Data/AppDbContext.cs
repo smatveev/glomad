@@ -2,6 +2,7 @@
 using API.Helpers;
 using API.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
@@ -53,6 +54,11 @@ namespace Glomad.Models
                 .HasOne(ui => ui.Interest)
                 .WithMany(i => i.UserInterests)
                 .HasForeignKey(ui => ui.InterestId);
+            //builder.Entity<Country>().OwnsOne(
+            //    country => country.BestMonths, ownedNavigationBuilder =>
+            //    {
+            //        ownedNavigationBuilder.ToJson();
+            //    });
 
             base.OnModelCreating(builder);
         }
