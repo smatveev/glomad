@@ -7,9 +7,9 @@
     <li class="nav-item">
         <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("embassies") ? "active" : "")" href="/@Model/Embassies">Embassies</a>
     </li>
-    <li class="nav-item">
+@*    <li class="nav-item">
         <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("covid") ? "active" : "")" href="/@Model/Covid">Covid</a>
-    </li>
+    </li>*@
     <li class="nav-item">
         <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("novisaentry") ? "active" : "")" href="/@Model/NoVisaEntry">Visa-free entry to @Model</a>
     </li>
