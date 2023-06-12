@@ -21,6 +21,15 @@
     else
     {
         <div class="px-3">
+            
+            @if (Model.Country.Summary != null)
+            {
+                <h2 class="text-center p-4">Summary</h2>
+                <p>
+                    @Model.Country.Summary
+                </p>
+            }            
+
             <h2 class="text-center p-4">💳 List of @Model.Header.CountryName visa types</h2>
 
 @*        <div class="row row-cols-1 row-cols-lg-4 row-cols-md-3 g-4">*@
