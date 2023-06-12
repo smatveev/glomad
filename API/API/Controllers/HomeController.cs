@@ -78,6 +78,29 @@ namespace API.Controllers
             }
             catch { }
 
+
+            var faqs = (from c in _context.Country
+                             join q in _context.CountryQuestion
+                             on c.Id equals q.Country.Id
+                             select new
+                             {
+                                 Name = c.Name,
+                                 UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                             }).Distinct().ToList();
+
+            try
+            {
+                foreach (var country in faqs)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}{country.Name}/FAQ</loc>" +
+                        $"<lastmod>{country.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.8</priority></url>");
+                }
+            }
+            catch { }
+
             List<VisaSearchResult> visas = (from v in _context.Visa
                         join c in _context.Country
                         on v.Country.Id equals c.Id
