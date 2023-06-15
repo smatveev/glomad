@@ -112,13 +112,24 @@ nav {
     background-attachment: fixed;
 }
 
+@media only screen and (max-width: 480px) {
+    #introCarousel, .carousel-inner, .carousel-item, .carousel-item.active {
+        height: 70vh;
+    }
+}
+
+@media only screen and (min-width: 480px) {
+    #introCarousel, .carousel-inner, .carousel-item, .carousel-item.active {
+        height: 55vh;
+    }
+}
+
 #introCarousel,
 .carousel-inner,
 .carousel-item,
 .carousel-item.active {
-    height: 50vh;
+    
 }
-
     .carousel-item:nth-child(1) {
         background-repeat: no-repeat;
         background-size: cover;
