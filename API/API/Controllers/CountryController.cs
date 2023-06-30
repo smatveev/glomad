@@ -75,7 +75,23 @@ namespace API.Controllers
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
 
-            if(model.Visas.Count > 0)
+            string[] countryIds = model.Country.NextCountries.Split(',');
+            int[] intCountryIds = new int[countryIds.Length];
+
+            for (int i = 0; i < countryIds.Length; i++)
+            {
+                intCountryIds[i] = int.Parse(countryIds[i]);
+            }
+
+            var query = from item in _context.Country
+                        where intCountryIds.Contains(item.Id)
+                        select item;
+
+            var nextCountries = query.ToList();
+            model.NextCountries = nextCountries;
+           
+
+            if (model.Visas.Count > 0)
             {
                 var topDuration = model.Visas.OrderByDescending(m => m.Duration).FirstOrDefault();
                 var days90 = model.Visas.OrderByDescending(m => m.Duration >= 90).ToList();

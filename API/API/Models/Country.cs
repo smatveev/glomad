@@ -54,6 +54,7 @@ namespace Glomad.Models
         public byte? SafetyLevel{ get; set; }
 
         public string NextCountries { get; set; }
+
     }
 
     //public class BestMonths

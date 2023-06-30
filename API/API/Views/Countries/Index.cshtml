@@ -26,10 +26,98 @@
             {
                 <h2 class="text-center p-4">Summary</h2>
                 <p>
-                    @Model.Country.Summary
+                     @Html.Raw(Model.Country.Summary)
                 </p>
-            }            
+            }   
+              @if (Model.Country.Safety != null)
+            {
+                <h2 class="text-center p-4">Safety for tourists in @Model.Country.Name</h2>
+                <p>
+                     @Html.Raw(Model.Country.Safety)
+                </p>
+            }
+            
+            @if (Model.Country.CurrencyDescription != null)
+            {
+                <h2 class="text-center p-4">Currency in @Model.Country.Name</h2>
+                <p>
+                     @Html.Raw(Model.Country.CurrencyDescription)
+                </p>
+            }
 
+            @if (Model.Country.BestSeason != null)
+            {
+                <h2 class="text-center p-4">Best time to visit @Model.Country.Name</h2>
+                <p>
+                     @Html.Raw(Model.Country.BestSeason)
+                </p>
+            }
+
+             @if (Model.Country.PopularPlaces != null)
+            {
+                <h2 class="text-center p-4">The most popular places in @Model.Country.Name</h2>
+                <p>
+                     @Html.Raw(Model.Country.PopularPlaces)
+                </p>
+            }
+                @if (Model.Country.DriverLicense != null)
+            {
+                <h2 class="text-center p-4">Do tourists need a license to drive a car in @Model.Country.Name?</h2>
+                <p>
+                     @Html.Raw(Model.Country.DriverLicense)
+                </p>
+            }
+            @if (Model.Country.DriverRules != null)
+            {
+                <h2 class="text-center p-4">Driver rules in @Model.Country.Name</h2>
+                <p>
+                     @Html.Raw(Model.Country.DriverRules)
+                </p>
+            }
+            @if (Model.Country.Transport != null)
+            {
+                <h2 class="text-center p-4">How to travel in @Model.Country.Name</h2>
+                <p>
+                     @Html.Raw(Model.Country.Transport)
+                </p>
+            }
+             @if (Model.Country.Etiquette != null)
+            {
+                <h2 class="text-center p-4">What are some cultural etiquette and customs in @Model.Country.Name?</h2>
+                <p>
+                     @Html.Raw(Model.Country.Etiquette)
+                </p>
+            }
+             @if (Model.Country.Internet != null)
+            {
+                <h2 class="text-center p-4">Internet Quality in @Model.Country.Name?</h2>
+                <p>
+                     @Html.Raw(Model.Country.Internet)
+                </p>
+            }
+             @if (Model.Country.Vaccinations != null)
+            {
+                <h2 class="text-center p-4">Are there any specific vaccinations required before traveling to @Model.Country.Name?</h2>
+                <p>
+                     @Html.Raw(Model.Country.Vaccinations)
+                </p>
+            }
+            
+            @if (Model.Country.MobileOperators != null)
+            {
+                <h2 class="text-center p-4">Mobile operators in @Model.Country.Name </h2>
+                <p>
+                     @Html.Raw(Model.Country.MobileOperators)
+                </p>
+            }
+            
+            @if (Model.Country.EmrgencyNumbers != null)
+            {
+                <h2 class="text-center p-4">Emergency numbers in @Model.Country.Name </h2>
+                <p>
+                     @Html.Raw(Model.Country.EmrgencyNumbers)
+                </p>
+            }
             <h2 class="text-center p-4">💳 List of @Model.Header.CountryName visa types</h2>
 
 @*        <div class="row row-cols-1 row-cols-lg-4 row-cols-md-3 g-4">*@
@@ -66,6 +154,36 @@
             {
                     @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
             }
+
+            @if(Model.NextCountries?.Count > 0)
+            {
+                <h3>Countries to travel near @Model.Country.Name</h3>
+                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    @foreach (var c in Model.NextCountries)
+                    {
+                        <div class="col">
+                            <a href="/@c.Name">
+                            @{
+                                var countryImage = @c.Name.ToLower();
+                                var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
+                                if (!System.IO.File.Exists(path2))
+                                {
+                                    countryImage = "nocover";
+                                }
+                            }
+                            <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
+                                @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
+                                <div class="card-img-overlay">
+                                    <h3 class="card-title shadowed text-center align-middle mt-5 mb-3 lh-1 fw-bold">@c.Name</h3>
+                            
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    }
+                 </div>     
+                }
+            
             <div class="bg-light rounded-booking">
                 <div>
                     <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
