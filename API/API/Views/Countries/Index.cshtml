@@ -1,4 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+@using Microsoft.AspNetCore;
 @using API.Helpers;
 
 @model IndexPage
@@ -20,198 +22,275 @@
     }
     else
     {
-        <div class="px-3">
-            
-            @if (Model.Country.Summary != null)
-            {
-                <h2 class="text-center p-4">Summary</h2>
-                <p>
-                     @Html.Raw(Model.Country.Summary)
-                </p>
-            }   
-              @if (Model.Country.Safety != null)
-            {
-                <h2 class="text-center p-4">Safety for tourists in @Model.Country.Name</h2>
-                <p>
-                     @Html.Raw(Model.Country.Safety)
-                </p>
-            }
-            
-            @if (Model.Country.CurrencyDescription != null)
-            {
-                <h2 class="text-center p-4">Currency in @Model.Country.Name</h2>
-                <p>
-                     @Html.Raw(Model.Country.CurrencyDescription)
-                </p>
-            }
+        <div class="row">
 
-            @if (Model.Country.BestSeason != null)
-            {
-                <h2 class="text-center p-4">Best time to visit @Model.Country.Name</h2>
-                <p>
-                     @Html.Raw(Model.Country.BestSeason)
-                </p>
-            }
-
-             @if (Model.Country.PopularPlaces != null)
-            {
-                <h2 class="text-center p-4">The most popular places in @Model.Country.Name</h2>
-                <p>
-                     @Html.Raw(Model.Country.PopularPlaces)
-                </p>
-            }
-                @if (Model.Country.DriverLicense != null)
-            {
-                <h2 class="text-center p-4">Do tourists need a license to drive a car in @Model.Country.Name?</h2>
-                <p>
-                     @Html.Raw(Model.Country.DriverLicense)
-                </p>
-            }
-            @if (Model.Country.DriverRules != null)
-            {
-                <h2 class="text-center p-4">Driver rules in @Model.Country.Name</h2>
-                <p>
-                     @Html.Raw(Model.Country.DriverRules)
-                </p>
-            }
-            @if (Model.Country.Transport != null)
-            {
-                <h2 class="text-center p-4">How to travel in @Model.Country.Name</h2>
-                <p>
-                     @Html.Raw(Model.Country.Transport)
-                </p>
-            }
-             @if (Model.Country.Etiquette != null)
-            {
-                <h2 class="text-center p-4">What are some cultural etiquette and customs in @Model.Country.Name?</h2>
-                <p>
-                     @Html.Raw(Model.Country.Etiquette)
-                </p>
-            }
-             @if (Model.Country.Internet != null)
-            {
-                <h2 class="text-center p-4">Internet Quality in @Model.Country.Name?</h2>
-                <p>
-                     @Html.Raw(Model.Country.Internet)
-                </p>
-            }
-             @if (Model.Country.Vaccinations != null)
-            {
-                <h2 class="text-center p-4">Are there any specific vaccinations required before traveling to @Model.Country.Name?</h2>
-                <p>
-                     @Html.Raw(Model.Country.Vaccinations)
-                </p>
-            }
-            
-            @if (Model.Country.MobileOperators != null)
-            {
-                <h2 class="text-center p-4">Mobile operators in @Model.Country.Name </h2>
-                <p>
-                     @Html.Raw(Model.Country.MobileOperators)
-                </p>
-            }
-            
-            @if (Model.Country.EmrgencyNumbers != null)
-            {
-                <h2 class="text-center p-4">Emergency numbers in @Model.Country.Name </h2>
-                <p>
-                     @Html.Raw(Model.Country.EmrgencyNumbers)
-                </p>
-            }
-            <h2 class="text-center p-4">💳 List of @Model.Header.CountryName visa types</h2>
-
-@*        <div class="row row-cols-1 row-cols-lg-4 row-cols-md-3 g-4">*@
-
-            @if (Model.NoVisaEntry != null)
-            {
-                <div class="row mb-2 rounded-booking border shadow-sm bg-info bg-gradient">
-                    <div class="col-md-3 p-3">
-                        <p class="card-title text-white align-middle pb-3 fw-bold">Visa-free entry</p>
-                        @if (Model.NoVisaEntry.IsEVisaAvailable)
-                        {
-                            <p>
-                                <a href="@Model.NoVisaEntry.EVisaUrl" target="_blank" rel="noopener nofollow noreferrer">
-                                    <span class="m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa 👈</span>
-                                </a>
-                            </p>
-                        }
-                    </div>
-                    <div class="col-md-9 p-3">
-                        @if(Model.NoVisaEntry.Duration > 0)
-                        {
-                            <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
-                                🙌 @(Model.HomeCountry.Citizen + " сitizens" ?? "Сitizens of " + Model.HomeCountry.Name) can stay in the @Model.Header.CountryName @Model.NoVisaEntry.Duration days without visa.
-                            </p>
-                        }
-                        <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
-                            ℹ @Model.NoVisaEntry.Description.StripHTML()
+            <div class="col-md-8 text-break">
+                @*@if (Model.Country.Summary != null)
+                {
+                    <div class="pb-4" id="summary">
+                        <h4 class="text-center p-4">Summary</h4>
+                        <p>
+                            @Html.Raw(Model.Country.Summary)
                         </p>
-                    </div>
-                </div>
-            }
+                    </div>                    
+                }*@
 
-            @if(Model.Visas?.Count > 0)
-            {
-                    @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
-            }
-
-            @if(Model.NextCountries?.Count > 0)
-            {
-                <h3>Countries to travel near @Model.Country.Name</h3>
-                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                    @foreach (var c in Model.NextCountries)
+                <div class="mt-3 pb-4 py-3 px-3" id="visas">
+                    <h4 class="text-center p-4">💳 List of @Model.Header.CountryName visa types</h4>
+                    @if (Model.NoVisaEntry != null)
                     {
-                        <div class="col">
-                            <a href="/@c.Name">
-                            @{
-                                var countryImage = @c.Name.ToLower();
-                                var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
-                                if (!System.IO.File.Exists(path2))
+                        <div class="row mb-2 rounded-booking border shadow-sm bg-info bg-gradient">
+                            <div class="col-md-3 p-3">
+                                <p class="card-title text-white align-middle pb-3 fw-bold">Visa-free entry</p>
+                                @if (Model.NoVisaEntry.IsEVisaAvailable)
                                 {
-                                    countryImage = "nocover";
+                                    <p>
+                                        <a href="@Model.NoVisaEntry.EVisaUrl" target="_blank" rel="noopener nofollow noreferrer">
+                                            <span class="m-2 badge rounded-pill bg-warning text-dark">💻 With E-Visa 👈</span>
+                                        </a>
+                                    </p>
                                 }
-                            }
-                            <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
-                                @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
-                                <div class="card-img-overlay">
-                                    <h3 class="card-title shadowed text-center align-middle mt-5 mb-3 lh-1 fw-bold">@c.Name</h3>
-                            
-                                </div>
                             </div>
-                            </a>
+                            <div class="col-md-9 p-3">
+                                @if (Model.NoVisaEntry.Duration > 0)
+                                {
+                                    <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
+                                        🙌 @(Model.HomeCountry.Citizen + " сitizens" ?? "Сitizens of " + Model.HomeCountry.Name) can stay in the @Model.Header.CountryName @Model.NoVisaEntry.Duration days without visa.
+                                    </p>
+                                }
+                                <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
+                                    ℹ @Model.NoVisaEntry.Description.StripHTML()
+                                </p>
+                            </div>
                         </div>
                     }
-                 </div>     
+
+                    @if (Model.Visas?.Count > 0)
+                    {
+                        @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
+                    }
+                </div>                               
+
+                @if (Model.Country.DriverLicense != null)
+                {
+                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3" id="driverLicense">
+                        <h4 class="text-center p-4">🚗 Do tourists need a license to drive a car in @Model.Country.Name?</h4>
+                        <p>
+                            @Html.Raw(Model.Country.DriverLicense)
+                        </p>
+                    </div>
                 }
-            
-            <div class="bg-light rounded-booking">
-                <div>
-                    <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
+
+                @if (Model.Country.DriverRules != null)
+                {
+                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3" id="driverRules">
+                        <h4 class="text-center p-4">🚓 Driver rules in @Model.Country.Name</h4>
+                        <p>
+                            @Html.Raw(Model.Country.DriverRules)
+                        </p>
+                    </div>
+                }
+
+                @if (Model.Country.CurrencyDescription != null)
+                {
+                    <div class="pb-4" id="currencyDescription">
+                        <h4 class="text-center p-4">Currency in @Model.Country.Name</h4>
+                        <p>
+                            @Html.Raw(Model.Country.CurrencyDescription)
+                        </p>
+                    </div>
+                }
+
+                @if (Model.Country.Safety != null)
+                {
+                    <div class="pb-4" id="safety">
+                        <h4 class="text-center p-4">Safety for tourists in @Model.Country.Name</h4>
+                        <p>
+                            @Html.Raw(Model.Country.Safety)
+                        </p>
+                    </div>
+                }
+
+                @if (Model.Country.Vaccinations != null)
+                {
+                    <div class="pb-4" id="vaccinations">
+                        <h4 class="text-center p-4">Are there any specific vaccinations required before traveling to @Model.Country.Name?</h4>
+                        <p>
+                            @Html.Raw(Model.Country.Vaccinations)
+                        </p>
+                    </div>
+                }
+
+                
+                @if (Model.Country.BestSeason != null)
+                {
+                    <div class="pb-4" id="bestSeason">
+                        <h4 class="text-center p-4">Best time to visit @Model.Country.Name</h4>
+                        <p>
+                            @Html.Raw(Model.Country.BestSeason)
+                        </p>
+                    </div>
+                }
+
+                @if (Model.Country.PopularPlaces != null)
+                {
+                    <div class="pb-4" id="popularPlaces">
+                        <h4 class="text-center p-4">The most popular places in @Model.Country.Name</h4>
+                        <p>
+                            @Html.Raw(Model.Country.PopularPlaces)
+                        </p>
+                    </div>
+                }                
+
+                @if (Model.Country.Transport != null)
+                {
+                    <div class="pb-4" id="transport">
+                        <h4 class="text-center p-4">How to travel in @Model.Country.Name</h4>
+                        <p>
+                            @Html.Raw(Model.Country.Transport)
+                        </p>
+                    </div>
+                }
+
+                @if (Model.Country.Etiquette != null)
+                {
+                    <div class="pb-4" id="etiquette">
+                        <h4 class="text-center p-4">What are some cultural etiquette and customs in @Model.Country.Name?</h4>
+                        <p>
+                            @Html.Raw(Model.Country.Etiquette)
+                        </p>
+                    </div>
+                }
+                @if (Model.Country.Internet != null)
+                {
+                    <div class="pb-4" id="internet">
+                        <h4 class="text-center p-4">Internet Quality in @Model.Country.Name?</h4>
+                        <p>
+                            @Html.Raw(Model.Country.Internet)
+                        </p>
+                    </div>
+                }
+
+                @if (Model.Country.MobileOperators != null)
+                {
+                    <div class="pb-4" id="mobileOperators">
+                        <h4 class="text-center p-4">Mobile operators in @Model.Country.Name</h4>
+                        <p>
+                            @Html.Raw(Model.Country.MobileOperators)
+                        </p>
+                    </div>
+                }
+
+                @if (Model.Country.EmrgencyNumbers != null)
+                {
+                    <div class="pb-4" id="emrgencyNumbers">
+                        <h4 class="text-center p-4">Emergency numbers in @Model.Country.Name</h4>
+                        <p>
+                            @Html.Raw(Model.Country.EmrgencyNumbers)
+                        </p>
+                    </div>
+                }
+            </div>
+
+            <div class="col-md-4">
+                <div class="position-sticky" style="top: 2rem;">
+                    @*<div class="p-4 mb-3 bg-light rounded">
+                        <h4 class="fst-italic">Good to know</h4>
+                        <p class="mb-0 text-muted small">123</p>
+                    </div>*@
+
+                    <div class="p-4">
+                        <h4>Navigation</h4>
+                        <ol class="list-unstyled mb-0">
+                            @*@if(Model.Country.Summary != null)
+                            {
+                                <li><a href="#summary">Summary</a></li>
+                            }*@
+                            
+                            <li class="pb-2"><a href="#visas">👉 Visas list</a></li>
+
+                            @if (Model.Country.DriverLicense != null)
+                            {
+                                <li class="pb-2"><a href="#driverLicense">Do tourists need a license to drive a car in @Model.Country.Name?</a></li>
+                            }
+
+                            @if (Model.Country.DriverRules != null)
+                            {
+                                <li class="pb-2"><a href="#driverRules">Driver rules in @Model.Country.Name</a></li>
+                            }
+
+                            @if (Model.Country.CurrencyDescription != null)
+                            {
+                                <li class="pb-2"><a href="#currencyDescription">Currency in @Model.Country.Name</a></li>
+                            }
+
+                            @if (Model.Country.Safety != null)
+                            {
+                                <li class="pb-2"><a href="#safety">Safety for tourists in @Model.Country.Name</a></li>
+                            }
+
+                            @if (Model.Country.Vaccinations != null)
+                            {
+                                <li class="pb-2"><a href="#vaccinations">Are there any specific vaccinations required before traveling to @Model.Country.Name?</a></li>
+                            }
+
+                            @if (Model.Country.BestSeason != null)
+                            {
+                                <li class="pb-2"><a href="#bestSeason">Best time to visit @Model.Country.Name</a></li>
+                            }
+
+                            @if (Model.Country.PopularPlaces != null)
+                            {
+                                <li class="pb-2"><a href="#popularPlaces">The most popular places in @Model.Country.Name</a></li>
+                            }
+
+                            @if (Model.Country.Transport != null)
+                            {
+                                <li class="pb-2"><a href="#transport">How to travel in @Model.Country.Name</a></li>
+                            }
+
+                            @if (Model.Country.Etiquette != null)
+                            {
+                                <li class="pb-2"><a href="#etiquette">What are some cultural etiquette and customs in @Model.Country.Name?</a></li>
+                            }
+
+                            @if (Model.Country.Internet != null)
+                            {
+                                <li class="pb-2"><a href="#internet">Internet Quality in @Model.Country.Name?</a></li>
+                            }                            
+
+                            @if (Model.Country.MobileOperators != null)
+                            {
+                                <li class="pb-2"><a href="#mobileOperators">Mobile operators in @Model.Country.Name</a></li>
+                            }
+
+                            @if (Model.Country.EmrgencyNumbers != null)
+                            {
+                                <li class="pb-2"><a href="#emrgencyNumbers">Emergency numbers in @Model.Country.Name</a></li>
+                            }
+                        </ol>
+                        <div class="bg-light rounded-booking">
+                            <div>
+                                <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
+                            </div>
+                        </div>
+
+                        @if (Model.NextCountries?.Count > 0)
+                        {
+                            <h4>✈ Next countries</h4>
+                            <ol class="list-unstyled mb-0">
+                                @foreach (var c in Model.NextCountries)
+                                {
+                                    <li class="pb-2"><a href="/@c.Name">@c.Name</a></li>
+                                }                                
+                            </ol>                            
+                        }                        
+                        
+                    </div>
                 </div>
             </div>
 
-            @*<div class="col-md-4">
-              <div class="position-sticky" style="top: 2rem;">
-                <div class="p-4 mb-3 bg-light rounded">
-                    <h5 style="color: green">Open to visit</h5>
-                    <div>
-                        <h5 class="pb-2">COVID-19 statistics</h5>
-                            <h6>Infection risk level</h6>
-                            <p>📉 Moderate</p>
-
-                            <h6>New COVID-19 cases in last 14 days</h6>
-                            <p>🦠 43,65</p>
-                            <p class="small text-muted">out of 100,000 people</p>
-                    </div>
-                    <p><a href="#" class="text-decoration-none">🌎 List</a> of All 120 embassies abound the world</p>
-                    <p>✔ Citizens of <a href="#" class="text-decoration-none">140 coutries</a> allowed to visit Germany visa-free</p>
-                    <p>✔ Citizens of Germany allowed to visit <a href="#" class="text-decoration-none">192 countries</a> visa-free</p>
-                </div>
-
-              </div>
-            </div>*@
-        </div>
-        
+        </div>        
     }
 
 

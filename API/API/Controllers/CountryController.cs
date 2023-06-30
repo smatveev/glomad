@@ -74,6 +74,7 @@ namespace API.Controllers
 
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
+            header.Text = model.Country.Summary;
 
             string[] countryIds = model.Country.NextCountries.Split(',');
             int[] intCountryIds = new int[countryIds.Length];
@@ -97,7 +98,7 @@ namespace API.Controllers
                 var days90 = model.Visas.OrderByDescending(m => m.Duration >= 90).ToList();
                 //VisaSearchResult evisa = Model.Visas.Where(m => m.ev)
 
-                header.Text = $"{model.Visas.Count} types of tourist visas for {model.Country.Name} are presented. ";
+                header.Text += $"{model.Visas.Count} types of tourist visas for {model.Country.Name} are presented. ";
 
                 if (topDuration != null)
                     header.Text += $"The longest period of stay is {topDuration.Duration} days. ";
@@ -106,8 +107,8 @@ namespace API.Controllers
                 if (days90.Count >= 2)
                     header.Text += $"Good options for digital nomads on {model.Country.Name} are {string.Join(", ", days90.Select(r => r.VisaName))}. ";
             }
-            else
-                header.Text = $"We are working to prepare updated list of visas of {model.Country.Name}. Stay tuned!";
+            //else
+            //    header.Text = $"We are working to prepare updated list of visas of {model.Country.Name}. Stay tuned!";
 
 
             //            если есть рейтинг
