@@ -43,16 +43,22 @@
         </li>
     </ul>
 
-    <div class="tab-content">
-        <div class="tab-pane fade show active" id="info" itemscope="" itemtype="http://schema.org/GovernmentPermit">
-            @if (Model.EmbassyWithCountry.Embassy.Name != null)
-            {
-                <h2 itemprop="name" class="text-break fw-bold text-center p-4 mb-3">🏢 @Html.Raw(HttpUtility.HtmlDecode(Model.EmbassyWithCountry.Embassy.Name)) - information</h2>
+    <div class="row">
+
+        @{
+            string title;
+            if(Model.EmbassyWithCountry.Embassy.Name != null){
+                title = Html.Raw(HttpUtility.HtmlDecode(Model.EmbassyWithCountry.Embassy.Name)) + "- information";
+            }                
+            else {
+                title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country} in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City} - information").Replace("\n", "<br/>")).ToString();
             }
-            else
-            {
-                <h2 itemprop="name" class="text-break fw-bold text-center p-4 mb-3">🏢 @Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country} in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City} - information").Replace("\n", "<br/>"))</h2>
-            }
+        }
+
+        <h2 itemprop="name" class="text-break fw-bold text-center p-4 mb-3">🏢 @title</h2>
+
+
+        <div class="col-md-6 text-break" id="info" itemscope="" itemtype="http://schema.org/GovernmentPermit">
 
             @if (Model.EmbassyWithCountry.Embassy != null)
             {
@@ -105,6 +111,45 @@
             }
 
         </div>
+
+        <div class="col-md-4">
+            <div id="map" style="height: 400px; width: 400px;"></div>
+        </div>
     </div>
 
 </section>
+
+@section Scripts {
+<script>
+    var map = L.map('map').setView([@Model.EmbassyWithCountry.Embassy.Longitude, @Model.EmbassyWithCountry.Embassy.Latitude], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {        
+    }).addTo(map);
+
+    L.marker([@Model.EmbassyWithCountry.Embassy.Longitude, @Model.EmbassyWithCountry.Embassy.Latitude]).addTo(map)
+        .bindPopup('@title')
+    .openPopup();
+
+
+    //var map = L.map('map').setView([22.2587, 71.1924], 4);
+    //var layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //    attribution: 'Test',
+    //    maxZoom: 18,
+    //    id: 'glomad',
+
+
+    //    accessToken: 'Cw8L165KHmJzubn0V0h7PCDYcvru0eT4uzWKEppz'
+    //}).addTo(map);
+    //$(function () {
+    //    const map = new Map({
+    //        layers: [
+    //        ],
+    //        target: 'map',
+    //        view: new View({
+    //            center: [0, 0],
+    //            zoom: 2,
+    //        }),
+    //    });
+    //}
+</script>
+}
