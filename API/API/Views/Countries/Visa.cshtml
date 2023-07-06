@@ -34,7 +34,38 @@
             <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name digital nomad visa, @Model.Visa.Name</h2>
 
         }
-        else
+        
+        @if (Model.Visa.Type == 0)
+        {
+            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name startup visa, @Model.Visa.Name</h2>
+
+        }
+
+        @if (Model.Visa.Type == 6)
+        {
+            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name business visa, @Model.Visa.Name</h2>
+
+        }
+
+        @if (Model.Visa.Type == 5)
+        {
+            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name invest visa, @Model.Visa.Name</h2>
+
+        }
+
+        @if (Model.Visa.Type == 4)
+        {
+            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name student visa, @Model.Visa.Name</h2>
+
+        }
+
+        @if (Model.Visa.Type == 1)
+        {
+            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name work visa, @Model.Visa.Name</h2>
+
+        }
+        
+        @if (Model.Visa.Type == 2)
         {
             <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
         }
