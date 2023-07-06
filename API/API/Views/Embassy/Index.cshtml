@@ -113,46 +113,26 @@
         </div>
 
         <div class="col-md-4">
-            <div id="map" style="height: 400px; width: 400px;"></div>
+            <div id="map" style="height: 400px; width: 600px;"></div>
         </div>
     </div>
 
 </section>
 
-@if (Model.EmbassyWithCountry.Embassy.Longitude != 0)
-{
+@*@if (Model.EmbassyWithCountry.Embassy.Longitude != 0)
+{*@
     @section Scripts {
 <script>
-    var map = L.map('map').setView([@Model.EmbassyWithCountry.Embassy.Longitude, @Model.EmbassyWithCountry.Embassy.Latitude], 13);
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {        
+    var map = L.map('map').setView([@Model.EmbassyWithCountry.Embassy.Latitude, @Model.EmbassyWithCountry.Embassy.Longitude], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {  
+            maxZoom: 19,
     }).addTo(map);
 
-    L.marker([@Model.EmbassyWithCountry.Embassy.Longitude, @Model.EmbassyWithCountry.Embassy.Latitude]).addTo(map)
+        L.marker([@Model.EmbassyWithCountry.Embassy.Latitude, @Model.EmbassyWithCountry.Embassy.Longitude]).addTo(map)
         .bindPopup('@title')
-    .openPopup();
-
-
-    //var map = L.map('map').setView([22.2587, 71.1924], 4);
-    //var layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //    attribution: 'Test',
-    //    maxZoom: 18,
-    //    id: 'glomad',
-
-
-    //    accessToken: 'Cw8L165KHmJzubn0V0h7PCDYcvru0eT4uzWKEppz'
-    //}).addTo(map);
-    //$(function () {
-    //    const map = new Map({
-    //        layers: [
-    //        ],
-    //        target: 'map',
-    //        view: new View({
-    //            center: [0, 0],
-    //            zoom: 2,
-    //        }),
-    //    });
-    //}
+        .openPopup();
 </script>
 }
-}
+@*}*@
