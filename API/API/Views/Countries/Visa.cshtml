@@ -29,8 +29,17 @@
                 Go back
             </div>
         </a>
+        @if (Model.Visa.Type == 3)
+        {
+            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name digital nomad visa, @Model.Visa.Name</h2>
 
-        <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
+        }
+        else
+        {
+            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
+        }
+               
+        
         <div class="text-center">
             @if (Model.Visa.Duration > 0)
             {
@@ -168,36 +177,36 @@
                         loyR = "r5";
                         loyT = "👋 Perfect";
                     }
-                            <tr>
-                                <td>😎 Simplicity</td>
-                                <td>
-                                    <div class="rating rounded">
-                                        <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
-                                            @simpleT: @simple%
+                                <tr>
+                                    <td>😎 Simplicity</td>
+                                    <td>
+                                        <div class="rating rounded">
+                                            <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
+                                                @simpleT: @simple%
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>🥱 Waiting time</td>
-                                <td>
-                                    <div class="rating rounded">
-                                        <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
-                                            @waitT: @wait%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>🥱 Waiting time</td>
+                                    <td>
+                                        <div class="rating rounded">
+                                            <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
+                                                @waitT: @wait%
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>🤗 Loyalty</td>
-                                <td>
-                                    <div class="rating rounded">
-                                        <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
-                                            @loyT: @loy%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>🤗 Loyalty</td>
+                                    <td>
+                                        <div class="rating rounded">
+                                            <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
+                                                @loyT: @loy%
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                 }
             </tbody>
         </table>
