@@ -12,28 +12,34 @@
 @await Html.PartialAsync("_Menu", Model.header.CountryName)
 
 <section class="container sectionstyle">
-    <h2 class="text-center p-4">❓ FAQ about @Model.header.CountryName</h2>
+    <h2 class="text-center p-4">❓ Frequently Asked Questions (FAQs) for @Model.header.CountryName visa</h2>
 
     <div class="row p-4">
         <div class="accordion" id="accordion">
-            @{                
+            @{
                 int i = 0;
-                
-                foreach (var c in Model.questions)
-                {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="header-@i">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="false" aria-controls="collapse-@i">
-                                @c.Text
-                            </button>
-                        </h2>
-                        <div id="collapse-@i" class="accordion-collapse collapse" aria-labelledby="header-@i" data-bs-parent="#accordion">
-                            <div class="accordion-body">
-                                @Html.Raw(c.Answer)
+
+                if (Model.questions.Count > 0) {
+                    foreach (var c in Model.questions)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="header-@i">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="false" aria-controls="collapse-@i">
+                                    @c.Text
+                                </button>
+                            </h2>
+                            <div id="collapse-@i" class="accordion-collapse collapse" aria-labelledby="header-@i" data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    @Html.Raw(c.Answer)
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    i++;
+                        i++;
+                    }
+                }
+                else
+                {
+                    <h4 class="text-center p-4">We have not completed the @Model.header.CountryName visa questions and answers yet. Please, <a href="#">Subscribe</a> to updates. We'll let you know as soon as the section is ready.</h4>
                 }
             }
         </div>        

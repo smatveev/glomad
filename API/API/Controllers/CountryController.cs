@@ -367,7 +367,7 @@ namespace API.Controllers
                                }).ToList();
 
             HeaderViewModel header = new HeaderViewModel();
-            header.Text = $"There are most popular questions about {countryName}";
+            header.Text = $"Questions & Answers about {countryName} Visa";
             header.CountryName = countryName;
             model.header = header;
 
