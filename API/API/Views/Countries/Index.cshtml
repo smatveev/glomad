@@ -7,7 +7,7 @@
 
 @{
     ViewData["Title"] = $"Types of {Model.Country.Citizen} visas - tourist, nomad and other in {DateTime.Now.Year}."; // Model.Header.CountryName + " Visa Policy";
-    ViewData["MetaDescription"] = $"List of {Model.Country.Citizen} visas types, period of validity, duration of stay, number of entries, and other parameters in {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"The {Model.Visas?.Count} types of visas available in {Model.Header.CountryName}, period of validity, duration of stay, number of entries, and other parameters in {DateTime.Now.Year}.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
 }
 
@@ -36,7 +36,7 @@
                 }*@
 
                 <div class="mt-3 pb-4 py-3 px-3" id="visas">
-                    <h4 class="text-center p-4">💳 List of @Model.Header.CountryName visa types</h4>
+                    <h4 class="text-center p-4">💳 The @Model.Visas?.Count types of visas available in @Model.Header.CountryName are:</h4>
                     @if (Model.NoVisaEntry != null)
                     {
                         <div class="row mb-2 rounded-booking border shadow-sm bg-info bg-gradient">
@@ -68,6 +68,10 @@
                     @if (Model.Visas?.Count > 0)
                     {
                         @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
+                    }
+                    else
+                    {
+                        <h4 class="text-center p-4">The list of @Model.Header.CountryName visas does't ready yet. <a href="#">Subscribe</a>, please, to updates. We'll let you know as soon as the section is ready.</h4>
                     }
                 </div>                               
 
