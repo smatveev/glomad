@@ -15,29 +15,37 @@
 <section class="container sectionstyle">
 
     <h2 class="text-center p-4">🏢 List of @Model.Header.CountryName embassies</h2>
-
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        @foreach (var e in Model.Embassies)
+    
+        @if(Model.Embassies.Count > 0)
         {
-            <div class="col">
-                <a href="/@Model.Header.CountryName/Embassy/@e.Id">
-                    @{
-                        var countryImage = @e.Country.ToLower();
-                        var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
-                        if (!System.IO.File.Exists(path2))
-                        {
-                            countryImage = "nocover";
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var e in Model.Embassies)
+            {
+                <div class="col">
+                    <a href="/@Model.Header.CountryName/Embassy/@e.Id">
+                        @{
+                            var countryImage = @e.Country.ToLower();
+                            var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
+                            if (!System.IO.File.Exists(path2))
+                            {
+                                countryImage = "nocover";
+                            }
                         }
-                    }
-                    <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
-                        @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
-                        <div class="card-img-overlay">
-                            <h3 class="card-title shadowed text-center align-middle mt-5 mb-3 lh-1 fw-bold">@e.Country</h3>
-                            <h5 class="card-title shadowed text-center align-middle lh-1 fw-bold">@e.City</h5>
+                        <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
+                            @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
+                            <div class="card-img-overlay">
+                                <h3 class="card-title shadowed text-center align-middle mt-5 mb-3 lh-1 fw-bold">@e.Country</h3>
+                                <h5 class="card-title shadowed text-center align-middle lh-1 fw-bold">@e.City</h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+            }
             </div>
         }
-    </div>
+        else
+        {
+            <h4 class="text-center p-4">The list of @Model.Header.CountryName embassies does not ready yet. <a href="#">Subscribe</a>, please, to updates. We'll let you know as soon as the section is ready.</h4>
+        }
+    
 </section>
