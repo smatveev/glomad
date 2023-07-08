@@ -39,7 +39,10 @@
                 }
                 else
                 {
-                    <h4 class="text-center p-4">We have not completed the @Model.header.CountryName visa questions and answers yet. Please, <a href="#">Subscribe</a> to updates. We'll let you know as soon as the section is ready.</h4>
+                    <h4 class="text-center p-4">We have not completed the @Model.header.CountryName visa questions and answers yet. Please,
+                        @await Component.InvokeAsync("SubscribeUpdates")
+                        to updates. We'll let you know as soon as the section is ready.
+                    </h4>
                 }
             }
         </div>        

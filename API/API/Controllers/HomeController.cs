@@ -390,6 +390,29 @@ namespace API.Controllers
             return Ok();
         }
 
+        [Route("SubscribeUpdates")]
+        [HttpPost]
+        public IActionResult SubscribeUpdates([FromBody] SubscribeUpdates subscribeUpdates)
+        {
+            try
+            {
+                SubscribeUpdates subscribe = new()
+                {
+                    Name = subscribeUpdates.Name,
+                    Email = subscribeUpdates.Email,
+                    Link = subscribeUpdates.Link
+                };
+
+                Helpers.EmailSender.SendSubscribeUpdates(subscribe);
+            }
+            catch (Exception e)
+            {
+                return Error();
+            }
+
+            return Ok();
+        }
+
         [Route("ShareExperience")]
         [HttpPost]
         public IActionResult ShareExperience([FromBody] ShareExperience exp)

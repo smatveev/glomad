@@ -57,6 +57,13 @@ namespace API.Models
         public string Link { get; set; }
     }
 
+    public class SubscribeUpdates
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Link { get; set; }
+    }
+
     public class ReportVisa
     {
         public string Text { get; set; }

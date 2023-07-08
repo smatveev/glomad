@@ -1,0 +1,30 @@
+﻿<a href="#" data-bs-toggle="modal" data-bs-target="#SubscribeForm" role="button">Subscribe</a>
+
+
+<div id="SubscribeForm" tabindex="-1" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Subscribe our updates</h5>
+            </div>
+            <div class="modal-body">
+                <form asp-action="SubscribeUpdates">
+
+                    <div class="mb-2">
+                        <input type="text" id="Username" class="form-control" placeholder="Your name (optional)" />
+                    </div>
+
+                    <div class="mb-2">
+                        <input type="email" id="Email" class="form-control" placeholder="E-mail" />
+                    </div>
+                    
+                </form>
+                <span class="lead fw-5" id="status"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="SubscribeUpdatesSubmit()">Subscribe</button>
+            </div>
+        </div>
+    </div>
+</div>

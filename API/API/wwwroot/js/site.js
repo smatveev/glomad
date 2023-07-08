@@ -291,6 +291,37 @@ function ImprovePageSubmit() {
     });
 }
 
+function SubscribeUpdatesSubmit() {
+    //Set the URL.
+    var url = $("#SubscribeForm").attr("action");
+
+    var data = new Object();
+    data.name = $('#SubscribeForm #Username').val();
+    data.email = $('#SubscribeForm #Email').val();
+    data.link = window.location.href;
+
+    $.ajax({
+        type: 'POST',
+        url: "/SubscribeUpdates",
+        data: JSON.stringify(data),
+        dataType: 'html',
+        contentType: "application/json",
+        success: function () {
+            console.log("success", arguments);
+            $("#SubscribeForm #status").text("Subscribed! Thank you 👌")
+        },
+        error: function () {
+            console.log("error", arguments);
+            $("#SubscribeForm #status").text("😣 Something went wrong. Please try again.")
+        },
+        complete: function () {
+            console.log("complete", arguments);
+        }
+    }).done(function () {
+        console.log("done", arguments);
+    });
+}
+
 function ShareExpSubmit() {
     var data = new Object();
     data.email = $('#ShareExpForm #Email').val();

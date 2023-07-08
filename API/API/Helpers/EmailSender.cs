@@ -96,6 +96,34 @@ namespace API.Helpers
             smtpClient.Send(mailMessage);
         }
 
+        public static void SendSubscribeUpdates(SubscribeUpdates subscribeUpdates)
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            var config = builder.Build();
+
+            var smtpClient = new SmtpClient(config["Smtp:Host"])
+            {
+                Port = int.Parse(config["Smtp:Port"]),
+                Credentials = new NetworkCredential(config["Smtp:Username"], config["Smtp:Password"]),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("matv33v@gmail.com"),
+                Subject = "Glomad.net: Subscribe Updates. Email: " + subscribeUpdates.Email,
+                Body = string.Format("<h3>Subscribe updates details</h3>" +
+                    "<p>User name: {0}</p>" +
+                    "<p>Email: {1}</p>" +
+                    "<p>Link: {2}</p>",
+                    subscribeUpdates.Name, subscribeUpdates.Email, subscribeUpdates.Link),
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");
+
+            smtpClient.Send(mailMessage);
+        }
+
         public static void SendShareExperience(ShareExperience exp)
         {
             var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");

@@ -45,7 +45,9 @@
         }
         else
         {
-            <h4 class="text-center p-4">The list of @Model.Header.CountryName embassies does not ready yet. <a href="#">Subscribe</a>, please, to updates. We'll let you know as soon as the section is ready.</h4>
+        <h4 class="text-center p-4">The list of @Model.Header.CountryName embassies does not ready yet.
+            @await Component.InvokeAsync("SubscribeUpdates")
+            , please, to updates. We'll let you know as soon as the section is ready.</h4>
         }
     
 </section>
