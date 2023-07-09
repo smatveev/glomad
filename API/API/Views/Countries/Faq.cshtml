@@ -12,40 +12,72 @@
 @await Html.PartialAsync("_Menu", Model.header.CountryName)
 
 <section class="container sectionstyle">
-    <h2 class="text-center p-4">❓ Frequently Asked Questions (FAQs) for @Model.header.CountryName visa</h2>
+    
 
     <div class="row p-4">
-        <div class="accordion" id="accordion">
-            @{
-                int i = 0;
+        <div class="row">
+            <div class="col-md-8 text-break">
+                <h2 class="text-center p-4">❓ Frequently Asked Questions (FAQs) for @Model.header.CountryName visa</h2>
+                <div class="accordion" id="accordion">
+                    @{
+                        int i = 0;
 
-                if (Model.questions.Count > 0) {
-                    foreach (var c in Model.questions)
-                    {
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="header-@i">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="false" aria-controls="collapse-@i">
-                                    @c.Text
-                                </button>
-                            </h2>
-                            <div id="collapse-@i" class="accordion-collapse collapse" aria-labelledby="header-@i" data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    @Html.Raw(c.Answer)
+                        if (Model.questions.Count > 0)
+                        {
+                            foreach (var c in Model.questions)
+                            {
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="header-@i">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="false" aria-controls="collapse-@i">
+                                            @c.Text
+                                        </button>
+                                    </h2>
+                                    <div id="collapse-@i" class="accordion-collapse collapse" aria-labelledby="header-@i" data-bs-parent="#accordion">
+                                        <div class="accordion-body">
+                                            @Html.Raw(c.Answer)
+                                        </div>
+                                    </div>
                                 </div>
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            <h4 class="text-center p-4">
+                                We have not completed the @Model.header.CountryName visa questions and answers yet. Please,
+                                @await Component.InvokeAsync("SubscribeUpdates")
+                                to updates. We'll let you know as soon as the section is ready.
+                            </h4>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="position-sticky" style="top: 2rem;">
+                    <div class="p-4">
+                        <div class="bg-light rounded-booking mb-3 mt-1">
+                            <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
+                                <div class="card bg-dark text-white border-0 card-cover" style="background-image: url('../safetywind_300.jpg');">
+                                    <div class="card-img-overlay text-center">
+                                        <h3 class="card-title shadowed mt-5 lh-1 fw-bold">Global travel medical insurance</h3>
+                                        <p class="m-1 badge rounded-pill bg-info text-dark">for $1.5/day!</p>
+                                        <p class="m-1 badge rounded-pill bg-warning text-dark">Covid-19 coverage</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="bg-light rounded-booking">
+                            <div>
+                                <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.CountryCapitalCode" charset="utf-8"></script>
                             </div>
                         </div>
-                        i++;
-                    }
-                }
-                else
-                {
-                    <h4 class="text-center p-4">We have not completed the @Model.header.CountryName visa questions and answers yet. Please,
-                        @await Component.InvokeAsync("SubscribeUpdates")
-                        to updates. We'll let you know as soon as the section is ready.
-                    </h4>
-                }
-            }
-        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>
+              
     </div>
 
 </section>

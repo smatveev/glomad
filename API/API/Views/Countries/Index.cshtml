@@ -2,12 +2,13 @@
 
 @using Microsoft.AspNetCore;
 @using API.Helpers;
+@using System.Globalization;
 
 @model IndexPage
 
 @{
-    ViewData["Title"] = $"{Model.Header.CountryName} visa types: Visa requirements, check lists of documents, {Model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM")} of {DateTime.Now.Year}";
-    ViewData["MetaDescription"] = $"The list of visa types for {Model.Header.CountryName}. {Model.Header.CountryName} tourist, business, work, student, invest visas. Validity, duration of stay, number of entries, and other parameters in {DateTime.Now.ToString("MMMM")} of {DateTime.Now.Year} for {Model.Country.Citizen} visit visas.";
+    ViewData["Title"] = $"{Model.Header.CountryName} visa types: Visa requirements, check lists of documents, {Model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
+    ViewData["MetaDescription"] = $"The list of visa types for {Model.Header.CountryName}. {Model.Header.CountryName} tourist, business, work, student, invest visas. Validity, duration of stay, number of entries, and other parameters in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year} for {Model.Country.Citizen} visit visas.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
 }
 
@@ -275,6 +276,19 @@
                                 <li class="pb-2"><a href="#emrgencyNumbers">Emergency numbers in @Model.Country.Name</a></li>
                             }
                         </ol>
+
+                        <div class="bg-light rounded-booking mb-3 mt-1">
+                            <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
+                                <div class="card bg-dark text-white border-0 card-cover" style="background-image: url('../safetywind_300.jpg');">
+                                    <div class="card-img-overlay text-center">
+                                        <h3 class="card-title shadowed mt-5 lh-1 fw-bold">Global travel medical insurance</h3>
+                                        <p class="m-1 badge rounded-pill bg-info text-dark">for $1.5/day!</p>
+                                        <p class="m-1 badge rounded-pill bg-warning text-dark">Covid-19 coverage</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
                         <div class="bg-light rounded-booking">
                             <div>
                                 <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>

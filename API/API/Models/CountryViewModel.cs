@@ -86,5 +86,6 @@ namespace API.Models
     {
         public List<CountryQuestion> questions { get; set; }
         public HeaderViewModel header { get; set; }
+        public string CountryCapitalCode { get; set; }
     }
 }

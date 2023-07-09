@@ -357,6 +357,8 @@ namespace API.Controllers
 
             string citizen = Country.Citizen;
 
+            model.CountryCapitalCode = Country.CapitalCode;
+
             model.questions = (from cc in _context.CountryQuestion
                                where cc.Country.Id == Country.Id
                                select new CountryQuestion
