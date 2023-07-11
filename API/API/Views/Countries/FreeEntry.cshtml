@@ -1,10 +1,11 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+﻿@using System.Globalization;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @model FreeEntry
 
 @{
-    ViewData["Title"] = $"Free entry with passport of {Model.header.CountryName}";
-    ViewData["MetaDescription"] = $"List of countries where you can free entry with passort of {Model.header.CountryName}";
+    ViewData["Title"] = $"{Model.countries.Count} Visa Free Countries for {Model.header.CountryName} Passport Holders in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"{Model.countries.Count} countries citizens of {Model.header.CountryName} may visit without visa {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.header.CountryName}/FreeEntry";
 }
 
@@ -13,7 +14,7 @@
 
 <section class="container sectionstyle">
 
-    <h2 class="text-center p-4">🛂 Free entry with passport of @Model.header.CountryName</h2>
+    <h2 class="text-center p-4">👋 The list of visa free countries for passport holders of @Model.header.CountryName</h2>
 
     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 
