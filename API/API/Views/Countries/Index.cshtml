@@ -41,7 +41,6 @@
                     @if (Model.Visas?.Count > 0)
                     {
                         <h4 class="text-center p-4">💳 The @Model.Visas?.Count types of visas available in @Model.Header.CountryName are:</h4>
-                        @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
                     }
                     else
                     {
@@ -75,7 +74,11 @@
                                 </p>
                             </div>
                         </div>
-                    }                    
+                    }
+                    @if (Model.Visas?.Count > 0)
+                    {
+                        @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
+                    }
                 </div>                               
 
                 @if (Model.Country.DriverLicense != null)
