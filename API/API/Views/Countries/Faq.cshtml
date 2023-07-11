@@ -1,10 +1,11 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+﻿@using System.Globalization;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @model FaqPage;
 
 @{
-    ViewData["Title"] = $"FAQ about {Model.header.CountryName}";
-    ViewData["MetaDescription"] = $"List of FAQ about {Model.header.CountryName}. Last update {ViewBag.LastUpdates}";
+    ViewData["Title"] = $"FAQs for {Model.header.CountryName} visa in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"The most popular Questions & Answers about {Model.header.CountryName} Visa. How to apply for a {Model.header.CountryName} visa? How long does it normally take to process an application for visa of {Model.header.CountryName}? Visa fees. What types of visas are available in {Model.header.CountryName}? Is there a visa for digital nomads in {Model.header.CountryName}? {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.header.CountryName}/FAQ";
 }
 
