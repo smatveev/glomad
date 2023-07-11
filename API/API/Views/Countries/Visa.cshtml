@@ -3,12 +3,40 @@
 @using API.Helpers
 @using Humanizer
 @using Microsoft.AspNetCore.Http
+@using System.Globalization;
 
 @model VisaPage
 
 @{
-    ViewData["Title"] = $"{Model.Visa.Name} of {Model.Visa.Country.Name}";
-    ViewData["MetaDescription"] = $"And about";
+    string visaType;
+    switch (Model.Visa.Type)
+    {
+        case 3:
+            visaType = "digital nomad visa";
+            break;
+        case 0:
+            visaType = "startup visa";
+            break;
+        case 6:
+            visaType = "business visa";
+            break;
+        case 5:
+            visaType = "invest visa";
+            break;
+        case 4:
+            visaType = "student visa";
+            break;
+        case 1:
+            visaType = "work visa";
+            break;
+        default:
+            visaType = "visa of";
+            break;
+    }
+
+
+    ViewData["Title"] = $"{Model.Visa.Country.Name} {visaType} {Model.Visa.Name}: {visaType} {Model.Visa.Name} visa requirements, check list of documents, application form in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"{Model.Visa.Country.Name} {visaType} {Model.Visa.Name} visa requirements, check list of documents, application form in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}. For {visaType} {Model.Visa.Name} visa, the permitted duration of stay is up to {Model.Visa.Duration} days from the date of arrival in {Model.Visa.Country.Name}. {(Model.Visa.IsExtendable ? "Visa can be extended for an additional days." : "")} {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Visa.Country.Name}/Visa/{Model.Visa.Id}";
 
     var header = new HeaderViewModel()
@@ -29,47 +57,8 @@
                 Go back
             </div>
         </a>
-        @if (Model.Visa.Type == 3)
-        {
-            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name digital nomad visa, @Model.Visa.Name</h2>
 
-        }
-        
-        @if (Model.Visa.Type == 0)
-        {
-            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name startup visa, @Model.Visa.Name</h2>
-
-        }
-
-        @if (Model.Visa.Type == 6)
-        {
-            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name business visa, @Model.Visa.Name</h2>
-
-        }
-
-        @if (Model.Visa.Type == 5)
-        {
-            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name invest visa, @Model.Visa.Name</h2>
-
-        }
-
-        @if (Model.Visa.Type == 4)
-        {
-            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name student visa, @Model.Visa.Name</h2>
-
-        }
-
-        @if (Model.Visa.Type == 1)
-        {
-            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name work visa, @Model.Visa.Name</h2>
-
-        }
-        
-        @if (Model.Visa.Type == 2)
-        {
-            <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name visa of @Model.Visa.Country.Name</h2>
-        }
-               
+        <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name @visaType, @Model.Visa.Name</h2>               
         
         <div class="text-center">
             @if (Model.Visa.Duration > 0)
