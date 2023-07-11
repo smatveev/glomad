@@ -1,10 +1,11 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+﻿@using System.Globalization;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @model FreeEntry;
 
 @{
-    ViewData["Title"] = $"No Entry visa to {Model.header.CountryName}";
-    ViewData["MetaDescription"] = $"List of countries with visa - free (no entry) travel to {Model.header.CountryName}. Last update {ViewBag.LastUpdates}";
+    ViewData["Title"] = $"Passport holders of the following countries may enter {Model.header.CountryName} without a visa in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"Passport holders of the following countries may enter {Model.header.CountryName} without a visa in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.header.CountryName}/NoVisaEntry";
 }
 
@@ -12,7 +13,7 @@
 @await Html.PartialAsync("_Menu", Model.header.CountryName)
 
 <section class="container sectionstyle">
-    <h2 class="text-center p-4">🖐 Visa-free entry to @Model.header.CountryName</h2>
+    <h2 class="text-center p-4">🖐 Passport holders of the following countries may enter @Model.header.CountryName without a visa or with E-visa.</h2>
 
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="cb_novisaentry" value="novisaentry" checked>
