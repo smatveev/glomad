@@ -1,11 +1,12 @@
 ﻿@using System.Web
+@using System.Globalization;
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @model EmbassyViewModel
 
 @{
-    ViewData["Title"] = $"{Model.Country} embassy in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City}";
-    ViewData["MetaDescription"] = $"Checklist tourist visa to {Model.Country}. Working hours and processing time of {Model.Country} embassy in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City}. Visa fees and visa duration.";
+    ViewData["Title"] = $"{(Model.EmbassyWithCountry.Embassy.Name == null ? $"Embassy of {Model.Country} in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}." : $"{Model.EmbassyWithCountry.Embassy.Name}, in {Model.EmbassyWithCountry.City} in in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.")}";
+    ViewData["MetaDescription"] = $"{(Model.EmbassyWithCountry.Embassy.Name == null ? $"Embassy of {Model.Country} in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}. Actual address, phone, emails, opening hours." : $"{Model.EmbassyWithCountry.Embassy.Name}, in {Model.EmbassyWithCountry.City} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}. Actual address, phone, emails, opening hours.")}";
 
     string bgimage = Model.Country + ".jpg";
     var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);
@@ -48,10 +49,10 @@
         @{
             string title;
             if(Model.EmbassyWithCountry.Embassy.Name != null){
-                title = Html.Raw(HttpUtility.HtmlDecode(Model.EmbassyWithCountry.Embassy.Name)) + "- information";
+                title = Html.Raw(HttpUtility.HtmlDecode(Model.EmbassyWithCountry.Embassy.Name)) + " in " + Model.EmbassyWithCountry.City;
             }                
             else {
-                title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country} in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City} - information").Replace("\n", "<br/>")).ToString();
+                title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country} in {Model.EmbassyWithCountry.Country}, {Model.EmbassyWithCountry.City}").Replace("\n", "<br/>")).ToString();
             }
         }
 
