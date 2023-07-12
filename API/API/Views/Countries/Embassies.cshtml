@@ -1,10 +1,11 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+﻿@using System.Globalization;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @model EmbassiesPage
 
 @{
-    ViewData["Title"] = String.IsNullOrEmpty(Model.Country.Citizen) ? $"List of Embassies and Consulates of {Model.Country.Name} around the world in {DateTime.Now.Year}." : $"List of {Model.Country.Citizen} Embassies and Consulates around the world in {DateTime.Now.Year}.";
-    ViewData["MetaDescription"] = $"{Model.Country.Name} embassies and consulates in different countries in {DateTime.Now.Year}. Find the needed embassy of {Model.Country.Name} and its information. Addresses, telephone numbers, email addresses, websites, opening hours.";
+    ViewData["Title"] = String.IsNullOrEmpty(Model.Country.Citizen) ? $"List of Embassies and Consulates of {Model.Country.Name} around the world in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}." : $"List of {Model.Country.Citizen} Embassies and Consulates around the world in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"Embassies and consulates of {Model.Country.Name} in different countries in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}. Find the needed embassy of {Model.Country.Name} and its information. Addresses, telephone numbers, email addresses, websites, opening hours.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Embassies";
 }
 
@@ -14,7 +15,7 @@
 
 <section class="container sectionstyle">
 
-    <h2 class="text-center p-4">🏢 List of @Model.Header.CountryName embassies</h2>
+    <h2 class="text-center p-4">🏢 List of @Model.Header.CountryName Embassies and Consulates</h2>
     
         @if(Model.Embassies.Count > 0)
         {
