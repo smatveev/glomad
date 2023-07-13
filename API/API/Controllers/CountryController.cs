@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -65,6 +67,8 @@ namespace API.Controllers
                 v.Reviews = _context.Review.Where(r => r.Visa.Id == v.Id).ToList();
             }
 
+            DateTime lastVisaUpdate = model.Visas.Max(u => u.UpdateDate);            
+
 
             string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
             model.HomeCountry = _context.Country.Where(c => c.Name.ToLower() == myCountry.ToLower()).FirstOrDefault(); // _context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault();
@@ -76,6 +80,10 @@ namespace API.Controllers
             header.CountryName = country.FirstCharToUpper();
             header.Text = model.Country.Summary;
 
+            header.LastModifiedHeader = (DateTime)(model.Country.UpdateDate.HasValue ? (model.Country.UpdateDate > lastVisaUpdate ?
+                model.Country.UpdateDate : lastVisaUpdate) : lastVisaUpdate);
+            Response.Headers.Add("Last-Modified", value: header.LastModifiedHeader.ToUniversalTime().ToString("R"));
+            
             string[] countryIds = model.Country.NextCountries.Split(',');
             int[] intCountryIds = new int[countryIds.Length];
 

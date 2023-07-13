@@ -11,5 +11,6 @@ namespace API.Models
         public string CountryName { get; set; }
         public string VisaName { get; set; }
         public string LastUpdate { get; set; }
+        public DateTime LastModifiedHeader { get; set; }
     }
 }
