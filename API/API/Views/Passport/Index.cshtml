@@ -1,0 +1,26 @@
+﻿@using System.Globalization;
+@model PassportViewModel
+
+@{
+    ViewData["Title"] = $"Passport of {Model.Country.Name} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"Passport of {Model.Country.Name} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["Canonical"] = $"https://glomad.net/Passport/{Model.Country.Name}";
+}
+
+@await Html.PartialAsync("_Header", Model.Header)
+
+<section class="container sectionstyle">
+
+
+    <div class="row p-4">
+        <div class="row">
+            <h1>Passport of @Model.Country.Name</h1>
+
+            <h2>
+                There are @Model.NoVisaCountries.Count countries not required visa for citizent of @Model.Country.Name
+            </h2>
+        </div>
+    </div>
+</section>
+
+
