@@ -41,6 +41,10 @@
                     @if (Model.Visas?.Count > 0)
                     {
                         <h4 class="text-center p-4">💳 The @Model.Visas?.Count types of visas available in @Model.Header.CountryName are:</h4>
+                        <h4 class="text-center p-4">
+                            Please,@await Component.InvokeAsync("SubscribeUpdates")
+                            to updates. We'll let you know as soon as the visa list section is updated.
+                        </h4>
                     }
                     else
                     {

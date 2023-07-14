@@ -25,6 +25,10 @@
 
                         if (Model.questions.Count > 0)
                         {
+                            <h4 class="text-center p-4">
+                                Please,@await Component.InvokeAsync("SubscribeUpdates")
+                                to updates. We'll let you know as soon as the Frequently Asked Questions section is updated.
+                            </h4>
                             foreach (var c in Model.questions)
                             {
                                 <div class="accordion-item">
