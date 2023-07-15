@@ -268,19 +268,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Write an anonymous review about your experience with Thailand. How is it? What should people know about?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Write an anonymous review about your experience. How is it? What should people know about?</h5>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="row form-floating mb-3">
                         <div class="col-6">
-                            <select id="embassy" class="form-select">
-                                <option value="" disabled>Choose embassy...</option>
+                            <select id="embassy" class="form-select" >
+                                <option value="-1" enabled>Choose embassy...</option>
                                 @foreach (var e in Model.Embassies)
                                 {
                                     <option value="@e.Id">@e.Country, @e.City</option>
                                 }
-                                <option value="-1">Other embassy</option>
+                                @*<option value="-1">Other embassy</option>*@
                             </select>
                         </div>
                         <div class="col-6">
@@ -460,6 +460,15 @@
                     $("#addReview #status").text("😥 Something went wrong. Pleace check the fields and try again")
                 });
         }
+
+        document.getElementById("embassy").onchange = function () { loadVisas() };
+
+        function loadVisas() {
+            var x = document.getElementById("embassy");
+            x.value = x.value.toUpperCase();
+            console.log(x.value)
+        }
+
 
     </script>
 }
