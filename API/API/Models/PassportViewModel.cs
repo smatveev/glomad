@@ -6,7 +6,7 @@ namespace API.Models
     public class PassportViewModel
     {
         public Country Country { get; set; }
-        public List<NoVisaEntry> NoVisaCountries { get; set; }
+        public List<CountryFreeEntry> CountryFreeEntry { get; set; }
         public HeaderViewModel Header { get; set; }
     }
 }

@@ -14,11 +14,19 @@
 
     <div class="row p-4">
         <div class="row">
-            <h1>Passport of @Model.Country.Name</h1>
-
             <h2>
-                There are @Model.NoVisaCountries.Count countries not required visa for citizent of @Model.Country.Name
+                There are @Model.CountryFreeEntry.Count countries not required visa for 
+                holders of passport of @Model.Country.Name:
             </h2>
+
+            <ul class="list-unstyled text-small card-columns pt-4">
+                @foreach (var e in Model.CountryFreeEntry)
+                {
+                    <li class="mb-1">
+                        <a href="/@e.Name">@e.Name</a>
+                    </li>
+                }
+            </ul>
         </div>
     </div>
 </section>

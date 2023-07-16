@@ -29,8 +29,20 @@ namespace API.Controllers
             PassportViewModel model = new PassportViewModel();
             model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
 
-            model.NoVisaCountries = _context.NoVisaEntry
-                .Where(i => i.CountryPassport.Id == model.Country.Id).ToList();
+            model.CountryFreeEntry = (from ne in _context.NoVisaEntry
+                               join co in _context.Country on ne.CountryPassport.Id equals co.Id
+                               where co.Name == country && (!ne.IsVisaRequired || ne.IsEVisaAvailable)
+                               select new CountryFreeEntry
+                               {
+                                   Details = ne.Description,
+                                   Id = co.Id,
+                                   Iata = ne.CountryDestination.ISOalpha3 != null ? ne.CountryDestination.ISOalpha3 : "No data",
+                                   Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data",
+                                   EVisaAvailable = ne.IsEVisaAvailable,
+                                   IsVisaRequired = ne.IsVisaRequired,
+                                   Duration = ne.Duration,
+                                   EVisaUrl = ne.EVisaUrl
+                               }).OrderBy(d => d.Name).ToList();
 
             HeaderViewModel header = new HeaderViewModel();
             header.Text = $"Detail information for cizitens of {countryName}";

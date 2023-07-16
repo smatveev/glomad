@@ -549,3 +549,7 @@ select {
     overflow-y: hidden;
     overflow-x: auto;
 }
+
+.card-columns {
+    column-count: 3;
+}
