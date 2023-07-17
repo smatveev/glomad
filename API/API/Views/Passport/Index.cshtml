@@ -23,7 +23,12 @@
                 @foreach (var e in Model.CountryFreeEntry)
                 {
                     <li class="mb-1">
+                        <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon-squared"></span>
                         <a href="/@e.Name">@e.Name</a>
+                        @if (e.EVisaAvailable)
+                        {
+                            <span>⚠ E-Visa</span>
+                        }
                     </li>
                 }
             </ul>

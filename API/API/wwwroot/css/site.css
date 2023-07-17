@@ -550,6 +550,15 @@ select {
     overflow-x: auto;
 }
 
-.card-columns {
-    column-count: 3;
+
+@media only screen and (max-width: 480px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+
+@media only screen and (min-width: 480px) {
+    .card-columns {
+        column-count: 3;
+    }
 }
