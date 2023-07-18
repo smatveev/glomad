@@ -175,6 +175,8 @@
                 @*@await Component.InvokeAsync("NoVisaCountries")*@
             </div>
 
+            @await Html.PartialAsync("_SubscribeUpdates")
+
             <div class="mb-3 bg-white" id="bookingW">
                     <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@ViewBag.MyCountry" charset="utf-8"></script>
                 @*<script src="https://tp.media/content?currency=usd&promo_id=4041&shmarker=14510&campaign_id=100&trs=21653&searchUrl=search.jetradar.com&locale=en_us&powered_by=false&one_way=true&only_direct=false&period=year&range=7%2C21&primary=%230C73FE&color_background=%23ffffff&achieve=%2345AD35&dark=%23000000&light=%23FFFFFF&origin=@ViewBag.MyCountry" charset="utf-8"></script>*@
