@@ -2,8 +2,8 @@
 @model PassportViewModel
 
 @{
-    ViewData["Title"] = $"Passport of {Model.Country.Name} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
-    ViewData["MetaDescription"] = $"Passport of {Model.Country.Name} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["Title"] = $"Visa requirements for {Model.Country.Name} citizens, visa free countries list in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"Passport holders of {Model.Country.Name} can visit {Model.CountryFreeEntry.Count} visa free countries. {Model.Country.Name} citezens can apply visa online for {Model.CountryEvisa.Count} countries. Visa requirements for {Model.Country.Name} citizens in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["Canonical"] = $"https://glomad.net/Passport/{Model.Country.Name}";
 }
 
