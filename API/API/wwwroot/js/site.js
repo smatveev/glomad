@@ -292,9 +292,6 @@ function ImprovePageSubmit() {
 }
 
 function SubscribeUpdatesSubmit() {
-    //Set the URL.
-    var url = $("#SubscribeForm").attr("action");
-
     var data = new Object();
     data.name = $('#SubscribeForm #Username').val();
     data.email = $('#SubscribeForm #Email').val();
@@ -348,4 +345,13 @@ function ShareExpSubmit() {
     }).done(function () {
         console.log("done", arguments);
     });
+}
+
+function FocusSubscribeForm() {
+    var inputEmail = document.getElementById("Email");
+
+    //$('#Email').tooltip('show');
+    //setTimeout(function () { $('#Email').tooltip('hide'); }, 3000);
+    
+    inputEmail.focus();
 }

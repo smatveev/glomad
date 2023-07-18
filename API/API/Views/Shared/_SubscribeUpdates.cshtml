@@ -1,0 +1,17 @@
+﻿<form class="p-2 mb-3 border rounded-3 bg-light" id="SubscribeForm">
+
+    <div class="row mb-2">
+
+        <div class="col-12 mb-2">
+            <input type="email" id="Email" class="form-control" placeholder="Email" 
+            data-bs-toggle="tooltip" data-bs-placement="bottom" title="👆 Your email" />
+        </div>
+        <div class="col-12">
+            <input type="text" id="Username" class="form-control" placeholder="Your name (optional)" />
+        </div>
+    </div>
+
+    <input class="w-100 btn btn-lg btn-primary" type="button" onclick="SubscribeUpdatesSubmit()" value="Subscribe for updates ⚡" />
+
+    <span id="status" class="lead fw-5"></span>
+</form>

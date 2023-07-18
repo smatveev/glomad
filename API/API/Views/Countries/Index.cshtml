@@ -41,17 +41,8 @@
                     @if (Model.Visas?.Count > 0)
                     {
                         <h4 class="text-center p-4">💳 The @Model.Visas?.Count types of visas available in @Model.Header.CountryName are:</h4>
-                        <h4 class="text-center p-4">
-                            Please,@await Component.InvokeAsync("SubscribeUpdates")
-                            to updates. We'll let you know as soon as the visa list section is updated.
-                        </h4>
                     }
-                    else
-                    {
-                        <h4 class="text-center p-4">The list of @Model.Header.CountryName visas does't ready yet. 
-                            @await Component.InvokeAsync("SubscribeUpdates")
-                            , please, to updates. We'll let you know as soon as the section is ready.</h4>
-                    }
+
                     @if (Model.NoVisaEntry != null)
                     {
                         <div class="row mb-2 rounded-booking border shadow-sm bg-info bg-gradient">
@@ -78,6 +69,13 @@
                                 </p>
                             </div>
                         </div>
+                    }
+
+                    @if(Model.Visas?.Count == 0)
+                    {
+                        <h4 class="text-center p-4">The list of @Model.Header.CountryName visas does't ready yet. 
+                            @await Component.InvokeAsync("SubscribeUpdates")
+                            , please, to updates. We'll let you know as soon as the section is ready.</h4>
                     }
                     @if (Model.Visas?.Count > 0)
                     {
@@ -206,114 +204,116 @@
                 }
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 p-4">
                 <div class="position-sticky" style="top: 2rem;">
                     @*<div class="p-4 mb-3 bg-light rounded">
                         <h4 class="fst-italic">Good to know</h4>
                         <p class="mb-0 text-muted small">123</p>
                     </div>*@
 
-                    <div class="p-4">
-                        <h4>Navigation</h4>
-                        <ol class="list-unstyled mb-0">
-                            @*@if(Model.Country.Summary != null)
-                            {
-                                <li><a href="#summary">Summary</a></li>
-                            }*@
-                            
-                            <li class="pb-2"><a href="#visas">👉 Visas list</a></li>
 
-                            @if (Model.Country.DriverLicense != null)
-                            {
-                                <li class="pb-2"><a href="#driverLicense">Do tourists need a license to drive a car in @Model.Country.Name?</a></li>
-                            }
 
-                            @if (Model.Country.DriverRules != null)
-                            {
-                                <li class="pb-2"><a href="#driverRules">Driver rules in @Model.Country.Name</a></li>
-                            }
+                    @await Html.PartialAsync("_SubscribeUpdates")
 
-                            @if (Model.Country.CurrencyDescription != null)
-                            {
-                                <li class="pb-2"><a href="#currencyDescription">Currency in @Model.Country.Name</a></li>
-                            }
-
-                            @if (Model.Country.Safety != null)
-                            {
-                                <li class="pb-2"><a href="#safety">Safety for tourists in @Model.Country.Name</a></li>
-                            }
-
-                            @if (Model.Country.Vaccinations != null)
-                            {
-                                <li class="pb-2"><a href="#vaccinations">Are there any specific vaccinations required before traveling to @Model.Country.Name?</a></li>
-                            }
-
-                            @if (Model.Country.BestSeason != null)
-                            {
-                                <li class="pb-2"><a href="#bestSeason">Best time to visit @Model.Country.Name</a></li>
-                            }
-
-                            @if (Model.Country.PopularPlaces != null)
-                            {
-                                <li class="pb-2"><a href="#popularPlaces">The most popular places in @Model.Country.Name</a></li>
-                            }
-
-                            @if (Model.Country.Transport != null)
-                            {
-                                <li class="pb-2"><a href="#transport">How to travel in @Model.Country.Name</a></li>
-                            }
-
-                            @if (Model.Country.Etiquette != null)
-                            {
-                                <li class="pb-2"><a href="#etiquette">What are some cultural etiquette and customs in @Model.Country.Name?</a></li>
-                            }
-
-                            @if (Model.Country.Internet != null)
-                            {
-                                <li class="pb-2"><a href="#internet">Internet Quality in @Model.Country.Name?</a></li>
-                            }                            
-
-                            @if (Model.Country.MobileOperators != null)
-                            {
-                                <li class="pb-2"><a href="#mobileOperators">Mobile operators in @Model.Country.Name</a></li>
-                            }
-
-                            @if (Model.Country.EmrgencyNumbers != null)
-                            {
-                                <li class="pb-2"><a href="#emrgencyNumbers">Emergency numbers in @Model.Country.Name</a></li>
-                            }
-                        </ol>
-
-                        <div class="bg-light rounded-booking mb-3 mt-1">
-                            <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
-                                <div class="card bg-dark text-white border-0 card-cover" style="background-image: url('../safetywind_300.jpg');">
-                                    <div class="card-img-overlay text-center">
-                                        <h3 class="card-title shadowed mt-5 lh-1 fw-bold">Global travel medical insurance</h3>
-                                        <p class="m-1 badge rounded-pill bg-info text-dark">for $1.5/day!</p>
-                                        <p class="m-1 badge rounded-pill bg-warning text-dark">Covid-19 coverage</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="bg-light rounded-booking">
-                            <div>
-                                <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
-                            </div>
-                        </div>
-
-                        @if (Model.NextCountries?.Count > 0)
+                    <h4>Navigation</h4>
+                    <ol class="list-unstyled mb-0">
+                        @*@if(Model.Country.Summary != null)
                         {
-                            <h4>✈ Countries are close to @Model.Header.CountryName</h4>
-                            <ol class="list-unstyled mb-0">
-                                @foreach (var c in Model.NextCountries)
-                                {
-                                    <li class="pb-2"><a href="/@c.Name">@c.Name</a></li>
-                                }                                
-                            </ol>                            
-                        }                        
-                        
+                            <li><a href="#summary">Summary</a></li>
+                        }*@
+                            
+                        <li class="pb-2"><a href="#visas">👉 Visas list</a></li>
+
+                        @if (Model.Country.DriverLicense != null)
+                        {
+                            <li class="pb-2"><a href="#driverLicense">Do tourists need a license to drive a car in @Model.Country.Name?</a></li>
+                        }
+
+                        @if (Model.Country.DriverRules != null)
+                        {
+                            <li class="pb-2"><a href="#driverRules">Driver rules in @Model.Country.Name</a></li>
+                        }
+
+                        @if (Model.Country.CurrencyDescription != null)
+                        {
+                            <li class="pb-2"><a href="#currencyDescription">Currency in @Model.Country.Name</a></li>
+                        }
+
+                        @if (Model.Country.Safety != null)
+                        {
+                            <li class="pb-2"><a href="#safety">Safety for tourists in @Model.Country.Name</a></li>
+                        }
+
+                        @if (Model.Country.Vaccinations != null)
+                        {
+                            <li class="pb-2"><a href="#vaccinations">Are there any specific vaccinations required before traveling to @Model.Country.Name?</a></li>
+                        }
+
+                        @if (Model.Country.BestSeason != null)
+                        {
+                            <li class="pb-2"><a href="#bestSeason">Best time to visit @Model.Country.Name</a></li>
+                        }
+
+                        @if (Model.Country.PopularPlaces != null)
+                        {
+                            <li class="pb-2"><a href="#popularPlaces">The most popular places in @Model.Country.Name</a></li>
+                        }
+
+                        @if (Model.Country.Transport != null)
+                        {
+                            <li class="pb-2"><a href="#transport">How to travel in @Model.Country.Name</a></li>
+                        }
+
+                        @if (Model.Country.Etiquette != null)
+                        {
+                            <li class="pb-2"><a href="#etiquette">What are some cultural etiquette and customs in @Model.Country.Name?</a></li>
+                        }
+
+                        @if (Model.Country.Internet != null)
+                        {
+                            <li class="pb-2"><a href="#internet">Internet Quality in @Model.Country.Name?</a></li>
+                        }                            
+
+                        @if (Model.Country.MobileOperators != null)
+                        {
+                            <li class="pb-2"><a href="#mobileOperators">Mobile operators in @Model.Country.Name</a></li>
+                        }
+
+                        @if (Model.Country.EmrgencyNumbers != null)
+                        {
+                            <li class="pb-2"><a href="#emrgencyNumbers">Emergency numbers in @Model.Country.Name</a></li>
+                        }
+                    </ol>
+
+                    <div class="bg-light rounded-booking mb-3 mt-1">
+                        <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
+                            <div class="card bg-dark text-white border-0 card-cover" style="background-image: url('../safetywind_300.jpg');">
+                                <div class="card-img-overlay text-center">
+                                    <h3 class="card-title shadowed mt-5 lh-1 fw-bold">Global travel medical insurance</h3>
+                                    <p class="m-1 badge rounded-pill bg-info text-dark">for $1.5/day!</p>
+                                    <p class="m-1 badge rounded-pill bg-warning text-dark">Covid-19 coverage</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
+
+                    <div class="bg-light rounded-booking">
+                        <div>
+                            <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
+                        </div>
+                    </div>
+
+                    @if (Model.NextCountries?.Count > 0)
+                    {
+                        <h4>✈ Countries are close to @Model.Header.CountryName</h4>
+                        <ol class="list-unstyled mb-0">
+                            @foreach (var c in Model.NextCountries)
+                            {
+                                <li class="pb-2"><a href="/@c.Name">@c.Name</a></li>
+                            }                                
+                        </ol>                            
+                    }                        
+                        
                 </div>
             </div>
 
