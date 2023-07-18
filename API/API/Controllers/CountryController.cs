@@ -62,12 +62,14 @@ namespace API.Controllers
                                Cost = $"{v.CostOfProgramm} {v.CostCurrency}"
 
                            }).ToList();
-            foreach(var v in model.Visas)
+            foreach (var v in model.Visas)
             {
                 v.Reviews = _context.Review.Where(r => r.Visa.Id == v.Id).ToList();
             }
 
-            DateTime lastVisaUpdate = model.Visas.Max(u => u.UpdateDate);            
+            DateTime? lastVisaUpdate = null;
+            if (model.Visas.Any())
+                 lastVisaUpdate = model.Visas.Max(u => u.UpdateDate);
 
 
             string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
@@ -80,9 +82,13 @@ namespace API.Controllers
             header.CountryName = country.FirstCharToUpper();
             header.Text = model.Country.Summary;
 
-            header.LastModifiedHeader = (DateTime)(model.Country.UpdateDate.HasValue ? (model.Country.UpdateDate > lastVisaUpdate ?
-                model.Country.UpdateDate : lastVisaUpdate) : lastVisaUpdate);
-            Response.Headers.Add("Last-Modified", value: header.LastModifiedHeader.ToUniversalTime().ToString("R"));
+            if (model.Country.UpdateDate.HasValue || lastVisaUpdate != null) {
+                header.LastModifiedHeader = (DateTime)new[] { model.Country.UpdateDate, lastVisaUpdate }.Max();
+                Response.Headers.Add("Last-Modified", value: header.LastModifiedHeader.ToUniversalTime().ToString("R"));
+            }
+            //header.LastModifiedHeader = (DateTime)(model.Country.UpdateDate.HasValue ? (model.Country.UpdateDate > lastVisaUpdate ?
+            //    model.Country.UpdateDate : lastVisaUpdate) : lastVisaUpdate);
+            
             
             string[] countryIds = model.Country.NextCountries.Split(',');
             int[] intCountryIds = new int[countryIds.Length];
@@ -140,6 +146,13 @@ namespace API.Controllers
             model.Header = header;
 
             return View(model);
+        }
+
+        public static T Max<T>(T first, T second)
+        {
+            if (Comparer<T>.Default.Compare(first, second) > 0)
+                return first;
+            return second;
         }
 
         [Route("{country}/Embassies")]
