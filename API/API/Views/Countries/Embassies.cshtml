@@ -15,45 +15,72 @@
 
 <section class="container sectionstyle">
 
-    <h2 class="text-center p-4">🏢 List of @Model.Header.CountryName Embassies and Consulates</h2>
-    
-        @if(Model.Embassies.Count > 0)
-        {
-        <h4 class="text-center p-4">
-            Please,@await Component.InvokeAsync("SubscribeUpdates")
-            to updates. We'll let you know as soon as the Embassies list section is updated.
-        </h4>
+    <div class="row">
 
-            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            @foreach (var e in Model.Embassies)
+        <div class="col-md-8 text-break">
+            <h2 class="text-center p-4">🏢 List of @Model.Header.CountryName Embassies and Consulates</h2>
+
+            @if (Model.Embassies.Count > 0)
             {
-                <div class="col">
-                    <a href="/@Model.Header.CountryName/Embassy/@e.Id">
-                        @{
-                            var countryImage = @e.Country.ToLower();
-                            var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
-                            if (!System.IO.File.Exists(path2))
-                            {
-                                countryImage = "nocover";
-                            }
-                        }
-                        <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
-                            @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
-                            <div class="card-img-overlay">
-                                <h3 class="card-title shadowed text-center align-middle mt-5 mb-3 lh-1 fw-bold">@e.Country</h3>
-                                <h5 class="card-title shadowed text-center align-middle lh-1 fw-bold">@e.City</h5>
+                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    @foreach (var e in Model.Embassies)
+                    {
+                        <div class="col">
+                            <a href="/@Model.Header.CountryName/Embassy/@e.Id">
+                                @{
+                                    var countryImage = @e.Country.ToLower();
+                                    var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
+                                    if (!System.IO.File.Exists(path2))
+                                    {
+                                        countryImage = "nocover";
+                                    }
+                                }
+                                <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
+                                    @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
+                                    <div class="card-img-overlay">
+                                        <h3 class="card-title shadowed text-center align-middle mt-5 mb-3 lh-1 fw-bold">@e.Country</h3>
+                                        <h5 class="card-title shadowed text-center align-middle lh-1 fw-bold">@e.City</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <h4 class="text-center p-4">
+                    The list of @Model.Header.CountryName embassies does not ready yet.
+                    @await Component.InvokeAsync("SubscribeUpdates")
+                    , please, to updates. We'll let you know as soon as the section is ready.
+                </h4>
+            }
+
+        </div>
+
+        <div class="col-md-4 p-4">
+
+            <div class="position-sticky" style="top: 2rem;">
+
+                @await Html.PartialAsync("_SubscribeUpdates")
+
+                <div class="bg-light rounded-booking mb-3 mt-1">
+                    <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
+                        <div class="card bg-dark text-white border-0 card-cover" style="background-image: url('../safetywind_300.jpg');">
+                            <div class="card-img-overlay text-center">
+                                <h3 class="card-title shadowed mt-5 lh-1 fw-bold">Global travel medical insurance</h3>
+                                <p class="m-1 badge rounded-pill bg-info text-dark">for $1.5/day!</p>
+                                <p class="m-1 badge rounded-pill bg-warning text-dark">Covid-19 coverage</p>
                             </div>
                         </div>
                     </a>
                 </div>
-            }
+
             </div>
-        }
-        else
-        {
-        <h4 class="text-center p-4">The list of @Model.Header.CountryName embassies does not ready yet.
-            @await Component.InvokeAsync("SubscribeUpdates")
-            , please, to updates. We'll let you know as soon as the section is ready.</h4>
-        }
+        </div>
+
+    </div>
+
+    
     
 </section>
