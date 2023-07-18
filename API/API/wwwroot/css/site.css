@@ -90,7 +90,7 @@ nav {
 .hero-bg {
     background-size: cover !important;
     background-position: center center !important;
-    height: 50vh;
+    height: 35vh;
 }
 
 /*.carousel-item:nth-child(1) {
@@ -120,7 +120,7 @@ nav {
 
 @media only screen and (min-width: 480px) {
     #introCarousel, .carousel-inner, .carousel-item, .carousel-item.active {
-        height: 55vh;
+        height: 40vh;
     }
 }
 
@@ -551,7 +551,7 @@ select {
 }
 
 
-@media only screen and (max-width: 480px) {
+/*@media only screen and (max-width: 480px) {
     .card-columns {
         column-count: 1;
     }
@@ -561,4 +561,4 @@ select {
     .card-columns {
         column-count: 3;
     }
-}
+}*/

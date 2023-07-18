@@ -3,6 +3,7 @@ using API.Models;
 using Glomad.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace API.Controllers
@@ -29,7 +30,7 @@ namespace API.Controllers
             PassportViewModel model = new PassportViewModel();
             model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
 
-            model.CountryFreeEntry = (from ne in _context.NoVisaEntry
+            List<CountryFreeEntry> allFreeCountries = (from ne in _context.NoVisaEntry
                                join co in _context.Country on ne.CountryPassport.Id equals co.Id
                                where co.Name == country && (!ne.IsVisaRequired || ne.IsEVisaAvailable)
                                select new CountryFreeEntry
@@ -43,6 +44,9 @@ namespace API.Controllers
                                    Duration = ne.Duration,
                                    EVisaUrl = ne.EVisaUrl
                                }).OrderBy(d => d.Name).ToList();
+
+            model.CountryFreeEntry = allFreeCountries.Where(c => c.IsVisaRequired == false).ToList();
+            model.CountryEvisa = allFreeCountries.Where(c => c.EVisaAvailable).ToList();
 
             HeaderViewModel header = new HeaderViewModel();
             header.Text = $"Detail information for cizitens of {countryName}";
