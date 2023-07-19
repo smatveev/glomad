@@ -22,5 +22,6 @@ namespace API.Models
         public string EVisaUrl { get; set; }
         public bool IsEVisaAvailable { get; set; }
         public bool IsVisaRequired { get; set; }
+        public DateTime? UpdateDate { get; set; }
     }
 }
