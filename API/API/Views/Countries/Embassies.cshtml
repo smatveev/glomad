@@ -1,4 +1,5 @@
 ﻿@using System.Globalization;
+@using System.Web;
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
 
 @model EmbassiesPage
@@ -17,12 +18,116 @@
 
     <div class="row">
 
-        <div class="col-md-8 text-break">
-            <h2 class="text-center p-4">🏢 List of @Model.Header.CountryName Embassies and Consulates</h2>
+        <div class="col-md-8 px-4 text-break">
+            <h2 class="text-center p-4">🏢 List of Embassies and Consulates of @Model.Header.CountryName</h2>
+
+            @{
+                string curCountry = string.Empty;
+            }
 
             @if (Model.Embassies.Count > 0)
             {
-                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                @foreach (var e in Model.Embassies.OrderByDescending(e => e.Country))
+                {
+                    //@if (!string.Equals(curCountry, e.Country))
+                    //{
+                        curCountry = e.Country;
+                        <h4>@curCountry</h4>
+
+                        <div class="row mb-2 bg-white border rounded-booking">
+                            @{
+                                string title;
+                                if (e.Embassy.Name != null)
+                                {
+                                    title = Html.Raw(HttpUtility.HtmlDecode(e.Embassy.Name)) + " in " + e.City;
+                                }
+                                else
+                                {
+                                    title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country.Name} in {e.Country}, {e.City}").Replace("\n", "<br/>")).ToString();
+                                }
+                            }
+
+                            <div class="col-12 col-lg-2 p-3">
+
+                                <a class="card-title align-middle">
+                                    <h6 class="-card-title font-weight-bold">
+                                        @title
+                                    </h6>
+                                </a>                                
+
+                            </div>
+
+                            <div class="col-12 col-lg-5 p-3">
+                                @if(!string.IsNullOrWhiteSpace(e.Embassy.WorkingHours))
+                                {
+                                <p class="me-2 mb-2 p-2 badge white-space-normal text-dark rounded-pill bg-light">
+                                        🕜 <small class="text-muted">Office hours: </small> @Html.Raw(e.Embassy.WorkingHours)
+                                    </p>
+                                }
+
+                                @if(!string.IsNullOrWhiteSpace(e.Embassy.Phone))
+                                {
+                                <p class="me-2 mb-2 p-2 badge text-dark white-space-normal rounded-pill bg-light" itemprop="telephone">
+                                        ☎ <small class="text-muted">Phone: </small>@Html.Raw(e.Embassy.Phone)
+                                    </p>
+                                }
+
+                                @if(!string.IsNullOrWhiteSpace(e.Embassy.Email))
+                                {
+                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light" itemprop="email">
+                                        📧 <small class="text-muted">Email: </small>@e.Embassy.Email
+                                    </p>
+                                }
+
+                                @if(!string.IsNullOrWhiteSpace(e.Embassy.Url))
+                                {
+                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                                        💻 <small class="text-muted">Website: </small>
+                                        <a href="@e.Embassy.Url" target="_blank" rel="noopener nofollow noreferrer">@e.Embassy.Url</a>
+                                    </p>
+                                }
+
+                                @if(!string.IsNullOrWhiteSpace(e.Embassy.ProcessingTime))
+                                {
+                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                                        🚴‍♂️ <small class="text-muted">Processing time: </small>@e.Embassy.ProcessingTime
+                                    </p>
+                                }
+
+                                @if(!string.IsNullOrWhiteSpace(e.Embassy.SpecialConditions))
+                                {
+                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                                        ☝ <small class="text-muted">Special conditions: </small>@e.Embassy.SpecialConditions
+                                    </p>
+                                }
+
+                                @if(!string.IsNullOrWhiteSpace(e.Embassy.ApplicationFormUrl))
+                                {
+                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                                        🐱‍💻 <small class="text-muted">Visa application form: </small><a href="@e.Embassy.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
+                                    </p>
+                                }                               
+                            </div>
+
+
+                            <div class="col-12 col-lg-5 p-3">
+                                @if (!string.IsNullOrWhiteSpace(e.Embassy.Address))
+                                {
+                                    <p itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+                                        📍 <small class="text-muted">Address: </small>@e.Embassy.Address
+                                    </p>
+                                <button type="button" class="btn btn-light btn-sm">🗺 Show on map</button>
+                                }
+                            </div>
+
+
+                        </div>
+                    //}
+                }
+                
+                
+
+               @* <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                     @foreach (var e in Model.Embassies)
                     {
                         <div class="col">
@@ -37,15 +142,15 @@
                                 }
                                 <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
                                     @*<img src="../@(countryImage).jpg" class="img-fluid rounded-5" srcset="../@(countryImage)_300.jpg 384w, ../@(countryImage).jpg 1920w" sizes="50vw" alt="@c.Name image">*@
-                                    <div class="card-img-overlay">
+                                    @*<div class="card-img-overlay">
                                         <h3 class="card-title shadowed text-center align-middle mt-5 mb-3 lh-1 fw-bold">@e.Country</h3>
                                         <h5 class="card-title shadowed text-center align-middle lh-1 fw-bold">@e.City</h5>
-                                    </div>
-                                </div>
+                                    </div>*@
+@*                                </div>
                             </a>
-                        </div>
-                    }
-                </div>
+                        </div>*@
+                    @*}
+                </div>*@
             }
             else
             {

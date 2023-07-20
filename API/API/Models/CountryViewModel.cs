@@ -24,6 +24,7 @@ namespace API.Models
         public string Iata { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public Embassy Embassy { get; set; }
     }
 
     public struct UpdatedCountries

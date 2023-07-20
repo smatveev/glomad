@@ -221,6 +221,10 @@ nav {
     white-space: nowrap;
 }
 
+.white-space-normal {
+    white-space: normal !important;
+}
+
 .table-autowidth td:first-child {
     width: 1px;
     white-space: nowrap;

@@ -173,7 +173,8 @@ namespace API.Controllers
                                    Id = e.Id,
                                    Country = c.Name,
                                    City = e.City.Name,
-                                   Iata = c.ISOalpha3.ToLower()
+                                   Iata = c.ISOalpha3.ToLower(),
+                                   Embassy = e
                                }).Distinct().ToList();
 
             var header = new HeaderViewModel();
