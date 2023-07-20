@@ -4,7 +4,7 @@
 
 <div class="row mb-2 bg-white border rounded-booking">
 
-    <div class="col-2 p-3 m-0">
+    <div class="col-12 col-lg-2 p-3 m-0">
 
         <a class="card-title align-middle" href="/@Model.CountryName/Visa/@Model.Id">
             <h6 class="-card-title font-weight-bold">
@@ -22,7 +22,7 @@
 
     </div>
 
-    <div class="col-5 p-3 m-0">
+    <div class="col-12 col-lg-5 p-3 m-0">
         @if (Model.Income > 0)
         {
             <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
@@ -117,7 +117,7 @@
     </div>
 
 
-    <div class="col-5">
+    <div class="col-12 col-lg-5">
         <p class="card-text py-3">
             @Model.Description.Truncate(150).StripHTML()...
             <a href="/@Model.CountryName/Visa/@Model.Id" >Continue reading</a>
