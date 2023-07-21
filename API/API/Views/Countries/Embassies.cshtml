@@ -19,33 +19,47 @@
     <div class="row">
 
         <div class="col-md-8 px-4 text-break">
-            <h2 class="text-center p-4">🏢 List of Embassies and Consulates of @Model.Header.CountryName</h2>
-
-            @{
-                string curCountry = string.Empty;
-            }
+            <h2 class="text-center p-4 pb-3">List of Embassies and Consulates of @Model.Header.CountryName</h2>
 
             @if (Model.Embassies.Count > 0)
             {
-                @foreach (var e in Model.Embassies.OrderByDescending(e => e.Country))
-                {
-                    //@if (!string.Equals(curCountry, e.Country))
-                    //{
-                        curCountry = e.Country;
-                        <h4>@curCountry</h4>
+                string curCountry = string.Empty;
 
-                        <div class="row mb-2 bg-white border rounded-booking">
-                            @{
-                                string title;
-                                if (e.Embassy.Name != null)
-                                {
-                                    title = Html.Raw(HttpUtility.HtmlDecode(e.Embassy.Name)) + " in " + e.City;
-                                }
-                                else
-                                {
-                                    title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country.Name} in {e.Country}, {e.City}").Replace("\n", "<br/>")).ToString();
-                                }
-                            }
+                @foreach (var e in Model.Embassies)
+                {
+                    if (curCountry == string.Empty || !string.Equals(curCountry, e.Country))
+                    {
+                        <h4 class="pt-2">
+                            <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon"></span>
+                            <a href="/@e.Country">@e.Country</a>
+                        </h4>
+                    }                    
+                    curCountry = Model.Embassies[0].Country;
+
+
+                    string title;
+                    if (e.Embassy.Name != null)
+                    {
+                        title = Html.Raw(HttpUtility.HtmlDecode(e.Embassy.Name)) + " in " + e.City;
+                    }
+                    else
+                    {
+                        title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country.Name} in {e.Country}, {e.City}").Replace("\n", "<br/>")).ToString();
+                    }
+
+                    @if (!string.Equals(curCountry, e.Country))
+                    {
+                        curCountry = e.Country;
+                        
+                    }
+
+                    <ul class="-list-unstyled pt-2">
+                        <li class="mb-2">                            
+                            <a href="#">@title</a>
+                        </li>
+                    </ul>
+
+                        @*<div class="row mb-2 bg-white border rounded-booking">                            
 
                             <div class="col-12 col-lg-2 p-3">
 
@@ -121,7 +135,7 @@
                             </div>
 
 
-                        </div>
+                        </div>*@
                     //}
                 }
                 
