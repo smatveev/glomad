@@ -19,7 +19,7 @@
     <div class="row">
 
         <div class="col-md-8 px-4 text-break">
-            <h2 class="text-center p-4 pb-3">List of Embassies and Consulates of @Model.Header.CountryName</h2>
+            <h2 class="text-center p-4 pb-1">List of Embassies and Consulates of @Model.Header.CountryName</h2>
 
             @if (Model.Embassies.Count > 0)
             {
@@ -29,7 +29,7 @@
                 {
                     if (curCountry == string.Empty || !string.Equals(curCountry, e.Country))
                     {
-                        <h4 class="pt-2">
+                        <h4 class="pt-4">
                             <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon"></span>
                             <a href="/@e.Country">@e.Country</a>
                         </h4>
@@ -53,11 +53,7 @@
                         
                     }
 
-                    <ul class="-list-unstyled pt-2">
-                        <li class="mb-2">                            
-                            <a href="#">@title</a>
-                        </li>
-                    </ul>
+                    <p class="mb-1"><a href="#">@title</a></p>
 
                         @*<div class="row mb-2 bg-white border rounded-booking">                            
 
@@ -182,6 +178,10 @@
             <div class="position-sticky" style="top: 2rem;">
 
                 @await Html.PartialAsync("_SubscribeUpdates")
+
+                <div class="bg-light rounded-booking mb-3 mt-1">
+                    <p>all embassies on map</p>
+                </div>
 
                 <div class="bg-light rounded-booking mb-3 mt-1">
                     <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
