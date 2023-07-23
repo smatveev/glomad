@@ -20,6 +20,11 @@ namespace API.Controllers
         [Route("{country}/Embassy/{id}")]
         public IActionResult Index(string country, int id)
         {
+
+            return RedirectPermanent($"/{country}/Embassies#embassy-{id}");
+
+        //https://localhost:44338/Taiwan/Embassies#embassyDetails-5668
+
             EmbassyViewModel model = new EmbassyViewModel();
             model.Country = country;
             model.EmbassyWithCountry = (from e in _context.Embassy

@@ -54,10 +54,10 @@
                     }
 
                     <p class="mb-1">
-                        <a role="button" class="embassyTitle" id="@e.Id" href="#embassyDetails-@e.Id" data-bs-toggle="modal" data-bs-target="#embassyDetails-@e.Id">@title</a>
+                        <a role="button" class="embassyTitle" id="@e.Id" href="#embassy-@e.Id" data-bs-toggle="modal" data-bs-target="#embassy-@e.Id">@title</a>
                     </p>
 
-                    <div id="embassyDetails-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade">
+                    <div id="embassy-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -188,7 +188,7 @@
 
                 <div class="bg-light rounded-booking mb-3 mt-1">
                     <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
-                        <div class="card bg-dark text-white border-0 card-cover" style="background-image: url('../safetywind_300.jpg');">
+                        <div class="card bg-dark text-white border-0 card-cover" style="background-image: url('/safetywind_300.jpg');">
                             <div class="card-img-overlay text-center">
                                 <h3 class="card-title shadowed mt-5 lh-1 fw-bold">Global travel medical insurance</h3>
                                 <p class="m-1 badge rounded-pill bg-info text-dark">for $1.5/day!</p>
@@ -242,8 +242,16 @@
             if (url.indexOf(hash) != -1) {
                 var myModal = new bootstrap.Modal($(hash), {})
                 myModal.show();
-            }            
+                //myModal.on()
+            }
         };
+
+        //function closeModal(id) {
+        //    alert(id)
+        //    var modal = new bootstrap.Modal(document.getElementById("embassyDetails-" + id), {});
+        //    console.log("moda", modal)
+        //    modal.hide();
+        //}
 
         ymaps.ready(init);
 
