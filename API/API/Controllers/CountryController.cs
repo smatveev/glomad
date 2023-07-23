@@ -174,6 +174,8 @@ namespace API.Controllers
                                    Country = c.Name,
                                    City = e.City.Name,
                                    Iata = c.ISOalpha3.ToLower(),
+                                   Latitude = e.Latitude,
+                                   Longitude = e.Longitude,
                                    Embassy = e
                                }).Distinct().ToList();
 
