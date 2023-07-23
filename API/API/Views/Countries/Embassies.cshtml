@@ -33,7 +33,7 @@
                             <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon"></span>
                             <a href="/@e.Country">@e.Country</a>
                         </h4>
-                    }                    
+                    }
                     curCountry = Model.Embassies[0].Country;
 
 
@@ -50,7 +50,7 @@
                     @if (!string.Equals(curCountry, e.Country))
                     {
                         curCountry = e.Country;
-                        
+
                     }
 
                     <p class="mb-1">
@@ -119,6 +119,12 @@
                                     {
                                         <p>
                                             ☝ <small class="text-muted">Special conditions: </small>@e.Embassy.SpecialConditions
+                                        </p>
+                                    }
+                                    @if (e.Latitude > 0 || e.Longitude > 0)
+                                    {
+                                        <p>
+                                            <div class="p-2" id='map-@e.Id'></div>
                                         </p>
                                     }
                                 </div>
@@ -226,7 +232,7 @@
         //};
         //skillSlideshow();
 
-
+      
 
         ymaps.ready(init);
 
