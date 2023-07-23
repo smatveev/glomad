@@ -53,86 +53,81 @@
                         
                     }
 
-                    <p class="mb-1"><a href="#">@title</a></p>
+                    <p class="mb-1">
+                        <a role="button" class="embassyTitle" id="@e.Id" href="#" data-bs-toggle="modal" data-bs-target="#embassyDetails-@e.Id" >@title</a>
+                    </p>
 
-                        @*<div class="row mb-2 bg-white border rounded-booking">                            
+                    <div id="embassyDetails-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">@title</h5>
+                                </div>
+                                <div class="modal-body">
 
-                            <div class="col-12 col-lg-2 p-3">
+                                    @if (!string.IsNullOrWhiteSpace(e.Embassy.Address))
+                                    {
+                                        <p itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+                                            📍 <small class="text-muted">Address: </small>@e.Embassy.Address
+                                        </p>
+                                    }
 
-                                <a class="card-title align-middle">
-                                    <h6 class="-card-title font-weight-bold">
-                                        @title
-                                    </h6>
-                                </a>                                
+                                    @if (!string.IsNullOrWhiteSpace(e.Embassy.WorkingHours))
+                                    {
+                                        <p>
+                                            🕜 <small class="text-muted">Office hours: </small> @Html.Raw(e.Embassy.WorkingHours)
+                                        </p>
+                                    }
 
+                                    @if (!string.IsNullOrWhiteSpace(e.Embassy.Phone))
+                                    {
+                                        <p itemprop="telephone">
+                                            ☎ <small class="text-muted">Phone: </small>@Html.Raw(e.Embassy.Phone)
+                                        </p>
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(e.Embassy.Email))
+                                    {
+                                        <p itemprop="email">
+                                            📧 <small class="text-muted">Email: </small>@e.Embassy.Email
+                                        </p>
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(e.Embassy.Url))
+                                    {
+                                        <p>
+                                            💻 <small class="text-muted">Website: </small>
+                                            <a href="@e.Embassy.Url" target="_blank" rel="noopener nofollow noreferrer">@e.Embassy.Url</a>
+                                        </p>
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(e.Embassy.ApplicationFormUrl))
+                                    {
+                                        <p>
+                                            🐱‍💻 <small class="text-muted">Visa application form: </small><a href="@e.Embassy.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
+                                        </p>
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(e.Embassy.ProcessingTime))
+                                    {
+                                        <p>
+                                            🚴‍♂️ <small class="text-muted">Processing time: </small>@e.Embassy.ProcessingTime
+                                        </p>
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(e.Embassy.SpecialConditions))
+                                    {
+                                        <p>
+                                            ☝ <small class="text-muted">Special conditions: </small>@e.Embassy.SpecialConditions
+                                        </p>
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
                             </div>
-
-                            <div class="col-12 col-lg-5 p-3">
-                                @if(!string.IsNullOrWhiteSpace(e.Embassy.WorkingHours))
-                                {
-                                <p class="me-2 mb-2 p-2 badge white-space-normal text-dark rounded-pill bg-light">
-                                        🕜 <small class="text-muted">Office hours: </small> @Html.Raw(e.Embassy.WorkingHours)
-                                    </p>
-                                }
-
-                                @if(!string.IsNullOrWhiteSpace(e.Embassy.Phone))
-                                {
-                                <p class="me-2 mb-2 p-2 badge text-dark white-space-normal rounded-pill bg-light" itemprop="telephone">
-                                        ☎ <small class="text-muted">Phone: </small>@Html.Raw(e.Embassy.Phone)
-                                    </p>
-                                }
-
-                                @if(!string.IsNullOrWhiteSpace(e.Embassy.Email))
-                                {
-                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light" itemprop="email">
-                                        📧 <small class="text-muted">Email: </small>@e.Embassy.Email
-                                    </p>
-                                }
-
-                                @if(!string.IsNullOrWhiteSpace(e.Embassy.Url))
-                                {
-                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                                        💻 <small class="text-muted">Website: </small>
-                                        <a href="@e.Embassy.Url" target="_blank" rel="noopener nofollow noreferrer">@e.Embassy.Url</a>
-                                    </p>
-                                }
-
-                                @if(!string.IsNullOrWhiteSpace(e.Embassy.ProcessingTime))
-                                {
-                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                                        🚴‍♂️ <small class="text-muted">Processing time: </small>@e.Embassy.ProcessingTime
-                                    </p>
-                                }
-
-                                @if(!string.IsNullOrWhiteSpace(e.Embassy.SpecialConditions))
-                                {
-                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                                        ☝ <small class="text-muted">Special conditions: </small>@e.Embassy.SpecialConditions
-                                    </p>
-                                }
-
-                                @if(!string.IsNullOrWhiteSpace(e.Embassy.ApplicationFormUrl))
-                                {
-                                    <p class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                                        🐱‍💻 <small class="text-muted">Visa application form: </small><a href="@e.Embassy.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
-                                    </p>
-                                }                               
-                            </div>
-
-
-                            <div class="col-12 col-lg-5 p-3">
-                                @if (!string.IsNullOrWhiteSpace(e.Embassy.Address))
-                                {
-                                    <p itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
-                                        📍 <small class="text-muted">Address: </small>@e.Embassy.Address
-                                    </p>
-                                <button type="button" class="btn btn-light btn-sm">🗺 Show on map</button>
-                                }
-                            </div>
-
-
-                        </div>*@
-                    //}
+                        </div>
+                    </div>
                 }
                 
                 
@@ -202,12 +197,36 @@
 
     </div>
 
-    
-    
 </section>
 
 @section Scripts {
     <script>
+
+        //var clearModal = function () {
+        //    $('#myModel').css('display', 'none')
+        //    $(".modal-content").empty();
+        //}
+
+        //var skillSlideshow = function () {
+
+        //    $('.embassyTitle').on('click', function(e) {
+        //        $('#myModel').css('display', 'block');
+        //        var data = Model.Embassies[e.currentTarget.dataset.index.City
+        //        console.log(data);
+        //        //injecting the data into the modal
+        //        const html = "<div>id:" + data.id + "</div><div>skill:" + data.Name + "</div>"
+        //        $('.modal-content').html(html)
+        //    })
+
+        //    $('.close-icon').on('click', clearModal)
+        //    $('#myModal').on('click', function (e) {
+        //        //assuming you give proper styling to .modal-content and .modal
+        //        if (e.target.id === 'myModal') clearModal()
+        //    })
+        //};
+        //skillSlideshow();
+
+
 
         ymaps.ready(init);
 
