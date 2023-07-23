@@ -232,16 +232,17 @@
         //};
         //skillSlideshow();
 
-        const hash = location.hash;
-        console.log("hash", hash)
-        var url = window.location.href;
-        console.log("url", url)
-        if (url.indexOf(hash) != -1) {
-            var myModal = new bootstrap.Modal($(hash), {})
-        }
+        
 
         document.onreadystatechange = function () {
-            myModal.show();
+            const hash = location.hash;
+            console.log("hash", hash)
+            var url = window.location.href;
+            console.log("url", url)
+            if (url.indexOf(hash) != -1) {
+                var myModal = new bootstrap.Modal($(hash), {})
+                myModal.show();
+            }            
         };
 
         ymaps.ready(init);
