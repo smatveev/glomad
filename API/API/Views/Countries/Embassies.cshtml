@@ -18,7 +18,7 @@
 
     <div class="row">
 
-        <div class="col-md-8 px-4 text-break">
+        <div class="col-md-6 px-4 text-break">
             <h2 class="text-center p-4 pb-1">List of Embassies and Consulates of @Model.Header.CountryName</h2>
 
             @if (Model.Embassies.Count > 0)
@@ -173,7 +173,7 @@
 
         </div>
 
-        <div class="col-md-4 p-4">
+        <div class="col-md-6 p-4">
 
             <div class="position-sticky" style="top: 2rem;">
 
@@ -181,7 +181,7 @@
 
                 <div class="bg-light rounded-booking mb-3 mt-1">
                     @*<p class="m-0 px-2 py-1">All Embassies and Consulates on map</p>*@
-                    <div id='map'></div>
+                    <div class="p-2" id='map'></div>
                     
                 </div>
 
@@ -286,7 +286,7 @@
                 zoomMargin: 9,
                 callback: function (err) {
                     if (err) {
-                        alert("Не удалось показать заданный регион")
+                        console.log("Не удалось показать заданный регион")
                         // ...
                     }
                 }
