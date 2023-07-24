@@ -21,19 +21,19 @@
                             type="video/mp4" />
                 </video>
 
-                <div class="mask" style="background-color: rgba(0, 0, 0, 0.35)">
+                <div class="mask" style="background-color: rgba(0, 0, 0, 0.5)">
                     <div class="d-flex justify-content-center align-items-center h-100 pt-4">
                         <div class="text-white text-center">
-                            <h1>🌏 Glomad - be a global nomad</h1>
+                            <h1 class="fw-bold display-4">🌏 Glomad - be a global nomad</h1>
 
-                            <div class="mt-4 pt-2 col-md-auto lead">
+                            <h4 class="mt-4 pt-2 col-md-auto fw-light">
                                 🛂Let's know where you can go with your passport easily. <br />
                                 🎫 Check the visa requirements for your nationality for every country.<br />
                                 🙋‍♀️ Country Frequently Asked Questions (FAQs) <br />
                                 @*😷 Check last COVID-19 travel restrictions for a country. <br />*@
                                 😎 Forget about visa headaches. Be ready to travel at any time.<br />
                                 <partial name="_ShareExperience" />
-                            </div>
+                            </h4>
                         </div>
                     </div>
                 </div>
@@ -306,7 +306,7 @@
                     <input id="IsNotify" type="checkbox" checked /> Notify me about updates
                 </label>
             </div>
-            <input class="w-100 btn btn-lg btn-primary" type="button" onclick="FeedbackSubmit()" value="Thank you ✌" />
+            <input class="w-100 btn btn-lg btn-main" type="button" onclick="FeedbackSubmit()" value="Thank you ✌" />
 
             <h3 id="status" class="text-center"></h3>
         </form>
@@ -333,7 +333,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="ShareExpSubmit()">Send</button>
+                <button type="button" class="btn btn-main" onclick="ShareExpSubmit()">Send</button>
             </div>
         </div>
     </div>

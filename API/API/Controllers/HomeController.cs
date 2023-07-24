@@ -146,28 +146,28 @@ namespace API.Controllers
             }
             catch { }
 
-            var embassies = (from e in _context.Embassy
-                            join c in _context.Country
-                            on e.Country.Id equals c.Id
-                            select new
-                            {
-                                Id = e.Id,
-                                Country = c.Name,
-                                UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
-                            }).ToList();
+            //var embassies = (from e in _context.Embassy
+            //                join c in _context.Country
+            //                on e.Country.Id equals c.Id
+            //                select new
+            //                {
+            //                    Id = e.Id,
+            //                    Country = c.Name,
+            //                    UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+            //                }).ToList();
 
-            try
-            {
-                foreach (var e in embassies)
-                {
-                    sb.Append(
-                        $"<url><loc>{site}{e.Country}/Embassy/{e.Id}</loc>" +
-                        $"<lastmod>{e.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
-                        $"<changefreq>weekly</changefreq>" +
-                        $"<priority>0.8</priority></url>");
-                }
-            }
-            catch { }
+            //try
+            //{
+            //    foreach (var e in embassies)
+            //    {
+            //        sb.Append(
+            //            $"<url><loc>{site}{e.Country}/Embassy/{e.Id}</loc>" +
+            //            $"<lastmod>{e.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+            //            $"<changefreq>weekly</changefreq>" +
+            //            $"<priority>0.8</priority></url>");
+            //    }
+            //}
+            //catch { }
 
 
             var cCovid = (from c in _context.Country
