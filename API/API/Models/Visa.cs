@@ -1,6 +1,7 @@
 ﻿using Glomad.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace API.Models
         public static Dictionary<string, KeyValuePair<string, int>> Criterias = new Dictionary<string, KeyValuePair<string, int>>()
         {
             { "0", new KeyValuePair<string, int>("💳 Visa type", 0) },
-            { "for-nomads", new KeyValuePair<string, int>("Nomad", 0) },
+            { "for-nomads", new KeyValuePair<string, int>("Digital Nomad Visa", 0) },
             { "for-tourist", new KeyValuePair<string, int>("Tourist", 0) },
             { "for-startup", new KeyValuePair<string, int>("Startup", 0) },
             { "for-business", new KeyValuePair<string, int>("Business", 0) },
@@ -49,7 +50,7 @@ namespace API.Models
         public string Description { get; set; }
 
         public ushort Type { get; set; }
-        public float CostOfProgramm { get;set; }
+        public float CostOfProgramm { get; set; }
 
         public string CostCurrency { get; set; }
         public float Income { get; set; }
@@ -58,16 +59,38 @@ namespace API.Models
         public DateTime? UpdateDate { get; set; }
     }
 
-    public enum VisaType : ushort
+    public enum VisaType
     {
+        [Description("Startup")]
         Startup,
-        Work, 
+        [Description("Work")]
+        Work,
+        [Description("Tourist")]
         Tourist,
+        [Description("Digital Nomad")]
         Nomad,
+        [Description("Student")]
         Student,
+        [Description("Invest")]
         Invest,
+        [Description("Business")]
         Business
     }
+
+    public static class VisaTypes
+    {
+        public static Dictionary<ushort, string> Types = new Dictionary<ushort, string>()
+        {
+            { 0, "Startup"},
+            { 1, "Work"},
+            { 2, "Tourist"},
+            { 3, "Digital Nomad Visa"},
+            { 4, "Student"},
+            { 5, "Invest"},
+            { 6, "Business"},
+        };
+    }
+
 
     public class VisaSearch
     {

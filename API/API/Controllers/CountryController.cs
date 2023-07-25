@@ -5,6 +5,7 @@ using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -36,6 +37,8 @@ namespace API.Controllers
             _context.SaveChanges();
         }
 
+
+
         [Route("{country}")]
         public async Task<IActionResult> Index(string country)
         {
@@ -57,7 +60,7 @@ namespace API.Controllers
                                IsExdendable = v.IsExtendable,
                                Duration = v.Duration,
                                CountryName = country,
-                               Type = ((VisaType)v.Type).ToString(),
+                               Type = VisaTypes.Types[v.Type],
                                Income = v.Income,
                                Cost = $"{v.CostOfProgramm} {v.CostCurrency}"
 
