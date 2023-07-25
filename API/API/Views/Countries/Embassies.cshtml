@@ -236,22 +236,11 @@
 
         document.onreadystatechange = function () {
             const hash = location.hash;
-            console.log("hash", hash)
             var url = window.location.href;
-            console.log("url", url)
-            if (url.indexOf(hash) != -1) {
-                var myModal = new bootstrap.Modal($(hash), {})
-                myModal.show();
-                //myModal.on()
+            if (hash && url.indexOf(hash) != -1) {
+                $(hash).modal('toggle');
             }
         };
-
-        //function closeModal(id) {
-        //    alert(id)
-        //    var modal = new bootstrap.Modal(document.getElementById("embassyDetails-" + id), {});
-        //    console.log("moda", modal)
-        //    modal.hide();
-        //}
 
         ymaps.ready(init);
 
