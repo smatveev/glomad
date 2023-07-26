@@ -40,7 +40,14 @@
 
                     @if (Model.Visas?.Count > 0)
                     {
-                        <h4 class="text-center p-4">💳 The @Model.Visas?.Count types of visas available in @Model.Header.CountryName are:</h4>
+                        if (Model.Visas?.Count == 1)
+                        {
+                            <h4 class="text-center p-4">💳 1 visa is available in @Model.Header.CountryName:</h4>
+                        }                        
+                        else if (Model.Visas?.Count > 1)
+                        {
+                            <h4 class="text-center p-4">💳 @Model.Visas?.Count visa types are available in @Model.Header.CountryName:</h4>
+                        }
                     }
 
                     @if (Model.NoVisaEntry != null)
