@@ -78,7 +78,6 @@ namespace API.Controllers
             }
             catch { }
 
-
             var faqs = (from c in _context.Country
                              join q in _context.CountryQuestion
                              on c.Id equals q.Country.Id
@@ -231,6 +230,28 @@ namespace API.Controllers
                 }
             }
             catch { }
+
+            var passports = (from ne in _context.NoVisaEntry
+                             join co in _context.Country on ne.CountryPassport.Id equals co.Id
+                             select new
+                             {
+                                 Name = co.Name,
+                                 UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                             }).Distinct().ToList();
+
+            try
+            {
+                foreach (var p in passports)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}/Passport/{p.Name}</loc>" +
+                        $"<lastmod>{p.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.8</priority></url>");
+                }
+            }
+            catch { }
+
 
             sb.Append("</urlset>");
 
