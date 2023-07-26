@@ -9,30 +9,33 @@
 
 @{
     string visaType;
-    switch (Model.Visa.Type)
-    {
-        case 3:
-            visaType = "digital nomad visa";
-            break;
-        case 0:
-            visaType = "startup visa";
-            break;
-        case 6:
-            visaType = "business visa";
-            break;
-        case 5:
-            visaType = "invest visa";
-            break;
-        case 4:
-            visaType = "student visa";
-            break;
-        case 1:
-            visaType = "work visa";
-            break;
-        default:
-            visaType = "visa of";
-            break;
-    }
+    if (VisaTypes.Types.TryGetValue(Model.Visa.Type, out visaType)) { }
+    else visaType = "Visa";
+
+    //switch (Model.Visa.Type)
+    //{
+    //    case 3:
+    //        visaType = "digital nomad visa";
+    //        break;
+    //    case 0:
+    //        visaType = "startup visa";
+    //        break;
+    //    case 6:
+    //        visaType = "business visa";
+    //        break;
+    //    case 5:
+    //        visaType = "invest visa";
+    //        break;
+    //    case 4:
+    //        visaType = "student visa";
+    //        break;
+    //    case 1:
+    //        visaType = "work visa";
+    //        break;
+    //    default:
+    //        visaType = "visa of";
+    //        break;
+    //}
 
 
     ViewData["Title"] = $"{Model.Visa.Country.Name} {visaType} {Model.Visa.Name}: {visaType} {Model.Visa.Name} visa requirements, check list of documents, application form in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
@@ -58,7 +61,7 @@
             </div>
         </a>
 
-        <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Country.Name @visaType, @Model.Visa.Name</h2>               
+        <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name, @visaType of @Model.Visa.Country.Name</h2>
         
         <div class="text-center">
             @if (Model.Visa.Duration > 0)
