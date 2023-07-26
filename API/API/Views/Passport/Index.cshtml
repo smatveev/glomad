@@ -55,6 +55,17 @@
 
                     @await Html.PartialAsync("_SubscribeUpdates")
 
+                    @if (Model.PopularCountries?.Count > 0)
+                    {
+                        <h4>🔥 Top popular countries for citizens of @Model.Header.CountryName</h4>
+                        <ol class="list-unstyled mb-0">
+                            @foreach (var c in Model.PopularCountries)
+                            {
+                                <li class="pb-2"><a href="/@c.Name">@c.Name</a></li>
+                            }
+                        </ol>
+                    }
+
                     <div class="bg-light rounded-booking mb-3 mt-1">
                         <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
                             <div class="card bg-dark text-white border-0 card-cover" style="background-image: url('../safetywind_300.jpg');">

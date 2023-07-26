@@ -8,6 +8,7 @@ namespace API.Models
         public Country Country { get; set; }
         public List<CountryFreeEntry> CountryFreeEntry { get; set; }
         public List<CountryFreeEntry> CountryEvisa { get; set; }
+        public List<Country> PopularCountries { get; set; }
         public HeaderViewModel Header { get; set; }
     }
 }

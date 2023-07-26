@@ -3,6 +3,7 @@ using API.Models;
 using Glomad.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,6 +53,21 @@ namespace API.Controllers
             header.Text = $"Detail information for cizitens of {countryName}";
             header.CountryName = countryName;
             model.Header = header;
+
+
+            var popCountries = model.Country.PopularCountries?.Split(',')?.Select(int.Parse)?.ToList();
+
+            //var countryIds = model.Country.PopularCountries.Split(',');
+            //var intCountryIds = new int[countryIds.Length];
+
+            //for (int i = 0; i < countryIds.Length; i++)
+            //{
+            //    intCountryIds[i] = int.Parse(countryIds[i]);
+            //}
+
+            model.PopularCountries = (from pc in _context.PopularCountries join c in _context.Country on pc.Country.Id equals c.Id
+                        where popCountries.Contains(pc.Country.Id)
+                        select c).Distinct().ToList();
 
             return View(model);
         }
