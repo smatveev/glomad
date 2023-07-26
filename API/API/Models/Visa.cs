@@ -81,13 +81,14 @@ namespace API.Models
     {
         public static Dictionary<ushort, string> Types = new Dictionary<ushort, string>()
         {
-            { 0, "Startup"},
-            { 1, "Work"},
-            { 2, "Tourist"},
+            { 0, "Startup Visa"},
+            { 1, "Work Permit Visa"},
+            { 2, "Tourist Visa"},
             { 3, "Digital Nomad Visa"},
-            { 4, "Student"},
-            { 5, "Invest"},
-            { 6, "Business"},
+            { 4, "Student Visa"},
+            { 5, "Invest Visa"},
+            { 6, "Business Visa"},
+            { 7, "Retirement Visa"}
         };
     }
 
