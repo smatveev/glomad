@@ -91,7 +91,7 @@
 
     @if(Model.VisaDocs.Count > 0)
     {
-        <h4 class="text-center py-3">✔ Checklist of required documents</h4>
+            <h4 class="text-center py-3">✔ Checklist of required documents for @Model.Visa.Country.Name @visaType</h4>
         <div class="text-center">
                 <button type="button" id="showFormReport" data-bs-toggle="modal" data-bs-target="#addReport" class="btn btn-danger mb-3 w-auto">
                 Report incorrect info
