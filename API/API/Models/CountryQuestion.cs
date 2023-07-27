@@ -15,5 +15,7 @@ namespace API.Models
         public string Answer { get; set; }
         [Required]
         public DateTime? UpdateDate { get; set; }
+        [Required]
+        public Country Citizen { get; set; }
     }
 }
