@@ -47,6 +47,14 @@ namespace API.Models
         public string EVisaUrl { get; set; }
     }
 
+    public struct PopularCountriesViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Iata { get; set; }
+        public string Reason { get; set; }
+    }
+
     public struct FreeEntry
     {
         public List<CountryFreeEntry> countries { get; set; }

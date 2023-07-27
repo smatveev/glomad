@@ -55,7 +55,8 @@ namespace API.Controllers
             model.Header = header;
 
 
-            var popCountries = model.Country.PopularCountries?.Split(',')?.Select(int.Parse)?.ToList();
+            int[] popCountries = _context.PopularCountries.Where(c => c.Id == model.Country.Id).Select(c => c.Country.Id).ToArray();
+            //model.PopularCountries?.Split(',')?.Select(int.Parse)?.ToList();
 
             //var countryIds = model.Country.PopularCountries.Split(',');
             //var intCountryIds = new int[countryIds.Length];
@@ -65,9 +66,16 @@ namespace API.Controllers
             //    intCountryIds[i] = int.Parse(countryIds[i]);
             //}
 
-            model.PopularCountries = (from pc in _context.PopularCountries join c in _context.Country on pc.Country.Id equals c.Id
-                        where popCountries.Contains(pc.Country.Id)
-                        select c).Distinct().ToList();
+            model.PopularCountries = (
+                from pc in _context.PopularCountries join c in _context.Country on pc.Country.Id equals c.Id
+                where pc.Citizenship.Id == model.Country.Id
+                //where popCountries.Contains(c.Id)
+                select new PopularCountriesViewModel {
+                    Id = pc.Id,
+                    Name = c.Name,
+                    Iata = c.ISOalpha3,
+                    Reason = pc.Reason
+                }).Distinct().ToList();
 
             return View(model);
         }
