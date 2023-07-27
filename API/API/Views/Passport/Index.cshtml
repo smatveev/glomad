@@ -21,30 +21,44 @@
                 </h2>
 
                 <div class="row">
-                    <div class="col-6">
-                        <h4>👋 No entry visa countries (@Model.CountryFreeEntry.Count)</h4>
-                        <ul class="list-unstyled pt-2">
-                            @foreach (var e in Model.CountryFreeEntry)
+
+                    <h4>👋 No entry visa countries (@Model.CountryFreeEntry.Count)</h4>
+                    <ul class="list-unstyled pt-2 card-columns">
+                        @foreach (var e in Model.CountryFreeEntry)
+                        {
+                            <li class="mb-2">
+                                <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon-squared"></span>
+                                <a href="/@e.Name">@e.Name</a>
+                            </li>
+                        }
+                    </ul>
+
+
+                    <h4>💻 Countries with E-visa (@Model.CountryEvisa.Count)</h4>
+                    <ul class="list-unstyled pt-2 card-columns">
+                        @foreach (var e in Model.CountryEvisa)
+                        {
+                            <li class="mb-2">
+                                <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon-squared"></span>
+                                <a href="/@e.Name">@e.Name</a>
+                            </li>
+                        }
+                    </ul>
+
+                    @if (Model.PopularCountries?.Count > 0)
+                    {
+                        <h4>🔥 Top popular countries for citizens of @Model.Header.CountryName (@Model.PopularCountries.Count)</h4>
+                        <ul class="list-unstyled pt-2 card-columns">
+                            @foreach (var c in Model.PopularCountries)
                             {
                                 <li class="mb-2">
-                                    <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon-squared"></span>
-                                    <a href="/@e.Name">@e.Name</a>
+                                    @*<span class="flag-icon flag-icon-@c.Iata.ToLower() flag-icon-squared"></span>*@
+                                    <a href="/@c.Name">@c.Name</a>
                                 </li>
                             }
                         </ul>
-                    </div>
-                    <div class="col-6">
-                        <h4>💻 Countries with E-visa (@Model.CountryEvisa.Count)</h4>
-                        <ul class="list-unstyled pt-2">
-                            @foreach (var e in Model.CountryEvisa)
-                            {
-                                <li class="mb-2">
-                                    <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon-squared"></span>
-                                    <a href="/@e.Name">@e.Name</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
+                    }                    
+
                 </div>
                 
             </div>
@@ -53,18 +67,7 @@
 
                 <div class="position-sticky" style="top: 2rem;">
 
-                    @await Html.PartialAsync("_SubscribeUpdates")
-
-                    @if (Model.PopularCountries?.Count > 0)
-                    {
-                        <h4>🔥 Top popular countries for citizens of @Model.Header.CountryName</h4>
-                        <ol class="list-unstyled mb-0">
-                            @foreach (var c in Model.PopularCountries)
-                            {
-                                <li class="pb-2"><a href="/@c.Name">@c.Name</a></li>
-                            }
-                        </ol>
-                    }
+                    @await Html.PartialAsync("_SubscribeUpdates")                    
 
                     <div class="bg-light rounded-booking mb-3 mt-1">
                         <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">

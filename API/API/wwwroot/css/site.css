@@ -571,3 +571,26 @@ select {
         column-count: 3;
     }
 }*/
+
+
+.card-columns {
+    -webkit-columns: 3; /* Chrome, Safari, Opera */
+    -moz-columns: 3; /* Firefox */
+    columns: 3;
+}
+
+@media (max-width: 1080px) {
+    .card-columns {
+        -webkit-columns: 2; /* Chrome, Safari, Opera */
+        -moz-columns: 2; /* Firefox */
+        columns: 2;
+    }
+}
+
+@media (max-width: 470px) {
+    .card-columns {
+        -webkit-columns: 1; /* Chrome, Safari, Opera */
+        -moz-columns: 1; /* Firefox */
+        columns: 1;
+    }
+}
