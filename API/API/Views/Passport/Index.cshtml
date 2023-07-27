@@ -52,7 +52,7 @@
                             @foreach (var c in Model.PopularCountries)
                             {
                                 <li class="mb-2">
-                                    @*<span class="flag-icon flag-icon-@c.Iata.ToLower() flag-icon-squared"></span>*@
+                                    <span class="flag-icon flag-icon-@c.Iata.ToLower() flag-icon-squared"></span>
                                     <a href="/@c.Name">@c.Name</a>
                                 </li>
                             }
