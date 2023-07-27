@@ -85,7 +85,7 @@
         <div class="py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
 
         @if(!string.IsNullOrEmpty(Model.Visa.ProgramUrl)){
-            <div class="py-3">Link to program: <a href="//@Model.Visa.ProgramUrl">@Model.Visa.ProgramUrl</a></div>
+            <div class="py-3">Link to program: <a href="//@Model.Visa.ProgramUrl.Replace("https://", string.Empty)">@Model.Visa.ProgramUrl</a></div>
         }
         
 
