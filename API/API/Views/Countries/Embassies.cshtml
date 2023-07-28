@@ -180,11 +180,12 @@
 
                 @await Html.PartialAsync("_SubscribeUpdates")
 
-                <div class="bg-light rounded-booking mb-3 mt-1">
-                    @*<p class="m-0 px-2 py-1">All Embassies and Consulates on map</p>*@
-                    <div class="p-2" id='map'></div>
-                    
-                </div>
+                @if(Model.Embassies.Count > 0) {
+                    <div class="bg-light rounded-booking mb-3 mt-1">
+                        @*<p class="m-0 px-2 py-1">All Embassies and Consulates on map</p>*@
+                        <div class="p-2" id='map'></div>
+                    </div>
+                }                
 
                 <div class="bg-light rounded-booking mb-3 mt-1">
                     <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
@@ -245,6 +246,9 @@
         ymaps.ready(init);
 
         function init() {
+
+            if($("#map").length == 0) { return; }
+
             var myMap = new ymaps.Map("map", {
                 center: [55.76, 37.64],
                 zoom: 20
