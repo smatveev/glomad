@@ -2,7 +2,7 @@
 @model PassportViewModel
 
 @{
-    ViewData["Title"] = $"Visa requirements for {Model.Country.Name} citizens, visa free countries list in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["Title"] = $"{Model.Country.Name} passport ranking in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["MetaDescription"] = $"Passport holders of {Model.Country.Name} can visit {Model.CountryFreeEntry.Count} visa free countries. {Model.Country.Name} citezens can apply visa online for {Model.CountryEvisa.Count} countries. For {250 - Model.CountryEvisa.Count - Model.CountryFreeEntry.Count} countries {Model.Country.Name} citezens need to apply for a visa in advance. Visa requirements for {Model.Country.Name} citizens in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["Canonical"] = $"https://glomad.net/passport/{Model.Country.Name}";
 }
@@ -16,13 +16,12 @@
         <div class="row">
             <div class="col-md-8 text-break">
                 <h2 class="text-center p-4">
-                    There are @Model.CountryFreeEntry.Count countries not required visa for 
-                    holders of passport of @Model.Country.Name:
+                    There are @Model.CountryFreeEntry.Count visa free countries for @Model.Country.Name passport holders
                 </h2>
 
                 <div class="row">
 
-                    <h4 id="noentry">👋 No entry visa countries (@Model.CountryFreeEntry.Count)</h4>
+                    <h4 id="noentry">👋 Visa free countries list for @Model.Country.Name passport holders (@Model.CountryFreeEntry.Count)</h4>
                     <ul class="list-unstyled pt-2 card-columns">
                         @foreach (var e in Model.CountryFreeEntry)
                         {
@@ -32,9 +31,12 @@
                             </li>
                         }
                     </ul>
+                    <p>
+                        For visa-free travels, two essential things are a must: a valid passport (typically valid for at least six months beyond your departure date) and travel health insurance, as mandated by the country you plan to visit.
+                    </p>
 
 
-                    <h4 id="evisa">💻 Countries with E-visa (@Model.CountryEvisa.Count)</h4>
+                    <h4 id="evisa">💻 e-Visa countries for @Model.Country.Name passport holders (@Model.CountryEvisa.Count)</h4>
                     <ul class="list-unstyled pt-2 card-columns">
                         @foreach (var e in Model.CountryEvisa)
                         {
@@ -49,7 +51,7 @@
                     {
                         int i = 0;
 
-                        <h4 id="popular">🔥 Top popular countries for citizens of @Model.Header.CountryName (@Model.PopularCountries.Count)</h4>
+                        <h4 id="popular">🔥 Best countries to travel for @Model.Header.CountryName citizens (@Model.PopularCountries.Count)</h4>
                         <div class="accordion" id="accordion">
                             @foreach (var c in Model.PopularCountries)
                             {

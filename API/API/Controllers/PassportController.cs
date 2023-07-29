@@ -50,7 +50,7 @@ namespace API.Controllers
             model.CountryEvisa = allFreeCountries.Where(c => c.EVisaAvailable).ToList();
 
             HeaderViewModel header = new HeaderViewModel();
-            header.Text = $"Detail information for cizitens of {countryName}";
+            header.Text = $"Visa free countries, e-Visa countries and the most popular countries to travel for citezens of {countryName}";
             header.CountryName = countryName;
             model.Header = header;
 
