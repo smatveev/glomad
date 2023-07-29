@@ -20,8 +20,19 @@ namespace API.Controllers
         [Route("{country}/Embassy/{id}")]
         public IActionResult Index(string country, int id)
         {
+            EmbassyWithCountryAndCity emb = (from e in _context.Embassy
+                                             join c in _context.Country
+                                             on e.OriginalCountry.Id equals c.Id
+                                             where e.Id == id
+                                             select new EmbassyWithCountryAndCity
+                                             {
+                                                 Embassy = e,
+                                                 Country = c.Name,
+                                                 City = e.City.Name
+                                             }).FirstOrDefault();
 
-            return RedirectPermanent($"/{country}/Embassies#embassy-{id}");
+            return RedirectPermanent($"/{emb.Country}/Embassies#embassy-{id}");
+            //return RedirectPermanent($"/{country}/Embassies#embassy-{id}");
 
         //https://localhost:44338/Taiwan/Embassies#embassyDetails-5668
 
