@@ -1,8 +1,10 @@
-﻿using API.Models;
+﻿using API.Helpers;
+using API.Models;
 using Glomad.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,18 +22,14 @@ namespace API.Controllers
         [Route("{country}/Embassy/{id}")]
         public IActionResult Index(string country, int id)
         {
-            EmbassyWithCountryAndCity emb = (from e in _context.Embassy
-                                             join c in _context.Country
-                                             on e.OriginalCountry.Id equals c.Id
-                                             where e.Id == id
-                                             select new EmbassyWithCountryAndCity
-                                             {
-                                                 Embassy = e,
-                                                 Country = c.Name,
-                                                 City = e.City.Name
-                                             }).FirstOrDefault();
+            string origCountry = (from e in _context.Embassy
+                                  join c in _context.Country
+                                  on e.OriginalCountry.Id equals c.Id
+                                  where e.Id == id
+                                  select c.Name
+                                  ).SingleOrDefault() ?? string.Empty;
 
-            return RedirectPermanent($"/{emb.Country}/Embassies#embassy-{id}");
+            return RedirectPermanent($"/{origCountry}/Embassies#embassy-{id}");
             //return RedirectPermanent($"/{country}/Embassies#embassy-{id}");
 
         //https://localhost:44338/Taiwan/Embassies#embassyDetails-5668

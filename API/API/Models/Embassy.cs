@@ -11,7 +11,6 @@ namespace Glomad.Models
     {
         public int Id { get; set; }
         
-        [Required]
         public City City { get; set; }        
 
         [Required]
