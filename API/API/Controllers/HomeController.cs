@@ -231,26 +231,26 @@ namespace API.Controllers
             }
             catch { }
 
-            var passports = (from ne in _context.NoVisaEntry
-                             join co in _context.Country on ne.CountryPassport.Id equals co.Id
-                             select new
-                             {
-                                 Name = co.Name,
-                                 UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : DateTime.Now.AddDays(-30)
-                             }).Distinct().ToList();
+            //var passports = (from ne in _context.NoVisaEntry
+            //                 join co in _context.Country on ne.CountryPassport.Id equals co.Id
+            //                 select new
+            //                 {
+            //                     Name = co.Name,
+            //                     UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : DateTime.Now.AddDays(-30)
+            //                 }).Distinct().ToList();
 
-            try
-            {
-                foreach (var p in passports)
-                {
-                    sb.Append(
-                        $"<url><loc>{site}/passport/{p.Name}</loc>" +
-                        $"<lastmod>{p.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
-                        $"<changefreq>weekly</changefreq>" +
-                        $"<priority>0.8</priority></url>");
-                }
-            }
-            catch { }
+            //try
+            //{
+            //    foreach (var p in passports)
+            //    {
+            //        sb.Append(
+            //            $"<url><loc>{site}/passport/{p.Name}</loc>" +
+            //            $"<lastmod>{p.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+            //            $"<changefreq>weekly</changefreq>" +
+            //            $"<priority>0.8</priority></url>");
+            //    }
+            //}
+            //catch { }
 
 
             sb.Append("</urlset>");
