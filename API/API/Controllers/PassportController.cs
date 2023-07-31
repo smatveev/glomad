@@ -23,7 +23,7 @@ namespace API.Controllers
             return View();
         }
 
-        [Route("Passport/{country}")]
+        [Route("passport/{country}")]
         public IActionResult Index(string country)
         {
             string countryName = country.FirstCharToUpper();

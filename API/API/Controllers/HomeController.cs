@@ -244,7 +244,7 @@ namespace API.Controllers
                 foreach (var p in passports)
                 {
                     sb.Append(
-                        $"<url><loc>{site}/Passport/{p.Name}</loc>" +
+                        $"<url><loc>{site}/passport/{p.Name}</loc>" +
                         $"<lastmod>{p.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
                         $"<changefreq>weekly</changefreq>" +
                         $"<priority>0.8</priority></url>");
