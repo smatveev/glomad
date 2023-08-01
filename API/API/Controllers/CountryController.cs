@@ -51,7 +51,7 @@ namespace API.Controllers
             IncreaseViewCouter(model.Country.Id);
 
             model.Visas = (from v in _context.Visa
-                           where v.Country.Id == model.Country.Id && v.IsActual
+                           where v.Country.Id == model.Country.Id
                            select new VisaSearchResult
                            {
                                Id = v.Id,

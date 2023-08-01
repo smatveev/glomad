@@ -36,6 +36,7 @@ namespace API.Helpers
             {
                 result = (from co in _context.Visa
                           join c in _context.Country on co.Country.Id equals c.Id
+                          where co.IsActual
                           select new VisaSearchResult
                           {
                               Id = co.Id,
@@ -77,7 +78,7 @@ namespace API.Helpers
             {
                 result = (from co in _context.Visa
                           join c in _context.Country on co.Country.Id equals c.Id
-                          where filters.Contains(co.Type)
+                          where filters.Contains(co.Type) && co.IsActual
                           select new VisaSearchResult
                           {
                               Id = co.Id,
@@ -98,7 +99,8 @@ namespace API.Helpers
             else {
                 result = (from co in _context.Visa
                           join c in _context.Country on co.Country.Id equals c.Id
-                         // where test.Contains(co.Type)
+                          // where test.Contains(co.Type)
+                         where co.IsActual
                           select new VisaSearchResult
                           {
                               Id = co.Id,
