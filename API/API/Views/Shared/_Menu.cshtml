@@ -17,6 +17,9 @@
         <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("freeentry") ? "active" : "")" href="/@Model/FreeEntry">Visa free countries for @Model passport</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("passport") ? "active" : "")" href="/@Model/passport">@Model passport rating</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("faq") ? "active" : "")" href="/@Model/FAQ">FAQ</a>
     </li>
 </ul>
