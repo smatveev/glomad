@@ -8,6 +8,7 @@
 }
 
 @await Html.PartialAsync("_Header", Model.Header)
+@await Html.PartialAsync("_Menu", Model.Header.CountryName)
 
 <section class="container sectionstyle">
 
