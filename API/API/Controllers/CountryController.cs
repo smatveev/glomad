@@ -294,10 +294,13 @@ namespace API.Controllers
             int evisa = model.countries.Where(CountryFreeEntry => CountryFreeEntry.EVisaAvailable == true).Count();
             var top = model.countries.OrderByDescending(CountryFreeEntry => CountryFreeEntry.Duration).Take(3).ToList();
 
-            header.Text = $"There are {model.countries.Count} countries whose citizens are not required to obtain a visa to visit {header.CountryName}, ";
+            header.Text = $"There are {model.countries.Count} countries whose citizens are not required to obtain a visa to visit {header.CountryName}";
             if (evisa > 0)
-                header.Text += $"including {evisa} countries that need to get an E - Visa before the entry. ";
-            header.Text += $"Citizens of {String.Join(", ", top.Select(r => r.Name))} are allowed to stay in {header.CountryName} without a visa for up to {top.First().Duration} days.";
+                header.Text += $" , including {evisa} countries that need to get an E - Visa before the entry. ";
+            if(top.Count > 0)
+                header.Text += $"Citizens of {String.Join(", ", top.Select(r => r.Name))} are allowed to stay in {header.CountryName} without a visa for up to {top.First().Duration} days.";
+            else
+                header.Text += $"Everybody have to apply to visa of {header.CountryName} in prior.";
 
             model.header = header;
 
