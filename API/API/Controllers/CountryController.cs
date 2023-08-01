@@ -531,6 +531,24 @@ namespace API.Controllers
                                Duration = v.Duration
                            }).ToList();
 
+            // Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+            if(model.Visa.Type == 3)
+            {
+                model.SameVisasOtherCountries = (from v in _context.Visa
+                                                 join c in _context.Country
+                                                 on v.Country.Id equals c.Id
+                                                 where v.Type == 3 && c.Id != Country.Id
+                                                 select new SameVisasOtherCountries
+                                                 {
+                                                     Country = c.Name,
+                                                     CountryIata3 = c.ISOalpha3,
+                                                     VisaId = v.Id,
+                                                     VisaName = v.Name,
+                                                     VisaDescription = v.Description
+                                                 }
+                                             ).ToList();
+            }            
+
             return View("Visa", model);
         }
 

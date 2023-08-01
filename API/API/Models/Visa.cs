@@ -118,6 +118,16 @@ namespace API.Models
         public DateTime UpdateDate { get; set; }
     }
 
+    public struct SameVisasOtherCountries
+    {
+        public string Country { get; set; }
+        public string CountryIata3 { get; set; }
+        public string VisaName { get; set; }
+        public int VisaId { get; set; }
+        public string VisaDescription { get; set; }
+        public int ReviewsCount { get; set; }
+    }
+
     public class VisaPage
     {
         public Visa Visa { get; set; }
@@ -125,5 +135,6 @@ namespace API.Models
         public List<VisaSearchResult> Visas { get; set; }
         public List<EmbassyVM> Embassies { get; set; }
         public List<VisaDoc> VisaDocs { get; set; }
+        public List<SameVisasOtherCountries> SameVisasOtherCountries { get; set; }
     }
 }

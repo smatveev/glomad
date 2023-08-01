@@ -61,7 +61,7 @@
             </div>
         </a>
 
-        <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name, @visaType of @Model.Visa.Country.Name</h2>
+        <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name, @visaType of @Model.Visa.Country.Name</h2>        
         
         <div class="text-center">
             @if (Model.Visa.Duration > 0)
@@ -265,6 +265,43 @@
             }
         </div>
     }
+
+    @if (Model.SameVisasOtherCountries?.Count > 0)
+    {
+        <h4 class="text-center py-3">🌐 Digital Nomad visas in other countries</h4>
+        @foreach (var v in Model.SameVisasOtherCountries)
+        {
+            <div class="mb-3 rounded-booking bg-white border">
+                <div class="row g-0">
+                    <div class="col-md-4 back rounded-booking text-white position-relative" style="background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3) ), url(/@Uri.EscapeUriString(v.Country.ToLower())_300.jpg)">
+                        <div class="card-body text-center">
+                            <a href="/@v.Country">
+                                <h4 class="card-title shadowed text-white">@v.Country</h4>
+                            </a>
+                            <a href="/@v.Country/Visa/@v.VisaId">
+                                <h6 class="card-title shadowed fw-bold py-2 mb-5 text-white">@v.VisaName</h6>
+                            </a>
+                        </div>
+                        @if (true)
+                        {
+                            <span class="added m-2 shadowed position-absolute start-0 bottom-0">
+                                ⭐ 10 Reviews
+                            </span>
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p>
+                                @v.VisaDescription.TruncateStr(250).StripHTML()...
+                                    <a href="/@v.Country/Visa/@v.VisaId">Continue reading</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
     </div>
 </section>
 

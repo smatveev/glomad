@@ -119,7 +119,7 @@
 
     <div class="col-12 col-lg-5">
         <p class="card-text py-3">
-            @Model.Description.Truncate(150).StripHTML()...
+            @Model.Description.TruncateStr(150).StripHTML()...
             <a href="/@Model.CountryName/Visa/@Model.Id" >Continue reading</a>
         </p>
     </div>
