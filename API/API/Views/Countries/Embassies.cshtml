@@ -40,11 +40,18 @@
                     string title;
                     if (e.Embassy.Name != null)
                     {
-                        title = Html.Raw(HttpUtility.HtmlDecode(e.Embassy.Name)) + " in " + e.City;
+                        title = Html.Raw(HttpUtility.HtmlDecode(e.Embassy.Name)).ToString();
+                        if (!string.IsNullOrEmpty(e.City))
+                            title += $" in {e.City}";
                     }
                     else
                     {
-                        title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country.Name} in {e.Country}, {e.City}").Replace("\n", "<br/>")).ToString();
+                        title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country.Name} in {e.Country}")).ToString();
+                        if (!string.IsNullOrEmpty(e.City))
+                        {
+                            title += $", {e.City}";
+                        }
+                        title = title.Replace("\n", "<br/>").ToString();
                     }
 
                     @if (!string.Equals(curCountry, e.Country))
