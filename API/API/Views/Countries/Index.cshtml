@@ -67,9 +67,9 @@
                             <div class="col-md-9 p-3">
                                 @if (Model.NoVisaEntry.Duration > 0)
                                 {
-                                    <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
+                                    @*<p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
                                         🙌 @(Model.HomeCountry.Citizen + " сitizens" ?? "Сitizens of " + Model.HomeCountry.Name) can stay in the @Model.Header.CountryName @Model.NoVisaEntry.Duration days without visa.
-                                    </p>
+                                    </p>*@
                                 }
                                 <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
                                     ℹ @Model.NoVisaEntry.Description.StripHTML()
