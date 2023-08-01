@@ -6,7 +6,7 @@
 @if(Model.countries != null && Model.countries.Count > 0) {
 
     <div>
-        <h5 class="mb-3">Free visa entry for citizens of @Model.myCountry (@Model.countries.Count found)</h5>
+        <h5 class="mb-3">Visa free countries entry for citizens of @Model.myCountry (@Model.countries.Count found)</h5>
         <div style="max-height: 20rem; overflow-y:scroll;">
             @foreach (var item in Model.countries)
             {
