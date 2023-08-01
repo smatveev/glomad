@@ -51,7 +51,7 @@ namespace API.Controllers
             IncreaseViewCouter(model.Country.Id);
 
             model.Visas = (from v in _context.Visa
-                           where v.Country.Id == model.Country.Id
+                           where v.Country.Id == model.Country.Id && v.IsActual
                            select new VisaSearchResult
                            {
                                Id = v.Id,
@@ -124,27 +124,6 @@ namespace API.Controllers
                 if (days90.Count >= 2)
                     header.Text += $"Good options for digital nomads on {model.Country.Name} are {string.Join(", ", days90.Select(r => r.VisaName))}. ";
             }
-            //else
-            //    header.Text = $"We are working to prepare updated list of visas of {model.Country.Name}. Stay tuned!";
-
-
-            //            если есть рейтинг
-            //The most popular visa among Glomad's users is the {Visa name} up to {duration} days.
-
-            //Евиза может прийти только если локация есть.
-            //Если есть  евиза в спике
-            //{ citezen}
-            //            citezens can get E-visa up to { duration}
-            //            days for travelling to { country Name}.
-
-            //The most popular is the Tourist visa up to 90 days.
-            //In addition, it is possible to apply for E - visa for 90 days.
-
-            //Our users best rated the Russian embassies in @String.Join(", ", top.Select(r => r.Name)) Baku, Azerbaijan_, Minsk, Belarus, Brussels, Belgium.
-
-            //if (model.Country.UpdateDate != null)
-            //    header.Text += $"Last update: {model.Country.UpdateDate.Value.ToString("")}";
-            //< p id = "updatedate" data - utcdate = "@Model.Country.UpdateDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture);" ></ p >
 
             model.Header = header;
 
