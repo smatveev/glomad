@@ -89,7 +89,7 @@ namespace API.Models
             { 4, "Student Visa"},
             { 5, "Invest Visa"},
             { 6, "Business Visa"},
-            { 7, "Retirement Visa"}
+            { 7, "Retirement Visa"} 
         };
     }
 
@@ -124,8 +124,6 @@ namespace API.Models
         public string CountryIata3 { get; set; }
         public string VisaName { get; set; }
         public int VisaId { get; set; }
-        public string VisaDescription { get; set; }
-        public int ReviewsCount { get; set; }
     }
 
     public class VisaPage
@@ -136,5 +134,6 @@ namespace API.Models
         public List<EmbassyVM> Embassies { get; set; }
         public List<VisaDoc> VisaDocs { get; set; }
         public List<SameVisasOtherCountries> SameVisasOtherCountries { get; set; }
+        public List<SameVisasOtherCountries> YearLongVisas { get; set; }
     }
 }
