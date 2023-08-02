@@ -537,7 +537,7 @@ namespace API.Controllers
                 model.SameVisasOtherCountries = (from v in _context.Visa
                                                  join c in _context.Country
                                                  on v.Country.Id equals c.Id
-                                                 where v.Type == 3 && c.Id != Country.Id
+                                                 where v.Type == 3 && c.Id != Country.Id && v.IsActual
                                                  select new SameVisasOtherCountries
                                                  {
                                                      Country = c.Name,
