@@ -626,3 +626,46 @@ select {
     ::-webkit-scrollbar-thumb:hover {
         background-color: #a8bbbf;
     }
+
+
+
+$glass: rgba(255, 255, 255, 0.2);
+$glass-icon: rgba(255, 255, 255, 0.3);
+$gradient: linear-gradient(35deg, red, purple);
+$option: #320a28;
+
+body {
+    background: $gradient;
+}
+
+/* <select> styles */
+select {
+    font-weight: 400 !important;
+    /* Reset */
+    appearance: none;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    /* Personalize */
+    width: 20em;
+    height: 3em;
+    padding: 0 4em 0 1em;
+    background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg) no-repeat right 0.8em center / 1.4em, linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.55) 3em);
+    color: black;
+    border-radius: 0.25em;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    /* <option> colors */
+        option {
+        color: inherit;
+        background-color: #320a28;
+    }
+/* Remove focus outline */
+&:focus {
+    outline: none;
+}
+/* Remove IE arrow */
+&::-ms-expand {
+    display: none;
+}
+}
