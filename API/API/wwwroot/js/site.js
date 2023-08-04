@@ -190,8 +190,10 @@ function setCookie(name, value, days) {
 function setCountry(e) {
     var countryName = e.options[e.selectedIndex].text
     setCookie("myCountry", countryName, 14)
-
-    loadNoVisaEntry()
+    var loc = window.location.href + "?citizen=" + countryName;
+    alert(loc);
+    window.location.href = loc;
+    //loadNoVisaEntry()
 }
 
 function buildLink() {

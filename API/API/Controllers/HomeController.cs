@@ -268,7 +268,7 @@ namespace API.Controllers
         [Route("")]
         //[Route("Search")]
         //[Route("Search/{route}")]
-        public async Task<IActionResult> Index(int Passport, int To)
+        public async Task<IActionResult> Index(int Passport, int To, string Citizen)
         {
             //Stopwatch sw = new Stopwatch();
             //sw.Start();
