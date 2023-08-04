@@ -6,13 +6,22 @@
     👉 My country is @Model
 </button>*@
 
-<div class="box position-absolute btn p-1 m-1 top-0 end-0" style="z-index: 2;">
+
+
+
+
+
+@*<div class="box position-absolute btn p-1 m-1 top-0 end-0" style="z-index: 2;">
     <select id="CitizenshipId"
             aria-label="CitizenshipId"
             onChange="setCountry(this);"
-            class="p-1"
+            --class="p-1"
             data-bs-toggle="tooltip" data-bs-placement="bottom" title="👆 Click to choose your country"
             asp-items="@Model">
         <option disabled selected value="0">🛂 Your national passport</option>
     </select>
-</div>
+</div>*@
+
+<select id="CitizenshipId" onChange="setCountry(this);" class="p-4 mt-4 h3" asp-items="@Model">
+    <option disabled selected value="0">🛂 Your national passport</option>
+</select>

@@ -60,10 +60,6 @@
 </head>
 <body>
     <main role="main">
-        <cache expires-after="@TimeSpan.FromMinutes(60)">
-            @await Component.InvokeAsync("Menu")
-        </cache>
-
         @RenderBody()
     </main>
 
