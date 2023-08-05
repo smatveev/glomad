@@ -40,8 +40,11 @@ namespace API.Controllers
 
 
         [Route("{country}")]
-        public async Task<IActionResult> Index(string country)
+        [Route("{country}/citizen-{citizen}")]
+        public async Task<IActionResult> Index(string country, string citizen)
         {
+            ViewBag.Citizen = citizen;
+
             var model = new IndexPage();
 
             model.Country = _context.Country.FirstOrDefault(m => m.Name == country);

@@ -38,6 +38,10 @@
         </h6>
     }
 
+    <cache expires-after="@TimeSpan.FromMinutes(60)">
+        @await Component.InvokeAsync("Menu")
+    </cache>
+
 </div>
 
 @*<partial name="_News" />*@

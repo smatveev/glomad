@@ -266,9 +266,10 @@ namespace API.Controllers
         }
 
         [Route("")]
+        [Route("citizen-{country}")]
         //[Route("Search")]
         //[Route("Search/{route}")]
-        public async Task<IActionResult> Index(int Passport, int To, string Citizen)
+        public async Task<IActionResult> Index(int Passport, int To, string country)
         {
             //Stopwatch sw = new Stopwatch();
             //sw.Start();
@@ -330,9 +331,11 @@ namespace API.Controllers
             ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
             ViewBag.ToCountries = ViewBag.Countries;
 
-            var country = await new GeoIp(HttpContext).GetMyCountryAsync();
-            var hc = _context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
+            var myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            var hc = _context.Country.Where(c => c.Name.ToLower() == myCountry.ToLower()).FirstOrDefault();
             ViewBag.MyCountry = hc.CapitalCode;
+
+            ViewBag.Citizen = country;
 
             //sw.Stop();
             //Console.WriteLine("Elapsed = {0}", sw.Elapsed);
