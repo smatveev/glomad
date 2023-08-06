@@ -24,31 +24,18 @@
                 <div class="mask" style="background-color: rgba(0, 0, 0, 0.5)">
                     <div class="d-flex justify-content-center align-items-center h-100 pt-4">
                         <div class="text-white text-center">
-                            <h1 class="fw-bold display-4">🌏 Glomad - be a global nomad for @ViewBag.Citizen</h1>
-
+                            <h1 class="fw-bold display-4">🌏 Glomad - be a global nomad</h1>
+                            <cache expires-after="@TimeSpan.FromMinutes(60)">
+                                @await Component.InvokeAsync("Menu")
+                            </cache>
                             <h4 class="mt-4 lh-base col-md-auto fw-light">
-
-
-@*                                <select>
-                                    <option selected value="0">Pure CSS Select</option>
-                                    <option value="1">No Wrapper</option>
-                                    <option value="2">No JS</option>
-                                    <option value="3">Nice!</option>
-                                </select>*@
-
+                                @*<partial name="_ShareExperience" />*@
                                 🛂Let's know where you can go with your passport easily. <br />
                                 🎫 Check the visa requirements for your nationality for every country.<br />
                                 🙋‍♀️ Country Frequently Asked Questions (FAQs) <br />
                                 @*😷 Check last COVID-19 travel restrictions for a country. <br />*@
                                 😎 Forget about visa headaches. Be ready to travel at any time.<br />
-
-                                @*<partial name="_ShareExperience" />*@
                             </h4>
-
-                            <cache expires-after="@TimeSpan.FromMinutes(60)">
-                                @await Component.InvokeAsync("Menu")
-                            </cache>
-                            
                         </div>
                     </div>
                 </div>
@@ -192,8 +179,14 @@
 
             @await Html.PartialAsync("_SubscribeUpdates")
 
+                <h3>@ViewBag.MyCountry</h3>
+
             <div class="mb-3 bg-white" id="bookingW">
-                    <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@ViewBag.MyCountry" charset="utf-8"></script>
+                    <script id="" src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@ViewBag.MyCountry" charset="utf-8"></script>
+
+
+
+                @*old*@
                 @*<script src="https://tp.media/content?currency=usd&promo_id=4041&shmarker=14510&campaign_id=100&trs=21653&searchUrl=search.jetradar.com&locale=en_us&powered_by=false&one_way=true&only_direct=false&period=year&range=7%2C21&primary=%230C73FE&color_background=%23ffffff&achieve=%2345AD35&dark=%23000000&light=%23FFFFFF&origin=@ViewBag.MyCountry" charset="utf-8"></script>*@
             </div>
 

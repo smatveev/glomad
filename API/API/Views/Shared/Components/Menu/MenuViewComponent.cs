@@ -41,7 +41,7 @@ namespace API.Views.Shared.Components.Directions
             //                                  UpdateDate = c.UpdateDate.Value
             //                              }).ToList();
 
-            var list = new SelectList(_context.Country, "Id", "Name");
+            var list = new SelectList(_context.Country, "CapitalCode", "Name");
 
             return View(model: list);
         }

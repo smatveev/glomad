@@ -189,12 +189,26 @@ function setCookie(name, value, days) {
 
 function setCountry(e) {
     var countryName = e.options[e.selectedIndex].text
+    var CapitalCode = e.options[e.selectedIndex].value
     setCookie("myCountry", countryName, 14)
-    var loc = window.location.href + "citizen-" + countryName;
-    alert(loc);
-    window.location.href = loc;
-    //loadNoVisaEntry()
+    //var loc = window.location.href + "citizen-" + countryName;
+    //alert(loc);
+    //window.location.href = loc;
+    loadNoVisaEntry();
+
+    if (CapitalCode.length == 0) {
+        return;
+    }
+
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.src = "//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=" + CapitalCode;
+    s.innerHTML = null;
+    s.id = "map123";
+    document.getElementById("bookingW").innerHTML = "";
+    document.getElementById("bookingW").appendChild(s);
 }
+
 
 function buildLink() {
     var div = document.getElementById('criterias')
