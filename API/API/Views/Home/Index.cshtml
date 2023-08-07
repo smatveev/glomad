@@ -24,7 +24,10 @@
                 <div class="mask" style="background-color: rgba(0, 0, 0, 0.5)">
                     <div class="d-flex justify-content-center align-items-center h-100 pt-4">
                         <div class="text-white text-center">
-                            <h1 class="fw-bold display-4">🌏 Glomad - be a global nomad</h1>
+                            <h1 class="fw-bold display-4 mb-4">🌏 Glomad - be a global nomad</h1>
+
+                            <h2 class="fw-bold">Your citizen passport is:</h2>
+
                             <cache expires-after="@TimeSpan.FromMinutes(60)">
                                 @await Component.InvokeAsync("Menu")
                             </cache>
@@ -178,8 +181,6 @@
             </div>
 
             @await Html.PartialAsync("_SubscribeUpdates")
-
-                <h3>@ViewBag.MyCountry</h3>
 
             <div class="mb-3 bg-white" id="bookingW">
                     <script id="" src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@ViewBag.MyCountry" charset="utf-8"></script>

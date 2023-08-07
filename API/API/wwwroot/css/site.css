@@ -116,11 +116,15 @@ nav {
     #introCarousel, .carousel-inner, .carousel-item, .carousel-item.active {
         height: 70vh;
     }
+    #CitizenshipId {
+        padding: .5rem !important;
+    }
 }
 
 @media only screen and (min-width: 480px) {
     #introCarousel, .carousel-inner, .carousel-item, .carousel-item.active {
         height: 40vh;
+        min-height: 450px;
     }
 }
 
@@ -668,4 +672,9 @@ select {
 &::-ms-expand {
     display: none;
 }
+}
+
+
+#CitizenshipId {
+    max-width: 90vw;
 }

@@ -196,9 +196,7 @@ function setCountry(e) {
     //window.location.href = loc;
     loadNoVisaEntry();
 
-    if (CapitalCode.length == 0) {
-        return;
-    }
+    //CapitalCode.length == 0 ? "BKK" : CapitalCode;
 
     var s = document.createElement("script");
     s.type = "text/javascript";
