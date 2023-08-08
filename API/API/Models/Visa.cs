@@ -124,6 +124,7 @@ namespace API.Models
         public string CountryIata3 { get; set; }
         public string VisaName { get; set; }
         public int VisaId { get; set; }
+        public float Income { get; set; }
     }
 
     public class VisaPage
@@ -135,5 +136,7 @@ namespace API.Models
         public List<VisaDoc> VisaDocs { get; set; }
         public List<SameVisasOtherCountries> SameVisasOtherCountries { get; set; }
         public List<SameVisasOtherCountries> YearLongVisas { get; set; }
+
+        public List<SameVisasOtherCountries> CheapVisas { get; set; }
     }
 }

@@ -562,7 +562,21 @@ namespace API.Controllers
                                                      VisaName = v.Name
                                                  }
                              ).ToList();
-            }            
+            }
+
+            model.CheapVisas = (from v in _context.Visa
+                                join c in _context.Country
+                                on v.Country.Id equals c.Id
+                                where v.Income < model.Visa.Income && v.Type == 3 && c.Id != Country.Id && v.IsActual
+                                select new SameVisasOtherCountries
+                                {
+                                    Country = c.Name,
+                                    CountryIata3 = c.ISOalpha3,
+                                    VisaId = v.Id,
+                                    VisaName = v.Name,
+                                    Income = v.Income
+                                }
+                             ).ToList();
 
             return View("Visa", model);
         }

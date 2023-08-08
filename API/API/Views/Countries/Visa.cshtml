@@ -77,6 +77,17 @@
                     ✨ Extendable
                 </span>
             }
+            @if(Model.Visa.Income > 0) {
+                <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                    🤑 @Model.Visa.Income ($)
+                </span>
+            }
+            @if (Model.Visa.CostOfProgramm > 0)
+            {
+                <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                    💰 @Model.Visa.CostOfProgramm ($)
+                </span>
+            }
             <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
                 🧐 @visaType
             </span>
@@ -268,7 +279,12 @@
 
     @if (Model.SameVisasOtherCountries?.Count > 0)
     {
-            <h2 class="text-center pt-4 pb-2">🌐 @VisaTypes.Types[Model.Visa.Type]s in other countries</h2>
+        <h2 class="text-center pt-4 pb-2">🌐 @VisaTypes.Types[Model.Visa.Type]s in countries close to @Model.Visa.Country.Name</h2>
+
+        <p>
+            @Model.Visa.Country.Name neighboring countries also offer @VisaTypes.Types[Model.Visa.Type] visas. You maybe interested in researching these visas.
+        </p>
+
         <ul class="list-unstyled pt-2 card-columns">
         @foreach (var v in Model.SameVisasOtherCountries)
         {            
@@ -287,11 +303,39 @@
         </ul>
     }
 
-        @if (Model.YearLongVisas?.Count > 0)
+    @if (Model.YearLongVisas?.Count > 0)
+    {
+        <h2 class="text-center pt-4 pb-2">🌐 Long term 365+ days visas in other countries</h2>
+        <ul class="list-unstyled pt-2 card-columns">
+            @foreach (var v in Model.YearLongVisas)
+            {
+                <li class="mb-2">
+                    <div>
+                        <h4 class="pt-4">
+                            <span class="flag-icon flag-icon-@v.CountryIata3.ToLower() flag-icon"></span>
+                            <a href="/@v.Country">@v.Country</a>
+                        </h4>
+                        <p>
+                            <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                        </p>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+
+        @if (Model.CheapVisas?.Count > 0)
         {
-            <h2 class="text-center pt-4 pb-2">🌐 Long term 365+ days visas in other countries</h2>
+            <h2 class="text-center pt-4 pb-2">💸 @VisaTypes.Types[Model.Visa.Type]s with the same or less annual required income.</h2>
+
+            <p>
+                You are reviewing @Model.Visa.Country.Name @VisaTypes.Types[Model.Visa.Type] with annual income @Model.Visa.Income.
+                The following are @VisaTypes.Types[Model.Visa.Type]s with required annual income from @Model.CheapVisas.Min(v => v.Income) up to @Model.CheapVisas.Max(v => v.Income).
+                You will probably be more interested in checking them out, too.
+            </p>
+
             <ul class="list-unstyled pt-2 card-columns">
-                @foreach (var v in Model.YearLongVisas)
+                @foreach (var v in Model.CheapVisas)
                 {
                     <li class="mb-2">
                         <div>

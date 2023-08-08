@@ -12,10 +12,10 @@
 }
 
 <div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
-    <h1 class="text-white py-5 shadowed">
+    <h1 class="text-white py-4 fw-bold display-4">
         @if (string.IsNullOrEmpty(Model.VisaName))
         {
-            <a class="text-white" href="/">🌎</a>@: / @Model.CountryName
+            <a class="text-white" href="/">🌎</a>@:  @Model.CountryName
         }
         else
         {
@@ -23,10 +23,15 @@
             <a class="text-white" href="/@Model.CountryName">@Model.CountryName</a>@: /
             <a class="text-white" href="">@Model.VisaName</a>
         }
-
     </h1>
+
+    <h2 class="fw-bold">Your citizen passport is:</h2>
+    <cache expires-after="@TimeSpan.FromMinutes(60)">
+        @await Component.InvokeAsync("Menu")
+    </cache>
+
     @if(!string.IsNullOrEmpty(@Model.Text)) {
-        <p class="custom-scrollbar Gcontainer col-lg-8 mx-auto col-lg-8 col-sm-12 mx-auto rounded-3 p-3 bg-black-opacy">
+        <p class="container custom-scrollbar Gcontainer col-lg-8 mx-auto col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 bg-black-opacy">
             @Model.Text.Trim()
         </p>
     }
@@ -37,10 +42,6 @@
             Last Update @Model.LastUpdate
         </h6>
     }
-
-    <cache expires-after="@TimeSpan.FromMinutes(60)">
-        @await Component.InvokeAsync("Menu")
-    </cache>
 
 </div>
 
