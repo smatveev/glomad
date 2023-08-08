@@ -533,12 +533,14 @@ namespace API.Controllers
                                IsExdendable = v.IsExtendable,
                                Duration = v.Duration
                            }).ToList();
-
-
+            
+            int[] nextCountries = Country.NextCountries.Split(',').Select(int.Parse).ToArray();
+            
             model.SameVisasOtherCountries = (from v in _context.Visa
                                              join c in _context.Country
                                              on v.Country.Id equals c.Id
-                                             where v.Type == model.Visa.Type && v.Type != 2 && c.Id != Country.Id && v.IsActual
+                                             where v.Type == model.Visa.Type && v.Type != 2 
+                                             && nextCountries.Contains(c.Id) && v.IsActual
                                              select new SameVisasOtherCountries
                                              {
                                                  Country = c.Name,
@@ -567,7 +569,7 @@ namespace API.Controllers
             model.CheapVisas = (from v in _context.Visa
                                 join c in _context.Country
                                 on v.Country.Id equals c.Id
-                                where v.Income < model.Visa.Income && v.Type == 3 && c.Id != Country.Id && v.IsActual
+                                where v.Income <= model.Visa.Income && v.Type == 3 && c.Id != Country.Id && v.IsActual
                                 select new SameVisasOtherCountries
                                 {
                                     Country = c.Name,

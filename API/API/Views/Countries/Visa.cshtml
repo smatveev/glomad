@@ -282,7 +282,7 @@
         <h2 class="text-center pt-4 pb-2">🌐 @VisaTypes.Types[Model.Visa.Type]s in countries close to @Model.Visa.Country.Name</h2>
 
         <p>
-            @Model.Visa.Country.Name neighboring countries also offer @VisaTypes.Types[Model.Visa.Type] visas. You maybe interested in researching these visas.
+            @Model.Visa.Country.Name neighboring countries also offer @VisaTypes.Types[Model.Visa.Type]s. You maybe interested in researching these visas.
         </p>
 
         <ul class="list-unstyled pt-2 card-columns">
@@ -306,6 +306,12 @@
     @if (Model.YearLongVisas?.Count > 0)
     {
         <h2 class="text-center pt-4 pb-2">🌐 Long term 365+ days visas in other countries</h2>
+
+            <p>
+                You were wondering about the @VisaTypes.Types[Model.Visa.Type] in @Model.Visa.Country.Name, maybe you are interested in how
+                to stay longer in other countries. Below are the visas that will allow you to stay for a year or more.
+            </p>
+
         <ul class="list-unstyled pt-2 card-columns">
             @foreach (var v in Model.YearLongVisas)
             {
@@ -329,9 +335,9 @@
             <h2 class="text-center pt-4 pb-2">💸 @VisaTypes.Types[Model.Visa.Type]s with the same or less annual required income.</h2>
 
             <p>
-                You are reviewing @Model.Visa.Country.Name @VisaTypes.Types[Model.Visa.Type] with annual income @Model.Visa.Income.
-                The following are @VisaTypes.Types[Model.Visa.Type]s with required annual income from @Model.CheapVisas.Min(v => v.Income) up to @Model.CheapVisas.Max(v => v.Income).
-                You will probably be more interested in checking them out, too.
+                You are reviewing @Model.Visa.Country.Name @VisaTypes.Types[Model.Visa.Type] with annual income $@Model.Visa.Income.
+                The following are @VisaTypes.Types[Model.Visa.Type]s with required annual income from $@Model.CheapVisas.Min(v => v.Income) up to $@Model.CheapVisas.Max(v => v.Income).
+                You will probably be more interested in checking them out too.
             </p>
 
             <ul class="list-unstyled pt-2 card-columns">
@@ -345,6 +351,9 @@
                             </h4>
                             <p>
                                 <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                            </p>
+                            <p>
+                                @v.Income
                             </p>
                         </div>
                     </li>
