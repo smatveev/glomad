@@ -562,8 +562,7 @@ namespace API.Controllers
                                                      CountryIata3 = c.ISOalpha3,
                                                      VisaId = v.Id,
                                                      VisaName = v.Name
-                                                 }
-                             ).ToList();
+                                                 }).ToList();
             }
 
             model.CheapVisas = (from v in _context.Visa
@@ -577,8 +576,58 @@ namespace API.Controllers
                                     VisaId = v.Id,
                                     VisaName = v.Name,
                                     Income = v.Income
-                                }
-                             ).ToList();
+                                }).ToList();
+
+            if(!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.Criminal)))
+            {
+                model.VisasNotRequireCriminal = (from v in _context.Visa
+                                    join c in _context.Country on v.Country.Id equals c.Id
+                                    join d in _context.VisaDoc on v.Id equals d.Visa.Id
+                                    where d.DocumentType != (int)DocumentType.Criminal && c.Id != Country.Id && v.IsActual && v.Type == model.Visa.Type
+                                    select new SameVisasOtherCountries
+                                    {
+                                        Country = c.Name,
+                                        CountryIata3 = c.ISOalpha3,
+                                        VisaId = v.Id,
+                                        VisaName = v.Name
+                                    }).Distinct().ToList();
+            }
+
+            model.VisasNotRequireAviaTickets = (from v in _context.Visa
+                                             join c in _context.Country on v.Country.Id equals c.Id
+                                             join d in _context.VisaDoc on v.Id equals d.Visa.Id
+                                             where d.DocumentType != (int)DocumentType.Ticket && c.Id != Country.Id && v.IsActual
+                                             select new SameVisasOtherCountries
+                                             {
+                                                 Country = c.Name,
+                                                 CountryIata3 = c.ISOalpha3,
+                                                 VisaId = v.Id,
+                                                 VisaName = v.Name
+                                             }).Distinct().ToList();
+
+            model.VisasNotRequireContract = (from v in _context.Visa
+                                             join c in _context.Country on v.Country.Id equals c.Id
+                                             join d in _context.VisaDoc on v.Id equals d.Visa.Id
+                                             where d.DocumentType != (int)DocumentType.Contract && c.Id != Country.Id && v.IsActual
+                                             select new SameVisasOtherCountries
+                                             {
+                                                 Country = c.Name,
+                                                 CountryIata3 = c.ISOalpha3,
+                                                 VisaId = v.Id,
+                                                 VisaName = v.Name
+                                             }).Distinct().ToList();
+
+            model.VisasNotRequireFinanceProof = (from v in _context.Visa
+                                             join c in _context.Country on v.Country.Id equals c.Id
+                                             join d in _context.VisaDoc on v.Id equals d.Visa.Id
+                                             where d.DocumentType != (int)DocumentType.FinanceProof && c.Id != Country.Id && v.IsActual
+                                             select new SameVisasOtherCountries
+                                             {
+                                                 Country = c.Name,
+                                                 CountryIata3 = c.ISOalpha3,
+                                                 VisaId = v.Id,
+                                                 VisaName = v.Name
+                                             }).Distinct().ToList();
 
             return View("Visa", model);
         }

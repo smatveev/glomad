@@ -61,8 +61,8 @@
             </div>
         </a>
 
-        <h2 class="text-center pt-5 pb-2">💳 @Model.Visa.Name, @visaType of @Model.Visa.Country.Name</h2>        
-        
+        <h3 class="text-center p-3 fw-bold">💳 @Model.Visa.Name, @visaType of @Model.Visa.Country.Name</h3>
+
         <div class="text-center">
             @if (Model.Visa.Duration > 0)
             {
@@ -102,7 +102,7 @@
 
     @if(Model.VisaDocs.Count > 0)
     {
-        <h4 class="text-center py-3">✔ Checklist of required documents for @Model.Visa.Country.Name @visaType</h4>
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">✔ Checklist of required documents for @Model.Visa.Country.Name @visaType</h4>
         @*<div class="text-center">
             <button type="button" id="showFormReport" data-bs-toggle="modal" data-bs-target="#addReport" class="btn btn-danger mb-3 w-auto">
                 Report incorrect info
@@ -153,11 +153,11 @@
 
     @if (Model.Reviews.Count > 0)
     {
-        <h4 class="text-center py-3">💬 Read @Model.Reviews.Count trusted reviews</h4>
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">💬 Read @Model.Reviews.Count trusted reviews</h4>
     }
     else
     {
-        <h4 class="text-center py-3">💬 Share your experience</h4>
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">💬 Share your experience</h4>
     }
     <div class="text-center">
         <button type="button" id="showForm" data-bs-toggle="modal" data-bs-target="#addReview" class="btn btn-main mb-3">
@@ -277,91 +277,129 @@
         </div>
     }
 
-    @if (Model.SameVisasOtherCountries?.Count > 0)
-    {
-        <h2 class="text-center pt-4 pb-2">🌐 @VisaTypes.Types[Model.Visa.Type]s in countries close to @Model.Visa.Country.Name</h2>
+        @if (Model.SameVisasOtherCountries?.Count > 0)
+        {
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">🌐 @VisaTypes.Types[Model.Visa.Type]s in countries close to @Model.Visa.Country.Name</h4>
 
-        <p>
-            @Model.Visa.Country.Name neighboring countries also offer @VisaTypes.Types[Model.Visa.Type]s. You maybe interested in researching these visas.
-        </p>
+            <p class="col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
+                @Model.Visa.Country.Name neighboring countries also offer @VisaTypes.Types[Model.Visa.Type]s. You maybe interested in researching these visas.
+            </p>
 
-        <ul class="list-unstyled pt-2 card-columns">
-        @foreach (var v in Model.SameVisasOtherCountries)
-        {            
-            <li class="mb-2">
-                <div>
-                    <h4 class="pt-4">
-                        <span class="flag-icon flag-icon-@v.CountryIata3.ToLower() flag-icon"></span>
-                        <a href="/@v.Country">@v.Country</a>
-                    </h4>
-                    <p>
-                        <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
-                    </p>
-                </div>
-            </li>
+            <ul class="list-unstyled mb-0 card-columns">
+                @foreach (var v in Model.SameVisasOtherCountries)
+                {            
+                    <li class="mb-2">
+                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                    </li>
+                }
+            </ul>
         }
-        </ul>
-    }
 
     @if (Model.YearLongVisas?.Count > 0)
     {
-        <h2 class="text-center pt-4 pb-2">🌐 Long term 365+ days visas in other countries</h2>
+        <h4 class="text-center py-3 fw-bold text-dark mt-4">😌 Long term 365+ days visas in other countries</h4>
 
-            <p>
-                You were wondering about the @VisaTypes.Types[Model.Visa.Type] in @Model.Visa.Country.Name, maybe you are interested in how
-                to stay longer in other countries. Below are the visas that will allow you to stay for a year or more.
-            </p>
+        <p class="col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
+        You were wondering about the @VisaTypes.Types[Model.Visa.Type] in @Model.Visa.Country.Name, maybe you are interested in how
+        to stay longer in other countries. Below are the visas that will allow you to stay for a year or more.
+        </p>
 
-        <ul class="list-unstyled pt-2 card-columns">
-            @foreach (var v in Model.YearLongVisas)
+        <ul class="list-unstyled mb-0 card-columns">
+                @foreach (var v in Model.YearLongVisas)
             {
                 <li class="mb-2">
-                    <div>
-                        <h4 class="pt-4">
-                            <span class="flag-icon flag-icon-@v.CountryIata3.ToLower() flag-icon"></span>
-                            <a href="/@v.Country">@v.Country</a>
-                        </h4>
-                        <p>
-                            <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
-                        </p>
-                    </div>
+                    <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
                 </li>
             }
         </ul>
     }
 
-        @if (Model.CheapVisas?.Count > 0)
-        {
-            <h2 class="text-center pt-4 pb-2">💸 @VisaTypes.Types[Model.Visa.Type]s with the same or less annual required income.</h2>
+    @if (Model.CheapVisas?.Count > 0)
+    {
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">💸 @VisaTypes.Types[Model.Visa.Type]s with the same or less annual required income.</h4>
 
-            <p>
-                You are reviewing @Model.Visa.Country.Name @VisaTypes.Types[Model.Visa.Type] with annual income $@Model.Visa.Income.
-                The following are @VisaTypes.Types[Model.Visa.Type]s with required annual income from $@Model.CheapVisas.Min(v => v.Income) up to $@Model.CheapVisas.Max(v => v.Income).
-                You will probably be more interested in checking them out too.
+            <p class="col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
+            You are reviewing @Model.Visa.Country.Name @VisaTypes.Types[Model.Visa.Type] with annual income $@Model.Visa.Income.
+            The following are @VisaTypes.Types[Model.Visa.Type]s with required annual income from $@Model.CheapVisas.Min(v => v.Income) up to $@Model.CheapVisas.Max(v => v.Income).
+            You will probably be more interested in checking them out too.
+        </p>
+
+        <ul class="list-unstyled mb-0 card-columns">
+                @foreach (var v in Model.CheapVisas)
+            {
+                <li class="mb-2">
+                    <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                            $ @v.Income
+                        </span>
+                </li>
+            }
+        </ul>
+    }
+
+        @if (Model.VisasNotRequireCriminal?.Count > 0)
+        {
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">🦹‍♀️ @VisaTypes.Types[Model.Visa.Type]s visas for which no criminal history is required to be provided.</h4>
+
+            <p class="col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
+                You are interested in a @Model.Visa.Country.Name @VisaTypes.Types[Model.Visa.Type] visa that does not require a criminal records report.
+                Below are @VisaTypes.Types[Model.Visa.Type] visas with the same conditions, you may also find them interesting.
             </p>
 
-            <ul class="list-unstyled pt-2 card-columns">
-                @foreach (var v in Model.CheapVisas)
+            <ul class="list-unstyled mb-0 card-columns">
+                @foreach (var v in Model.VisasNotRequireCriminal)
                 {
                     <li class="mb-2">
-                        <div>
-                            <h4 class="pt-4">
-                                <span class="flag-icon flag-icon-@v.CountryIata3.ToLower() flag-icon"></span>
-                                <a href="/@v.Country">@v.Country</a>
-                            </h4>
-                            <p>
-                                <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
-                            </p>
-                            <p>
-                                @v.Income
-                            </p>
-                        </div>
+                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                    </li>
+                }
+            </ul>
+        }
+
+        @if (Model.VisasNotRequireAviaTickets?.Count > 0)
+        {
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">✈ @VisaTypes.Types[Model.Visa.Type] visas not requiring return ticket reservations for application</h4>
+
+            <ul class="list-unstyled mb-0 card-columns">
+                @foreach (var v in Model.VisasNotRequireAviaTickets)
+                {
+                    <li class="mb-2">
+                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                    </li>
+                }
+            </ul>
+        }
+
+        @if (Model.VisasNotRequireContract?.Count > 0)
+        {
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">🏠 @VisaTypes.Types[Model.Visa.Type] visas that do not require accommodation booking for application</h4>
+
+            <ul class="list-unstyled mb-0 card-columns">
+                @foreach (var v in Model.VisasNotRequireContract)
+                {
+                    <li class="mb-2">
+                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                    </li>
+                }
+            </ul>
+        }
+
+        @if (Model.VisasNotRequireFinanceProof?.Count > 0)
+        {
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">🤑 @VisaTypes.Types[Model.Visa.Type] visas that do not require financial proof documents for application</h4>
+
+            <ul class="list-unstyled mb-0 card-columns">
+                @foreach (var v in Model.VisasNotRequireFinanceProof)
+                {
+                    <li class="mb-2">
+                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
                     </li>
                 }
             </ul>
         }
 
     </div>
+
 </section>
 
 <div class="modal fade" id="addReview" tabindex="-1" aria-hidden="true">

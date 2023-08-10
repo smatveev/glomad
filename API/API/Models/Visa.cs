@@ -138,5 +138,9 @@ namespace API.Models
         public List<SameVisasOtherCountries> YearLongVisas { get; set; }
 
         public List<SameVisasOtherCountries> CheapVisas { get; set; }
+        public List<SameVisasOtherCountries> VisasNotRequireCriminal { get; set; }
+        public List<SameVisasOtherCountries> VisasNotRequireAviaTickets { get; set; }
+        public List<SameVisasOtherCountries> VisasNotRequireContract { get; set; }
+        public List<SameVisasOtherCountries> VisasNotRequireFinanceProof { get; set; }
     }
 }
