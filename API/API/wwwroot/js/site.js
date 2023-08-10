@@ -190,13 +190,16 @@ function setCookie(name, value, days) {
 function setCountry(e) {
     var countryName = e.options[e.selectedIndex].text
     var CapitalCode = e.options[e.selectedIndex].value
-    setCookie("myCountry", countryName, 14)
-    //var loc = window.location.href + "citizen-" + countryName;
-    //alert(loc);
-    //window.location.href = loc;
-    loadNoVisaEntry();
 
-    //CapitalCode.length == 0 ? "BKK" : CapitalCode;
+    setCookie("myCountry", countryName, 14)
+
+    if (location.pathname != "/") {
+        var loc = window.location.href + "citizen-" + countryName;
+        //alert(loc);
+        window.location.href = loc;
+        return;
+    }
+    //console.log(location.pathname);
 
     var s = document.createElement("script");
     s.type = "text/javascript";
@@ -205,6 +208,10 @@ function setCountry(e) {
     s.id = "map123";
     document.getElementById("bookingW").innerHTML = "";
     document.getElementById("bookingW").appendChild(s);
+
+    loadNoVisaEntry();
+
+    //CapitalCode.length == 0 ? "BKK" : CapitalCode;
 }
 
 
