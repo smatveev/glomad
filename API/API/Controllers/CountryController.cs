@@ -568,7 +568,7 @@ namespace API.Controllers
             model.CheapVisas = (from v in _context.Visa
                                 join c in _context.Country
                                 on v.Country.Id equals c.Id
-                                where v.Income <= model.Visa.Income && v.Type == 3 && c.Id != Country.Id && v.IsActual
+                                where v.Income <= model.Visa.Income && v.Type == model.Visa.Type && c.Id != Country.Id && v.IsActual
                                 select new SameVisasOtherCountries
                                 {
                                     Country = c.Name,
@@ -578,8 +578,23 @@ namespace API.Controllers
                                     Income = v.Income
                                 }).ToList();
 
-            if(!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.Criminal)))
+
+            //var allVisasSameType = (from v in _context.Visa
+            //                        join c in _context.Country on v.Country.Id equals c.Id
+            //                        join d in _context.VisaDoc on v.Id equals d.Visa.Id
+            //                        where c.Id != Country.Id && v.IsActual && v.Type == model.Visa.Type
+            //                        select new SameVisasOtherCountries
+            //                        {
+            //                            Country = c.Name,
+            //                            CountryIata3 = c.ISOalpha3,
+            //                            VisaId = v.Id,
+            //                            VisaName = v.Name
+            //                        }).Distinct().ToList();
+
+            if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.Criminal)))
             {
+                //model.VisasNotRequireCriminal = allVisasSameType.Where(v => v.)
+
                 model.VisasNotRequireCriminal = (from v in _context.Visa
                                     join c in _context.Country on v.Country.Id equals c.Id
                                     join d in _context.VisaDoc on v.Id equals d.Visa.Id
@@ -596,7 +611,8 @@ namespace API.Controllers
             model.VisasNotRequireAviaTickets = (from v in _context.Visa
                                              join c in _context.Country on v.Country.Id equals c.Id
                                              join d in _context.VisaDoc on v.Id equals d.Visa.Id
-                                             where d.DocumentType != (int)DocumentType.Ticket && c.Id != Country.Id && v.IsActual
+                                             where d.DocumentType != (int)DocumentType.Ticket && c.Id != Country.Id 
+                                             && v.IsActual && v.Type == model.Visa.Type
                                              select new SameVisasOtherCountries
                                              {
                                                  Country = c.Name,
@@ -608,7 +624,9 @@ namespace API.Controllers
             model.VisasNotRequireContract = (from v in _context.Visa
                                              join c in _context.Country on v.Country.Id equals c.Id
                                              join d in _context.VisaDoc on v.Id equals d.Visa.Id
-                                             where d.DocumentType != (int)DocumentType.Contract && c.Id != Country.Id && v.IsActual
+                                             where d.DocumentType != (int)DocumentType.PlaceOfStay 
+                                             && c.Id != Country.Id 
+                                             && v.IsActual && v.Type == model.Visa.Type
                                              select new SameVisasOtherCountries
                                              {
                                                  Country = c.Name,
@@ -620,8 +638,9 @@ namespace API.Controllers
             model.VisasNotRequireFinanceProof = (from v in _context.Visa
                                              join c in _context.Country on v.Country.Id equals c.Id
                                              join d in _context.VisaDoc on v.Id equals d.Visa.Id
-                                             where d.DocumentType != (int)DocumentType.FinanceProof && c.Id != Country.Id && v.IsActual
-                                             select new SameVisasOtherCountries
+                                             where d.DocumentType != (int)DocumentType.FinanceProof 
+                                             && c.Id != Country.Id && v.IsActual && v.Type == model.Visa.Type
+                                                 select new SameVisasOtherCountries
                                              {
                                                  Country = c.Name,
                                                  CountryIata3 = c.ISOalpha3,
