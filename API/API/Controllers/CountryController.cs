@@ -595,9 +595,9 @@ namespace API.Controllers
             if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.Criminal)))
             {
                 model.VisasNotRequireCriminal = allVisasSameType
-                    .GroupBy(v => v.VisaId)
-                    .Select(i => i.First())
                     .Where(v => v.DocType != (int)DocumentType.Criminal)
+                    .GroupBy(v => v.VisaId)
+                    .Select(i => i.First())                    
                     .ToList();
 
                 //model.VisasNotRequireCriminal = (from v in _context.Visa
