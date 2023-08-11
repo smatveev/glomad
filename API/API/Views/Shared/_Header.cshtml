@@ -15,12 +15,21 @@
     <h1 class="text-white py-4 fw-bold display-4">
         @if (string.IsNullOrEmpty(Model.VisaName))
         {
-            <a class="text-white" href="/">🌎</a>@:  @Model.CountryName
+            
+            <a class="text-white" href="/">
+                <div class="logo-box"></div>
+            </a>
+            <span class="carousel-control-next-icon"></span>
+            @Model.CountryName
         }
         else
         {
-            <a class="text-white" href="/">🌎</a>@: /
-            <a class="text-white" href="/@Model.CountryName">@Model.CountryName</a>@: /
+            <a class="text-white" href="/">
+                <div class="logo-box"></div>
+            </a>
+            <span class="carousel-control-next-icon"></span>
+            <a class="text-white" href="/@Model.CountryName">@Model.CountryName</a>
+            <span class="carousel-control-next-icon"></span>
             <a class="text-white" href="">@Model.VisaName</a>
         }
     </h1>
