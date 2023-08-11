@@ -3,6 +3,68 @@
     --main-color: #23aaa3;
 }
 
+
+.logo-box {
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: text-bottom;
+    background: -webkit-linear-gradient(120deg,#06c4e8, #015CA2, #070764, #742f44, #d67203, #f2d182);
+    background: linear-gradient(120deg,#06c4e8, #015CA2, #070764, #742f44, #d67203, #f2d182);
+    background-size: 300% 300%;
+    mask-image: url('/logo.png');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-image: url('/logo.png');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    display: inline-block;
+    -webkit-animation: animatedgradient 5s ease infinite alternate;
+    -moz-animation: animatedgradient 5s ease infinite alternate;
+    -ms-animation: animatedgradient 5s ease infinite alternate;
+    -o-animation: animatedgradient 5s ease infinite alternate;
+    animation: animatedgradient 5s ease infinite alternate;
+}
+
+@-webkit-keyframes animatedgradient {
+    0% {
+        background-position: 10% 0%
+    }
+
+    50% {
+        background-position: 90% 50%
+    }
+
+    100% {
+        background-position: 0% 10%
+    }
+}
+
+@-moz-keyframes animatedgradient {
+    0% {
+        background-position: 10% 0%
+    }
+
+    50% {
+        background-position: 90% 50%
+    }
+
+    100% {
+        background-position: 0% 10%
+    }
+}
+
+@keyframes animatedgradient {
+    0% {
+        background-position: 10% 0%
+    }
+    50% {
+        background-position: 90% 50%
+    }
+    100% {
+        background-position: 0% 10%
+    }
+}
+
 body {
     background-color: #fbfaf8;
     color: #0f1115;
