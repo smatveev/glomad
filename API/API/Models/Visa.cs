@@ -125,6 +125,7 @@ namespace API.Models
         public string VisaName { get; set; }
         public int VisaId { get; set; }
         public float Income { get; set; }
+        public ushort DocType { get; set; }
     }
 
     public class VisaPage
