@@ -565,6 +565,7 @@ namespace API.Controllers
 
             foreach(var v in allVisasSameType)
             {
+
                 // our visa is Digital nomad
                 if (model.Visa.Type == 3 && v.Duration > 360 && v.Type != 3 && !model.YearLongVisas.Any(i => i.VisaId == v.VisaId))
                     model.YearLongVisas.Add(v);
@@ -574,7 +575,7 @@ namespace API.Controllers
 
                 if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.Criminal)) 
                     && model.Visa.Type == v.Type 
-                    && v.DocType != (int)DocumentType.Criminal 
+                    && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.Criminal) 
                     && !model.VisasNotRequireCriminal.Any(i => i.VisaId == v.VisaId))
                 {
                     model.VisasNotRequireCriminal.Add(v);
@@ -582,7 +583,7 @@ namespace API.Controllers
 
                 if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.Ticket))
                     && model.Visa.Type == v.Type
-                    && v.DocType != (int)DocumentType.Ticket
+                    && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.Ticket)
                     && !model.VisasNotRequireAviaTickets.Any(i => i.VisaId == v.VisaId))
                 {
                     model.VisasNotRequireAviaTickets.Add(v);
@@ -590,7 +591,7 @@ namespace API.Controllers
 
                 if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.PlaceOfStay))
                     && model.Visa.Type == v.Type
-                    && v.DocType != (int)DocumentType.PlaceOfStay
+                    && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.PlaceOfStay)
                     && !model.VisasNotRequireContract.Any(i => i.VisaId == v.VisaId))
                 {
                     model.VisasNotRequireContract.Add(v);
@@ -598,7 +599,7 @@ namespace API.Controllers
 
                 if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.FinanceProof))
                     && model.Visa.Type == v.Type
-                    && v.DocType != (int)DocumentType.FinanceProof
+                    && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.FinanceProof)
                     && !model.VisasNotRequireFinanceProof.Any(i => i.VisaId == v.VisaId))
                 {
                     model.VisasNotRequireFinanceProof.Add(v);
