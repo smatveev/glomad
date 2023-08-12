@@ -121,11 +121,13 @@ namespace API.Models
     public struct SameVisasOtherCountries
     {
         public string Country { get; set; }
-        public string CountryIata3 { get; set; }
         public string VisaName { get; set; }
         public int VisaId { get; set; }
         public float Income { get; set; }
         public ushort DocType { get; set; }
+        public short Duration { get; set; }
+        public ushort Type { get;set; }
+        public int CountryId { get; set; }
     }
 
     public class VisaPage
@@ -135,13 +137,12 @@ namespace API.Models
         public List<VisaSearchResult> Visas { get; set; }
         public List<EmbassyVM> Embassies { get; set; }
         public List<VisaDoc> VisaDocs { get; set; }
-        public List<SameVisasOtherCountries> SameVisasOtherCountries { get; set; }
-        public List<SameVisasOtherCountries> YearLongVisas { get; set; }
-
-        public List<SameVisasOtherCountries> CheapVisas { get; set; }
-        public List<SameVisasOtherCountries> VisasNotRequireCriminal { get; set; }
-        public List<SameVisasOtherCountries> VisasNotRequireAviaTickets { get; set; }
-        public List<SameVisasOtherCountries> VisasNotRequireContract { get; set; }
-        public List<SameVisasOtherCountries> VisasNotRequireFinanceProof { get; set; }
+        public List<SameVisasOtherCountries> SameVisasOtherCountries { get; set; } = new List<SameVisasOtherCountries>();
+        public List<SameVisasOtherCountries> YearLongVisas { get; set; } = new List<SameVisasOtherCountries>();
+        public List<SameVisasOtherCountries> CheapVisas { get; set; } = new List<SameVisasOtherCountries>();
+        public List<SameVisasOtherCountries> VisasNotRequireCriminal { get; set; } = new List<SameVisasOtherCountries>();
+        public List<SameVisasOtherCountries> VisasNotRequireAviaTickets { get; set; } = new List<SameVisasOtherCountries>();
+        public List<SameVisasOtherCountries> VisasNotRequireContract { get; set; } = new List<SameVisasOtherCountries>(); 
+        public List<SameVisasOtherCountries> VisasNotRequireFinanceProof { get; set; } = new List<SameVisasOtherCountries>();
     }
 }
