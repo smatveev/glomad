@@ -560,7 +560,8 @@ namespace API.Controllers
                                         VisaName = v.Name,
                                         DocType = d.DocumentType,
                                         Duration = v.Duration,
-                                        Type = v.Type
+                                        Type = v.Type,
+                                        Income = v.Income
                                     }).Distinct().ToList();
 
             foreach(var v in allVisasSameType)
