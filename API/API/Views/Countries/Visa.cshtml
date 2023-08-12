@@ -289,7 +289,7 @@
                 @foreach (var v in Model.SameVisasOtherCountries)
                 {            
                     <li class="mb-2">
-                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                        <a href="/@v.Country/Visa/@v.VisaId">@v.Country, @v.VisaName</a>
                     </li>
                 }
             </ul>
@@ -308,7 +308,7 @@
                 @foreach (var v in Model.YearLongVisas)
             {
                 <li class="mb-2">
-                    <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                        <a href="/@v.Country/Visa/@v.VisaId">@v.Country, @v.VisaName</a>
                 </li>
             }
         </ul>
@@ -328,8 +328,8 @@
                 @foreach (var v in Model.CheapVisas)
             {
                 <li class="mb-2">
-                    <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
-                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                    <a href="/@v.Country/Visa/@v.VisaId">@v.Country, @v.VisaName</a>
+                        <span class="-me-2 -mb-2 -p-2 badge text-dark rounded-pill bg-light">
                             $ @v.Income
                         </span>
                 </li>
@@ -350,7 +350,7 @@
                 @foreach (var v in Model.VisasNotRequireCriminal)
                 {
                     <li class="mb-2">
-                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                        <a href="/@v.Country/Visa/@v.VisaId">@v.Country, @v.VisaName</a>
                     </li>
                 }
             </ul>
@@ -364,7 +364,7 @@
                 @foreach (var v in Model.VisasNotRequireAviaTickets)
                 {
                     <li class="mb-2">
-                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                        <a href="/@v.Country/Visa/@v.VisaId">@v.Country, @v.VisaName</a>
                     </li>
                 }
             </ul>
@@ -378,7 +378,7 @@
                 @foreach (var v in Model.VisasNotRequireContract)
                 {
                     <li class="mb-2">
-                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                        <a href="/@v.Country/Visa/@v.VisaId">@v.Country, @v.VisaName</a>
                     </li>
                 }
             </ul>
@@ -392,7 +392,7 @@
                 @foreach (var v in Model.VisasNotRequireFinanceProof)
                 {
                     <li class="mb-2">
-                        <a href="/@v.Country">@v.Country</a>, <a href="/@v.Country/Visa/@v.VisaId">@v.VisaName</a>
+                        <a href="/@v.Country/Visa/@v.VisaId">@v.Country, @v.VisaName</a>
                     </li>
                 }
             </ul>
