@@ -58,6 +58,7 @@ namespace API.Models
         public string ProgramUrl { get; set; }
         public DateTime? UpdateDate { get; set; }
         public bool IsActual { get; set; }
+        public bool IsAnnounced { get; set; }
     }
 
     public enum VisaType
@@ -92,7 +93,8 @@ namespace API.Models
             { 4, "Student Visa"},
             { 5, "Invest Visa"},
             { 6, "Business Visa"},
-            { 7, "Retirement Visa"} 
+            { 7, "Retirement Visa"},
+            { 8, "Retreat"}
         };
     }
 

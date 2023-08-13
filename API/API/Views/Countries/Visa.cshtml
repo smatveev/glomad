@@ -93,24 +93,22 @@
             </span>
         </div>
 
-        <div class="py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
         @if (Model.Visa.IsActual == false && Model.Visa.Type == 3 && Model.AnalogVisa.Count > 0)
         {
-            <div>@Model.Visa.Country.Name, unfortunately, does not offer a visa for Digital Nomads yet. People who want to stay in @Model.Visa.Country.Name longer often also have a look at the following visas:
-                
+            <p class="col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
+                <h4>@Model.Visa.Country.Name, unfortunately, does not offer a visa for Digital Nomads yet. People who want to stay in @Model.Visa.Country.Name longer often also have a look at the following visas:</h4>
                 <ul>
-                @foreach(var a in Model.AnalogVisa)
-                {
-                    <li class="mb-2">
-                        <a href="/@a.Country/Visa/@a.VisaId">@a.Country, @a.VisaName</a>
-                    </li>
-
-                }
+                    @foreach (var a in Model.AnalogVisa)
+                    {
+                        <li class="mb-2">
+                            <a href="/@a.Country/Visa/@a.VisaId">@a.Country, @a.VisaName</a>
+                        </li>
+                    }
                 </ul>
-            </div>
-            
+            </p>
         }
-        
+
+        <div class="py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>               
 
         @if(!string.IsNullOrEmpty(Model.Visa.ProgramUrl)){
             <div class="py-3">Link to program: <a href="//@Model.Visa.ProgramUrl.Replace("https://", string.Empty)">@Model.Visa.ProgramUrl</a></div>
@@ -229,36 +227,36 @@
                         loyR = "r5";
                         loyT = "👋 Perfect";
                     }
-                                    <tr>
-                                        <td>😎 Simplicity</td>
-                                        <td>
-                                            <div class="rating rounded">
-                                                <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
-                                                    @simpleT: @simple%
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>🥱 Waiting time</td>
-                                        <td>
-                                            <div class="rating rounded">
-                                                <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
-                                                    @waitT: @wait%
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>🤗 Loyalty</td>
-                                        <td>
-                                            <div class="rating rounded">
-                                                <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
-                                                    @loyT: @loy%
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                    <tr>
+                        <td>😎 Simplicity</td>
+                        <td>
+                            <div class="rating rounded">
+                                <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
+                                    @simpleT: @simple%
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>🥱 Waiting time</td>
+                        <td>
+                            <div class="rating rounded">
+                                <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
+                                    @waitT: @wait%
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>🤗 Loyalty</td>
+                        <td>
+                            <div class="rating rounded">
+                                <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
+                                    @loyT: @loy%
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
