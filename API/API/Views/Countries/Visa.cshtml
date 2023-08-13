@@ -64,6 +64,12 @@
         <h3 class="text-center p-3 fw-bold">💳 @Model.Visa.Name, @visaType of @Model.Visa.Country.Name</h3>
 
         <div class="text-center">
+            @if (Model.Visa.IsAnnounced)
+            {
+                <span class="achtung me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                    🔥 Announced
+                </span>
+            }
             @if (Model.Visa.Duration > 0)
             {
                 <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
@@ -73,7 +79,7 @@
 
             @if (Model.Visa.IsExtendable)
             {
-                <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                <span class="me-2 mb-2 p-2 badge text-white rounded-pill bg-dark">
                     ✨ Extendable
                 </span>
             }

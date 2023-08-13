@@ -65,8 +65,8 @@ namespace API.Controllers
                                CountryName = country,
                                Type = VisaTypes.Types[v.Type],
                                Income = v.Income,
-                               Cost = $"{v.CostOfProgramm} {v.CostCurrency}"
-
+                               Cost = $"{v.CostOfProgramm} {v.CostCurrency}",
+                               IsAnnounced = v.IsAnnounced
                            }).ToList();
             foreach (var v in model.Visas)
             {

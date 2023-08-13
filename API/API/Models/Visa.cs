@@ -121,6 +121,7 @@ namespace API.Models
         public string Cost{ get; set; }
         public float CostNum { get; set; }
         public DateTime UpdateDate { get; set; }
+        public bool IsAnnounced { get; set; }
     }
 
     public struct SameVisasOtherCountries
