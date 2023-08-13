@@ -36,7 +36,7 @@ namespace API.Helpers
             {
                 result = (from co in _context.Visa
                           join c in _context.Country on co.Country.Id equals c.Id
-                          where co.IsActual
+                          where co.IsActual || co.IsAnnounced
                           select new VisaSearchResult
                           {
                               Id = co.Id,
@@ -52,8 +52,9 @@ namespace API.Helpers
                               Income = co.Income,
                               Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
                               CostNum = co.CostOfProgramm,
-                              UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value
-                          }).Take(10).OrderByDescending(r => r.Reviews.Count).ToList();
+                              UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
+                              IsAnnounced = co.IsAnnounced
+                          }).Take(20).OrderByDescending(r => r.Reviews.Count).ToList();
 
                 return result;
             }
@@ -78,7 +79,7 @@ namespace API.Helpers
             {
                 result = (from co in _context.Visa
                           join c in _context.Country on co.Country.Id equals c.Id
-                          where filters.Contains(co.Type) && co.IsActual
+                          where filters.Contains(co.Type) && (co.IsActual || co.IsAnnounced)
                           select new VisaSearchResult
                           {
                               Id = co.Id,
@@ -93,14 +94,15 @@ namespace API.Helpers
                               Income = co.Income,
                               Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
                               CostNum = co.CostOfProgramm,
-                              UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value
-                          }).ToList();
+                              UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
+                              IsAnnounced = co.IsAnnounced
+                          }).Take(20).ToList();
             }
             else {
                 result = (from co in _context.Visa
                           join c in _context.Country on co.Country.Id equals c.Id
                           // where test.Contains(co.Type)
-                         where co.IsActual
+                         where (co.IsActual || co.IsAnnounced)
                           select new VisaSearchResult
                           {
                               Id = co.Id,
@@ -115,8 +117,9 @@ namespace API.Helpers
                               Income = co.Income,
                               Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
                               CostNum = co.CostOfProgramm,
-                              UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value
-                          }).ToList();
+                              UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
+                              IsAnnounced = co.IsAnnounced
+                          }).Take(20).ToList();
 
             }
 

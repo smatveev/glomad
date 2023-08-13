@@ -31,85 +31,91 @@
         <div class="col-md-8">
             <div class="card-body">
                 <div class="pt-2">
-                @if (Model.Income > 0)
-                {
-                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                        🤑 Income $ @Model.Income
-                    </span>
-                }
-                @if (!string.IsNullOrEmpty(Model.Cost))
-                {
-                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                        💰 Cost of program $ @Model.Cost
-                    </span>
-                }
-                @if (Model.IsExdendable)
-                {
-                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                        ✨ Extendable
-                    </span>
-                }
-                @if (Model.Duration > 0)
-                {
-                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                        🕜 Duration @Model.Duration days
-                    </span>
-                }
-                @if (!string.IsNullOrEmpty(Model.Type))
-                {
-                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                        🐱‍👤 @Model.Type
-                    </span>
-                }
-
-                @if (Model.Reviews != null && Model.Reviews.Count > 0)
-                {
-                    string simpleR = "r1";
-                    string simpleT = "🤯 Complicated to get";
-                    int simple = (int)Model.Reviews.Average(i => i.Simplicity) * 100 / 5;
-                    if (simple > 35 && simple < 75)
+                    @if (Model.IsAnnounced)
                     {
-                        simpleR = "r3";
-                        simpleT = "🤨 Medium to get";
+                        <span class="achtung me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                            🔥 Announced
+                        </span>
                     }
-                    if (simple >= 75)
+                    @if (Model.Income > 0)
                     {
-                        simpleR = "r5";
-                        simpleT = "😎 Easy to get";
+                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                            🤑 Income $ @Model.Income
+                        </span>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Cost))
+                    {
+                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                            💰 Cost of program $ @Model.Cost
+                        </span>
+                    }
+                    @if (Model.IsExdendable)
+                    {
+                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                            ✨ Extendable
+                        </span>
+                    }
+                    @if (Model.Duration > 0)
+                    {
+                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                            🕜 Duration @Model.Duration days
+                        </span>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Type))
+                    {
+                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                            🐱‍👤 @Model.Type
+                        </span>
                     }
 
-                    string waitR = "r1";
-                    string waitT = "🐢 Slow processing";
-                    int wait = (int)Model.Reviews.Average(i => i.Waiting) * 100 / 5;
-                    if (wait > 35 && wait < 75)
+                    @if (Model.Reviews != null && Model.Reviews.Count > 0)
                     {
-                        waitR = "r3";
-                        waitT = "🦘 Medium processing";
-                    }
-                    if (wait >= 75)
-                    {
-                        waitR = "r5";
-                        waitT = "🐎 Fast processing";
-                    }
+                        string simpleR = "r1";
+                        string simpleT = "🤯 Complicated to get";
+                        int simple = (int)Model.Reviews.Average(i => i.Simplicity) * 100 / 5;
+                        if (simple > 35 && simple < 75)
+                        {
+                            simpleR = "r3";
+                            simpleT = "🤨 Medium to get";
+                        }
+                        if (simple >= 75)
+                        {
+                            simpleR = "r5";
+                            simpleT = "😎 Easy to get";
+                        }
+
+                        string waitR = "r1";
+                        string waitT = "🐢 Slow processing";
+                        int wait = (int)Model.Reviews.Average(i => i.Waiting) * 100 / 5;
+                        if (wait > 35 && wait < 75)
+                        {
+                            waitR = "r3";
+                            waitT = "🦘 Medium processing";
+                        }
+                        if (wait >= 75)
+                        {
+                            waitR = "r5";
+                            waitT = "🐎 Fast processing";
+                        }
 
 
-                    int loy = (int)Model.Reviews.Average(i => i.Loyalty) * 100 / 5;
-                    string loyR = "r1";
-                    string loyT = "👎 Low loyality";
-                    if (loy > 35 && loy < 75)
-                    {
-                        loyR = "r3";
-                        loyT = "👌 Average loyality";
+                        int loy = (int)Model.Reviews.Average(i => i.Loyalty) * 100 / 5;
+                        string loyR = "r1";
+                        string loyT = "👎 Low loyality";
+                        if (loy > 35 && loy < 75)
+                        {
+                            loyR = "r3";
+                            loyT = "👌 Average loyality";
+                        }
+                        if (loy >= 75)
+                        {
+                            loyR = "r5";
+                            loyT = "👋 Perfect loyality";
+                        }
+                        <span class="me-2 mb-2 p-2 badge rounded-pill @simpleR text-dark">@simpleT</span>
+                        <span class="me-2 mb-2 p-2 badge rounded-pill @waitR text-dark">@waitT</span>
+                        <span class="me-2 mb-2 p-2 badge rounded-pill @loyR text-dark">@loyT</span>
                     }
-                    if (loy >= 75)
-                    {
-                        loyR = "r5";
-                        loyT = "👋 Perfect loyality";
-                    }
-                    <span class="me-2 mb-2 p-2 badge rounded-pill @simpleR text-dark">@simpleT</span>
-                    <span class="me-2 mb-2 p-2 badge rounded-pill @waitR text-dark">@waitT</span>
-                    <span class="me-2 mb-2 p-2 badge rounded-pill @loyR text-dark">@loyT</span>
-                }
                 </div>
 
             </div>
