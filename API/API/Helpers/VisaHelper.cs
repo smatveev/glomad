@@ -96,7 +96,7 @@ namespace API.Helpers
                               CostNum = co.CostOfProgramm,
                               UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
                               IsAnnounced = co.IsAnnounced
-                          }).Take(20).ToList();
+                          }).ToList();
             }
             else {
                 result = (from co in _context.Visa
@@ -119,7 +119,7 @@ namespace API.Helpers
                               CostNum = co.CostOfProgramm,
                               UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
                               IsAnnounced = co.IsAnnounced
-                          }).Take(20).ToList();
+                          }).ToList();
 
             }
 
