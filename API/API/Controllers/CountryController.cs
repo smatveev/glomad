@@ -563,13 +563,48 @@ namespace API.Controllers
                                         Type = v.Type,
                                         Income = v.Income
                                     }).Distinct().ToList();
+            
+            if (model.Visa.Type == 3 && model.Visa.IsActual == false) { 
+                
+                model.AnalogVisa = (from v in _context.Visa
+                                    join c in _context.Country on v.Country.Id equals c.Id
+                                    
+                                    where c.Id == Country.Id && v.IsActual && v.Duration >= 90 && (v.Type == (int)VisaType.Startup || v.Type == (int)VisaType.Student || v.Type == (int)VisaType.Tourist  || v.Type == (int)VisaType.Retreat || v.Type == (int)VisaType.Business)
+                                    select new SameVisasOtherCountries
+                                    {
+                                        Country = c.Name,
+                                        VisaId = v.Id,
+                                        VisaName = v.Name,                                    
+                                        Duration = v.Duration,
+                                        Type = v.Type,
+                                        Income = v.Income
+                                    }).Distinct().ToList();
+            }
 
-            foreach(var v in allVisasSameType)
+            //if look nomad visa, we offer other long visas
+            if (model.Visa.Type == 3) {
+                    model.YearLongVisas = (from v in _context.Visa
+                                           join c in _context.Country on v.Country.Id equals c.Id
+                                          // join d in _context.VisaDoc on v.Id equals d.Visa.Id
+                                           where c.Id != Country.Id && v.IsActual && v.Duration >= 360 && (v.Type == (int)VisaType.Startup || v.Type == (int)VisaType.Student || v.Type == (int)VisaType.Tourist)
+                                           select new SameVisasOtherCountries
+                                           {
+                                               Country = c.Name,
+                                               VisaId = v.Id,
+                                               VisaName = v.Name,
+                                               //DocType = d.DocumentType,
+                                               Duration = v.Duration,
+                                               Type = v.Type,
+                                               Income = v.Income
+                                           }).Distinct().ToList(); 
+                }
+
+            foreach (var v in allVisasSameType)
             {
 
                 // our visa is Digital nomad
-                if (model.Visa.Type == 3 && v.Duration > 360 && v.Type != 3 && !model.YearLongVisas.Any(i => i.VisaId == v.VisaId))
-                    model.YearLongVisas.Add(v);
+                /*if (model.Visa.Type == 3 && v.Duration > 360 && v.Type != 3 && !model.YearLongVisas.Any(i => i.VisaId == v.VisaId))
+                    model.YearLongVisas.Add(v);*/
 
                 if (v.Income <= model.Visa.Income && v.Type == model.Visa.Type && !model.CheapVisas.Any(i => i.VisaId == v.VisaId))
                     model.CheapVisas.Add(v);
@@ -582,16 +617,17 @@ namespace API.Controllers
                     model.VisasNotRequireCriminal.Add(v);
                 }
 
-                if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.Ticket))
-                    && model.Visa.Type == v.Type
+                if (/*!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.Ticket))*/
+                    //&& 
+                    model.Visa.Type == v.Type
                     && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.Ticket)
                     && !model.VisasNotRequireAviaTickets.Any(i => i.VisaId == v.VisaId))
                 {
                     model.VisasNotRequireAviaTickets.Add(v);
                 }
 
-                if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.PlaceOfStay))
-                    && model.Visa.Type == v.Type
+                if (/*!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.PlaceOfStay))
+                    &&*/ model.Visa.Type == v.Type
                     && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.PlaceOfStay)
                     && !model.VisasNotRequireContract.Any(i => i.VisaId == v.VisaId))
                 {

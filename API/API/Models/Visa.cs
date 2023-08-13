@@ -75,7 +75,10 @@ namespace API.Models
         [Description("Invest")]
         Invest,
         [Description("Business")]
-        Business
+        Business,
+        [Description("Retreat")]
+        Retreat
+
     }
 
     public static class VisaTypes
@@ -140,6 +143,7 @@ namespace API.Models
         public List<SameVisasOtherCountries> SameVisasOtherCountries { get; set; } = new List<SameVisasOtherCountries>();
         public List<SameVisasOtherCountries> YearLongVisas { get; set; } = new List<SameVisasOtherCountries>();
         public List<SameVisasOtherCountries> CheapVisas { get; set; } = new List<SameVisasOtherCountries>();
+        public List<SameVisasOtherCountries> AnalogVisa { get; set; } = new List<SameVisasOtherCountries>();
         public List<SameVisasOtherCountries> VisasNotRequireCriminal { get; set; } = new List<SameVisasOtherCountries>();
         public List<SameVisasOtherCountries> VisasNotRequireAviaTickets { get; set; } = new List<SameVisasOtherCountries>();
         public List<SameVisasOtherCountries> VisasNotRequireContract { get; set; } = new List<SameVisasOtherCountries>(); 

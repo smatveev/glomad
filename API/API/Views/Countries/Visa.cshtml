@@ -94,6 +94,23 @@
         </div>
 
         <div class="py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>
+        @if (Model.Visa.IsActual == false && Model.Visa.Type == 3 && Model.AnalogVisa.Count > 0)
+        {
+            <div>@Model.Visa.Country.Name, unfortunately, does not offer a visa for Digital Nomads yet. People who want to stay in @Model.Visa.Country.Name longer often also have a look at the following visas:
+                
+                <ul>
+                @foreach(var a in Model.AnalogVisa)
+                {
+                    <li class="mb-2">
+                        <a href="/@a.Country/Visa/@a.VisaId">@a.Country, @a.VisaName</a>
+                    </li>
+
+                }
+                </ul>
+            </div>
+            
+        }
+        
 
         @if(!string.IsNullOrEmpty(Model.Visa.ProgramUrl)){
             <div class="py-3">Link to program: <a href="//@Model.Visa.ProgramUrl.Replace("https://", string.Empty)">@Model.Visa.ProgramUrl</a></div>
@@ -212,36 +229,36 @@
                         loyR = "r5";
                         loyT = "👋 Perfect";
                     }
-                                <tr>
-                                    <td>😎 Simplicity</td>
-                                    <td>
-                                        <div class="rating rounded">
-                                            <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
-                                                @simpleT: @simple%
+                                    <tr>
+                                        <td>😎 Simplicity</td>
+                                        <td>
+                                            <div class="rating rounded">
+                                                <div class="filling shadowed-l p-1 @simpleR" style="width: @simple%">
+                                                    @simpleT: @simple%
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>🥱 Waiting time</td>
-                                    <td>
-                                        <div class="rating rounded">
-                                            <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
-                                                @waitT: @wait%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>🥱 Waiting time</td>
+                                        <td>
+                                            <div class="rating rounded">
+                                                <div class="filling shadowed-l p-1 @waitR" style="width: @wait%">
+                                                    @waitT: @wait%
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>🤗 Loyalty</td>
-                                    <td>
-                                        <div class="rating rounded">
-                                            <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
-                                                @loyT: @loy%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>🤗 Loyalty</td>
+                                        <td>
+                                            <div class="rating rounded">
+                                                <div class="filling shadowed-l p-1 @loyR" style="width: @loy%">
+                                                    @loyT: @loy%
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                 }
             </tbody>
         </table>
@@ -320,7 +337,7 @@
 
             <p class="col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
             You are reviewing @Model.Visa.Country.Name @VisaTypes.Types[Model.Visa.Type] with annual income $@Model.Visa.Income.
-            The following are @VisaTypes.Types[Model.Visa.Type]s with required annual income from $@Model.CheapVisas.Min(v => v.Income) up to $@Model.CheapVisas.Max(v => v.Income).
+            The following are @VisaTypes.Types[Model.Visa.Type]s with required annual income less than or equal to $@Model.CheapVisas.Max(v => v.Income).
             You will probably be more interested in checking them out too.
         </p>
 
@@ -339,11 +356,11 @@
 
         @if (Model.VisasNotRequireCriminal?.Count > 0)
         {
-            <h4 class="text-center py-3 fw-bold text-dark mt-4">🦹‍♀️ @VisaTypes.Types[Model.Visa.Type]s visas for which no criminal history is required to be provided.</h4>
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">🦹‍♀️ @VisaTypes.Types[Model.Visa.Type]s for which no criminal history is required to be provided.</h4>
 
             <p class="col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
-                You are interested in a @Model.Visa.Country.Name @VisaTypes.Types[Model.Visa.Type] visa that does not require a criminal records report.
-                Below are @VisaTypes.Types[Model.Visa.Type] visas with the same conditions, you may also find them interesting.
+                You are interested in a @Model.Visa.Country.Name @VisaTypes.Types[Model.Visa.Type] that does not require a criminal records report.
+                Below are @VisaTypes.Types[Model.Visa.Type]s with the same conditions, you may also find them interesting.
             </p>
 
             <ul class="list-unstyled mb-0 card-columns">
@@ -358,7 +375,7 @@
 
         @if (Model.VisasNotRequireAviaTickets?.Count > 0)
         {
-            <h4 class="text-center py-3 fw-bold text-dark mt-4">✈ @VisaTypes.Types[Model.Visa.Type] visas not requiring return ticket reservations for application</h4>
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">✈ @VisaTypes.Types[Model.Visa.Type]s not requiring return ticket reservations for application</h4>
 
             <ul class="list-unstyled mb-0 card-columns">
                 @foreach (var v in Model.VisasNotRequireAviaTickets)
@@ -372,7 +389,7 @@
 
         @if (Model.VisasNotRequireContract?.Count > 0)
         {
-            <h4 class="text-center py-3 fw-bold text-dark mt-4">🏠 @VisaTypes.Types[Model.Visa.Type] visas that do not require accommodation booking for application</h4>
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">🏠 @VisaTypes.Types[Model.Visa.Type]s that do not require accommodation booking for application</h4>
 
             <ul class="list-unstyled mb-0 card-columns">
                 @foreach (var v in Model.VisasNotRequireContract)
@@ -386,7 +403,7 @@
 
         @if (Model.VisasNotRequireFinanceProof?.Count > 0)
         {
-            <h4 class="text-center py-3 fw-bold text-dark mt-4">🤑 @VisaTypes.Types[Model.Visa.Type] visas that do not require financial proof documents for application</h4>
+            <h4 class="text-center py-3 fw-bold text-dark mt-4">🤑 @VisaTypes.Types[Model.Visa.Type]s that do not require financial proof documents for application</h4>
 
             <ul class="list-unstyled mb-0 card-columns">
                 @foreach (var v in Model.VisasNotRequireFinanceProof)
