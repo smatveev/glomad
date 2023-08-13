@@ -95,9 +95,9 @@
 
         @if (Model.Visa.IsActual == false && Model.Visa.Type == 3 && Model.AnalogVisa.Count > 0)
         {
-            <p class="col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
-                <h4>@Model.Visa.Country.Name, unfortunately, does not offer a visa for Digital Nomads yet. People who want to stay in @Model.Visa.Country.Name longer often also have a look at the following visas:</h4>
-                <ul>
+            <p class="-col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
+                ⚠ @Model.Visa.Country.Name, unfortunately, does not offer a visa for Digital Nomads yet. People who want to stay in @Model.Visa.Country.Name longer often also have a look at the following visas:
+                <ul class="list-unstyled mb-0 card-columns">
                     @foreach (var a in Model.AnalogVisa)
                     {
                         <li class="mb-2">
@@ -106,6 +106,7 @@
                     }
                 </ul>
             </p>
+            <hr/>
         }
 
         <div class="py-3">@Html.Raw(Model.Visa.Description.AddRelAttrs())</div>               

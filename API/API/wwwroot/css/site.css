@@ -65,7 +65,9 @@
     }
 }
 
-
+ul {
+    padding-top: 1rem;
+}
 
 body {
     background-color: #fbfaf8;
