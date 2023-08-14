@@ -59,6 +59,7 @@ namespace API.Models
         public DateTime? UpdateDate { get; set; }
         public bool IsActual { get; set; }
         public bool IsAnnounced { get; set; }
+        public bool IsFreeVisa { get; set; }
     }
 
     public enum VisaType
