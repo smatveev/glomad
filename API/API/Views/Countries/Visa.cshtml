@@ -107,7 +107,7 @@
                     @foreach (var a in Model.AnalogVisa)
                     {
                         <li class="mb-2">
-                            <a href="/@a.Country/Visa/@a.VisaId">@a.Country, @a.VisaName</a>
+                            <a href="/@a.Country/Visa/@a.VisaId">@a.Country, @a.VisaName (@a.Duration days) </a>
                         </li>
                     }
                 </ul>
