@@ -8,6 +8,7 @@
     ViewData["Title"] = String.IsNullOrEmpty(Model.Country.Citizen) ? $"List of Embassies and Consulates of {Model.Country.Name} around the world in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}." : $"List of {Model.Country.Citizen} Embassies and Consulates around the world in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["MetaDescription"] = $"Embassies and consulates of {Model.Country.Name} in different countries in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}. Find the needed embassy of {Model.Country.Name} and its information. Addresses, telephone numbers, email addresses, websites, opening hours.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}/Embassies";
+    ViewData["itemtype"] = "itemscope itemtype=\"https://schema.org/GovernmentPermit\"";
 }
 
 @await Html.PartialAsync("_Header", Model.Header)
@@ -64,11 +65,11 @@
                         <a role="button" class="embassyTitle" id="@e.Id" href="#embassy-@e.Id" data-bs-toggle="modal" data-bs-target="#embassy-@e.Id">@title</a>
                     </p>
 
-                    <div id="embassy-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade">
+                    <div id="embassy-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade" itemscope="" itemtype="http://schema.org/GovernmentPermit">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">@title</h5>
+                                    <h5 class="modal-title" itemprop="name">@title</h5>
                                 </div>
                                 <div class="modal-body">
 
@@ -104,14 +105,14 @@
                                     {
                                         <p>
                                             💻 <small class="text-muted">Website: </small>
-                                            <a href="@e.Embassy.Url" target="_blank" rel="noopener nofollow noreferrer">@e.Embassy.Url</a>
+                                            <a href="@e.Embassy.Url" itemprop="url" target="_blank" rel="noopener nofollow noreferrer">@e.Embassy.Url</a>
                                         </p>
                                     }
 
                                     @if (!string.IsNullOrWhiteSpace(e.Embassy.ApplicationFormUrl))
                                     {
                                         <p>
-                                            🐱‍💻 <small class="text-muted">Visa application form: </small><a href="@e.Embassy.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
+                                            🐱‍💻 <small class="text-muted">Visa application form: </small><a itemprop="sameAs" href="@e.Embassy.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
                                         </p>
                                     }
 
