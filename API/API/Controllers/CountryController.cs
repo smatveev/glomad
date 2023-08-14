@@ -606,13 +606,13 @@ namespace API.Controllers
                 /*if (model.Visa.Type == 3 && v.Duration > 360 && v.Type != 3 && !model.YearLongVisas.Any(i => i.VisaId == v.VisaId))
                     model.YearLongVisas.Add(v);*/
 
-                if (v.Income <= model.Visa.Income && v.Type == model.Visa.Type && !model.CheapVisas.Any(i => i.VisaId == v.VisaId))
+                if (v.Income <= model.Visa.Income && v.Type == model.Visa.Type && !model.CheapVisas.Any(i => i.VisaId == v.VisaId) && model.Visa.Type!=(int)VisaType.Tourist)
                     model.CheapVisas.Add(v);
 
                 if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.Criminal)) 
                     && model.Visa.Type == v.Type 
                     && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.Criminal) 
-                    && !model.VisasNotRequireCriminal.Any(i => i.VisaId == v.VisaId))
+                    && !model.VisasNotRequireCriminal.Any(i => i.VisaId == v.VisaId) && model.Visa.Type != (int)VisaType.Tourist)
                 {
                     model.VisasNotRequireCriminal.Add(v);
                 }
@@ -621,7 +621,7 @@ namespace API.Controllers
                     //&& 
                     model.Visa.Type == v.Type
                     && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.Ticket)
-                    && !model.VisasNotRequireAviaTickets.Any(i => i.VisaId == v.VisaId))
+                    && !model.VisasNotRequireAviaTickets.Any(i => i.VisaId == v.VisaId) && model.Visa.Type != (int)VisaType.Tourist)
                 {
                     model.VisasNotRequireAviaTickets.Add(v);
                 }
@@ -629,7 +629,7 @@ namespace API.Controllers
                 if (/*!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.PlaceOfStay))
                     &&*/ model.Visa.Type == v.Type
                     && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.PlaceOfStay)
-                    && !model.VisasNotRequireContract.Any(i => i.VisaId == v.VisaId))
+                    && !model.VisasNotRequireContract.Any(i => i.VisaId == v.VisaId) && model.Visa.Type != (int)VisaType.Tourist)
                 {
                     model.VisasNotRequireContract.Add(v);
                 }
@@ -637,7 +637,7 @@ namespace API.Controllers
                 if (!model.VisaDocs.Any(v => v.DocumentType == ((int)DocumentType.FinanceProof))
                     && model.Visa.Type == v.Type
                     && !allVisasSameType.Where(e => e.VisaId == v.VisaId).Any(v => v.DocType == (int)DocumentType.FinanceProof)
-                    && !model.VisasNotRequireFinanceProof.Any(i => i.VisaId == v.VisaId))
+                    && !model.VisasNotRequireFinanceProof.Any(i => i.VisaId == v.VisaId) && model.Visa.Type != (int)VisaType.Tourist)
                 {
                     model.VisasNotRequireFinanceProof.Add(v);
                 }
