@@ -194,9 +194,9 @@ function setCountry(e) {
     setCookie("myCountry", countryName, 14)
 
     if (location.pathname != "/") {
-        var loc = window.location.href + "citizen-" + countryName;
+        //var loc = window.location.href + "citizen-" + countryName;
         //alert(loc);
-        window.location.href = loc;
+        window.location.href = window.location.href;
         return;
     }
     //console.log(location.pathname);
