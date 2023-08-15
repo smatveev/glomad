@@ -44,6 +44,11 @@
             {
                 @:@Model.Visa.Name, @visaType of @Model.Visa.Country.Name
             }
+
+            @if(Model.Visa.Type != (int)VisaType.Tourist)
+            {
+                @: - Requirements and Process
+            }
         </h3>
 
         <div class="text-center">
