@@ -12,32 +12,6 @@
     if (VisaTypes.Types.TryGetValue(Model.Visa.Type, out visaType)) { }
     else visaType = "Visa";
 
-    //switch (Model.Visa.Type)
-    //{
-    //    case 3:
-    //        visaType = "digital nomad visa";
-    //        break;
-    //    case 0:
-    //        visaType = "startup visa";
-    //        break;
-    //    case 6:
-    //        visaType = "business visa";
-    //        break;
-    //    case 5:
-    //        visaType = "invest visa";
-    //        break;
-    //    case 4:
-    //        visaType = "student visa";
-    //        break;
-    //    case 1:
-    //        visaType = "work visa";
-    //        break;
-    //    default:
-    //        visaType = "visa of";
-    //        break;
-    //}
-
-
     ViewData["Title"] = $"{Model.Visa.Country.Name} {visaType} {Model.Visa.Name}: {visaType} {Model.Visa.Name} visa requirements, check list of documents, application form in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["MetaDescription"] = $"{Model.Visa.Country.Name} {visaType} {Model.Visa.Name} visa requirements, check list of documents, application form in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}. For {visaType} {Model.Visa.Name} visa, the permitted duration of stay is up to {Model.Visa.Duration} days from the date of arrival in {Model.Visa.Country.Name}. {(Model.Visa.IsExtendable ? "Visa can be extended for an additional days." : "")} {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["Canonical"] = $"https://glomad.net/{Model.Visa.Country.Name}/Visa/{Model.Visa.Id}";
@@ -61,7 +35,16 @@
             </div>
         </a>
 
-        <h3 class="text-center p-3 fw-bold">💳 @Model.Visa.Name, @visaType of @Model.Visa.Country.Name</h3>
+        <h3 class="text-center p-3 fw-bold">
+            💳 
+            @if(Model.Visa.Name.ToLower().Contains(visaType, StringComparison.OrdinalIgnoreCase)){
+                @Model.Visa.Name
+            }
+            else
+            {
+                @:@Model.Visa.Name, @visaType of @Model.Visa.Country.Name
+            }
+        </h3>
 
         <div class="text-center">
             @if (Model.Visa.IsAnnounced)
@@ -102,7 +85,7 @@
         @if (Model.Visa.IsActual == false && Model.Visa.Type == 3 && Model.AnalogVisa.Count > 0)
         {
             <p class="-col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 r3">
-                ⚠ @Model.Visa.Country.Name, unfortunately, does not offer a visa for Digital Nomads yet. People who want to stay in @Model.Visa.Country.Name longer often also have a look at the following visas:
+                ⚠ Unfortunately, @Model.Visa.Country.Name does not offer a visa for Digital Nomads yet. People who want to stay in @Model.Visa.Country.Name longer often also have a look at the following visas:
                 <ul class="list-unstyled mb-0 card-columns">
                     @foreach (var a in Model.AnalogVisa)
                     {
