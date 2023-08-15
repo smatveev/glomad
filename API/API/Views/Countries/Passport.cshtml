@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = $"{Model.Country.Name} passport ranking in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
     ViewData["MetaDescription"] = $"Passport holders of {Model.Country.Name} can visit {Model.CountryFreeEntry.Count} visa free countries. {Model.Country.Name} citezens can apply visa online for {Model.CountryEvisa.Count} countries. For {250 - Model.CountryEvisa.Count - Model.CountryFreeEntry.Count} countries {Model.Country.Name} citezens need to apply for a visa in advance. Visa requirements for {Model.Country.Name} citizens in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
-    ViewData["Canonical"] = $"https://glomad.net/passport/{Model.Country.Name}";
+    ViewData["Canonical"] = $"https://glomad.net/{Model.Country.Name}/passport";
 }
 
 @await Html.PartialAsync("_Header", Model.Header)
