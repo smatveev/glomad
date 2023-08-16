@@ -35,7 +35,7 @@
             </div>
         </a>
 
-        <h3 class="text-center p-3 fw-bold">
+        <h2 class="text-center p-3 fw-bold display-7">
             💳 
             @if(Model.Visa.Name.ToLower().Contains(visaType, StringComparison.OrdinalIgnoreCase)){
                 @Model.Visa.Name
@@ -49,7 +49,7 @@
             {
                 @: - Requirements and Process
             }
-        </h3>
+        </h2>
 
         <div class="text-center">
             @if (Model.Visa.IsAnnounced)
