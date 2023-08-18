@@ -29,7 +29,7 @@
 
 <section class="container sectionstyle py-3">
     <div class="row">
-    <div class="col-lg-8 col-md-12 col-sm-12">
+    <div class="col-lg-8 col-md-12 col-sm-12 px-4">
 
         @*<a href="/@Model.Visa.Country.Name">
             <div class="btn btn-secondary mb-3 position-absolute w-auto">
@@ -37,7 +37,7 @@
             </div>
         </a>*@
 
-        <h3 class="text-center p-3 fw-bold">
+        <h3 class="text-center p-3 -fw-bold">
             💳 
             @if(Model.Visa.Name.ToLower().Contains(visaType, StringComparison.OrdinalIgnoreCase)){
                 @Model.Visa.Name

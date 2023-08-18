@@ -665,6 +665,8 @@ select {
     margin-top: -25px;
     overflow-y: hidden;
     overflow-x: auto;
+    list-style-type: none;
+    padding: 0;
 }
 
 #map {
