@@ -61,7 +61,8 @@ namespace API.Models
         public bool IsAnnounced { get; set; }
         public bool IsFreeVisa { get; set; }
 
-        public byte? TaxSize { get; set; }
+        public byte? TaxSizeUp { get; set; }
+        public byte? TaxSizeTo { get; set; }
         public string TaxDescription { get; set; }
 
         public byte? ProcessingTimeUp { get; set; }
