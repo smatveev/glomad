@@ -28,12 +28,31 @@ namespace API.Controllers
         //    // your code here
         //}
 
-        private void IncreaseViewCouter(int countryId)
+        //private void IncreaseViewCouter(int countryId)
+        //{
+        //    if (Request.IsLocal()) return;
+        //    //var Country = _context.Country.FirstOrDefault(m => m.Id == countryId);
+
+        //    _context.SaveChanges();
+        //}
+
+        private void IncreaseViewCouter(object o)
         {
             if (Request.IsLocal()) return;
 
-            var Country = _context.Country.FirstOrDefault(m => m.Id == countryId);
-            Country.ViewCounter = Country.ViewCounter + 1;
+            if (o is Visa)
+            {
+                var Visa = (Visa)o;
+                Visa.ViewCounter = Visa.ViewCounter + 1;
+            }
+
+            if(o is Country)
+            {
+                var Country = (Country)o;
+                Country.ViewCounter = Country.ViewCounter + 1;
+            }
+
+            
             _context.SaveChanges();
         }
 
@@ -51,7 +70,8 @@ namespace API.Controllers
             if (model.Country == null)
                 return RedirectToAction("Index", "Home");
 
-            IncreaseViewCouter(model.Country.Id);
+            //IncreaseViewCouter(model.Country.Id);
+            IncreaseViewCouter(model.Country);
 
             model.Visas = (from v in _context.Visa
                            where v.Country.Id == model.Country.Id
@@ -504,12 +524,15 @@ namespace API.Controllers
             VisaPage model = new VisaPage();
 
             var Country = _context.Country.Where(c => c.Name == country).FirstOrDefault();
-            IncreaseViewCouter(Country.Id);
+
+            //IncreaseViewCouter(Country.Id);
 
             model.Reviews = _context.Review.Where(r => r.Visa.Id == id).ToList();
             model.Visa = _context.Visa.Where(v => v.Id == id).FirstOrDefault();
             model.Visa.Country = Country; //_context.Country.Where(c => c.Name.ToLower() == country.ToLower()).FirstOrDefault();
             model.VisaDocs = _context.VisaDoc.Where(v => v.Visa.Id == id).ToList();
+
+            IncreaseViewCouter(model.Visa);
 
             model.Embassies = (from e in _context.Embassy
                                join c in _context.Country
@@ -571,7 +594,7 @@ namespace API.Controllers
                                     
                                     where c.Id == Country.Id && v.IsActual && v.Duration >= 90 && (v.Type == (int)VisaType.Startup || v.Type == (int)VisaType.Student || v.Type == (int)VisaType.Tourist  || v.Type == (int)VisaType.Retreat || v.Type == (int)VisaType.Business)
                                     select new SameVisasOtherCountries
-                                    {
+                                    {                                                                                                                       
                                         Country = c.Name,
                                         VisaId = v.Id,
                                         VisaName = v.Name,                                    
