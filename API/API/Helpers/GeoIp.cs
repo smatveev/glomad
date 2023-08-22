@@ -51,10 +51,10 @@ namespace API.Helpers
                 catch (Exception ex)
                 {
                 }
-                finally
-                {
-                    myCountry = "Germany";
-                }
+                //finally
+                //{
+                //    myCountry = "Germany";
+                //}
                 _context.Response.Cookies.Append("myCountry", myCountry, option);
             }
             return myCountry;
@@ -85,7 +85,8 @@ namespace API.Helpers
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var req = $"https://www.travelpayouts.com/whereami?locale=en&ip=77.179.51.238"; //{_context.Connection.RemoteIpAddress}
+                var ip = _context.Connection.RemoteIpAddress;
+                var req = $"https://www.travelpayouts.com/whereami?locale=en&ip={ip}";
                 var response = client.GetAsync(req).Result;
                 if (response.IsSuccessStatusCode)
                 {
