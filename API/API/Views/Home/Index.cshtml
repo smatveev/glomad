@@ -68,24 +68,10 @@
 @*<partial name="_News" />*@
 
 <section class="container pt-4">
-    <div class="row g-3" id="filters" onload="buildLink()">
+    <div class="row g-3" id="filters" onload="buildLink()"
+         data-bs-toggle="tooltip" data-bs-placement="top" title="Filter visas 👇">
 
         <div class="col-md-3">
-        @*@{
-            int prevPrior = 0;
-            bool newSelect = true;
-            foreach (var item in VisaSearchCriteria.Criterias)
-            {
-                if (item.Value.Value != prevPrior) {
-                    if(newSelect){
-                        <select aria-label="State" class="form-select" data-prior=0 onChange="selectFilter(this);"></select>
-                        newSelect = false;
-                    }
-                }
-                prevPrior = item.Value.Value;
-            }
-        }*@
-
             <select aria-label="State" class="form-select" data-prior=0 onChange="selectFilter(this);">
                 <option value="" disabled selected>💳 Visa type</option>
                 <option value="for-nomads">Digital Nomad</option>
@@ -172,8 +158,11 @@
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12" id="res">
             @if(Model.Visas?.Count > 0) {
-            @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
+                @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
             }
+
+            <h4 class="text-center p-4">⚡ Last 5 updated visas</h4>
+
         </div>
 
         <template id="loader">

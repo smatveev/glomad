@@ -12,8 +12,9 @@ window.onload = function () {
 
     country.selectedIndex = [...country.options].findIndex(op => op.text === getCookie("myCountry"))
 
-    $('#CitizenshipId').tooltip('show');
-    setTimeout(function () { $('#CitizenshipId').tooltip('hide'); }, 5000);
+    //$('#CitizenshipId').tooltip('show');
+    $('#filters').tooltip('show');
+    setTimeout(function () { $('#filters').tooltip('hide'); }, 10000);
     //const wrapper = document.querySelector("#filters")
     //const filters = wrapper.querySelectorAll('div > select');
 

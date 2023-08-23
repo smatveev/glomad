@@ -54,7 +54,7 @@ namespace API.Helpers
                               CostNum = co.CostOfProgramm,
                               UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
                               IsAnnounced = co.IsAnnounced
-                          }).Take(20).OrderByDescending(r => r.Reviews.Count).ToList();
+                          }).Take(5).OrderByDescending(r => r.Reviews.Count).ToList();
 
                 return result;
             }
