@@ -38,23 +38,16 @@
 
                 <div class="mt-3 pb-4 py-3 px-3" id="visas">
 
-                    @if (Model.Visas?.Count > 0)
-                    {
-                        if (Model.Visas?.Count == 1)
-                        {
-                            <h4 class="text-center p-4">💳 1 visa is available in @Model.Header.CountryName:</h4>
-                        }                        
-                        else if (Model.Visas?.Count > 1)
-                        {
-                            <h4 class="text-center p-4">💳 @Model.Visas?.Count visa types are available in @Model.Header.CountryName:</h4>
-                        }
-                    }
-
                     @if (Model.NoVisaEntry != null)
                     {
                         <div class="row mb-2 rounded-booking border shadow-sm bg-info bg-gradient">
                             <div class="col-md-3 p-3">
-                                <p class="card-title text-white align-middle pb-3 fw-bold">Visa-free entry</p>
+
+                                <p class="card-title text-white align-middle pb-3 fw-bold">
+                                    Visa-free entry - @Model.Header.CountryName visa for @Model.Country.Citizen
+                                    citizen in in @DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture) of @DateTime.Now.Year
+                                </p>
+
                                 @if (Model.NoVisaEntry.IsEVisaAvailable)
                                 {
                                     <p>
@@ -68,14 +61,28 @@
                                 @if (Model.NoVisaEntry.Duration > 0)
                                 {
                                     @*<p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
-                                        🙌 @(Model.HomeCountry.Citizen + " сitizens" ?? "Сitizens of " + Model.HomeCountry.Name) can stay in the @Model.Header.CountryName @Model.NoVisaEntry.Duration days without visa.
-                                    </p>*@
+                        🙌 @(Model.HomeCountry.Citizen + " сitizens" ?? "Сitizens of " + Model.HomeCountry.Name) can stay in the @Model.Header.CountryName @Model.NoVisaEntry.Duration days without visa.
+                        </p>*@
                                 }
                                 <p class="align-middle rounded-3 py-2 px-3 bg-white-opacy">
                                     ℹ @Model.NoVisaEntry.Description.StripHTML()
                                 </p>
                             </div>
                         </div>
+                    }
+
+                    @if (Model.Visas?.Count > 0)
+                    {
+                        if (Model.Visas?.Count == 1)
+                        {
+                            <h4 class="text-center p-4">💳 Also one visa is available in @Model.Header.CountryName:</h4>
+                        }                        
+                        else if (Model.Visas?.Count > 1)
+                        {
+                            <h4 class="text-center p-4">💳 Also in @Model.Header.CountryName @Model.Visas?.Count visa types are available
+                                including: @string.Join(", ", Model.Visas.Select(v => v.Type).Distinct())
+                            </h4>
+                        }
                     }
 
                     @if(Model.Visas?.Count == 0)
