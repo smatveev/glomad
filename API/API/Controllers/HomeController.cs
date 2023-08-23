@@ -280,6 +280,11 @@ namespace API.Controllers
             //TODO: refactor this shit
             mo.Visas = VisaHelper.GetVisasFromLink("", _context);
 
+            mo.TopLastUpdatedVisas = VisaHelper.GetTopLastUpdatedVisas(_context);
+            mo.TopLongestVisas = VisaHelper.GetTopLongestVisas(_context);
+            mo.TopAnnouncedVisas = VisaHelper.GetTopAnnouncedVisas(_context);
+            mo.TopViewedVisas = VisaHelper.GetTopViewedVisas(_context);
+
             if (To > 0)
             {
                 mo.ToCountryName = _context.Country.FirstOrDefault(c => c.Id == mo.To).Name;

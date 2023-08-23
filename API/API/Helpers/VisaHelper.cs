@@ -151,5 +151,125 @@ namespace API.Helpers
 
             return result;
         }
+
+        public static List<VisaSearchResult> GetTopLastUpdatedVisas(AppDbContext _context)
+        {
+            var result = new List<VisaSearchResult>();
+
+            result = (from co in _context.Visa
+                      join c in _context.Country on co.Country.Id equals c.Id
+                      where (co.IsActual || co.IsAnnounced) && !co.IsFreeVisa
+                      orderby co.UpdateDate descending
+                      select new VisaSearchResult
+                      {
+                          Id = co.Id,
+                          Description = co.Description,
+                          VisaName = co.Name,
+                          IsExdendable = co.IsExtendable,
+                          Duration = co.Duration,
+                          CountryName = c.Name,
+                          Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+                          Type = VisaTypes.Types[co.Type],
+                          TypeId = co.Type,
+                          Income = co.Income,
+                          Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
+                          CostNum = co.CostOfProgramm,
+                          UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
+                          IsAnnounced = co.IsAnnounced,
+                          TaxSizeTo = co.TaxSizeTo
+                      }).Take(5).ToList();
+
+            return result;
+        }
+
+        public static List<VisaSearchResult> GetTopAnnouncedVisas(AppDbContext _context)
+        {
+            var result = new List<VisaSearchResult>();
+
+            result = (from co in _context.Visa
+                      join c in _context.Country on co.Country.Id equals c.Id
+                      where co.IsAnnounced
+                      orderby co.UpdateDate descending
+                      select new VisaSearchResult
+                      {
+                          Id = co.Id,
+                          Description = co.Description,
+                          VisaName = co.Name,
+                          IsExdendable = co.IsExtendable,
+                          Duration = co.Duration,
+                          CountryName = c.Name,
+                          Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+                          Type = VisaTypes.Types[co.Type],
+                          TypeId = co.Type,
+                          Income = co.Income,
+                          Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
+                          CostNum = co.CostOfProgramm,
+                          UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
+                          IsAnnounced = co.IsAnnounced,
+                          TaxSizeTo = co.TaxSizeTo
+                      }).Take(5).ToList();
+
+            return result;
+        }
+
+        public static List<VisaSearchResult> GetTopLongestVisas(AppDbContext _context)
+        {
+            var result = new List<VisaSearchResult>();
+
+            result = (from co in _context.Visa
+                      join c in _context.Country on co.Country.Id equals c.Id
+                      where (co.IsActual || co.IsAnnounced) && co.IsFreeVisa
+                      orderby co.Duration descending
+                      select new VisaSearchResult
+                      {
+                          Id = co.Id,
+                          Description = co.Description,
+                          VisaName = co.Name,
+                          IsExdendable = co.IsExtendable,
+                          Duration = co.Duration,
+                          CountryName = c.Name,
+                          Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+                          Type = VisaTypes.Types[co.Type],
+                          TypeId = co.Type,
+                          Income = co.Income,
+                          Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
+                          CostNum = co.CostOfProgramm,
+                          UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
+                          IsAnnounced = co.IsAnnounced,
+                          TaxSizeTo = co.TaxSizeTo
+                      }).Take(5).ToList();
+
+            return result;
+        }
+
+        public static List<VisaSearchResult> GetTopViewedVisas(AppDbContext _context)
+        {
+            var result = new List<VisaSearchResult>();
+
+            result = (from co in _context.Visa
+                      join c in _context.Country on co.Country.Id equals c.Id
+                      where (co.IsActual || co.IsAnnounced)
+                      orderby co.ViewCounter descending
+                      select new VisaSearchResult
+                      {
+                          Id = co.Id,
+                          Description = co.Description,
+                          VisaName = co.Name,
+                          IsExdendable = co.IsExtendable,
+                          Duration = co.Duration,
+                          CountryName = c.Name,
+                          Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
+                          Type = VisaTypes.Types[co.Type],
+                          TypeId = co.Type,
+                          Income = co.Income,
+                          Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
+                          CostNum = co.CostOfProgramm,
+                          UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
+                          IsAnnounced = co.IsAnnounced,
+                          TaxSizeTo = co.TaxSizeTo
+                      }).Take(5).ToList();
+
+            return result;
+        }
     }
 }

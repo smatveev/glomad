@@ -26,6 +26,11 @@ namespace API.Models
         public string CovidInfo { get; set; }
 
         public List<VisaSearchResult> Visas { get; set; }
+
+        public List<VisaSearchResult> TopLastUpdatedVisas { get; set; } = new List<VisaSearchResult>();
+        public List<VisaSearchResult> TopAnnouncedVisas { get; set; } = new List<VisaSearchResult>();
+        public List<VisaSearchResult> TopViewedVisas { get; set; } = new List<VisaSearchResult>();
+        public List<VisaSearchResult> TopLongestVisas { get; set; } = new List<VisaSearchResult>();
         //public IEnumerable<VisaSearchResult> VisasNonEntry { get; set; }
         public List<CountryFreeEntry> FreeCountries { get; set; }
         public NoVisaEntry NoVisaEntry { get; set; }

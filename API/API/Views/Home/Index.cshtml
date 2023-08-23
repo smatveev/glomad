@@ -161,7 +161,29 @@
                 @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
             }
 
-            <h4 class="text-center p-4">⚡ Last 5 updated visas</h4>
+            @if(Model.TopLastUpdatedVisas.Count > 0)
+            {
+                <h4 class="text-center p-4">⚡ Last 5 updated visas</h4>
+                @await Component.InvokeAsync("VisaSearchResult", Model.TopLastUpdatedVisas)
+            }
+
+            @if (Model.TopLongestVisas.Count > 0)
+            {
+                <h4 class="text-center p-4">⌛ Top 5 countries with longest visa-free duration of stay</h4>
+                @await Component.InvokeAsync("VisaSearchResult", Model.TopLongestVisas)
+            }
+            
+            @if(Model.TopViewedVisas.Count > 0)
+            {
+                <h4 class="text-center p-4">🧐 Top 5 most viewed visas</h4>
+                @await Component.InvokeAsync("VisaSearchResult", Model.TopViewedVisas)
+            }
+
+            @if (Model.TopAnnouncedVisas.Count > 0)
+            {
+                <h4 class="text-center p-4">🆕 Top announced visas</h4>
+                @await Component.InvokeAsync("VisaSearchResult", Model.TopAnnouncedVisas)
+            }
 
         </div>
 
