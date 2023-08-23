@@ -3,123 +3,122 @@
 @using Humanizer
 @model VisaSearchResult
 
-<div class="mb-3 rounded-booking bg-white border">
-    <div class="row g-0">
-        <div class="col-md-4 back rounded-booking text-white position-relative" style="background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3) ), url(/@Uri.EscapeUriString(Model.CountryName.ToLower())_300.jpg)">
-            @*<img src="/@(Model.CountryName.ToLower())_300.jpg" class="img-fluid rounded-start" alt="Country beauty image">*@
-            <div class="card-body text-center">
-                <a href="/@Model.CountryName">
-                    <h4 class="card-title shadowed text-white" >@Model.CountryName</h4>
-                </a>
-                <a href="/@Model.CountryName/Visa/@Model.Id">
-                    <h6 class="card-title shadowed fw-bold py-2 mb-5 text-white">@Model.VisaName</h6>
-                </a>
-            </div>
-            @if (Model.Reviews.Count > 0)
-            {
-                <span class="added m-2 shadowed position-absolute start-0 bottom-0">
-                    ⭐ @Model.Reviews.Count Reviews
-                </span>
-            }
-            <span class="added m-2 shadowed position-absolute end-0 bottom-0">
-                ⌛ @Model.UpdateDate.Humanize()
-            </span>
-        </div>
-        @*<div class="col-md-5">
-            
-        </div>*@
-        <div class="col-md-8">
-            <div class="card-body">
-                <div class="pt-2">
-                    @if (Model.IsAnnounced)
-                    {
-                        <span class="achtung me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                            🔥 Announced
-                        </span>
-                    }
-                    @if (Model.Income > 0)
-                    {
-                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                            🤑 Income $ @Model.Income
-                        </span>
-                    }
-                    @if (!string.IsNullOrEmpty(Model.Cost))
-                    {
-                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                            💰 Cost of program $ @Model.Cost
-                        </span>
-                    }
-                    @if (Model.IsExdendable)
-                    {
-                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                            ✨ Extendable
-                        </span>
-                    }
-                    @if (Model.Duration > 0)
-                    {
-                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                            🕜 Duration @Model.Duration days
-                        </span>
-                    }
-                    @if (!string.IsNullOrEmpty(Model.Type))
-                    {
-                        <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
-                            🐱‍👤 @Model.Type
-                        </span>
-                    }
 
-                    @if (Model.Reviews != null && Model.Reviews.Count > 0)
-                    {
-                        string simpleR = "r1";
-                        string simpleT = "🤯 Complicated to get";
-                        int simple = (int)Model.Reviews.Average(i => i.Simplicity) * 100 / 5;
-                        if (simple > 35 && simple < 75)
-                        {
-                            simpleR = "r3";
-                            simpleT = "🤨 Medium to get";
-                        }
-                        if (simple >= 75)
-                        {
-                            simpleR = "r5";
-                            simpleT = "😎 Easy to get";
-                        }
-
-                        string waitR = "r1";
-                        string waitT = "🐢 Slow processing";
-                        int wait = (int)Model.Reviews.Average(i => i.Waiting) * 100 / 5;
-                        if (wait > 35 && wait < 75)
-                        {
-                            waitR = "r3";
-                            waitT = "🦘 Medium processing";
-                        }
-                        if (wait >= 75)
-                        {
-                            waitR = "r5";
-                            waitT = "🐎 Fast processing";
-                        }
+    <div class="col rounded-booking">
+        <div class="card shadow-sm">
+            @*<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>*@
 
 
-                        int loy = (int)Model.Reviews.Average(i => i.Loyalty) * 100 / 5;
-                        string loyR = "r1";
-                        string loyT = "👎 Low loyality";
-                        if (loy > 35 && loy < 75)
-                        {
-                            loyR = "r3";
-                            loyT = "👌 Average loyality";
-                        }
-                        if (loy >= 75)
-                        {
-                            loyR = "r5";
-                            loyT = "👋 Perfect loyality";
-                        }
-                        <span class="me-2 mb-2 p-2 badge rounded-pill @simpleR text-dark">@simpleT</span>
-                        <span class="me-2 mb-2 p-2 badge rounded-pill @waitR text-dark">@waitT</span>
-                        <span class="me-2 mb-2 p-2 badge rounded-pill @loyR text-dark">@loyT</span>
-                    }
+            <div class="-col-md-4 back -rounded-booking text-white position-relative" style="background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4) ), url(/@Uri.EscapeUriString(Model.CountryName.ToLower())_300.jpg)">
+                @*<img src="/@(Model.CountryName.ToLower())_300.jpg" class="img-fluid rounded-start" alt="Country beauty image">*@
+                <div class="card-body text-center">
+                    <a href="/@Model.CountryName">
+                        <h4 class="card-title -shadowed text-white">@Model.CountryName</h4>
+                    </a>
+                    <a href="/@Model.CountryName/Visa/@Model.Id">
+                        <h6 class="card-title -shadowed fw-bold py-2 mb-5 text-white">@Model.VisaName</h6>
+                    </a>
                 </div>
+                @if (Model.Reviews.Count > 0)
+                {
+                    <span class="added m-2 shadowed position-absolute start-0 bottom-0">
+                        ⭐ @Model.Reviews.Count Reviews
+                    </span>
+                }
+                <span class="added m-2 shadowed position-absolute end-0 bottom-0">
+                    ⌛ @Model.UpdateDate.Humanize()
+                </span>
+            </div>
 
+
+
+
+            <div class="card-body">
+                @if (Model.IsAnnounced)
+                {
+                    <span class="achtung me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                        🔥 Announced
+                    </span>
+                }
+                @if (Model.Income > 0)
+                {
+                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                        🤑 Income $ @Model.Income
+                    </span>
+                }
+                @if (!string.IsNullOrEmpty(Model.Cost))
+                {
+                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                        💰 Cost of program $ @Model.Cost
+                    </span>
+                }
+                @if (Model.IsExdendable)
+                {
+                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                        ✨ Extendable
+                    </span>
+                }
+                @if (Model.Duration > 0)
+                {
+                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                        🕜 Duration @Model.Duration days
+                    </span>
+                }
+                @if (!string.IsNullOrEmpty(Model.Type))
+                {
+                    <span class="me-2 mb-2 p-2 badge text-dark rounded-pill bg-light">
+                        🐱‍👤 @Model.Type
+                    </span>
+                }
+
+                @if (Model.Reviews != null && Model.Reviews.Count > 0)
+                {
+                    string simpleR = "r1";
+                    string simpleT = "🤯 Complicated to get";
+                    int simple = (int)Model.Reviews.Average(i => i.Simplicity) * 100 / 5;
+                    if (simple > 35 && simple < 75)
+                    {
+                        simpleR = "r3";
+                        simpleT = "🤨 Medium to get";
+                    }
+                    if (simple >= 75)
+                    {
+                        simpleR = "r5";
+                        simpleT = "😎 Easy to get";
+                    }
+
+                    string waitR = "r1";
+                    string waitT = "🐢 Slow processing";
+                    int wait = (int)Model.Reviews.Average(i => i.Waiting) * 100 / 5;
+                    if (wait > 35 && wait < 75)
+                    {
+                        waitR = "r3";
+                        waitT = "🦘 Medium processing";
+                    }
+                    if (wait >= 75)
+                    {
+                        waitR = "r5";
+                        waitT = "🐎 Fast processing";
+                    }
+
+
+                    int loy = (int)Model.Reviews.Average(i => i.Loyalty) * 100 / 5;
+                    string loyR = "r1";
+                    string loyT = "👎 Low loyality";
+                    if (loy > 35 && loy < 75)
+                    {
+                        loyR = "r3";
+                        loyT = "👌 Average loyality";
+                    }
+                    if (loy >= 75)
+                    {
+                        loyR = "r5";
+                        loyT = "👋 Perfect loyality";
+                    }
+                    <span class="me-2 mb-2 p-2 badge rounded-pill @simpleR text-dark">@simpleT</span>
+                    <span class="me-2 mb-2 p-2 badge rounded-pill @waitR text-dark">@waitT</span>
+                    <span class="me-2 mb-2 p-2 badge rounded-pill @loyR text-dark">@loyT</span>
+                }
             </div>
         </div>
     </div>
-</div>
-
