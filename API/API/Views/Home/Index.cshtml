@@ -70,64 +70,76 @@
 <section class="container pt-4">
     <div class="row g-3" id="filters" onload="buildLink()">
 
-    <div class="col-md-3">
-    @*@{
-        int prevPrior = 0;
-        bool newSelect = true;
-        foreach (var item in VisaSearchCriteria.Criterias)
-        {
-            if (item.Value.Value != prevPrior) {
-                if(newSelect){
-                    <select aria-label="State" class="form-select" data-prior=0 onChange="selectFilter(this);"></select>
-                    newSelect = false;
+        <div class="col-md-3">
+        @*@{
+            int prevPrior = 0;
+            bool newSelect = true;
+            foreach (var item in VisaSearchCriteria.Criterias)
+            {
+                if (item.Value.Value != prevPrior) {
+                    if(newSelect){
+                        <select aria-label="State" class="form-select" data-prior=0 onChange="selectFilter(this);"></select>
+                        newSelect = false;
+                    }
                 }
+                prevPrior = item.Value.Value;
             }
-            prevPrior = item.Value.Value;
-        }
-    }*@
+        }*@
 
-        <select aria-label="State" class="form-select" data-prior=0 onChange="selectFilter(this);">
-            <option value="" disabled selected>💳 Visa type</option>
-            <option value="for-nomads">Digital Nomad</option>
-            <option value="for-tourist">Tourist</option>
-            <option value="for-startup">Startup</option>
-            <option value="for-business">Business</option>
-            <option value="for-student">Student</option>
-            <option value="for-work">Work</option>
-        </select>
-    </div>
+            <select aria-label="State" class="form-select" data-prior=0 onChange="selectFilter(this);">
+                <option value="" disabled selected>💳 Visa type</option>
+                <option value="for-nomads">Digital Nomad</option>
+                <option value="for-tourist">Tourist</option>
+                <option value="for-startup">Startup</option>
+                <option value="for-business">Business</option>
+                <option value="for-student">Student</option>
+                <option value="for-work">Work</option>
+            </select>
+        </div>
 
-    <div class="col-md-3">
-        <select class="form-select" data-prior=1 onChange="selectFilter(this);">
-            <option value="" disabled selected>⏳ Duration</option>
-            <option value="short-stay">One month</option>
-            <option value="middle-stay">2+ months</option>
-            <option value="long-stay">6+ months</option>
-            <option value="for-expats">1+ year</option>
-        </select>
-    </div>
+        <div class="col-md-3">
+            <select class="form-select" data-prior=1 onChange="selectFilter(this);">
+                <option value="" disabled selected>⏳ Duration</option>
+                <option value="short-stay">One month</option>
+                <option value="middle-stay">2+ months</option>
+                <option value="long-stay">6+ months</option>
+                <option value="for-expats">1+ year</option>
+            </select>
+        </div>
 
-    <div class="col-md-3">
-        <select class="form-select" data-prior=2 onChange="selectFilter(this);">
-            <option value="" disabled selected>🤑 Monthly income</option>
-            <option value="low-income">&lt; $1500</option>
-            <option value="middle-income">&lt; $4000</option>
-            <option value="high-income">&lt; $10000</option>
-        </select>
-    </div>
+        <div class="col-md-2">
+            <select class="form-select" data-prior=2 onChange="selectFilter(this);">
+                <option value="" disabled selected>🤑 Monthly income</option>
+                <option value="low-income">&lt; $1500</option>
+                <option value="middle-income">&lt; $4000</option>
+                <option value="high-income">&lt; $10000</option>
+            </select>
+        </div>
 
-    <div class="col-md-3">
-    <select class="form-select" data-prior=3 onChange="selectFilter(this);">
-        <option value="" disabled selected>✨ Some details</option>
-        <option value="are-extendable">Extendable visa</option>
-        <option value="not-renewed">Not renewed visa</option>
-        @*<option value="no-criminal-need">No need criminal records</option>
-        <option value="no-avia-tickets">No need tickets</option>
-        <option value="no-accomodation-proof">No need proof of accomadation</option>
-        <option value="no-finance-proof">No need proof of finance</option>
-        <option value="no-insuranse">No need health insuranse</option>*@
-    </select>
-    </div>
+        <div class="col-md-2">
+            <select class="form-select" data-prior=3 onChange="selectFilter(this);">
+                <option value="" disabled selected>✨ Some details</option>
+                <option value="are-extendable">Extendable visa</option>
+                <option value="not-renewed">Not renewed visa</option>
+                @*<option value="no-criminal-need">No need criminal records</option>
+                <option value="no-avia-tickets">No need tickets</option>
+                <option value="no-accomodation-proof">No need proof of accomadation</option>
+                <option value="no-finance-proof">No need proof of finance</option>
+                <option value="no-insuranse">No need health insuranse</option>*@
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <select class="form-select" data-prior=4 onChange="selectFilter(this);">
+                <option value="" disabled selected>💸 Taxes</option>
+                <option value="tax-free">Tax free</option>
+                @*<option value="no-criminal-need">No need criminal records</option>
+                <option value="no-avia-tickets">No need tickets</option>
+                <option value="no-accomodation-proof">No need proof of accomadation</option>
+                <option value="no-finance-proof">No need proof of finance</option>
+                <option value="no-insuranse">No need health insuranse</option>*@
+            </select>
+        </div>
 
     </div>
 
@@ -138,19 +150,19 @@
                 var slugs = Model.Query.Split(new string[] { "-and-", "-or-"}, StringSplitOptions.None);
                 foreach (var s in slugs)
                 {
-                                                    <span id="span-Tourist" class="cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-1 shadow-sm"
-                                                        data-prior="@VisaSearchCriteria.Criterias[s].Value" 
-                                                        onclick="remove(this)"
-                                                        title="for-tourist">
-                                                        @VisaSearchCriteria.Criterias[s].Key
-                                                        <img src="../css/times-circle.svg" alt="Remove this filter" class="remove-filter">
-                                                    </span>
+                    <span id="span-Tourist" class="cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-1 shadow-sm"
+                        data-prior="@VisaSearchCriteria.Criterias[s].Value" 
+                        onclick="remove(this)"
+                        title="for-tourist">
+                        @VisaSearchCriteria.Criterias[s].Key
+                        <img src="../css/times-circle.svg" alt="Remove this filter" class="remove-filter">
+                    </span>
                 }
-                                                <span id="span-clear-filters" onclick="clearFilters()"
-                                                    class="cursor-out p-2 ps-3 me-2 badge rounded-pill bg-danger border border-1 shadow-sm">
-                                                    Clear filters
-                                                    <img src="../css/times-circle.svg" alt="Clear filters" class="remove-filter">
-                                                </span>
+                <span id="span-clear-filters" onclick="clearFilters()"
+                    class="cursor-out p-2 ps-3 me-2 badge rounded-pill bg-danger border border-1 shadow-sm">
+                    Clear filters
+                    <img src="../css/times-circle.svg" alt="Clear filters" class="remove-filter">
+                </span>
             }
             catch (Exception e) {}
             }

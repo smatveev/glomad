@@ -132,7 +132,7 @@ function selectFilter(e) {
         const span = document.createElement("span");
         span.setAttribute("id", `span-${text}`)
         span.setAttribute("data-prior", e.dataset.prior)
-        span.setAttribute("class", "cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-secondary border-1 shadow-sm")
+        span.setAttribute("class", "cursor-out p-2 ps-3 me-2 badge rounded-pill text-dark border border-1 shadow-sm")
         span.textContent = text
         span.title = value
 

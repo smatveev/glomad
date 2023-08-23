@@ -34,6 +34,9 @@ namespace API.Models
             { "3", new KeyValuePair<string, int>("🤑 Benefites", 3) },
             { "are-extendable", new KeyValuePair<string, int>("Extendable", 3) },
             { "not-renewed", new KeyValuePair<string, int>("Not renewed", 3) },
+
+            { "4", new KeyValuePair<string, int>("💸 Taxes", 4) },
+            { "tax-free", new KeyValuePair<string, int>("Tax free", 4) },
         };
     }
 
@@ -131,6 +134,7 @@ namespace API.Models
         public float CostNum { get; set; }
         public DateTime UpdateDate { get; set; }
         public bool IsAnnounced { get; set; }
+        public byte? TaxSizeTo { get; set; }
     }
 
     public struct SameVisasOtherCountries

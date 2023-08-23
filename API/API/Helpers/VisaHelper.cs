@@ -95,7 +95,8 @@ namespace API.Helpers
                               Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
                               CostNum = co.CostOfProgramm,
                               UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
-                              IsAnnounced = co.IsAnnounced
+                              IsAnnounced = co.IsAnnounced,
+                              TaxSizeTo = co.TaxSizeTo
                           }).ToList();
             }
             else {
@@ -118,7 +119,8 @@ namespace API.Helpers
                               Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
                               CostNum = co.CostOfProgramm,
                               UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
-                              IsAnnounced = co.IsAnnounced
+                              IsAnnounced = co.IsAnnounced,
+                              TaxSizeTo = co.TaxSizeTo
                           }).ToList();
 
             }
@@ -138,6 +140,8 @@ namespace API.Helpers
 
             if (q.Contains("are-extendable")) result.RemoveAll(v => !v.IsExdendable);
             if (q.Contains("not-renewed")) result.RemoveAll(v => v.IsExdendable);
+
+            if (q.Contains("tax-free")) result.RemoveAll(v => v.TaxSizeTo > 0);
 
             //if (q.Contains("no-criminal-need")) result.RemoveAll(v => v.);
             //if (q.Contains("no-avia-tickets")) result.RemoveAll(v => v.Duration < 30 && v.Duration > 180);
