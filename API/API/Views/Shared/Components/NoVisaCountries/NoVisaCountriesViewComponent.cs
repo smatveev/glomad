@@ -45,6 +45,7 @@ namespace API.Views.Shared.ViewComponents
 
             model.countries = res;
             //model.myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            model.myCountry = myCountry;
             return View(model);
         }
     }    
