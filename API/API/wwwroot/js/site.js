@@ -8,9 +8,14 @@ window.onload = function () {
     //loadBookingW()
 
     var country = document.getElementById("CitizenshipId")
-    //console.log(country)
 
-    country.selectedIndex = [...country.options].findIndex(op => op.text === getCookie("myCountry"))
+    var ind = [...country.options].findIndex(op => op.text === getCookie("myCountry"))
+    console.log(ind)
+
+    if (ind > -1)
+        country.selectedIndex = ind
+    else        
+        country.selectedIndex = 0
 
     //$('#CitizenshipId').tooltip('show');
     $('#filters').tooltip('show');
