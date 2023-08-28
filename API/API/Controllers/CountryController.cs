@@ -46,13 +46,13 @@ namespace API.Controllers
                 Visa.ViewCounter = Visa.ViewCounter + 1;
             }
 
-            if(o is Country)
+            if (o is Country)
             {
                 var Country = (Country)o;
                 Country.ViewCounter = Country.ViewCounter + 1;
             }
 
-            
+
             _context.SaveChanges();
         }
 
@@ -95,7 +95,7 @@ namespace API.Controllers
 
             DateTime? lastVisaUpdate = null;
             if (model.Visas.Any())
-                 lastVisaUpdate = model.Visas.Max(u => u.UpdateDate);
+                lastVisaUpdate = model.Visas.Max(u => u.UpdateDate);
 
 
             string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
@@ -114,8 +114,8 @@ namespace API.Controllers
             }
             //header.LastModifiedHeader = (DateTime)(model.Country.UpdateDate.HasValue ? (model.Country.UpdateDate > lastVisaUpdate ?
             //    model.Country.UpdateDate : lastVisaUpdate) : lastVisaUpdate);
-            
-            
+
+
             string[] countryIds = model.Country.NextCountries.Split(',');
             int[] intCountryIds = new int[countryIds.Length];
 
@@ -130,6 +130,13 @@ namespace API.Controllers
 
             var nextCountries = query.ToList();
             model.NextCountries = nextCountries;
+
+            var nextWithLong = (from c in _context.Country
+                               join v in _context.Visa on c.Id equals v.Country.Id
+                               where v.Duration >= 180 && !intCountryIds.Contains(c.Id)
+                                select c);
+
+            model.NextCountries.AddRange(nextWithLong);
            
 
             if (model.Visas.Count > 0)
