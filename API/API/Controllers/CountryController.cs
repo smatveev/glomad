@@ -124,19 +124,19 @@ namespace API.Controllers
                 intCountryIds[i] = int.Parse(countryIds[i]);
             }
 
-            var query = from item in _context.Country
-                        where intCountryIds.Contains(item.Id)
-                        select item;
+            //var query = from item in _context.Country
+            //            where intCountryIds.Contains(item.Id)
+            //            select item;
 
-            var nextCountries = query.ToList();
-            model.NextCountries = nextCountries;
+            //var nextCountries = query.ToList();
+            //model.NextCountries = nextCountries;
 
-            var nextWithLong = (from c in _context.Country
-                               join v in _context.Visa on c.Id equals v.Country.Id
-                               where v.Duration >= 180 && !intCountryIds.Contains(c.Id)
-                                select c);
+            model.NextCountries = (from c in _context.Country
+                                join v in _context.Visa on c.Id equals v.Country.Id
+                                where v.Duration >= 180 || intCountryIds.Contains(c.Id)
+                                select c).ToList();
 
-            model.NextCountries.AddRange(nextWithLong);
+            
            
 
             if (model.Visas.Count > 0)
