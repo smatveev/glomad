@@ -62,7 +62,7 @@ namespace API.Controllers
         [Route("{country}/citizen-{citizen}")]
         public async Task<IActionResult> Index(string country, string citizen)
         {
-            ViewBag.Citizen = citizen;
+            //ViewBag.MyCountry = citizen;
 
             var model = new IndexPage();
 
