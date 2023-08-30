@@ -46,13 +46,13 @@ namespace API.Controllers
                 Visa.ViewCounter = Visa.ViewCounter + 1;
             }
 
-            if (o is Country)
+            if(o is Country)
             {
                 var Country = (Country)o;
                 Country.ViewCounter = Country.ViewCounter + 1;
             }
 
-
+            
             _context.SaveChanges();
         }
 
@@ -95,7 +95,7 @@ namespace API.Controllers
 
             DateTime? lastVisaUpdate = null;
             if (model.Visas.Any())
-                lastVisaUpdate = model.Visas.Max(u => u.UpdateDate);
+                 lastVisaUpdate = model.Visas.Max(u => u.UpdateDate);
 
 
             string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
@@ -114,8 +114,8 @@ namespace API.Controllers
             }
             //header.LastModifiedHeader = (DateTime)(model.Country.UpdateDate.HasValue ? (model.Country.UpdateDate > lastVisaUpdate ?
             //    model.Country.UpdateDate : lastVisaUpdate) : lastVisaUpdate);
-
-
+            
+            
             string[] countryIds = model.Country.NextCountries.Split(',');
             int[] intCountryIds = new int[countryIds.Length];
 
@@ -124,19 +124,12 @@ namespace API.Controllers
                 intCountryIds[i] = int.Parse(countryIds[i]);
             }
 
-            //var query = from item in _context.Country
-            //            where intCountryIds.Contains(item.Id)
-            //            select item;
+            var query = from item in _context.Country
+                        where intCountryIds.Contains(item.Id)
+                        select item;
 
-            //var nextCountries = query.ToList();
-            //model.NextCountries = nextCountries;
-
-            model.NextCountries = (from c in _context.Country
-                                join v in _context.Visa on c.Id equals v.Country.Id
-                                where v.Duration >= 180 || intCountryIds.Contains(c.Id)
-                                select c).ToList();
-
-            
+            var nextCountries = query.ToList();
+            model.NextCountries = nextCountries;
            
 
             if (model.Visas.Count > 0)
@@ -565,12 +558,12 @@ namespace API.Controllers
                            }).ToList();
             
             int[] nextCountries = Country.NextCountries.Split(',').Select(int.Parse).ToArray();
-            
+
             model.SameVisasOtherCountries = (from v in _context.Visa
                                              join c in _context.Country
                                              on v.Country.Id equals c.Id
-                                             where v.Type == model.Visa.Type && v.Type != 2 
-                                             && nextCountries.Contains(c.Id) && v.IsActual
+                                             where (v.Type == model.Visa.Type || v.IsFreeVisa)
+                                             && nextCountries.Contains(c.Id) && v.IsActual && v.Duration >= 180
                                              select new SameVisasOtherCountries
                                              {
                                                  Country = c.Name,
