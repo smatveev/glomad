@@ -1,4 +1,4 @@
-Best ways to get a visa around the globe
+HTTPS://glomad.net - ist the best ways to get a visa around the globe
 
 Glomad is automated 🤖 and kept up-to-date 🔥 knowledge base on how a traveler can get a visa.
 
