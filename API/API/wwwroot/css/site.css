@@ -774,7 +774,7 @@ select {
     /* <option> colors */
         option {
         color: inherit;
-        background-color: #320a28;
+        /*background-color: #320a28;*/
     }
 /* Remove focus outline */
 &:focus {
