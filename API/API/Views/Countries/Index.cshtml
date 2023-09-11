@@ -8,7 +8,7 @@
 
 @{
     ViewData["Title"] = $"{Model.Header.CountryName} visa types: Visa requirements, check lists of documents, {Model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
-    ViewData["MetaDescription"] = $"The list of visa types for {Model.Header.CountryName}. {Model.Header.CountryName} tourist, business, work, student, invest visas. Validity, duration of stay, number of entries, and other parameters in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year} for {Model.Country.Citizen} visit visas.";
+    ViewData["MetaDescription"] = ViewBag.Description;
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
 }
 

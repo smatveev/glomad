@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
@@ -62,8 +63,6 @@ namespace API.Controllers
         [Route("{country}/citizen-{citizen}")]
         public async Task<IActionResult> Index(string country, string citizen)
         {
-            //ViewBag.MyCountry = citizen;
-
             var model = new IndexPage();
 
             model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
@@ -149,6 +148,25 @@ namespace API.Controllers
             }
 
             model.Header = header;
+
+
+            if (string.IsNullOrEmpty(citizen))
+            {
+                //ViewBag.Title = "Check the visa requirements for your nationality for every country";
+
+                ViewBag.Description = $"The list of visa types for {country}. {country} tourist, business, work, student, invest visas. " +
+                    $"Validity, duration of stay, number of entries, and other parameters in " +
+                    $"{DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year} " +
+                    $"for {model.Country.Citizen} visit visas.";
+            }
+            else
+            {
+                ViewBag.Description = model.NoVisaEntry.Description.StripHTML();
+                //ViewBag.Title = $"Visa of Georgia for {Citizen} of Russia in {Month} of {year}.";
+                //ViewBag.MyCountry = citizen;
+
+            }
+            //ViewBag.MyCountry = citizen;
 
             return View(model);
         }
