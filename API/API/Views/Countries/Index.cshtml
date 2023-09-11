@@ -71,24 +71,6 @@
 
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
-                        <h5>✅ Requirements for @Model.HomeCountry.Citizen citizens to visit @Model.Header.CountryName with tourist visa</h5>
-                        <ul>
-                            <li>
-                                @Model.HomeCountry.Citizen citizens should provide valid passport.
-                                Passport must be valid at the all time of entry to @Model.Header.CountryName.
-                                The passport must be a minimum of one blank page for the entry stamp.
-                            </li>
-                            <li>
-                                Medical insurance is recommended, as treatment of @Model.HomeCountry.Citizen citizens
-                                on the territory of @Model.Header.CountryName is carried out on a commercial basis.
-                            </li>
-                        </ul>
-                    </div>
-                }
-
-                @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry != null)
-                {
                     <div class="mt-3 pb-4 rounded-3 py-3 px-3 r5">
                         <h5>🔑 How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name</h5>
                         <p>
@@ -111,12 +93,27 @@
                             </li>
                         </ul>
                     </div>
+
+                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
+                        <h5>✅ Requirements for @Model.HomeCountry.Citizen citizens to visit @Model.Header.CountryName with tourist visa</h5>
+                        <ul>
+                            <li>
+                                @Model.HomeCountry.Citizen citizens should provide valid passport.
+                                Passport must be valid at the all time of entry to @Model.Header.CountryName.
+                                The passport must be a minimum of one blank page for the entry stamp.
+                            </li>
+                            <li>
+                                Medical insurance is recommended, as treatment of @Model.HomeCountry.Citizen citizens
+                                on the territory of @Model.Header.CountryName is carried out on a commercial basis.
+                            </li>
+                        </ul>
+                    </div>
                 }
 
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry == null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r2">
-                        <h5 class="fw-bold">Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.</h5>
+                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 c4">
+                        <h5>1111 ⚠ Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.</h5>
                         <p>
                             A @Model.Country.Citizen Schengen visa is required for @Model.HomeCountry.Citizen citizens.
                             The maximum period of stay on this visa is 90 days. 
@@ -124,6 +121,43 @@
                             When applying for a Schengen visa to @Model.Header.CountryName, the applicant must be in person.
                             You must apply for a @Model.Country.Citizen tourist visa at an embassy outside the country.
                         </p>                        
+                    </div>
+
+                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
+                        <h5>111 ✅ Check list of documents Norwegian Schengen visa for Russian citezens.</h5>
+                        <p>
+                            To obtain a Schengen visa to Norway the following documents are required:
+                        </p>
+                        <p>
+                            <a href="#">More details 👉</a>
+                        </p>
+                    </div>
+
+                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
+                        <h5>1111 🔑 How to apply for Norway Schengen visa from Russia</h5>
+                        <ul>
+                            <li>
+                                Collect the required documents
+                            </li>
+                            <li>
+                                Select an embassy from the list (if there is a list). Visit the embassy or visa agency.
+                            </li>
+                            <li>
+                                Fill in the application form and attach all necessary documents.
+                            </li>
+                            <li>
+                                Pay the visa fee.
+                            </li>
+                            <li>
+                                Take the documents to the embassy.
+                            </li>
+                            <li>
+                                Document processing, processing.
+                            </li>
+                            <li>
+                                Receive your passports with visas.
+                            </li>
+                        </ul>
                     </div>
                 }
 
