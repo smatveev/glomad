@@ -97,7 +97,13 @@ namespace API.Controllers
                  lastVisaUpdate = model.Visas.Max(u => u.UpdateDate);
 
 
-            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            string myCountry;
+            if (string.IsNullOrEmpty(citizen))
+                 myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            else
+                myCountry = citizen;
+
+
             model.HomeCountry = _context.Country.Where(c => c.Name.ToLower() == myCountry.ToLower()).FirstOrDefault(); // _context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault();
 
             model.NoVisaEntry = _context.NoVisaEntry
@@ -162,11 +168,10 @@ namespace API.Controllers
             else
             {
                 ViewBag.Description = model.NoVisaEntry.Description.StripHTML();
-                //ViewBag.Title = $"Visa of Georgia for {Citizen} of Russia in {Month} of {year}.";
-                //ViewBag.MyCountry = citizen;
-
+                //ViewBag.Title = $"Visa of Georgia for {Citizen} of Russia in {Month} of {year}.";               
             }
-            //ViewBag.MyCountry = citizen;
+            ViewBag.MyCountry = citizen;
+
 
             return View(model);
         }
