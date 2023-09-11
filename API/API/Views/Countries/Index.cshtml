@@ -72,7 +72,7 @@
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry != null)
                 {
                     <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
-                        <h5>Requirements for @Model.HomeCountry.Citizen citizens to visit @Model.Header.CountryName with tourist visa</h5>
+                        <h5>✅ Requirements for @Model.HomeCountry.Citizen citizens to visit @Model.Header.CountryName with tourist visa</h5>
                         <ul>
                             <li>
                                 @Model.HomeCountry.Citizen citizens should provide valid passport.
@@ -89,8 +89,8 @@
 
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r2">
-                        <h5>How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name</h5>
+                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r5">
+                        <h5>🔑 How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name</h5>
                         <p>
                             To enter @Model.Header.CountryName, @Model.HomeCountry.Citizen citizens must follow some fairly simple steps.
                             Please note that migration services have the right to request additional documents 
@@ -116,7 +116,7 @@
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry == null)
                 {
                     <div class="mt-3 pb-4 rounded-3 py-3 px-3 r2">
-                        <h5>Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.</h5>
+                        <h5 class="fw-bold">Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.</h5>
                         <p>
                             A @Model.Country.Citizen Schengen visa is required for @Model.HomeCountry.Citizen citizens.
                             The maximum period of stay on this visa is 90 days. 
