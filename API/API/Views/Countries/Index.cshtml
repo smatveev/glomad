@@ -125,27 +125,67 @@
 
                     @if (Model.TouristVisaDocs?.Count > 0)
                     {
-                        <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
-                            <h5><strong>1111 📄 Check list of documents @Model.Country.Citizen Schengen visa for @Model.HomeCountry.Name citizens</strong></h5>
+                        <div class="mt-3 p-3">
+                            <h4><strong>📄 Check list of documents @Model.Country.Citizen Schengen visa for @Model.HomeCountry.Name citizens</strong></h4>
                             <p>
                                 To obtain a Schengen visa to Norway the following documents are required:
                             </p>
                             <ol>
                                 @foreach (var d in Model.TouristVisaDocs)
                                 {
-                                    <li>
-                                        @d.Text
-                                    </li>
+                                    @if ((DocumentType)d.DocumentType == DocumentType.HealthInsurance)
+                                    {
+                                        if (new GeoIp(Context).GetMyCountryAsync().ToString().ToLower() == "russia")
+                                        {
+                                            <li>
+                                                <a rel="noopener nofollow noreferrer" target="_blank"
+                                                   href="https://cherehapa.ru/insurance/medicine/?partnerId=2879">
+                                                    @d.Text
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a rel="noopener nofollow noreferrer" target="_blank"
+                                                   href="https://safetywing.com/?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador">
+                                                    @d.Text
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                    else if ((DocumentType)d.DocumentType == DocumentType.PlaceOfStay)
+                                    {
+                                        <li>
+                                            <a rel="noopener nofollow noreferrer" target="_blank"
+                                               href="https://booking.tp.st/zqey1Nwh">
+                                                @d.Text
+                                            </a>
+                                        </li>
+                                    }
+                                    else if ((DocumentType)d.DocumentType == DocumentType.Ticket)
+                                    {
+                                        <li>
+                                            <a rel="noopener nofollow noreferrer" target="_blank"
+                                               href="https://aviasales.tp.st/hJye4HU1">
+                                                @d.Text
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>@d.Text</li>
+                                    }
                                 }
                             </ol>
                             <p>
                                 <a href="./Visa/@Model.TouristVisa.Id">More details 👉</a>
                             </p>
                         </div>                        
-                    }                    
+                    }
 
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
-                        <h5>1111 🔑 How to apply for Norway Schengen visa from Russia</h5>
+                    <div class="mt-3 p-3">
+                        <h4><strong>✅ How to apply for Norway Schengen visa from Russia</strong></h4>
                         <ol>
                             <li>
                                 Collect the required documents
