@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore;
 @using API.Helpers;
 @using System.Globalization;
+@using System.Web;
 
 @model IndexPage
 
@@ -71,7 +72,7 @@
 
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && !Model.NoVisaEntry.IsVisaRequired)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r5">
+                    <div class="mt-3 p-3">
                         <h5>🔑 How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name</h5>
                         <p>
                             To enter @Model.Header.CountryName, @Model.HomeCountry.Citizen citizens must follow some fairly simple steps.
@@ -94,7 +95,7 @@
                         </ol>
                     </div>
 
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
+                    <div class="mt-3 p-3">
                         <h5>✅ Requirements for @Model.HomeCountry.Citizen citizens to visit @Model.Header.CountryName with tourist visa</h5>
                         <ul>
                             <li>
@@ -122,6 +123,107 @@
                             You must apply for a @Model.Country.Citizen tourist visa at an embassy outside the country.
                         </p>                        
                     </div>
+
+                    @if(Model.EmbassiesOfCountryAll?.Count > 0){
+                        <div class="mt-3 p-3">
+                            <h4><strong>List of Embassies and Consulates of @Model.Country.Name</strong></h4>
+                            @foreach (var e in Model.EmbassiesOfCountryAll)
+                            {
+                                string title;
+                                if (e.Name != null)
+                                {
+                                    title = Html.Raw(HttpUtility.HtmlDecode(e.Name)).ToString();
+                                    if (!string.IsNullOrEmpty(e.City.Name))
+                                        title += $" in {e.City}";
+                                }
+                                else
+                                {
+                                    title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country.Name} in {e.Country}")).ToString();
+                                    if (!string.IsNullOrEmpty(e.City.Name))
+                                    {
+                                        title += $", {e.City}";
+                                    }
+                                    title = title.Replace("\n", "<br/>").ToString();
+                                }
+
+                                <p class="mb-1 pt-4">
+                                    <a role="button" class="embassyTitle" id="@e.Id" href="#embassyC-@e.Id" data-bs-toggle="modal" data-bs-target="#embassyC-@e.Id">@title</a>
+                                </p>
+
+                                <div id="embassyC-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade" itemscope="" itemtype="http://schema.org/GovernmentPermit">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" itemprop="name">@title</h5>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                @if (!string.IsNullOrWhiteSpace(e.Address))
+                                                {
+                                                    <p itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+                                                        📍 <small class="text-muted">Address: </small>@e.Address
+                                                    </p>
+                                                }
+
+                                                @if (!string.IsNullOrWhiteSpace(e.WorkingHours))
+                                                {
+                                                    <p>
+                                                        🕜 <small class="text-muted">Office hours: </small> @Html.Raw(e.WorkingHours)
+                                                    </p>
+                                                }
+
+                                                @if (!string.IsNullOrWhiteSpace(e.Phone))
+                                                {
+                                                    <p itemprop="telephone">
+                                                        ☎ <small class="text-muted">Phone: </small>@Html.Raw(e.Phone)
+                                                    </p>
+                                                }
+
+                                                @if (!string.IsNullOrWhiteSpace(e.Email))
+                                                {
+                                                    <p itemprop="email">
+                                                        📧 <small class="text-muted">Email: </small>@e.Email
+                                                    </p>
+                                                }
+
+                                                @if (!string.IsNullOrWhiteSpace(e.Url))
+                                                {
+                                                    <p>
+                                                        💻 <small class="text-muted">Website: </small>
+                                                        <a href="@e.Url" itemprop="url" target="_blank" rel="noopener nofollow noreferrer">@e.Url</a>
+                                                    </p>
+                                                }
+
+                                                @if (!string.IsNullOrWhiteSpace(e.ApplicationFormUrl))
+                                                {
+                                                    <p>
+                                                        🐱‍💻 <small class="text-muted">Visa application form: </small><a itemprop="sameAs" href="@e.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
+                                                    </p>
+                                                }
+
+                                                @if (!string.IsNullOrWhiteSpace(e.ProcessingTime))
+                                                {
+                                                    <p>
+                                                        🚴‍♂️ <small class="text-muted">Processing time: </small>@e.ProcessingTime
+                                                    </p>
+                                                }
+
+                                                @if (!string.IsNullOrWhiteSpace(e.SpecialConditions))
+                                                {
+                                                    <p>
+                                                        ☝ <small class="text-muted">Special conditions: </small>@e.SpecialConditions
+                                                    </p>
+                                                }
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }                    
 
                     @if (Model.TouristVisaDocs?.Count > 0)
                     {
@@ -214,24 +316,127 @@
                             Refusal may be received without explanation. The visa fee is non-refundable in case of refusal. 
                             The application must be submitted for each applicant separately and in person.
                         </p>
-                    </div>                    
+                    </div>                                                          
                 }
 
-                <div class="mt-3 pb-4 py-3 px-3" id="visas">
-                    <h3>@Model.HomeCountry.Citizen Embassies in @Model.Country.Name</h3>
-                </div>
+                @if (Model.EmbassiesOfMyCountryinCountry?.Count > 0)
+                {
+                    <div class="mt-3 p-3">
+                        <h4><strong>@Model.HomeCountry.Citizen Embassies in @Model.Country.Name</strong></h4>
+                        @foreach (var e in Model.EmbassiesOfMyCountryinCountry)
+                        {
+
+                            string title;
+                            if (e.Name != null)
+                            {
+                                title = Html.Raw(HttpUtility.HtmlDecode(e.Name)).ToString();
+                                if (!string.IsNullOrEmpty(e.City.Name))
+                                    title += $" in {e.City}";
+                            }
+                            else
+                            {
+                                title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country.Name} in {e.Country}")).ToString();
+                                if (!string.IsNullOrEmpty(e.City.Name))
+                                {
+                                    title += $", {e.City}";
+                                }
+                                title = title.Replace("\n", "<br/>").ToString();
+                            }
+
+                            <p class="mb-1 pt-4">
+                                <a role="button" class="embassyTitle" id="@e.Id" href="#embassy-@e.Id" data-bs-toggle="modal" data-bs-target="#embassy-@e.Id">@title</a>
+                            </p>
+
+                            <div id="embassy-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade" itemscope="" itemtype="http://schema.org/GovernmentPermit">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" itemprop="name">@title</h5>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            @if (!string.IsNullOrWhiteSpace(e.Address))
+                                            {
+                                                <p itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+                                                    📍 <small class="text-muted">Address: </small>@e.Address
+                                                </p>
+                                            }
+
+                                            @if (!string.IsNullOrWhiteSpace(e.WorkingHours))
+                                            {
+                                                <p>
+                                                    🕜 <small class="text-muted">Office hours: </small> @Html.Raw(e.WorkingHours)
+                                                </p>
+                                            }
+
+                                            @if (!string.IsNullOrWhiteSpace(e.Phone))
+                                            {
+                                                <p itemprop="telephone">
+                                                    ☎ <small class="text-muted">Phone: </small>@Html.Raw(e.Phone)
+                                                </p>
+                                            }
+
+                                            @if (!string.IsNullOrWhiteSpace(e.Email))
+                                            {
+                                                <p itemprop="email">
+                                                    📧 <small class="text-muted">Email: </small>@e.Email
+                                                </p>
+                                            }
+
+                                            @if (!string.IsNullOrWhiteSpace(e.Url))
+                                            {
+                                                <p>
+                                                    💻 <small class="text-muted">Website: </small>
+                                                    <a href="@e.Url" itemprop="url" target="_blank" rel="noopener nofollow noreferrer">@e.Url</a>
+                                                </p>
+                                            }
+
+                                            @if (!string.IsNullOrWhiteSpace(e.ApplicationFormUrl))
+                                            {
+                                                <p>
+                                                    🐱‍💻 <small class="text-muted">Visa application form: </small><a itemprop="sameAs" href="@e.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
+                                                </p>
+                                            }
+
+                                            @if (!string.IsNullOrWhiteSpace(e.ProcessingTime))
+                                            {
+                                                <p>
+                                                    🚴‍♂️ <small class="text-muted">Processing time: </small>@e.ProcessingTime
+                                                </p>
+                                            }
+
+                                            @if (!string.IsNullOrWhiteSpace(e.SpecialConditions))
+                                            {
+                                                <p>
+                                                    ☝ <small class="text-muted">Special conditions: </small>@e.SpecialConditions
+                                                </p>
+                                            }
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
 
                 <div class="mt-3 pb-4 py-3 px-3" id="visas">
                     @if (Model.Visas?.Count > 0)
                     {
                         if (Model.Visas?.Count == 1)
                         {
-                            <h4 class="text-center p-4">💳 Also one visa is available in @Model.Header.CountryName:</h4>
+                            <h4 class="p-4"><strong>
+                                💳 Also one visa is available in @Model.Header.CountryName:
+                            </strong></h4>
                         }                        
                         else if (Model.Visas?.Count > 1)
                         {
-                            <h4 class="text-center p-4">💳 Also in @Model.Header.CountryName @Model.Visas?.Count visa types are available
+                            <h4 class="p-4"><strong>
+                                💳 Also in @Model.Header.CountryName @Model.Visas?.Count visa types are available
                                 including: @string.Join(", ", Model.Visas.Select(v => v.Type).Distinct())
+                                </strong>
                             </h4>
                         }
                     }

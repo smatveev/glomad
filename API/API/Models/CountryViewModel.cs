@@ -93,8 +93,8 @@ namespace API.Models
         public Visa TouristVisa { get; set; }
         public List<VisaDoc> TouristVisaDocs { get; set; }
 
-        public List<Embassy> EmbassiesAtCountry { get; set; }
-        public List<Embassy> EmbassiesAtHome { get; set; }
+        public List<Embassy> EmbassiesOfCountryAll { get; set; }
+        public List<Embassy> EmbassiesOfMyCountryinCountry { get; set; }
     }
 
     public struct FaqPage

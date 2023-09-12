@@ -155,6 +155,8 @@ namespace API.Controllers
 
             model.Header = header;
 
+            model.EmbassiesOfCountryAll = _context.Embassy.Where(e => e.OriginalCountry.Id == model.Country.Id).ToList();
+
 
             if (string.IsNullOrEmpty(citizen))
             {
@@ -174,10 +176,12 @@ namespace API.Controllers
                     model.TouristVisaDocs = _context.VisaDoc.Where(vd => vd.Visa.Id == model.TouristVisa.Id).ToList();
                 }
 
+                model.EmbassiesOfMyCountryinCountry = _context.Embassy.Where(e => e.OriginalCountry.Id == model.HomeCountry.Id 
+                    && e.Country.Id == model.Country.Id).ToList();
+
                 ViewBag.Title = $"Visas of {model.Country.Name} for citizens of {citizen}: Visa requirements, check lists of documents, {model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
 
                 ViewBag.Description = model.NoVisaEntry.Description.StripHTML().GetUntilOrEmpty("Important!").Trim();
-                //ViewBag.Title = $"Visa of Georgia for {Citizen} of Russia in {Month} of {year}.";               
             }
             ViewBag.MyCountry = citizen;
 
