@@ -158,7 +158,7 @@ namespace API.Controllers
 
             if (string.IsNullOrEmpty(citizen))
             {
-                //ViewBag.Title = "Check the visa requirements for your nationality for every country";
+                ViewBag.Title = $"{model.Country.Name} visa types: Visa requirements, check lists of documents, {model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
 
                 ViewBag.Description = $"The list of visa types for {country}. {country} tourist, business, work, student, invest visas. " +
                     $"Validity, duration of stay, number of entries, and other parameters in " +
@@ -167,7 +167,9 @@ namespace API.Controllers
             }
             else
             {
-                ViewBag.Description = model.NoVisaEntry.Description.StripHTML();
+                ViewBag.Title = $"Visas of {model.Country.Name} for citizens of {citizen}: Visa requirements, check lists of documents, {model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
+
+                ViewBag.Description = model.NoVisaEntry.Description.StripHTML().GetUntilOrEmpty("Important!").Trim();
                 //ViewBag.Title = $"Visa of Georgia for {Citizen} of Russia in {Month} of {year}.";               
             }
             ViewBag.MyCountry = citizen;

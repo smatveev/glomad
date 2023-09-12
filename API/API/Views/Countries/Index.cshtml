@@ -7,7 +7,7 @@
 @model IndexPage
 
 @{
-    ViewData["Title"] = $"{Model.Header.CountryName} visa types: Visa requirements, check lists of documents, {Model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
+    ViewData["Title"] = ViewBag.Title;
     ViewData["MetaDescription"] = ViewBag.Description;
     ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
 }
@@ -110,7 +110,7 @@
                     </div>
                 }
 
-                @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry == null)
+                @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry.IsVisaRequired)
                 {
                     <div class="mt-3 pb-4 rounded-3 py-3 px-3 c4">
                         <h5>1111 ⚠ Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.</h5>
