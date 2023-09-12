@@ -69,7 +69,7 @@
                     </div>
                 }
 
-                @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry != null)
+                @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && !Model.NoVisaEntry.IsVisaRequired)
                 {
                     <div class="mt-3 pb-4 rounded-3 py-3 px-3 r5">
                         <h5>🔑 How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name</h5>
@@ -112,8 +112,8 @@
 
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry.IsVisaRequired)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 c4">
-                        <h5>1111 ⚠ Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.</h5>
+                    <div class="mt-3 p-3">
+                        <h4><strong>⚠ Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.</strong></h4>
                         <p>
                             A @Model.Country.Citizen Schengen visa is required for @Model.HomeCountry.Citizen citizens.
                             The maximum period of stay on this visa is 90 days. 
@@ -123,15 +123,26 @@
                         </p>                        
                     </div>
 
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
-                        <h5>111 ✅ Check list of documents Norwegian Schengen visa for Russian citezens.</h5>
-                        <p>
-                            To obtain a Schengen visa to Norway the following documents are required:
-                        </p>
-                        <p>
-                            <a href="#">More details 👉</a>
-                        </p>
-                    </div>
+                    @if (Model.TouristVisaDocs?.Count > 0)
+                    {
+                        <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
+                            <h5><strong>1111 📄 Check list of documents @Model.Country.Citizen Schengen visa for @Model.HomeCountry.Name citizens</strong></h5>
+                            <p>
+                                To obtain a Schengen visa to Norway the following documents are required:
+                            </p>
+                            <ol>
+                                @foreach (var d in Model.TouristVisaDocs)
+                                {
+                                    <li>
+                                        @d.Text
+                                    </li>
+                                }
+                            </ol>
+                            <p>
+                                <a href="./Visa/@Model.TouristVisa.Id">More details 👉</a>
+                            </p>
+                        </div>                        
+                    }                    
 
                     <div class="mt-3 pb-4 rounded-3 py-3 px-3 r3">
                         <h5>1111 🔑 How to apply for Norway Schengen visa from Russia</h5>
@@ -163,10 +174,14 @@
                             Refusal may be received without explanation. The visa fee is non-refundable in case of refusal. 
                             The application must be submitted for each applicant separately and in person.
                         </p>
-                    </div>
+                    </div>                    
                 }
 
-                <div class="mt-3 pb-4 py-3 px-3" id="visas">                   
+                <div class="mt-3 pb-4 py-3 px-3" id="visas">
+                    <h3>@Model.HomeCountry.Citizen Embassies in @Model.Country.Name</h3>
+                </div>
+
+                <div class="mt-3 pb-4 py-3 px-3" id="visas">
                     @if (Model.Visas?.Count > 0)
                     {
                         if (Model.Visas?.Count == 1)

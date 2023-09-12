@@ -89,6 +89,9 @@ namespace API.Models
         public NoVisaEntry NoVisaEntry { get; set; }
 
         public List<Country> NextCountries { get; set; }
+
+        public Visa TouristVisa { get; set; }
+        public List<VisaDoc> TouristVisaDocs { get; set; }
     }
 
     public struct FaqPage

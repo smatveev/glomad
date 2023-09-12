@@ -167,6 +167,13 @@ namespace API.Controllers
             }
             else
             {
+                model.TouristVisa = _context.Visa.Where(v => v.Country.Id == model.Country.Id && v.Type == 2 && !v.IsFreeVisa).First();
+
+                if (model.TouristVisa != null)
+                {
+                    model.TouristVisaDocs = _context.VisaDoc.Where(vd => vd.Visa.Id == model.TouristVisa.Id).ToList();
+                }
+
                 ViewBag.Title = $"Visas of {model.Country.Name} for citizens of {citizen}: Visa requirements, check lists of documents, {model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
 
                 ViewBag.Description = model.NoVisaEntry.Description.StripHTML().GetUntilOrEmpty("Important!").Trim();
