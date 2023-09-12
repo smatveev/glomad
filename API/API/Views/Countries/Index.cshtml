@@ -73,7 +73,10 @@
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && !Model.NoVisaEntry.IsVisaRequired)
                 {
                     <div class="mt-3 p-3">
-                        <h5>🔑 How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name</h5>
+                        <h4><strong>
+                            🔑 How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name
+                            </strong>
+                        </h4>
                         <p>
                             To enter @Model.Header.CountryName, @Model.HomeCountry.Citizen citizens must follow some fairly simple steps.
                             Please note that migration services have the right to request additional documents 
@@ -96,7 +99,10 @@
                     </div>
 
                     <div class="mt-3 p-3">
-                        <h5>✅ Requirements for @Model.HomeCountry.Citizen citizens to visit @Model.Header.CountryName with tourist visa</h5>
+                        <h4><strong>
+                            ✅ Requirements for @Model.HomeCountry.Citizen citizens to visit @Model.Header.CountryName with tourist visa
+                        </strong></h4>
+
                         <ul>
                             <li>
                                 @Model.HomeCountry.Citizen citizens should provide valid passport.
@@ -114,7 +120,9 @@
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry.IsVisaRequired)
                 {
                     <div class="mt-3 p-3">
-                        <h4><strong>⚠ Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.</strong></h4>
+                        <h4><strong>
+                            ⚠ Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.
+                        </strong></h4>
                         <p>
                             A @Model.Country.Citizen Schengen visa is required for @Model.HomeCountry.Citizen citizens.
                             The maximum period of stay on this visa is 90 days. 
@@ -427,13 +435,13 @@
                     {
                         if (Model.Visas?.Count == 1)
                         {
-                            <h4 class="p-4"><strong>
+                            <h4><strong>
                                 💳 Also one visa is available in @Model.Header.CountryName:
                             </strong></h4>
                         }                        
                         else if (Model.Visas?.Count > 1)
                         {
-                            <h4 class="p-4"><strong>
+                            <h4><strong>
                                 💳 Also in @Model.Header.CountryName @Model.Visas?.Count visa types are available
                                 including: @string.Join(", ", Model.Visas.Select(v => v.Type).Distinct())
                                 </strong>
