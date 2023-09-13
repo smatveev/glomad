@@ -143,7 +143,7 @@ namespace API.Helpers
 
             if (q.Contains("tax-free")) result.RemoveAll(v => v.TaxSizeTo > 0);
 
-            if (q.Contains("announced-visas")) result.RemoveAll(v => !v.IsAnnounced);
+            if (q.Contains("announced")) result.RemoveAll(v => !v.IsAnnounced);
 
             //if (q.Contains("no-criminal-need")) result.RemoveAll(v => v.);
             //if (q.Contains("no-avia-tickets")) result.RemoveAll(v => v.Duration < 30 && v.Duration > 180);

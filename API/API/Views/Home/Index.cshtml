@@ -107,7 +107,7 @@
                 <option value="" disabled selected>✨ Some details</option>
                 <option value="are-extendable">Extendable visa</option>
                 <option value="not-renewed">Not renewed visa</option>
-                <option value="announced-visas">Announced visa</option>
+                <option value="announced">Announced visa</option>
                 @*<option value="no-criminal-need">No need criminal records</option>
                 <option value="no-avia-tickets">No need tickets</option>
                 <option value="no-accomodation-proof">No need proof of accomadation</option>
@@ -157,11 +157,11 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12" id="res">
+        <div class="col-lg-9 col-md-12 col-sm-12">
 
             @if (Model.Visas?.Count > 0)
             {
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">                    
+                <div id="res" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
                 </div>
             }
