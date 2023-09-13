@@ -62,7 +62,8 @@
                     }
 
                     <p class="mb-1">
-                        <a role="button" class="embassyTitle" id="@e.Id" href="#embassy-@e.Id" data-bs-toggle="modal" data-bs-target="#embassy-@e.Id">@title</a>
+                        <a role="button" class="embassyTitle" id="@e.Id" href="#embassy-@e.Id" data-bs-toggle="modal" 
+                        data-bs-target="#embassy-@e.Id">@Html.Raw(title)</a>
                     </p>
 
                     <div id="embassy-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade" itemscope="" itemtype="http://schema.org/GovernmentPermit">
