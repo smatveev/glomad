@@ -140,7 +140,7 @@ namespace API.Controllers
                         $"<url><loc>{site}{ce.Country}/Embassies</loc>" +
                         $"<lastmod>{ce.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
                         $"<changefreq>weekly</changefreq>" +
-                        $"<priority>0.8</priority></url>");
+                        $"<priority>0.6</priority></url>");
                 }
             }
             catch { }
@@ -169,25 +169,25 @@ namespace API.Controllers
             //catch { }
 
 
-            var cCovid = (from c in _context.Country
-                             where c.UpdateDate != null
-                             select new
-                             {
-                                 Name = c.Name,
-                                 UpdateDate = c.UpdateDate.Value
-                             }).ToList();
-            try
-            {
-                foreach (var c in cCovid)
-                {
-                    sb.Append(
-                        $"<url><loc>{site}{c.Name}/Covid</loc>" +
-                        $"<lastmod>{c.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
-                        $"<changefreq>weekly</changefreq>" +
-                        $"<priority>0.8</priority></url>");
-                }
-            }
-            catch { }
+            //var cCovid = (from c in _context.Country
+            //                 where c.UpdateDate != null
+            //                 select new
+            //                 {
+            //                     Name = c.Name,
+            //                     UpdateDate = c.UpdateDate.Value
+            //                 }).ToList();
+            //try
+            //{
+            //    foreach (var c in cCovid)
+            //    {
+            //        sb.Append(
+            //            $"<url><loc>{site}{c.Name}/Covid</loc>" +
+            //            $"<lastmod>{c.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+            //            $"<changefreq>weekly</changefreq>" +
+            //            $"<priority>0.8</priority></url>");
+            //    }
+            //}
+            //catch { }
 
             var neCountry = (from ne in _context.NoVisaEntry
                              join co in _context.Country on ne.CountryDestination.Id equals co.Id
@@ -205,7 +205,7 @@ namespace API.Controllers
                         $"<url><loc>{site}{c.Name}/NoVisaEntry</loc>" +
                         $"<lastmod>{c.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
                         $"<changefreq>weekly</changefreq>" +
-                        $"<priority>0.8</priority></url>");
+                        $"<priority>0.5</priority></url>");
                 }
             }
             catch { }
@@ -226,7 +226,7 @@ namespace API.Controllers
                         $"<url><loc>{site}{c.Name}/FreeEntry</loc>" +
                         $"<lastmod>{c.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
                         $"<changefreq>weekly</changefreq>" +
-                        $"<priority>0.8</priority></url>");
+                        $"<priority>0.5</priority></url>");
                 }
             }
             catch { }
@@ -247,7 +247,28 @@ namespace API.Controllers
                         $"<url><loc>{site}/{p.Name}/passport</loc>" +
                         $"<lastmod>{p.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
                         $"<changefreq>weekly</changefreq>" +
-                        $"<priority>0.8</priority></url>");
+                        $"<priority>0.5</priority></url>");
+                }
+            }
+            catch { }
+
+
+            var allCountries = _context.Country.Select(c => c.Name).ToList();
+
+            try
+            {
+                foreach (var from in allCountries)
+                {
+                    foreach(var to in allCountries)
+                    {
+                        if(!from.Equals(to))
+                        {
+                            sb.Append(
+                                $"<url><loc>{site}{from}/{to}</loc>" +
+                                $"<changefreq>weekly</changefreq>" +
+                                $"<priority>1</priority></url>");
+                        }                        
+                    }                    
                 }
             }
             catch { }
