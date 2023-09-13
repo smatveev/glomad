@@ -155,7 +155,18 @@ namespace API.Controllers
 
             model.Header = header;
 
-            model.EmbassiesOfCountryAll = _context.Embassy.Where(e => e.OriginalCountry.Id == model.Country.Id).ToList();
+            model.EmbassiesOfCountryAll = (from e in _context.Embassy
+                                           where e.OriginalCountry.Id == model.Country.Id
+                                           select new EmbassyVM
+                                           {
+                                               Id = e.Id,
+                                               Country = model.Country.Name,
+                                               City = e.City.Name,
+                                               Iata = model.Country.ISOalpha3.ToLower(),
+                                               Latitude = e.Latitude,
+                                               Longitude = e.Longitude,
+                                               Embassy = e
+                                           }).Distinct().ToList();
 
 
             if (string.IsNullOrEmpty(citizen))
@@ -169,15 +180,28 @@ namespace API.Controllers
             }
             else
             {
-                model.TouristVisa = _context.Visa.Where(v => v.Country.Id == model.Country.Id && v.Type == 2 && !v.IsFreeVisa).First();
-
-                if (model.TouristVisa != null)
+                if(model.NoVisaEntry != null && model.NoVisaEntry.IsVisaRequired)
                 {
-                    model.TouristVisaDocs = _context.VisaDoc.Where(vd => vd.Visa.Id == model.TouristVisa.Id).ToList();
+                    model.TouristVisa = _context.Visa.Where(v => v.Country.Id == model.Country.Id && v.Type == 2 && !v.IsFreeVisa).First();
+
+                    if (model.TouristVisa != null)
+                    {
+                        model.TouristVisaDocs = _context.VisaDoc.Where(vd => vd.Visa.Id == model.TouristVisa.Id).ToList();
+                    }
                 }
 
-                model.EmbassiesOfMyCountryinCountry = _context.Embassy.Where(e => e.OriginalCountry.Id == model.HomeCountry.Id 
-                    && e.Country.Id == model.Country.Id).ToList();
+                model.EmbassiesOfMyCountryinCountry = (from e in _context.Embassy
+                                                       where e.OriginalCountry.Id == model.HomeCountry.Id && e.Country.Id == model.Country.Id
+                                                       select new EmbassyVM
+                                                       {
+                                                           Id = e.Id,
+                                                           Country = model.HomeCountry.Name,
+                                                           City = e.City.Name,
+                                                           Iata = model.HomeCountry.ISOalpha3.ToLower(),
+                                                           Latitude = e.Latitude,
+                                                           Longitude = e.Longitude,
+                                                           Embassy = e
+                                                       }).Distinct().ToList();
 
                 ViewBag.Title = $"Visas of {model.Country.Name} for citizens of {citizen}: Visa requirements, check lists of documents, {model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
 

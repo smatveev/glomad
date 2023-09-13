@@ -132,33 +132,52 @@
                         </p>                        
                     </div>
 
-                    @if(Model.EmbassiesOfCountryAll?.Count > 0){
+                    @if (Model.EmbassiesOfCountryAll?.Count > 0)
+                    {
+                        string curCountry = string.Empty;
+
                         <div class="mt-3 p-3">
-                            <h4><strong>List of Embassies and Consulates of @Model.Country.Name</strong></h4>
+                            <h4><strong>List of Embassies and C of @Model.HomeCountry.Name</strong></h4>
+
                             @foreach (var e in Model.EmbassiesOfCountryAll)
                             {
-                                string title;
-                                if (e.Name != null)
+                                if (curCountry == string.Empty || !string.Equals(curCountry, e.Country))
                                 {
-                                    title = Html.Raw(HttpUtility.HtmlDecode(e.Name)).ToString();
-                                    if (!string.IsNullOrEmpty(e.City.Name))
+                                    <h4 class="pt-4">
+                                        <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon"></span>
+                                        <a href="/@e.Country">@e.Country</a>
+                                    </h4>
+                                }
+                                curCountry = Model.EmbassiesOfCountryAll[0].Country;
+
+                                string title;
+                                if (e.Embassy.Name != null)
+                                {
+                                    title = Html.Raw(HttpUtility.HtmlDecode(e.Embassy.Name)).ToString();
+                                    if (!string.IsNullOrEmpty(e.City))
                                         title += $" in {e.City}";
                                 }
                                 else
                                 {
                                     title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country.Name} in {e.Country}")).ToString();
-                                    if (!string.IsNullOrEmpty(e.City.Name))
+                                    if (!string.IsNullOrEmpty(e.City))
                                     {
                                         title += $", {e.City}";
                                     }
                                     title = title.Replace("\n", "<br/>").ToString();
                                 }
 
+                                @if (!string.Equals(curCountry, e.Country))
+                                {
+                                    curCountry = e.Country;
+
+                                }
+
                                 <p class="mb-1 pt-4">
-                                    <a role="button" class="embassyTitle" id="@e.Id" href="#embassyC-@e.Id" data-bs-toggle="modal" data-bs-target="#embassyC-@e.Id">@title</a>
+                                    <a role="button" class="embassyTitle" id="@e.Id" href="#embassyCountry-@e.Id" data-bs-toggle="modal" data-bs-target="#embassyCountry-@e.Id">@title</a>
                                 </p>
 
-                                <div id="embassyC-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade" itemscope="" itemtype="http://schema.org/GovernmentPermit">
+                                <div id="embassyCountry-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade" itemscope="" itemtype="http://schema.org/GovernmentPermit">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -166,60 +185,66 @@
                                             </div>
                                             <div class="modal-body">
 
-                                                @if (!string.IsNullOrWhiteSpace(e.Address))
+                                                @if (!string.IsNullOrWhiteSpace(e.Embassy.Address))
                                                 {
                                                     <p itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
-                                                        📍 <small class="text-muted">Address: </small>@e.Address
+                                                        📍 <small class="text-muted">Address: </small>@e.Embassy.Address
                                                     </p>
                                                 }
 
-                                                @if (!string.IsNullOrWhiteSpace(e.WorkingHours))
+                                                @if (!string.IsNullOrWhiteSpace(e.Embassy.WorkingHours))
                                                 {
                                                     <p>
-                                                        🕜 <small class="text-muted">Office hours: </small> @Html.Raw(e.WorkingHours)
+                                                        🕜 <small class="text-muted">Office hours: </small> @Html.Raw(e.Embassy.WorkingHours)
                                                     </p>
                                                 }
 
-                                                @if (!string.IsNullOrWhiteSpace(e.Phone))
+                                                @if (!string.IsNullOrWhiteSpace(e.Embassy.Phone))
                                                 {
                                                     <p itemprop="telephone">
-                                                        ☎ <small class="text-muted">Phone: </small>@Html.Raw(e.Phone)
+                                                        ☎ <small class="text-muted">Phone: </small>@Html.Raw(e.Embassy.Phone)
                                                     </p>
                                                 }
 
-                                                @if (!string.IsNullOrWhiteSpace(e.Email))
+                                                @if (!string.IsNullOrWhiteSpace(e.Embassy.Email))
                                                 {
                                                     <p itemprop="email">
-                                                        📧 <small class="text-muted">Email: </small>@e.Email
+                                                        📧 <small class="text-muted">Email: </small>@e.Embassy.Email
                                                     </p>
                                                 }
 
-                                                @if (!string.IsNullOrWhiteSpace(e.Url))
+                                                @if (!string.IsNullOrWhiteSpace(e.Embassy.Url))
                                                 {
                                                     <p>
                                                         💻 <small class="text-muted">Website: </small>
-                                                        <a href="@e.Url" itemprop="url" target="_blank" rel="noopener nofollow noreferrer">@e.Url</a>
+                                                        <a href="@e.Embassy.Url" itemprop="url" target="_blank" rel="noopener nofollow noreferrer">@e.Embassy.Url</a>
                                                     </p>
                                                 }
 
-                                                @if (!string.IsNullOrWhiteSpace(e.ApplicationFormUrl))
+                                                @if (!string.IsNullOrWhiteSpace(e.Embassy.ApplicationFormUrl))
                                                 {
                                                     <p>
-                                                        🐱‍💻 <small class="text-muted">Visa application form: </small><a itemprop="sameAs" href="@e.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
+                                                        🐱‍💻 <small class="text-muted">Visa application form: </small><a itemprop="sameAs" href="@e.Embassy.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
                                                     </p>
                                                 }
 
-                                                @if (!string.IsNullOrWhiteSpace(e.ProcessingTime))
+                                                @if (!string.IsNullOrWhiteSpace(e.Embassy.ProcessingTime))
                                                 {
                                                     <p>
-                                                        🚴‍♂️ <small class="text-muted">Processing time: </small>@e.ProcessingTime
+                                                        🚴‍♂️ <small class="text-muted">Processing time: </small>@e.Embassy.ProcessingTime
                                                     </p>
                                                 }
 
-                                                @if (!string.IsNullOrWhiteSpace(e.SpecialConditions))
+                                                @if (!string.IsNullOrWhiteSpace(e.Embassy.SpecialConditions))
                                                 {
                                                     <p>
-                                                        ☝ <small class="text-muted">Special conditions: </small>@e.SpecialConditions
+                                                        ☝ <small class="text-muted">Special conditions: </small>@e.Embassy.SpecialConditions
+                                                    </p>
+                                                }
+                                                @if (e.Latitude > 0 || e.Longitude > 0)
+                                                {
+                                                    <p>
+                                                        <div class="p-2" id='map-@e.Id'></div>
                                                     </p>
                                                 }
                                             </div>
@@ -231,7 +256,7 @@
                                 </div>
                             }
                         </div>
-                    }                    
+                    }
 
                     @if (Model.TouristVisaDocs?.Count > 0)
                     {
@@ -330,28 +355,28 @@
                 @if (Model.EmbassiesOfMyCountryinCountry?.Count > 0)
                 {
                     <div class="mt-3 p-3">
-                        <h4><strong>@Model.HomeCountry.Citizen Embassies in @Model.Country.Name</strong></h4>
+                        <h4><strong>@Model.HomeCountry.Citizen Embassies and Consulates in @Model.Country.Name</strong></h4>
+
                         @foreach (var e in Model.EmbassiesOfMyCountryinCountry)
                         {
-
                             string title;
-                            if (e.Name != null)
+                            if (e.Embassy.Name != null)
                             {
-                                title = Html.Raw(HttpUtility.HtmlDecode(e.Name)).ToString();
-                                if (!string.IsNullOrEmpty(e.City.Name))
+                                title = Html.Raw(HttpUtility.HtmlDecode(e.Embassy.Name)).ToString();
+                                if (!string.IsNullOrEmpty(e.City))
                                     title += $" in {e.City}";
                             }
                             else
                             {
                                 title = Html.Raw(HttpUtility.HtmlDecode($"Embassy of {Model.Country.Name} in {e.Country}")).ToString();
-                                if (!string.IsNullOrEmpty(e.City.Name))
+                                if (!string.IsNullOrEmpty(e.City))
                                 {
                                     title += $", {e.City}";
                                 }
                                 title = title.Replace("\n", "<br/>").ToString();
                             }
 
-                            <p class="mb-1 pt-4">
+                            <p class="mb-2">
                                 <a role="button" class="embassyTitle" id="@e.Id" href="#embassy-@e.Id" data-bs-toggle="modal" data-bs-target="#embassy-@e.Id">@title</a>
                             </p>
 
@@ -363,60 +388,66 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            @if (!string.IsNullOrWhiteSpace(e.Address))
+                                            @if (!string.IsNullOrWhiteSpace(e.Embassy.Address))
                                             {
                                                 <p itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
-                                                    📍 <small class="text-muted">Address: </small>@e.Address
+                                                    📍 <small class="text-muted">Address: </small>@e.Embassy.Address
                                                 </p>
                                             }
 
-                                            @if (!string.IsNullOrWhiteSpace(e.WorkingHours))
+                                            @if (!string.IsNullOrWhiteSpace(e.Embassy.WorkingHours))
                                             {
                                                 <p>
-                                                    🕜 <small class="text-muted">Office hours: </small> @Html.Raw(e.WorkingHours)
+                                                    🕜 <small class="text-muted">Office hours: </small> @Html.Raw(e.Embassy.WorkingHours)
                                                 </p>
                                             }
 
-                                            @if (!string.IsNullOrWhiteSpace(e.Phone))
+                                            @if (!string.IsNullOrWhiteSpace(e.Embassy.Phone))
                                             {
                                                 <p itemprop="telephone">
-                                                    ☎ <small class="text-muted">Phone: </small>@Html.Raw(e.Phone)
+                                                    ☎ <small class="text-muted">Phone: </small>@Html.Raw(e.Embassy.Phone)
                                                 </p>
                                             }
 
-                                            @if (!string.IsNullOrWhiteSpace(e.Email))
+                                            @if (!string.IsNullOrWhiteSpace(e.Embassy.Email))
                                             {
                                                 <p itemprop="email">
-                                                    📧 <small class="text-muted">Email: </small>@e.Email
+                                                    📧 <small class="text-muted">Email: </small>@e.Embassy.Email
                                                 </p>
                                             }
 
-                                            @if (!string.IsNullOrWhiteSpace(e.Url))
+                                            @if (!string.IsNullOrWhiteSpace(e.Embassy.Url))
                                             {
                                                 <p>
                                                     💻 <small class="text-muted">Website: </small>
-                                                    <a href="@e.Url" itemprop="url" target="_blank" rel="noopener nofollow noreferrer">@e.Url</a>
+                                                    <a href="@e.Embassy.Url" itemprop="url" target="_blank" rel="noopener nofollow noreferrer">@e.Embassy.Url</a>
                                                 </p>
                                             }
 
-                                            @if (!string.IsNullOrWhiteSpace(e.ApplicationFormUrl))
+                                            @if (!string.IsNullOrWhiteSpace(e.Embassy.ApplicationFormUrl))
                                             {
                                                 <p>
-                                                    🐱‍💻 <small class="text-muted">Visa application form: </small><a itemprop="sameAs" href="@e.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
+                                                    🐱‍💻 <small class="text-muted">Visa application form: </small><a itemprop="sameAs" href="@e.Embassy.ApplicationFormUrl" target="_blank" rel="noopener nofollow noreferrer"> link</a>
                                                 </p>
                                             }
 
-                                            @if (!string.IsNullOrWhiteSpace(e.ProcessingTime))
+                                            @if (!string.IsNullOrWhiteSpace(e.Embassy.ProcessingTime))
                                             {
                                                 <p>
-                                                    🚴‍♂️ <small class="text-muted">Processing time: </small>@e.ProcessingTime
+                                                    🚴‍♂️ <small class="text-muted">Processing time: </small>@e.Embassy.ProcessingTime
                                                 </p>
                                             }
 
-                                            @if (!string.IsNullOrWhiteSpace(e.SpecialConditions))
+                                            @if (!string.IsNullOrWhiteSpace(e.Embassy.SpecialConditions))
                                             {
                                                 <p>
-                                                    ☝ <small class="text-muted">Special conditions: </small>@e.SpecialConditions
+                                                    ☝ <small class="text-muted">Special conditions: </small>@e.Embassy.SpecialConditions
+                                                </p>
+                                            }
+                                            @if (e.Latitude > 0 || e.Longitude > 0)
+                                            {
+                                                <p>
+                                                    <div class="p-2" id='map-@e.Id'></div>
                                                 </p>
                                             }
                                         </div>
