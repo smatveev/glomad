@@ -155,8 +155,8 @@ namespace API.Controllers
 
             model.Header = header;
 
-            model.EmbassiesOfCountryAll = (from e in _context.Embassy
-                                           where e.OriginalCountry.Id == model.Country.Id
+            model.EmbassiesOfCountryInMyCountry = (from e in _context.Embassy
+                                           where e.OriginalCountry.Id == model.Country.Id && e.Country.Id == model.HomeCountry.Id
                                            select new EmbassyVM
                                            {
                                                Id = e.Id,
@@ -190,7 +190,7 @@ namespace API.Controllers
                     }
                 }
 
-                model.EmbassiesOfMyCountryinCountry = (from e in _context.Embassy
+                model.EmbassiesOfMyCountryInCountry = (from e in _context.Embassy
                                                        where e.OriginalCountry.Id == model.HomeCountry.Id && e.Country.Id == model.Country.Id
                                                        select new EmbassyVM
                                                        {

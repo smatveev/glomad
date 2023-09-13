@@ -132,24 +132,13 @@
                         </p>                        
                     </div>
 
-                    @if (Model.EmbassiesOfCountryAll?.Count > 0)
+                    @if (Model.EmbassiesOfCountryInMyCountry?.Count > 0)
                     {
-                        string curCountry = string.Empty;
-
                         <div class="mt-3 p-3">
-                            <h4><strong>List of Embassies and C of @Model.HomeCountry.Name</strong></h4>
+                            <h4><strong>List of Embassies and Consulates of @Model.Country.Name in @Model.HomeCountry.Name</strong></h4>
 
-                            @foreach (var e in Model.EmbassiesOfCountryAll)
+                            @foreach (var e in Model.EmbassiesOfCountryInMyCountry)
                             {
-                                if (curCountry == string.Empty || !string.Equals(curCountry, e.Country))
-                                {
-                                    <h4 class="pt-4">
-                                        <span class="flag-icon flag-icon-@e.Iata.ToLower() flag-icon"></span>
-                                        <a href="/@e.Country">@e.Country</a>
-                                    </h4>
-                                }
-                                curCountry = Model.EmbassiesOfCountryAll[0].Country;
-
                                 string title;
                                 if (e.Embassy.Name != null)
                                 {
@@ -167,13 +156,7 @@
                                     title = title.Replace("\n", "<br/>").ToString();
                                 }
 
-                                @if (!string.Equals(curCountry, e.Country))
-                                {
-                                    curCountry = e.Country;
-
-                                }
-
-                                <p class="mb-1 pt-4">
+                                <p class="mb-2">
                                     <a role="button" class="embassyTitle" id="@e.Id" href="#embassyCountry-@e.Id" data-bs-toggle="modal" data-bs-target="#embassyCountry-@e.Id">@title</a>
                                 </p>
 
@@ -255,6 +238,9 @@
                                     </div>
                                 </div>
                             }
+                            <p class="mb-2">
+                                <a href="./Embassies">👉 All Embassies of @Model.Country.Name</a>
+                            </p>
                         </div>
                     }
 
@@ -352,12 +338,12 @@
                     </div>                                                          
                 }
 
-                @if (Model.EmbassiesOfMyCountryinCountry?.Count > 0)
+                @if (Model.EmbassiesOfMyCountryInCountry?.Count > 0)
                 {
                     <div class="mt-3 p-3">
-                        <h4><strong>@Model.HomeCountry.Citizen Embassies and Consulates in @Model.Country.Name</strong></h4>
+                        <h4><strong>🏢 @Model.HomeCountry.Citizen Embassies and Consulates in @Model.Country.Name</strong></h4>
 
-                        @foreach (var e in Model.EmbassiesOfMyCountryinCountry)
+                        @foreach (var e in Model.EmbassiesOfMyCountryInCountry)
                         {
                             string title;
                             if (e.Embassy.Name != null)
