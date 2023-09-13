@@ -182,12 +182,18 @@ namespace API.Controllers
             {
                 if(model.NoVisaEntry != null && model.NoVisaEntry.IsVisaRequired)
                 {
-                    model.TouristVisa = _context.Visa.Where(v => v.Country.Id == model.Country.Id && v.Type == 2 && !v.IsFreeVisa).First();
-
-                    if (model.TouristVisa != null)
+                    try
                     {
-                        model.TouristVisaDocs = _context.VisaDoc.Where(vd => vd.Visa.Id == model.TouristVisa.Id).ToList();
+                        model.TouristVisa = _context.Visa.Where(v => v.Country.Id == model.Country.Id && v.Type == 2 && !v.IsFreeVisa).FirstOrDefault();
+
+                        if (model.TouristVisa != null)
+                        {
+                            model.TouristVisaDocs = _context.VisaDoc.Where(vd => vd.Visa.Id == model.TouristVisa.Id).ToList();
+                        }
                     }
+                    catch(Exception e)
+                    {                        
+                    }                    
                 }
 
                 model.EmbassiesOfMyCountryInCountry = (from e in _context.Embassy
