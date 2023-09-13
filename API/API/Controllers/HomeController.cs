@@ -335,9 +335,10 @@ namespace API.Controllers
 
         [Route("")]
         [Route("citizen-{country}")]
+        [Route("visa-{query}")]
         //[Route("Search")]
         //[Route("Search/{route}")]
-        public async Task<IActionResult> Index(int Passport, int To, string country)
+        public async Task<IActionResult> Index(int Passport, int To, string country, string query)
         {
             //Stopwatch sw = new Stopwatch();
             //sw.Start();
@@ -346,7 +347,17 @@ namespace API.Controllers
             mo.To = To;
 
             //TODO: refactor this shit
-            mo.Visas = VisaHelper.GetVisasFromLink("", _context);
+            mo.Visas = VisaHelper.GetVisasFromLink(query, _context);
+            mo.Query = query;
+            //if (!string.IsNullOrEmpty(query)) {
+                
+            //    mo.Visas = VisaHelper.GetVisasFromLink(query, _context);
+            //}
+            //else
+            //{
+                
+            //}
+            
 
             mo.TopLastUpdatedVisas = VisaHelper.GetTopLastUpdatedVisas(_context);
             mo.TopLongestVisas = VisaHelper.GetTopLongestVisas(_context);
@@ -425,20 +436,20 @@ namespace API.Controllers
             return View(mo);
         }
 
-        [Route("visa-{query}")]
-        //[Route("Search")]
-        //[Route("Search/{route}")]
-        public IActionResult Index(string query)
-        {
-            var mo = new Models.IndexModel();
-            mo.Query = query;
-            mo.Visas = VisaHelper.GetVisasFromLink(query, _context);
+        //[Route("visa-{query}")]
+        ////[Route("Search")]
+        ////[Route("Search/{route}")]
+        //public IActionResult Index(string query)
+        //{
+        //    var mo = new Models.IndexModel();
+        //    mo.Query = query;
+        //    mo.Visas = VisaHelper.GetVisasFromLink(query, _context);
 
-            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
-            ViewBag.ToCountries = ViewBag.Countries;
+        //    ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+        //    ViewBag.ToCountries = ViewBag.Countries;
 
-            return View(mo);
-        }
+        //    return View(mo);
+        //}
 
         [HttpPost("SelectPrice")]
         public IActionResult SelectPrice([FromBody] SelectPlan plan)
