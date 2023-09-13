@@ -253,7 +253,7 @@ namespace API.Controllers
             catch { }
 
 
-            var allCountries = _context.Country.Select(c => c.Name).ToList();
+            var allCountries = _context.Country.Select(c => c.Name).Take(100).ToList();
 
             try
             {
@@ -284,6 +284,51 @@ namespace API.Controllers
             };
 
             //return View("Sitemap");
+        }
+
+        [Route("sitemap2.xml")]
+        public IActionResult Sitemap2()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<?xml version='1.0' encoding='UTF-8' ?><urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>");
+
+            string site = "https://glomad.net/";
+
+            sb.Append(
+                $"<url><loc>{site}</loc>" +
+                $"<lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod>" +
+                $"<changefreq>daily</changefreq>" +
+                $"<priority>0.8</priority></url>");
+          
+            var allCountries = _context.Country.Select(c => c.Name).Skip(100).ToList();
+
+            try
+            {
+                foreach (var from in allCountries)
+                {
+                    foreach (var to in allCountries)
+                    {
+                        if (!from.Equals(to))
+                        {
+                            sb.Append(
+                                $"<url><loc>{site}{from}/{to}</loc>" +
+                                $"<changefreq>weekly</changefreq>" +
+                                $"<priority>1</priority></url>");
+                        }
+                    }
+                }
+            }
+            catch { }
+
+
+            sb.Append("</urlset>");
+
+            return new ContentResult
+            {
+                ContentType = "application/xml",
+                Content = sb.ToString(),
+                StatusCode = 200
+            };
         }
 
         [Route("")]
