@@ -253,13 +253,14 @@ namespace API.Controllers
             catch { }
 
 
-            var allCountries = _context.Country.Select(c => c.Name).Take(100).ToList();
+            var countries100 = _context.Country.Select(c => c.Name).Take(100).ToList();
+            var countriesAll = _context.Country.Select(c => c.Name).ToList();
 
             try
             {
-                foreach (var from in allCountries)
+                foreach (var from in countries100)
                 {
-                    foreach(var to in allCountries)
+                    foreach(var to in countriesAll)
                     {
                         if(!from.Equals(to))
                         {
@@ -299,14 +300,15 @@ namespace API.Controllers
                 $"<lastmod>{DateTime.Now.ToString("yyyy-MM-dd")}</lastmod>" +
                 $"<changefreq>daily</changefreq>" +
                 $"<priority>0.8</priority></url>");
-          
-            var allCountries = _context.Country.Select(c => c.Name).Skip(100).ToList();
+
+            var countriesAfter100 = _context.Country.Select(c => c.Name).Skip(100).ToList();
+            var countriesAll = _context.Country.Select(c => c.Name).ToList();
 
             try
             {
-                foreach (var from in allCountries)
+                foreach (var from in countriesAfter100)
                 {
-                    foreach (var to in allCountries)
+                    foreach (var to in countriesAll)
                     {
                         if (!from.Equals(to))
                         {
