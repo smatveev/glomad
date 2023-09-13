@@ -135,7 +135,7 @@
                     @if (Model.EmbassiesOfCountryInMyCountry?.Count > 0)
                     {
                         <div class="mt-3 p-3">
-                            <h4><strong>List of Embassies and Consulates of @Model.Country.Name in @Model.HomeCountry.Name</strong></h4>
+                            <h4><strong>🏢 List of Embassies and Consulates of @Model.Country.Name in @Model.HomeCountry.Name</strong></h4>
 
                             @foreach (var e in Model.EmbassiesOfCountryInMyCountry)
                             {
@@ -156,8 +156,8 @@
                                     title = title.Replace("\n", "<br/>").ToString();
                                 }
 
-                                <p class="mb-2">
-                                    <a role="button" class="embassyTitle" id="@e.Id" href="#embassyCountry-@e.Id" data-bs-toggle="modal" data-bs-target="#embassyCountry-@e.Id">@title</a>
+                                <p class="mb-2 pt-2">
+                                    <a role="button" class="embassyTitle" id="@e.Id" href="#embassyCountry-@e.Id" data-bs-toggle="modal" data-bs-target="#embassyCountry-@e.Id">@Html.Raw(title)</a>
                                 </p>
 
                                 <div id="embassyCountry-@e.Id" tabindex="-1" aria-hidden="true" class="modal fade" itemscope="" itemtype="http://schema.org/GovernmentPermit">
@@ -238,7 +238,7 @@
                                     </div>
                                 </div>
                             }
-                            <p class="mb-2">
+                            <p class="mb-2 pt-2">
                                 <a href="./Embassies">👉 All Embassies of @Model.Country.Name</a>
                             </p>
                         </div>
