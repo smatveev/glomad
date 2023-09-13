@@ -60,7 +60,7 @@ namespace API.Controllers
 
 
         [Route("{country}")]
-        [Route("{country}/citizen-{citizen}")]
+        [Route("{country}/{citizen}")]
         public async Task<IActionResult> Index(string country, string citizen)
         {
             var model = new IndexPage();
