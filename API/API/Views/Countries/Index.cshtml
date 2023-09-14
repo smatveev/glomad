@@ -84,7 +84,7 @@
                                     Do citizens of @Model.HomeCountry.Name require a visa to visit the @Model.Country.Name?
                                 </strong></p>
                                 <p>
-                                    @Model.HomeCountry.Name citizens do not need a visa to visit the @Model.Country.Name
+                                    @Model.HomeCountry.Name citizens do not need a visa to visit the @Model.Country.Name.
                                 </p>
                             </li>
                             @if(Model.NoVisaEntry.Duration > 0) {
@@ -115,7 +115,7 @@
                             <li>
                                 <p>
                                     <strong>
-                                        Do citizens of @Model.HomeCountry.Name need to show proof of sufficient funds to enter '.$countryDest['Name'].' without a visa?
+                                        Do citizens of @Model.HomeCountry.Name need to show proof of sufficient funds to enter @Model.Country.Name without a visa?
                                     </strong>
                                 </p>
                                 <p>
@@ -137,11 +137,11 @@
                             <li>
                                 <p>
                                     <strong>
-                                        Can '.$countryPassport['Citizen'].' work or study during the visa-free stay in '.$countryDest['Name'].'?
+                                        Can @Model.HomeCountry.Citizen work or study during the visa-free stay in @Model.Country.Name?
                                     </strong>
                                 </p>
                                 <p>
-                                    'The '.$countryDest['Name'].' visa-free stay is usually for tourism purposes only. For working or studying in '.$countryDest['Name'].' '.$countryPassport['Citizen'].' citizens usually requires a specific visa, and you should not engage in such activities on a tourist visa-free stay.',
+                                    The @Model.Country.Name visa-free stay is usually for tourism purposes only. For working or studying in @Model.Country.Name @Model.HomeCountry.Citizen citizens usually requires a specific visa, and you should not engage in such activities on a tourist visa-free stay.
                                 </p>
                             </li>
                             
