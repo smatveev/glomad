@@ -73,82 +73,6 @@
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && !Model.NoVisaEntry.IsVisaRequired)
                 {
                     <div class="mt-3 p-3">
-                        <h4>
-                            <strong>
-                                ❓ FAQ
-                            </strong>
-                        </h4>
-                        <ol>
-                            <li>
-                                <p><strong>
-                                    Do citizens of @Model.HomeCountry.Name require a visa to visit the @Model.Country.Name?
-                                </strong></p>
-                                <p>
-                                    @Model.HomeCountry.Citizen citizens do not need a visa to visit the @Model.Country.Name.
-                                </p>
-                            </li>
-                            @if(Model.NoVisaEntry.Duration > 0) {
-                                <li>
-                                    <p>
-                                        <strong>
-                                            How long @Model.HomeCountry.Citizen citizens are allowed to stay in @Model.Country.Name without a visa?
-                                        </strong>
-                                    </p>
-                                    <p>
-                                        The maximum duration of stay in @Model.Country.Name for citizens of @Model.HomeCountry.Name
-                                        for a visa-free stay is @Model.NoVisaEntry.Duration days.
-                                    </p>
-                                </li>
-                            }
-
-                            <li>
-                                <p>
-                                    <strong>
-                                        What happens if a @Model.HomeCountry.Citizen passport holder stays in @Model.Country.Name longer than the visa-free period allowed?
-                                    </strong>
-                                </p>
-                                <p>
-                                    Overstaying visa-free entry to @Model.Country.Name is punishable by a fine, in case of serious violations a ban on entry to @Model.Country.Name is possible. It is essential to leave the country before your authorized stay expires or to extend your stay legally if needed.
-                                </p>
-                            </li>
-
-                            <li>
-                                <p>
-                                    <strong>
-                                        Do citizens of @Model.HomeCountry.Name need to show proof of sufficient funds to enter @Model.Country.Name without a visa?
-                                    </strong>
-                                </p>
-                                <p>
-                                    @Model.Country.Citizen immigration authorities may ask for proof of sufficient funds or a return ticket when entering the country without a visa. It is advisable to have these documents with you when traveling.
-                                </p>
-                            </li>
-
-                            <li>
-                                <p>
-                                    <strong>
-                                        What documents are required for @Model.HomeCountry.Citizen citizens to enter @Model.Country.Name without a visa?
-                                    </strong>
-                                </p>
-                                <p>
-                                    @Model.HomeCountry.Citizen citizens need a valid passport with at least six months validity, a return or onward ticket, and proof of sufficient funds to cover their stay in @Model.Country.Name.
-                                </p>
-                            </li>
-
-                            <li>
-                                <p>
-                                    <strong>
-                                        Can @Model.HomeCountry.Citizen work or study during the visa-free stay in @Model.Country.Name?
-                                    </strong>
-                                </p>
-                                <p>
-                                    The @Model.Country.Name visa-free stay is usually for tourism purposes only. For working or studying in @Model.Country.Name @Model.HomeCountry.Citizen citizens usually requires a specific visa, and you should not engage in such activities on a tourist visa-free stay.
-                                </p>
-                            </li>
-                            
-                        </ol>
-                    </div>
-
-                    <div class="mt-3 p-3">
                         <h4><strong>
                             🔑 How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name
                             </strong>
@@ -522,6 +446,87 @@
                         }
                     </div>
                 }
+
+                @if(!string.IsNullOrEmpty(ViewBag.MyCountry) && !Model.NoVisaEntry.IsVisaRequired) {
+                    <div class="mt-3 p-3">
+                        <h4>
+                            <strong>
+                                ❓ FAQ
+                            </strong>
+                        </h4>
+                        <ol>
+                            <li>
+                                <p>
+                                    <strong>
+                                        Do citizens of @Model.HomeCountry.Name require a visa to visit the @Model.Country.Name?
+                                    </strong>
+                                </p>
+                                <p>
+                                    @Model.HomeCountry.Citizen citizens do not need a visa to visit the @Model.Country.Name.
+                                </p>
+                            </li>
+                            @if (Model.NoVisaEntry.Duration > 0)
+                            {
+                                <li>
+                                    <p>
+                                        <strong>
+                                            How long @Model.HomeCountry.Citizen citizens are allowed to stay in @Model.Country.Name without a visa?
+                                        </strong>
+                                    </p>
+                                    <p>
+                                        The maximum duration of stay in @Model.Country.Name for citizens of @Model.HomeCountry.Name
+                                        for a visa-free stay is @Model.NoVisaEntry.Duration days.
+                                    </p>
+                                </li>
+                            }
+
+                            <li>
+                                <p>
+                                    <strong>
+                                        What happens if a @Model.HomeCountry.Citizen passport holder stays in @Model.Country.Name longer than the visa-free period allowed?
+                                    </strong>
+                                </p>
+                                <p>
+                                    Overstaying visa-free entry to @Model.Country.Name is punishable by a fine, in case of serious violations a ban on entry to @Model.Country.Name is possible. It is essential to leave the country before your authorized stay expires or to extend your stay legally if needed.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>
+                                        Do citizens of @Model.HomeCountry.Name need to show proof of sufficient funds to enter @Model.Country.Name without a visa?
+                                    </strong>
+                                </p>
+                                <p>
+                                    @Model.Country.Citizen immigration authorities may ask for proof of sufficient funds or a return ticket when entering the country without a visa. It is advisable to have these documents with you when traveling.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>
+                                        What documents are required for @Model.HomeCountry.Citizen citizens to enter @Model.Country.Name without a visa?
+                                    </strong>
+                                </p>
+                                <p>
+                                    @Model.HomeCountry.Citizen citizens need a valid passport with at least six months validity, a return or onward ticket, and proof of sufficient funds to cover their stay in @Model.Country.Name.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>
+                                        Can @Model.HomeCountry.Citizen work or study during the visa-free stay in @Model.Country.Name?
+                                    </strong>
+                                </p>
+                                <p>
+                                    The @Model.Country.Name visa-free stay is usually for tourism purposes only. For working or studying in @Model.Country.Name @Model.HomeCountry.Citizen citizens usually requires a specific visa, and you should not engage in such activities on a tourist visa-free stay.
+                                </p>
+                            </li>
+
+                        </ol>
+                    </div>
+                }                
 
                 <div class="mt-3 pb-4 py-3 px-3" id="visas">
                     @if (Model.Visas?.Count > 0)
