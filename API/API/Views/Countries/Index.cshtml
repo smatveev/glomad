@@ -93,7 +93,9 @@
                             </li>
                             <li>
                                 Getting a visa - an entry stamp in your @Model.HomeCountry.Citizen passport.
-                                You are allowed to stay in @Model.Header.CountryName for 365 days.
+                                @if (Model.NoVisaEntry.Duration > 0) {
+                                    <span>You are allowed to stay in @Model.Header.CountryName for @Model.NoVisaEntry.Duration days. </span>
+                                }
                             </li>
                         </ol>
                     </div>
@@ -123,13 +125,37 @@
                         <h4><strong>
                             ⚠ Citizens of @Model.HomeCountry.Name must obtain a visa in advance before traveling to @Model.Header.CountryName.
                         </strong></h4>
+                        @if (!(Model.TouristVisa is null))
+                        {
+                            <p>
+                                @Model.HomeCountry.Citizen citizens is required @Model.TouristVisa.Name. The maximum period of stay on this visa is @Model.TouristVisa.Duration days.
+                                At the discretion of the embassy staff, the visa can be issued strictly under the travel time line.
+                               When applying for a @Model.TouristVisa.Name, the applicant must be in person.
+                                @if (!Model.NoVisaEntry.IsEVisaAvailable )
+                                {
+                                    <span>You must apply for a @Model.Country.Citizen tourist visa at an embassy outside the country. </span>
+                                } else
+                                {
+                                    <span>You may applay for a @Model.Country.Citizen tourist visa online.</span>
+                                }
+
+                            </p>
+                            
+                        } else {
                         <p>
-                            A @Model.Country.Citizen Schengen visa is required for @Model.HomeCountry.Citizen citizens.
-                            The maximum period of stay on this visa is 90 days. 
+                            A @Model.Country.Citizen tourist visa is required for @Model.HomeCountry.Citizen citizens.                            
                             At the discretion of the embassy staff, the visa can be issued strictly under the travel time line.
-                            When applying for a Schengen visa to @Model.Header.CountryName, the applicant must be in person.
-                            You must apply for a @Model.Country.Citizen tourist visa at an embassy outside the country.
-                        </p>                        
+                            When applying for a tourist visa to @Model.Header.CountryName, the applicant must be in person.
+                            @if (!Model.NoVisaEntry.IsEVisaAvailable )
+                                {
+                                    <span>You must apply for a @Model.Country.Citizen tourist visa at an embassy outside the country. </span>
+                                } else
+                                {
+                                    <span>You may applay for a @Model.Country.Citizen tourist visa online.</span>
+                                }
+
+                        </p>      
+                        }                  
                     </div>
 
                     @if (Model.EmbassiesOfCountryInMyCountry?.Count > 0)
@@ -309,26 +335,38 @@
                         <h4><strong>✅ How to apply for @Model.Country.Name visa from @Model.HomeCountry.Name</strong></h4>
                         <ol>
                             <li>
-                                Collect the required documents
+                                Prepare all required documents.
                             </li>
                             <li>
-                                Select an embassy from the list (if there is a list). Visit the embassy or visa agency.
+                                Complete the application form and attach all required documents.
+                             </li>
+                            <li>
+                                @if (Model.NoVisaEntry.IsEVisaAvailable)
+                                {
+                                    
+                                    <span>Submit your visa application online.</span>
+                                }
+                                else
+                                {
+                                    <span>Select an embassy or consulate of @Model.Country.Name in @Model.HomeCountry.Name . Visit the embassy or visa agency.  </span>
+                                }
                             </li>
                             <li>
-                                Fill in the application form and attach all necessary documents.
+                               Await processing of documents.
                             </li>
                             <li>
-                                Pay the visa fee.
+                                  @if (Model.NoVisaEntry.IsEVisaAvailable)
+                                {
+                                    
+                                    <span>Receive your passports with visas.</span>
+                                }
+                                else
+                                {
+                                   <span>Get your e-visa.</span>
+                                }
+                                .
                             </li>
-                            <li>
-                                Take the documents to the embassy.
-                            </li>
-                            <li>
-                                Document processing, processing.
-                            </li>
-                            <li>
-                                Receive your passports with visas.
-                            </li>
+                            
                         </ol>
                         <p>
                             ℹ The processing time is usually standard, but may increase depending on the embassy's workload. 
