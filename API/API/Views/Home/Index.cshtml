@@ -22,15 +22,15 @@
             <div class="mask" style="background-color: rgba(0, 0, 0, 0.5)">
                 <div class="d-flex justify-content-center align-items-center h-100 pt-4" style="background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);">
                     <div class="text-white text-center">                           
-                        <h1 class="fw-bold">
+                        @*<h1 class="fw-bold">
                             <div class="logo-box pr-2"></div>                            
                             Choose your passport:
-                        </h1>
+                        </h1>*@
 
                         <cache expires-after="@TimeSpan.FromMinutes(60)">
                             @await Component.InvokeAsync("Menu")
                         </cache>
-                        <h4 class="mt-4 lh-base col-md-auto fw-light">
+                        <h4 class="m-4 lh-base col-md-auto fw-light">
                             @*<partial name="_ShareExperience" />*@
                             🛂Let's know where you can go with your passport easily <br />
                             🎫 Check the visa requirements for your nationality for every country<br />
