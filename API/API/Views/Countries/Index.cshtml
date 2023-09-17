@@ -273,9 +273,9 @@
                     @if (Model.TouristVisaDocs?.Count > 0)
                     {
                         <div class="mt-3 p-3">
-                            <h4><strong>📄 Check list of documents @Model.Country.Citizen Schengen visa for @Model.HomeCountry.Name citizens</strong></h4>
+                            <h4><strong>📄 Check list of documents @Model.TouristVisa.Name  for @Model.HomeCountry.Citizen citizens</strong></h4>
                             <p>
-                                To obtain a Schengen visa to Norway the following documents are required:
+                                To obtain a @Model.TouristVisa.Name the following documents are required:
                             </p>
                             <ol>
                                 @foreach (var d in Model.TouristVisaDocs)
@@ -332,7 +332,7 @@
                     }
 
                     <div class="mt-3 p-3">
-                        <h4><strong>✅ How to apply for @Model.Country.Name visa from @Model.HomeCountry.Name</strong></h4>
+                        <h4><strong>✅ How to apply for @Model.Country.Name tourist visa from @Model.HomeCountry.Name</strong></h4>
                         <ol>
                             <li>
                                 Prepare all required documents.
@@ -564,6 +564,56 @@
 
                         </ol>
                     </div>
+                } else
+                {
+                        <div class="mt-3 p-3">
+                        <h4>
+                            <strong>
+                                ❓ FAQ
+                            </strong>
+                        </h4>
+                        <ol>
+                            <li>
+                                <p>
+                                    <strong>
+                                        Do @Model.HomeCountry.Citizen citizens need a visa to visit @Model.Country.Name?
+                                    </strong>
+                                </p>
+                                @if (Model.TouristVisaDocs?.Count > 0)
+                                {
+                                    <p>They need for a visa depends on the purpose and duration of the visit. Most @Model.HomeCountry.Citizen tourists visiting @Model.Country.Name for short stays typically require a  @Model.TouristVisa.Name.</p>
+
+                                } else
+                                {
+                                    <p>Yes, @Model.HomeCountry.Citizen citizens need to apply for a visa in advance to travel to @Model.Country.Name.</p>
+                                }
+                                
+                            </li>
+                            <li>
+                                <p><strong>
+                                    How do @Model.HomeCountry.Citizen citizens apply for a tourist visa of @Model.Country.Name?
+                                </strong></p>
+                                @if (Model.NoVisaEntry.IsEVisaAvailable)
+                                {
+                                    <p>Citizens of @Model.HomeCountry.Name may apply for @Model.Country.Name visa online.</p>
+                                }
+                                else
+                                {
+                                    <p>@Model.HomeCountry.Citizen citizens can apply for a @Model.Country.Name visa through the Embassy or Consulate of @Model.Country.Name  in @Model.HomeCountry.Name. 
+                                        The application process usually involves filling out forms, providing required documents.</p>
+                                }
+                            </li>
+                            <li>
+                                <p><strong>
+                                    Can citizens of @Model.HomeCountry.Name work or study on a tourist visa for @Model.Country.Name?
+                                </strong></p>
+                                <p>
+                                    No, @Model.Country.Name tourist visas are generally for tourism or family visits. 
+                                    If you plan to work or study in @Model.Country.Name, you would typically need a different type of visa or residence permit.
+                                </p>
+                            </li>
+                        </ol>
+                        </div>
                 }                
 
                 <div class="mt-3 pb-4 py-3 px-3" id="visas">
