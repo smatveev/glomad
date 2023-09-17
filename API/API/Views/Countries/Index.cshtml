@@ -581,7 +581,7 @@
                                 </p>
                                 @if (Model.TouristVisaDocs?.Count > 0)
                                 {
-                                    <p>They need for a visa depends on the purpose and duration of the visit. Most @Model.HomeCountry.Citizen tourists visiting @Model.Country.Name for short stays typically require a  @Model.TouristVisa.Name.</p>
+                                    <p>They need for a visa depends on the purpose and duration of the visit. Most @Model.HomeCountry.Citizen tourists visiting @Model.Country.Name for short stays typically require a <a href="./Visa/@Model.TouristVisa.Id">@Model.TouristVisa.Name</a>.</p>
 
                                 } else
                                 {
