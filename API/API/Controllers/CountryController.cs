@@ -111,6 +111,7 @@ namespace API.Controllers
 
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
+            header.HomeCountryName = citizen;
             header.Text = model.Country.Summary;
 
             if (model.Country.UpdateDate.HasValue || lastVisaUpdate != null) {

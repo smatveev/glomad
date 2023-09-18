@@ -14,13 +14,16 @@
 <div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
     <h1 class="text-white py-4 fw-bold display-3">
         @if (string.IsNullOrEmpty(Model.VisaName))
-        {
-            
-            <a class="text-white" href="/">
+        {            
+            @*<a class="text-white" href="/">
                 <div class="logo-box"></div>
-            </a>
-            <span class="carousel-control-next-icon"></span>
+            </a>*@
+            @*<span class="carousel-control-next-icon"></span>*@
             @Model.CountryName
+            if (!string.IsNullOrEmpty(Model.HomeCountryName))
+            {
+                @: for citizens of @Model.HomeCountryName
+            }
         }
         else
         {
@@ -34,10 +37,10 @@
         }
     </h1>
 
-    <h2 class="fw-bold">Your citizen passport is:</h2>
+    @*<h2 class="fw-bold">Your citizen passport is:</h2>
     <cache expires-after="@TimeSpan.FromMinutes(60)">
         @await Component.InvokeAsync("Menu")
-    </cache>
+    </cache>*@
 
     @if(!string.IsNullOrEmpty(@Model.Text)) {
         <p class="container custom-scrollbar Gcontainer col-lg-8 mx-auto col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 bg-black-opacy">

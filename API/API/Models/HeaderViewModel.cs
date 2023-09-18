@@ -9,6 +9,8 @@ namespace API.Models
     {
         public string Text { get; set; }
         public string CountryName { get; set; }
+
+        public string HomeCountryName { get; set; }
         public string VisaName { get; set; }
         public string LastUpdate { get; set; }
         public DateTime LastModifiedHeader { get; set; }
