@@ -31,6 +31,16 @@ window.onload = function () {
     //}
 }
 
+function Go() {
+    var home = document.getElementById("CitizenshipId")
+    var dest = document.getElementById("DestinationId")
+    var from = home.options[home.selectedIndex].text;
+    var to = dest.options[dest.selectedIndex].text;
+    //console.log(home.text)
+
+    window.location.href = "/" + to + "/" + from;
+}
+
 function wait(ms) {
     var start = new Date().getTime();
     var end = start;
