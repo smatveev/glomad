@@ -564,7 +564,7 @@
 
                         </ol>
                     </div>
-                } else
+                } else if(!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry.IsVisaRequired) 
                 {
                         <div class="mt-3 p-3">
                         <h4>
@@ -593,7 +593,7 @@
                                 <p><strong>
                                     How do @Model.HomeCountry.Citizen citizens apply for a tourist visa of @Model.Country.Name?
                                 </strong></p>
-                                @if (Model.NoVisaEntry.IsEVisaAvailable)
+                                @if (Model.NoVisaEntry != null && Model.NoVisaEntry.IsEVisaAvailable)
                                 {
                                     <p>Citizens of @Model.HomeCountry.Name may apply for @Model.Country.Name visa online.</p>
                                 }
