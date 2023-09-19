@@ -11,7 +11,36 @@
     }
 }
 
-<div class="hero-bg px-4 py-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
+<div class="hero-bg px-4 pt-4 pb-5 text-white text-center" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('/@bgimage');">
+
+
+    <header class="navbar navbar-expand-lg">
+        <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap">
+            <div class="container d-flex flex-wrap justify-content-center py-3">
+                <h3>
+                    <a href="/" class="text-white fw-bold">
+                        <div class="logo-box me-2"></div> Glomad.net
+                    </a>
+                </h3>
+                <div class="btn-group ms-auto">
+                    <button type="button" class="btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        🌏 Explore
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/visa-for-nomads">Best digital nomad visas</a></li>
+                        <li><a class="dropdown-item" href="/visa-for-tourist">Best business visas</a></li>
+                        <li><a class="dropdown-item" href="/visa-for-startup">Best startup visas</a></li>
+                        <li><a class="dropdown-item" href="/visa-for-student">Best student visas</a></li>
+                        <li><a class="dropdown-item" href="/visa-for-work">Best work visas</a></li>
+                        @*<li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Separated link</a></li>*@
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
     <h1 class="text-white py-4 fw-bold display-3">
         @if (string.IsNullOrEmpty(Model.VisaName))
         {            

@@ -165,7 +165,7 @@ h3 {
     margin: 0 10px;
 }*/
 
-nav {
+/*nav {
     padding: 30px;
 }
 
@@ -176,7 +176,7 @@ nav {
 
     #nav a.router-link-exact-active {
         color: #42b983;
-    }
+    }*/
 
 .shadowed {
     /*text-shadow: 0rem 0.15em 0.2rem rgb(0 0 0 / 80%);*/
@@ -223,16 +223,13 @@ nav {
 
 @media only screen and (max-width: 480px) {
     #introCarousel, .carousel-inner, .carousel-item, .carousel-item.active {
-        height: 70vh;
-    }
-    #CitizenshipId {
-        padding: .5rem !important;
+        height: 60vh;
     }
 }
 
 @media only screen and (min-width: 480px) {
     #introCarousel, .carousel-inner, .carousel-item, .carousel-item.active {
-        height: 40vh;
+        height: 50vh;
         min-height: 450px;
     }
 }
