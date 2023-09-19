@@ -24,19 +24,19 @@
 
 <div class="row g-3">
 
-    <div class="col-5 h4 m-0">
+    <div class="col-lg-5 col-sm-12 h4 m-0">
         <select id="CitizenshipId" onChange="setCountry(this);" class="p-3 form-select select-big" asp-items="@Model">
             <option disabled selected value="0">🛂 Your citizenship</option>
         </select>
     </div>    
 
-    <div class="col-5 h4 m-0">
+    <div class="col-lg-5 col-sm-12 h4 my-2">
         <select id="DestinationId" onChange="setCountry(this);" class="p-3 form-select select-big" asp-items="@Model">
             <option disabled selected value="0">✈ Destination country</option>
         </select>
     </div>
 
-    <div class="col-2 m-0">
+    <div class="col-lg-2 col-sm-12 m-0">
         <button id="btnGo" onclick="Go()" class="w-100 h-100 btn btn-main btn-lg text-nowrap" type="submit" >Go</button>
     </div>
     
