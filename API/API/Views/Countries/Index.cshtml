@@ -648,7 +648,7 @@
                 </div>                               
 
                 @if (Model.Country.DriverLicense != null)
-                {
+                {   
                     <div class="mt-3 p-3" id="driverLicense">
                         <h4><strong>🚗 Do tourists need a license to drive a car in @Model.Country.Name?</strong></h4>
                         <p>
@@ -702,20 +702,22 @@
                 
                 @if (Model.Country.BestSeason != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r1" id="bestSeason">
-                        <h4 class="text-center p-4">🔥 Best time to visit @Model.Country.Name</h4>
+                    <div class="mt-3 p-3" id="bestSeason">
+                        <h4><strong>🔥 Best time to visit @Model.Country.Name</strong></h4>
                         <p>
-                            @Html.Raw(Model.Country.BestSeason)
+                            @Html.Raw(Model.Country.BestSeason.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Season" >Continue reading</a>
                         </p>
                     </div>
                 }
 
                 @if (Model.Country.PopularPlaces != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r1" id="popularPlaces">
-                        <h4 class="text-center p-4">💯 The most popular places in @Model.Country.Name</h4>
+                    <div class="mt-3 p-3" id="popularPlaces">
+                        <h4><strong>💯 The most popular places in @Model.Country.Name</strong></h4>
                         <p>
-                            @Html.Raw(Model.Country.PopularPlaces)
+                            @Html.Raw(Model.Country.PopularPlaces.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Season" >Continue reading</a>
                         </p>
                     </div>
                 }                

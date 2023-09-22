@@ -535,6 +535,7 @@ namespace API.Controllers
         }
 
         [Route("{country}/Auto")]
+        [Route("{country}/Season")]
         public IActionResult Auto(string country)
         {
             CountryBasicVM model = new CountryBasicVM();
@@ -545,11 +546,18 @@ namespace API.Controllers
             IncreaseViewCouter(model.Country.Id);
 
             HeaderViewModel header = new HeaderViewModel();
-            header.Text = $"Driver license and rules in {model.Country.Name}";
+            header.Text = "";
             header.CountryName = countryName;
             model.Header = header;
 
-            return View("Auto", model);
+            //Uri uri = new Uri(HttpContext.Request.Path);
+            //string last = uri.Segments.Last().TrimEnd('/');
+
+            if(HttpContext.Request.Path.Value.Contains("Season"))
+                return View("Season", model);
+            else if (HttpContext.Request.Path.Value.Contains("Auto"))
+                return View("Auto", model);
+            else return View("Auto", model);
         }
 
         [Route("Country/CreateReview")]
