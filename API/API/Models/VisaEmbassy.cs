@@ -12,6 +12,8 @@ namespace Glomad.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public Embassy Embassy { get; set; }
+
+        [DataType("DECIMAL(19.4)")]
         public decimal Price { get; set; }
         public string Currency { get; set; }
         public bool OnArrival { get; set; }
