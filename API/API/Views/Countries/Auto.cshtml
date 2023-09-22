@@ -1,0 +1,70 @@
+﻿@using System.Globalization;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+@model CountryBasicVM;
+
+@{
+    ViewData["Title"] = $"Driver license and rules in {Model.Country.Name} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["MetaDescription"] = $"The actual information about driver license and driver rules in {Model.Country.Name} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}.";
+    ViewData["Canonical"] = $"https://glomad.net/{Model.Country.Name}/Auto";
+}
+
+@await Html.PartialAsync("_Header", Model.Header)
+@await Html.PartialAsync("_Menu", Model.Header.CountryName)
+
+<section class="container sectionstyle">
+
+
+    <div class="row p-4">
+        <div class="row">
+            <div class="col-md-8 text-break">                
+                @if (Model.Country.DriverLicense != null)
+                {
+                    <h4><strong>🚗 Do tourists need a license to drive a car in @Model.Country.Name?</strong></h4>
+                    <div class="mt-3 p-3">
+                        <p>
+                            @Html.Raw(Model.Country.DriverLicense)
+                        </p>
+                    </div>
+                }
+                @if (Model.Country.DriverRules != null)
+                {
+                    <h4><strong>🚓 Driver rules in @Model.Country.Name</strong></h4>
+                    <div class="mt-3 p-3">
+                        <p>
+                            @Html.Raw(Model.Country.DriverRules)
+                        </p>
+                    </div>
+                }
+            </div>
+
+            <div class="col-md-4 p-4">
+
+                <div class="position-sticky" style="top: 2rem;">
+
+                    @await Html.PartialAsync("_SubscribeUpdates")
+
+                    <div class="bg-light rounded-booking mb-3 mt-1">
+                        <a href="https://safetywing.com?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador" rel="noopener nofollow noreferrer">
+                            <div class="card bg-dark text-white border-0 card-cover" style="background-image: url('../safetywind_300.jpg');">
+                                <div class="card-img-overlay text-center">
+                                    <h3 class="card-title shadowed mt-5 lh-1 fw-bold">Global travel medical insurance</h3>
+                                    <p class="m-1 badge rounded-pill bg-info text-dark">for $1.5/day!</p>
+                                    <p class="m-1 badge rounded-pill bg-warning text-dark">Covid-19 coverage</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="bg-light rounded-booking">
+                        <div>
+                            <script src="//tp.media/content?currency=usd&promo_id=4044&shmarker=14510&campaign_id=100&trs=21653&target_host=search.jetradar.com&locale=en_us&limit=6&powered_by=false&destination=@Model.Country.CapitalCode" charset="utf-8"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>

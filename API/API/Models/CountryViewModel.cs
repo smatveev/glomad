@@ -17,6 +17,12 @@ namespace API.Models
         public HeaderViewModel Header { get; set; }
     }
 
+    public struct CountryBasicVM 
+    {
+        public Country Country { get; set; }
+        public HeaderViewModel Header { get; set; }
+    }
+
     public struct EmbassyVM {
         public int Id { get; set; }
         public string Country { get; set;}

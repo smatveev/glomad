@@ -534,6 +534,24 @@ namespace API.Controllers
             return View("Faq", model);
         }
 
+        [Route("{country}/Auto")]
+        public IActionResult Auto(string country)
+        {
+            CountryBasicVM model = new CountryBasicVM();
+
+            string countryName = country.FirstCharToUpper();
+
+            model.Country = _context.Country.Where(c => c.Name == country).FirstOrDefault();
+            IncreaseViewCouter(model.Country.Id);
+
+            HeaderViewModel header = new HeaderViewModel();
+            header.Text = $"Driver license and rules in {model.Country.Name}";
+            header.CountryName = countryName;
+            model.Header = header;
+
+            return View("Auto", model);
+        }
+
         [Route("Country/CreateReview")]
         [HttpPost("CreateReview")]
         public IActionResult CreateReview([FromBody] ReviewCreate reviewCreate)
