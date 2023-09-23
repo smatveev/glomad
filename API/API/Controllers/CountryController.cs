@@ -536,6 +536,7 @@ namespace API.Controllers
 
         [Route("{country}/Auto")]
         [Route("{country}/Season")]
+        [Route("{country}/Safety")]
         public IActionResult Auto(string country)
         {
             CountryBasicVM model = new CountryBasicVM();
