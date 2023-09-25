@@ -55,6 +55,9 @@ namespace API
             {
                 pipeline.MinifyCssFiles("/css/**/*.css");
                 pipeline.AddCssBundle("/css/site.min.css", "/css/**/*.css");
+
+                //pipeline.MinifyJsFiles("/js/site.js", "/js/bootstrap.bundle.js", "/js/moment.min.js");
+                //pipeline.AddJavaScriptBundle("/js/site.min.js", "/js/**/*.js");
             });
         }
 
