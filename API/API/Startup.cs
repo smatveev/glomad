@@ -50,6 +50,12 @@ namespace API
                 client.BaseAddress = new System.Uri(Configuration.GetValue<string>("AmadeusAPI:BaseUrl"));
             });
             services.AddScoped<AmadeusAPI>();
+
+            services.AddWebOptimizer(pipeline =>
+            {
+                pipeline.MinifyCssFiles("/css/**/*.css");
+                pipeline.AddCssBundle("/css/site.min.css", "/css/**/*.css");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,11 +71,21 @@ namespace API
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
+
             app.UseHttpsRedirection();
+
+            app.UseWebOptimizer();
+
+            app.UseStaticFiles();
+
+
+
+            // TODO: research
             app.UseRouting();
             //app.UseCors(policy
             app.UseAuthorization();
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
