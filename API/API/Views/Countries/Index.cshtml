@@ -70,53 +70,59 @@
                     </div>
                 }
 
-                @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && !Model.NoVisaEntry.IsVisaRequired)
+                @if (!string.IsNullOrEmpty(ViewBag.MyCountry))
                 {
-                    <div class="mt-3 p-3">
-                        <h4><strong>
-                            🔑 How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name
-                            </strong>
-                        </h4>
-                        <p>
-                            To enter @Model.Header.CountryName, @Model.HomeCountry.Citizen citizens must follow some fairly simple steps.
-                            Please note that migration services have the right to request additional documents 
-                            (return tickets, accommodation reservations and etc.).
-                        </p>
-                        <ol>
-                            <li>
-                                Before traveling to @Model.Header.CountryName, check whether your @Model.HomeCountry.Citizen passport is valid.
-                                Passport must be valid for 6 months after entering
-                                @Model.Header.CountryName and have at least 1 blank page for entry stamp.
-                            </li>
-                            <li>
-                                Show your @Model.HomeCountry.Citizen passport to the immigration officer upon arrival.
-                            </li>
-                            <li>
-                                Getting a visa - an entry stamp in your @Model.HomeCountry.Citizen passport.
-                                @if (Model.NoVisaEntry.Duration > 0) {
-                                    <span>You are allowed to stay in @Model.Header.CountryName for @Model.NoVisaEntry.Duration days. </span>
-                                }
-                            </li>
-                        </ol>
-                    </div>
+                    if (Model.NoVisaEntry != null && !Model.NoVisaEntry.IsVisaRequired) {
+                        <div class="mt-3 p-3">
+                            <h4>
+                                <strong>
+                                    🔑 How to enter to @Model.Header.CountryName from @Model.HomeCountry.Name
+                                </strong>
+                            </h4>
+                            <p>
+                                To enter @Model.Header.CountryName, @Model.HomeCountry.Citizen citizens must follow some fairly simple steps.
+                                Please note that migration services have the right to request additional documents
+                                (return tickets, accommodation reservations and etc.).
+                            </p>
+                            <ol>
+                                <li>
+                                    Before traveling to @Model.Header.CountryName, check whether your @Model.HomeCountry.Citizen passport is valid.
+                                    Passport must be valid for 6 months after entering
+                                    @Model.Header.CountryName and have at least 1 blank page for entry stamp.
+                                </li>
+                                <li>
+                                    Show your @Model.HomeCountry.Citizen passport to the immigration officer upon arrival.
+                                </li>
+                                <li>
+                                    Getting a visa - an entry stamp in your @Model.HomeCountry.Citizen passport.
+                                    @if (Model.NoVisaEntry.Duration > 0)
+                                    {
+                                        <span>You are allowed to stay in @Model.Header.CountryName for @Model.NoVisaEntry.Duration days. </span>
+                                    }
+                                </li>
+                            </ol>
+                        </div>
 
-                    <div class="mt-3 p-3">
-                        <h4><strong>
-                            ✅ Requirements for @Model.HomeCountry.Citizen citizens to visit @Model.Header.CountryName with tourist visa
-                        </strong></h4>
+                        <div class="mt-3 p-3">
+                            <h4>
+                                <strong>
+                                    ✅ Requirements for @Model.HomeCountry.Citizen citizens to visit @Model.Header.CountryName with tourist visa
+                                </strong>
+                            </h4>
 
-                        <ul>
-                            <li>
-                                @Model.HomeCountry.Citizen citizens should provide valid passport.
-                                Passport must be valid at the all time of entry to @Model.Header.CountryName.
-                                The passport must be a minimum of one blank page for the entry stamp.
-                            </li>
-                            <li>
-                                Medical insurance is recommended, as treatment of @Model.HomeCountry.Citizen citizens
-                                on the territory of @Model.Header.CountryName is carried out on a commercial basis.
-                            </li>
-                        </ul>
-                    </div>
+                            <ul>
+                                <li>
+                                    @Model.HomeCountry.Citizen citizens should provide valid passport.
+                                    Passport must be valid at the all time of entry to @Model.Header.CountryName.
+                                    The passport must be a minimum of one blank page for the entry stamp.
+                                </li>
+                                <li>
+                                    Medical insurance is recommended, as treatment of @Model.HomeCountry.Citizen citizens
+                                    on the territory of @Model.Header.CountryName is carried out on a commercial basis.
+                                </li>
+                            </ul>
+                        </div>
+                    }                    
                 }
 
                 @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry.IsVisaRequired)

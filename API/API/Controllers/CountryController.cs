@@ -212,7 +212,7 @@ namespace API.Controllers
 
                 ViewBag.Title = $"Visas of {model.Country.Name} for citizens of {citizen}: Visa requirements, check lists of documents, {model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
 
-                ViewBag.Description = model.NoVisaEntry.Description.StripHTML().GetUntilOrEmpty("Important!").Trim();
+                ViewBag.Description = model.NoVisaEntry?.Description.StripHTML().GetUntilOrEmpty("Important!").Trim();
             }
             ViewBag.MyCountry = citizen;
 
