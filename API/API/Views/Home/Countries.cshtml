@@ -43,7 +43,7 @@
                 <a href="/@c.Name">
                     @{
                         var countryImage = c.Name.ToLower();
-                        var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath, countryImage + ".jpg");
+                        var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath + "country/", countryImage + ".jpg");
                         if (!System.IO.File.Exists(path2))
                         {
                             countryImage = "nocover";

@@ -4,7 +4,7 @@
 
 @{
     string bgimage = Model.CountryName.ToLower() + ".jpg";
-    var path = System.IO.Path.Combine(hostingEnv.WebRootPath, bgimage);
+    var path = System.IO.Path.Combine(hostingEnv.WebRootPath + "\\assets\\country\\", bgimage);
     if (!System.IO.File.Exists(path))
     {
         bgimage = "nocover.jpg";

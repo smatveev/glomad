@@ -65,9 +65,13 @@ namespace API.Controllers
         {
             var model = new IndexPage();
 
+            if (string.IsNullOrEmpty(country))
+                return NotFound();
+
             model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
             if (model.Country == null)
-                return RedirectToAction("Index", "Home");
+                return NotFound();
+                //return RedirectToAction("Index", "Home");
 
             //IncreaseViewCouter(model.Country.Id);
             IncreaseViewCouter(model.Country);

@@ -125,7 +125,7 @@
                     }                    
                 }
 
-                @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry.IsVisaRequired)
+                @if (!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry != null && Model.NoVisaEntry.IsEVisaAvailable)
                 {
                     <div class="mt-3 p-3">
                         <h4><strong>
@@ -491,7 +491,7 @@
                     </div>
                 }
 
-                @if(!string.IsNullOrEmpty(ViewBag.MyCountry) && !Model.NoVisaEntry.IsVisaRequired) {
+                @if(!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry != null && !Model.NoVisaEntry.IsVisaRequired) {
                     <div class="mt-3 p-3">
                         <h4>
                             <strong>
@@ -570,7 +570,7 @@
 
                         </ol>
                     </div>
-                } else if(!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry.IsVisaRequired) 
+                } else if(!string.IsNullOrEmpty(ViewBag.MyCountry) && Model.NoVisaEntry != null && Model.NoVisaEntry.IsVisaRequired) 
                 {
                         <div class="mt-3 p-3">
                         <h4>
