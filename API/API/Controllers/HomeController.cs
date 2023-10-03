@@ -28,13 +28,13 @@ namespace API.Controllers
         public IActionResult Index()
         {
             List<UpdatedCountries> res = (from c in _context.Country
-                       select new UpdatedCountries
-                       {
-                           Id = c.Id,
-                           Name = c.Name,
-                           Iata = c.ISOalpha3,
-                           UpdateDate = c.UpdateDate.Value
-                       }).ToList();
+                                          select new UpdatedCountries
+                                          {
+                                              Id = c.Id,
+                                              Name = c.Name,
+                                              Iata = c.ISOalpha3,
+                                              UpdateDate = c.UpdateDate.Value
+                                          }).ToList();
 
             ViewBag.Countries = res;
             ViewBag.VisaOptions = _context.NoVisaEntry.Count();
@@ -79,13 +79,13 @@ namespace API.Controllers
             catch { }
 
             var faqs = (from c in _context.Country
-                             join q in _context.CountryQuestion
-                             on c.Id equals q.Country.Id
-                             select new
-                             {
-                                 Name = c.Name,
-                                 UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
-                             }).Distinct().ToList();
+                        join q in _context.CountryQuestion
+                        on c.Id equals q.Country.Id
+                        select new
+                        {
+                            Name = c.Name,
+                            UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                        }).Distinct().ToList();
 
             try
             {
@@ -101,15 +101,15 @@ namespace API.Controllers
             catch { }
 
             List<VisaSearchResult> visas = (from v in _context.Visa
-                        join c in _context.Country
-                        on v.Country.Id equals c.Id
-                        //where v.UpdateDate != null
-                        select new VisaSearchResult
-                        {
-                            CountryName = c.Name,
-                            Id = v.Id,
-                            UpdateDate = v.UpdateDate.HasValue ? v.UpdateDate.Value : DateTime.Now.AddDays(-30)
-                        }).ToList();
+                                            join c in _context.Country
+                                            on v.Country.Id equals c.Id
+                                            //where v.UpdateDate != null
+                                            select new VisaSearchResult
+                                            {
+                                                CountryName = c.Name,
+                                                Id = v.Id,
+                                                UpdateDate = v.UpdateDate.HasValue ? v.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                                            }).ToList();
 
             try
             {
@@ -125,13 +125,13 @@ namespace API.Controllers
             catch { }
 
             var countrywithembassies = (from c in _context.Country
-                             join e in _context.Embassy
-                             on c.Id equals e.Country.Id
-                             select new
-                             {
-                                 Country = c.Name,
-                                 UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
-                             }).Distinct().ToList();
+                                        join e in _context.Embassy
+                                        on c.Id equals e.Country.Id
+                                        select new
+                                        {
+                                            Country = c.Name,
+                                            UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                                        }).Distinct().ToList();
             try
             {
                 foreach (var ce in countrywithembassies)
@@ -260,16 +260,16 @@ namespace API.Controllers
             {
                 foreach (var from in countries100)
                 {
-                    foreach(var to in countriesAll)
+                    foreach (var to in countriesAll)
                     {
-                        if(!from.Equals(to))
+                        if (!from.Equals(to))
                         {
                             sb.Append(
                                 $"<url><loc>{site}{from}/{to}</loc>" +
                                 $"<changefreq>weekly</changefreq>" +
                                 $"<priority>1</priority></url>");
-                        }                        
-                    }                    
+                        }
+                    }
                 }
             }
             catch { }
@@ -318,6 +318,47 @@ namespace API.Controllers
                                 $"<priority>1</priority></url>");
                         }
                     }
+                }
+            }
+            catch { }
+
+
+            var countriesWithSummary = (from c in _context.Country
+                                        where c.Summary != null || c.Summary.Length > 0
+                                        select new
+                                        {
+                                            Name = c.Name,
+                                            UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                                        }).Distinct().ToList();
+            try
+            {
+                foreach (var item in countriesWithSummary)
+                {
+                    sb.Append(
+                        $"<url><loc>{site}{item.Name}/Auto</loc>" +
+                        $"<lastmod>{item.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.5</priority></url>");
+                    sb.Append(
+                        $"<url><loc>{site}{item.Name}/Season</loc>" +
+                        $"<lastmod>{item.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.5</priority></url>");
+                    sb.Append(
+                        $"<url><loc>{site}{item.Name}/Guide</loc>" +
+                        $"<lastmod>{item.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.5</priority></url>");
+                    sb.Append(
+                        $"<url><loc>{site}{item.Name}/Info</loc>" +
+                        $"<lastmod>{item.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.5</priority></url>");
+                    sb.Append(
+                        $"<url><loc>{site}{item.Name}/Safety</loc>" +
+                        $"<lastmod>{item.UpdateDate.ToString("yyyy-MM-dd")}</lastmod>" +
+                        $"<changefreq>weekly</changefreq>" +
+                        $"<priority>0.5</priority></url>");
                 }
             }
             catch { }
