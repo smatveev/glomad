@@ -538,10 +538,12 @@ namespace API.Controllers
             return View("Faq", model);
         }
 
-        [Route("{country}/Auto")]
-        [Route("{country}/Season")]
-        [Route("{country}/Safety")]
-        public IActionResult Auto(string country)
+        [Route("{country}/Auto"),
+        Route("{country}/Season"),
+        Route("{country}/Safety"),
+        Route("{country}/Guide"),
+        Route("{country}/Info")]
+        public IActionResult OtherInfo(string country)
         {
             CountryBasicVM model = new CountryBasicVM();
 
@@ -555,14 +557,7 @@ namespace API.Controllers
             header.CountryName = countryName;
             model.Header = header;
 
-            //Uri uri = new Uri(HttpContext.Request.Path);
-            //string last = uri.Segments.Last().TrimEnd('/');
-
-            if(HttpContext.Request.Path.Value.Contains("Season"))
-                return View("Season", model);
-            else if (HttpContext.Request.Path.Value.Contains("Auto"))
-                return View("Auto", model);
-            else return View("Auto", model);
+            return View("OtherInfo", model);
         }
 
         [Route("Country/CreateReview")]

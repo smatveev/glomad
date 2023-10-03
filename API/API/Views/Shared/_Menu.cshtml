@@ -28,4 +28,13 @@
     <li class="nav-item">
         <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("season") ? "active" : "")" href="/@Model/Season">Season</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("guide") ? "active" : "")" href="/@Model/Guide">Guide</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("info") ? "active" : "")" href="/@Model/Info">Info</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("safety") ? "active" : "")" href="/@Model/Safety">Safety</a>
+    </li>
 </ul>

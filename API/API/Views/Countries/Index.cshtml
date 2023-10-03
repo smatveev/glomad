@@ -653,6 +653,8 @@
                     }
                 </div>                               
 
+
+                @*AUTO *@
                 @if (Model.Country.DriverLicense != null)
                 {   
                     <div class="mt-3 p-3" id="driverLicense">
@@ -674,45 +676,51 @@
                         </p>
                     </div>
                 }
+                @* -- AUTO *@
+
+                @*GUIDE*@
+                @if (Model.Country.Transport != null)
+                {
+                    <div class="mt-3 p-3" id="transport">
+                        <h4><strong>🎒 How to travel in @Model.Country.Name</strong></h4>
+                        <p>
+                            @Html.Raw(Model.Country.Transport.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Guide" >Continue reading</a>
+                        </p>
+                    </div>
+                }
 
                 @if (Model.Country.CurrencyDescription != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r5" id="currencyDescription">
-                        <h4 class="text-center p-4">💸 Currency in @Model.Country.Name</h4>
+                    <div class="mt-3 p-3" id="currencyDescription">
+                        <h4><strong>💸 Currency in @Model.Country.Name</strong></h4>
                         <p>
-                            @Html.Raw(Model.Country.CurrencyDescription)
+                            @Html.Raw(Model.Country.CurrencyDescription.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Guide" >Continue reading</a>
                         </p>
                     </div>
                 }
 
-                @if (Model.Country.Safety != null)
+                @if (Model.Country.Etiquette != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r5" id="safety">
-                        <h4 class="text-center p-4">👮‍♂️ Safety for tourists in @Model.Country.Name</h4>
+                    <div class="mt-3 p-3" id="etiquette">
+                        <h4><strong>🙏 What are some cultural etiquette and customs in @Model.Country.Name?</strong></h4>
                         <p>
-                            @Html.Raw(Model.Country.Safety)
+                            @Html.Raw(Model.Country.Etiquette.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Guide">Continue reading</a>
                         </p>
                     </div>
                 }
+                @* -- GUIDE*@
 
-                @if (Model.Country.Vaccinations != null)
-                {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 r5" id="vaccinations">
-                        <h4 class="text-center p-4">💉 Are there any specific vaccinations required before traveling to @Model.Country.Name?</h4>
-                        <p>
-                            @Html.Raw(Model.Country.Vaccinations)
-                        </p>
-                    </div>
-                }
-
-                
+                @*SEASON*@
                 @if (Model.Country.BestSeason != null)
                 {
                     <div class="mt-3 p-3" id="bestSeason">
                         <h4><strong>🔥 Best time to visit @Model.Country.Name</strong></h4>
                         <p>
                             @Html.Raw(Model.Country.BestSeason.TruncateStr(150).StripHTML())...
-                            <a href="/@Model.Country.Name/Season" >Continue reading</a>
+                            <a href="/@Model.Country.Name/Season">Continue reading</a>
                         </p>
                     </div>
                 }
@@ -723,59 +731,71 @@
                         <h4><strong>💯 The most popular places in @Model.Country.Name</strong></h4>
                         <p>
                             @Html.Raw(Model.Country.PopularPlaces.TruncateStr(150).StripHTML())...
-                            <a href="/@Model.Country.Name/Season" >Continue reading</a>
+                            <a href="/@Model.Country.Name/Season">Continue reading</a>
                         </p>
                     </div>
-                }                
+                }
+                @* -- SEASON*@
 
-                @if (Model.Country.Transport != null)
+                @*INFO*@
+                @if (Model.Country.Vaccinations != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 bg-light" id="transport">
-                        <h4 class="text-center p-4">🎒 How to travel in @Model.Country.Name</h4>
+                    <div class="mt-3 p-3" id="vaccinations">
+                        <h4><strong>💉 Are there any specific vaccinations required before traveling to @Model.Country.Name?</strong></h4>
                         <p>
-                            @Html.Raw(Model.Country.Transport)
+                            @Html.Raw(Model.Country.Vaccinations.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Info">Continue reading</a>
                         </p>
                     </div>
                 }
 
-                @if (Model.Country.Etiquette != null)
-                {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 bg-light" id="etiquette">
-                        <h4 class="text-center p-4">🙏 What are some cultural etiquette and customs in @Model.Country.Name?</h4>
-                        <p>
-                            @Html.Raw(Model.Country.Etiquette)
-                        </p>
-                    </div>
-                }
                 @if (Model.Country.Internet != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 bg-light" id="internet">
-                        <h4 class="text-center p-4">🛰 Internet Quality in @Model.Country.Name?</h4>
+                    <div class="mt-3 p-3" id="internet">
+                        <h4><strong>🛰 Internet Quality in @Model.Country.Name?</strong></h4>
                         <p>
-                            @Html.Raw(Model.Country.Internet)
+                            @Html.Raw(Model.Country.Internet.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Info">Continue reading</a>
                         </p>
                     </div>
                 }
 
                 @if (Model.Country.MobileOperators != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 bg-light" id="mobileOperators">
-                        <h4 class="text-center p-4">📶 Mobile operators in @Model.Country.Name</h4>
+                    <div class="mt-3 p-3" id="mobileOperators">
+                        <h4><strong>📶 Mobile operators in @Model.Country.Name</strong></h4>
                         <p>
-                            @Html.Raw(Model.Country.MobileOperators)
+                            @Html.Raw(Model.Country.MobileOperators.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Info">Continue reading</a>
                         </p>
                     </div>
                 }
 
                 @if (Model.Country.EmrgencyNumbers != null)
                 {
-                    <div class="mt-3 pb-4 rounded-3 py-3 px-3 bg-light" id="emrgencyNumbers">
-                        <h4 class="text-center p-4">📲 Emergency numbers in @Model.Country.Name</h4>
+                    <div class="mt-3 p-3" id="emrgencyNumbers">
+                        <h4><strong>📲 Emergency numbers in @Model.Country.Name</strong></h4>
                         <p>
-                            @Html.Raw(Model.Country.EmrgencyNumbers)
+                            @Html.Raw(Model.Country.EmrgencyNumbers.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Info">Continue reading</a>
                         </p>
                     </div>
                 }
+                @* -- INFO*@
+               
+                @*SAFETY*@
+                @if (Model.Country.Safety != null)
+                {
+                    <div class="mt-3 p-3" id="safety">
+                        <h4><strong>👮‍♂️ Safety for tourists in @Model.Country.Name</strong></h4>
+                        <p>
+                            @Html.Raw(Model.Country.Safety.TruncateStr(150).StripHTML())...
+                            <a href="/@Model.Country.Name/Safety">Continue reading</a>
+                        </p>
+                    </div>
+                }
+                @* -- SAFETY*@
+
             </div>
 
             <div class="col-md-4 p-4">
