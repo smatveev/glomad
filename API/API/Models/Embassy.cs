@@ -38,6 +38,8 @@ namespace Glomad.Models
         public byte Complexity { get; set; }
         public bool PermanentResidency { get; set; }
         public bool ProvidesСitizenship { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public string Currency { get; set; }
         public byte IssueDeadlines { get; set; }

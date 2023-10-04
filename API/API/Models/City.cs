@@ -30,6 +30,8 @@ namespace Glomad.Models
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal CostOfLiving { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal CostOfRent { get; set; }
         public sbyte Temperature { get; set; }
         public int AirQuality { get; set; }

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Glomad.Models
@@ -20,6 +22,8 @@ namespace Glomad.Models
         public byte Friendly { get; set; }
         [Required]
         public byte StartupScore { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? CostOfLiving { get; set; }
         public byte? StayDuration { get; set; }
         [Required]
