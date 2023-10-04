@@ -63,17 +63,20 @@ namespace API.Controllers
         [Route("{country}/{citizen}")]
         public async Task<IActionResult> Index(string country, string citizen)
         {
-            var model = new IndexPage();
+            string countryName = country.FirstCharToUpper();
 
-            if (string.IsNullOrEmpty(country))
+            if (string.IsNullOrEmpty(countryName))
                 return NotFound();
 
-            model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
-            if (model.Country == null)
+            var Country = _context.Country.FirstOrDefault(m => m.Name == countryName);
+            if (Country == null)
                 return NotFound();
-                //return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home");
 
             //IncreaseViewCouter(model.Country.Id);
+            var model = new IndexPage();
+            model.Country = Country;
+
             IncreaseViewCouter(model.Country);
 
             model.Visas = (from v in _context.Visa
@@ -234,9 +237,16 @@ namespace API.Controllers
         [Route("{country}/Embassies")]
         public IActionResult Embassies(string country)
         {
-            var model = new EmbassiesPage();
+            string countryName = country.FirstCharToUpper();
 
-            model.Country = _context.Country.FirstOrDefault(m => m.Name == country);
+            var Country = _context.Country.Where(c => c.Name == countryName).FirstOrDefault();
+            if (Country == null)
+            {
+                return NotFound();
+            }
+
+            var model = new EmbassiesPage();
+            model.Country = Country;
 
             IncreaseViewCouter(model.Country.Id);
 
@@ -274,12 +284,19 @@ namespace API.Controllers
 
         [Route("{country}/Covid")]
         public async Task<IActionResult> Covid([FromServices] AmadeusAPI amadeusAPI, string country)
-        {            
+        {
+            string countryName = country.FirstCharToUpper();
+
+            var Country = _context.Country.Where(c => c.Name == countryName).FirstOrDefault();
+            if (Country == null)
+            {
+                return NotFound();
+            }
+
+
             var model = new CovidPage();
 
-            var curCountry = _context.Country.FirstOrDefault(m => m.Name == country);
-
-            IncreaseViewCouter(curCountry.Id);
+            IncreaseViewCouter(Country.Id);
 
             var amadeus = _context.AmadeusApi.SingleOrDefault();
             
@@ -290,16 +307,16 @@ namespace API.Controllers
                 amadeus = _context.AmadeusApi.SingleOrDefault();
             }
 
-            if (amadeus.CallsLimit < 180 && (curCountry.UpdateDate == null || curCountry.UpdateDate < DateTime.Now.AddDays(-15)))
+            if (amadeus.CallsLimit < 180 && (Country.UpdateDate == null || Country.UpdateDate < DateTime.Now.AddDays(-15)))
             {
-                if (!string.IsNullOrEmpty(curCountry.ISOalpha2))
+                if (!string.IsNullOrEmpty(Country.ISOalpha2))
                 {
                     await amadeusAPI.ConnectOAuth();
                     try
                     {
-                        var results = await amadeusAPI.GetTravelRestrictions(curCountry.ISOalpha2);
-                        curCountry.AmadeusTravelRestrictions = JsonSerializer.Serialize(results);
-                        curCountry.UpdateDate = DateTime.Now;
+                        var results = await amadeusAPI.GetTravelRestrictions(Country.ISOalpha2);
+                        Country.AmadeusTravelRestrictions = JsonSerializer.Serialize(results);
+                        Country.UpdateDate = DateTime.Now;
                         amadeus.CallsLimit = amadeus.CallsLimit + 1;
                         _context.SaveChanges();
                         model.AmadeusTravelRestrictions = results;
@@ -312,7 +329,7 @@ namespace API.Controllers
             }
             else
             {
-                model.AmadeusTravelRestrictions = JsonSerializer.Deserialize<AmadeusTravelRestrictions>(curCountry.AmadeusTravelRestrictions);
+                model.AmadeusTravelRestrictions = JsonSerializer.Deserialize<AmadeusTravelRestrictions>(Country.AmadeusTravelRestrictions);
             }
             if(model.AmadeusTravelRestrictions?.data?.areaAccessRestriction?.entry?.bannedArea != null)
             {
@@ -320,7 +337,7 @@ namespace API.Controllers
                 model.BannedCountries = _context.Country.Where(t => iatas.Contains(t.ISOalpha2)).Select(t => t.Name).ToList();
             }
 
-            model.Country = curCountry;
+            model.Country = Country;
 
             string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
             model.HomeCountry = myCountry;//_context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault().Name;
@@ -341,8 +358,8 @@ namespace API.Controllers
             header.CountryName = country.FirstCharToUpper();
             header.Text = $"Up-to-date info COVID-19 travel restrictions. Quarantine conditions, entry requrements, list of approved vaccines and etc., help you make decisions about future trips in {DateTime.Now.Year}.";
 
-            if(curCountry.UpdateDate != null)
-                header.LastUpdate = curCountry.UpdateDate.Humanize();
+            if(Country.UpdateDate != null)
+                header.LastUpdate = Country.UpdateDate.Humanize();
 
             model.Header = header;
 
