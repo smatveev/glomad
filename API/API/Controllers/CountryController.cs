@@ -358,7 +358,14 @@ namespace API.Controllers
         [Route("{country}/NoVisaEntry")]
         public IActionResult NoVisaEntry(string country)
         {
-            var Country = _context.Country.Where(c => c.Name == country).FirstOrDefault();
+            string countryName = country.FirstCharToUpper();
+
+            var Country = _context.Country.Where(c => c.Name == countryName).FirstOrDefault();
+            if (Country == null)
+            {
+                return NotFound();
+            }
+
             IncreaseViewCouter(Country.Id);
 
             ViewBag.LastUpdates = Country.UpdateDate.Value;
@@ -403,13 +410,18 @@ namespace API.Controllers
 
         [Route("{country}/FreeEntry")]
         public IActionResult FreeEntry(string country)
-        {
-            FreeEntry model = new FreeEntry();
-
+        {            
             string countryName = country.FirstCharToUpper();
 
             var Country = _context.Country.Where(c => c.Name == country).FirstOrDefault();
+            if(Country == null)
+            {
+                return NotFound();
+            }
+
             IncreaseViewCouter(Country.Id);
+
+            FreeEntry model = new FreeEntry();
 
             string citizen = Country.Citizen;
 
