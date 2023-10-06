@@ -1,4 +1,4 @@
-﻿@*@addTagHelper *, WebOptimizer.Core*@
+﻿@addTagHelper *, WebOptimizer.Core
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
@@ -38,10 +38,10 @@
         <link rel="canonical" href="@ViewData["Canonical"]" />
     }
 
-    @*<link rel="stylesheet" href="/css/site.min.css" inline />*@
-    <link rel="stylesheet" href="~/css/bootstrap.css" />
+    @*<link rel="stylesheet" href="~/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/flag-icon.css" />
+    <link rel="stylesheet" href="~/css/flag-icon.css" />*@
+    <link rel="stylesheet" href="/css/site.min.css" inline />    
 
     @*favicons*@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -92,19 +92,14 @@
 
         <partial name="_ImprovePage" />
         
-    </footer>
+    </footer>    
 
-    
-
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
+    @*<script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/bootstrap.bundle.js"></script>
-
     <script src="~/js/jquery-3.7.1.min.js"></script>
+    <script src="~/js/moment.min.js"></script>*@
 
-    <script src="~/js/moment.min.js"></script>
-
-    @*<script src="/js/site.min.js" inline></script>*@
+    <script src="/js/site.min.js" inline></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

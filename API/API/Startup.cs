@@ -51,14 +51,14 @@ namespace API
             });
             services.AddScoped<AmadeusAPI>();
 
-            //services.AddWebOptimizer(pipeline =>
-            //{
-            //    pipeline.MinifyCssFiles("/css/**/*.css");
-            //    pipeline.AddCssBundle("/css/site.min.css", "/css/**/*.css");
+            services.AddWebOptimizer(pipeline =>
+            {
+                pipeline.MinifyCssFiles("/css/**/*.css");
+                pipeline.AddCssBundle("/css/site.min.css", "/css/**/*.css");
 
-            //    pipeline.MinifyJsFiles("/js/site.js", "/js/bootstrap.bundle.js", "/js/moment.min.js");
-            //    pipeline.AddJavaScriptBundle("/js/site.min.js", "/js/**/*.js");
-            //});
+                pipeline.MinifyJsFiles("/js/site.js", "/js/bootstrap.bundle.js", "/js/moment.min.js");
+                pipeline.AddJavaScriptBundle("/js/site.min.js", "/js/**/*.js");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +77,7 @@ namespace API
 
             app.UseHttpsRedirection();
 
-            //app.UseWebOptimizer();
+            app.UseWebOptimizer();
 
             app.UseStaticFiles();
 
