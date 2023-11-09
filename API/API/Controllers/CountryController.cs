@@ -143,25 +143,40 @@ namespace API.Controllers
                 header.LastModifiedHeader = (DateTime)new[] { model.Country.UpdateDate, lastVisaUpdate }.Max();
                 Response.Headers.Add("Last-Modified", value: header.LastModifiedHeader.ToUniversalTime().ToString("R"));
             }
-            //header.LastModifiedHeader = (DateTime)(model.Country.UpdateDate.HasValue ? (model.Country.UpdateDate > lastVisaUpdate ?
-            //    model.Country.UpdateDate : lastVisaUpdate) : lastVisaUpdate);
-            
-            
-            string[] countryIds = model.Country.NextCountries.Split(',');
-            int[] intCountryIds = new int[countryIds.Length];
 
-            for (int i = 0; i < countryIds.Length; i++)
+
+
+
+            // NEXT COUNTRIES
+            if(!string.IsNullOrEmpty(Country.NextCountries))
             {
-                intCountryIds[i] = int.Parse(countryIds[i]);
+                int[] nextCountries = Country.NextCountries.Split(',').Select(int.Parse).ToArray();
+                model.NextCountries = (from item in _context.Country
+                                       where nextCountries.Contains(item.Id)
+                                       select item).ToList();
             }
+            
 
-            var query = from item in _context.Country
-                        where intCountryIds.Contains(item.Id)
-                        select item;
+            //if (!string.IsNullOrEmpty(model.Country.NextCountries))
+            //{
+            //    string[] countryIds = model.Country.NextCountries.Split(',');
+            //    int[] intCountryIds = new int[countryIds.Length];
 
-            var nextCountries = query.ToList();
-            model.NextCountries = nextCountries;
-           
+            //    for (int i = 0; i < countryIds.Length; i++)
+            //    {
+            //        intCountryIds[i] = int.Parse(countryIds[i]);
+            //    }
+
+            //    var query = from item in _context.Country
+            //                where intCountryIds.Contains(item.Id)
+            //                select item;
+
+            //    var nextCountries = query.ToList();
+            //    model.NextCountries = nextCountries;
+            //}
+
+            // -- NEXT COUNTRIES
+
 
             if (model.Visas.Count > 0)
             {
