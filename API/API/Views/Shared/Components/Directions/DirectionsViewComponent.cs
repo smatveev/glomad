@@ -22,7 +22,7 @@ namespace API.Views.Shared.Components.Directions
         public async Task<IViewComponentResult> InvokeAsync()
         {
             DirectionsModel model = new DirectionsModel();
-            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(); //JsonConvert.DeserializeObject<GeoIp>(responseBody);
+            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(_context); //JsonConvert.DeserializeObject<GeoIp>(responseBody);
             model.directions = _context.Country
                 .Where(c => Countries.Prepared.Contains(c.Id))
                 //.Where(c => c.ISOalpha2.ToLower() != myCountry)

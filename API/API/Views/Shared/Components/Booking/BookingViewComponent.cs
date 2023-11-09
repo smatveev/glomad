@@ -19,7 +19,7 @@ namespace API.Views.Shared.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(_context);
             var hc = _context.Country.Where(c => c.Name.ToLower() == myCountry.ToLower()).FirstOrDefault();
             string myCountryCC = hc.CapitalCode;
 

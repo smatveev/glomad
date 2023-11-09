@@ -288,7 +288,7 @@
                                 {
                                     @if ((DocumentType)d.DocumentType == DocumentType.HealthInsurance)
                                     {
-                                        if (new GeoIp(Context).GetMyCountryAsync().ToString().ToLower() == "russia")
+                                        if (Model.HomeCountry.Name.ToLower() == "russia")
                                         {
                                             <li>
                                                 <a rel="noopener nofollow noreferrer" target="_blank"

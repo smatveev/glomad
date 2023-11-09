@@ -130,7 +130,14 @@
            {
                @if((DocumentType)item.DocumentType == DocumentType.HealthInsurance) 
                {
-                    if(new GeoIp(Context).GetMyCountryAsync().ToString().ToLower() == "russia") {
+                    <li>
+                        <a rel="noopener nofollow noreferrer" target="_blank"
+                            href="https://safetywing.com/?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador">
+                            @item.Text
+                        </a>
+                    </li>
+
+                    @* if(new GeoIp(Context).GetMyCountryAsync().ToString().ToLower() == "russia") {
                         <li><a rel="noopener nofollow noreferrer" target="_blank"
                        href="https://cherehapa.ru/insurance/medicine/?partnerId=2879">
                         @item.Text
@@ -141,7 +148,7 @@
                             href="https://safetywing.com/?referenceID=24744359&utm_source=24744359&utm_medium=Ambassador">
                             @item.Text
                         </a></li>
-                    }
+                    } *@
                }
                else if((DocumentType)item.DocumentType == DocumentType.PlaceOfStay) {
                    <li><a rel="noopener nofollow noreferrer" target="_blank" 

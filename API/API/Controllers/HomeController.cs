@@ -458,7 +458,7 @@ namespace API.Controllers
             ViewBag.ToCountries = ViewBag.Countries;
 
 
-            var myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            var myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(_context);
             try
             {
                 var hc = _context.Country.Where(c => c.Name.ToLower() == myCountry.ToLower()).FirstOrDefault();

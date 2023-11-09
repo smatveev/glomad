@@ -26,7 +26,7 @@ namespace API.Views.Shared.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(List<CountryFreeEntry> countries)
         {
             var model = new NoVisaCountriesModel();
-            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(_context);
 
             var res = (from ne in _context.NoVisaEntry
                        join co in _context.Country on ne.CountryPassport.Id equals co.Id

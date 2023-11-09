@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Glomad.Models;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -36,17 +38,20 @@ namespace API.Helpers
             _context = context;
         }
 
-        public async Task<string> GetMyCountryAsync()
+        public async Task<string> GetMyCountryAsync(AppDbContext context)
         {
             //string homeCountry = _context.Request.Cookies["homeCountry"];
-            string myCountry = _context.Request.Cookies["myCountry"];
+            // string myCountry = _context.Request.Cookies["myCountry"];
+            string myCountry = _context.Request.Cookies["myHomeCountry"];
             if (string.IsNullOrEmpty(myCountry))
             {
                 CookieOptions option = new CookieOptions();
                 option.Expires = DateTime.Now.AddMonths(1);
                 try
                 {
-                    myCountry = (await GetTravelpayoutsAsync()).country_name;
+                    var cityIata = (await GetTravelpayoutsAsync()).iata;
+                    var myCountryId = context.City.Where(c => c.Iata == cityIata).FirstOrDefault().CountryId;
+                    myCountry = context.Country.Where(c => c.Id == myCountryId).FirstOrDefault().Name;
                 }
                 catch (Exception ex)
                 {
@@ -55,7 +60,7 @@ namespace API.Helpers
                 //{
                 //    myCountry = "Germany";
                 //}
-                _context.Response.Cookies.Append("myCountry", myCountry, option);
+                _context.Response.Cookies.Append("myHomeCountry", myCountry, option);
             }
             return myCountry;
         }

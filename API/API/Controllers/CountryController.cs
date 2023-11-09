@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -106,15 +107,32 @@ namespace API.Controllers
 
             string myCountry;
             if (string.IsNullOrEmpty(citizen))
-                 myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+                myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(_context);
             else
                 myCountry = citizen;
 
 
-            model.HomeCountry = _context.Country.Where(c => c.Name.ToLower() == myCountry.ToLower()).FirstOrDefault(); // _context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault();
+            try
+            {
+                model.HomeCountry = _context.Country.Where(c => c.Name.ToLower().Replace(" ", "") == myCountry.ToLower().Replace(" ", "")).FirstOrDefault();
+            }
+            catch
+            {
 
-            model.NoVisaEntry = _context.NoVisaEntry
+            }
+            
+
+
+            try
+            {
+                model.NoVisaEntry = _context.NoVisaEntry
                 .Where(i => i.CountryDestination.Id == model.Country.Id && i.CountryPassport.Id == model.HomeCountry.Id).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                model.NoVisaEntry = null;
+            }
+            
 
             var header = new HeaderViewModel();
             header.CountryName = country.FirstCharToUpper();
@@ -339,7 +357,7 @@ namespace API.Controllers
 
             model.Country = Country;
 
-            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync();
+            string myCountry = await new GeoIp(HttpContext).GetMyCountryAsync(_context);
             model.HomeCountry = myCountry;//_context.Country.Where(c => c.ISOalpha2 == myCountry).FirstOrDefault().Name;
 
             model.Covid = _context.Country.FirstOrDefault(c => c.Id == model.Country.Id).CovidRestrictions;
