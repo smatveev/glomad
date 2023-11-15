@@ -12,6 +12,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Net.WebSockets;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -115,10 +116,17 @@ namespace API.Controllers
             try
             {
                 model.HomeCountry = _context.Country.Where(c => c.Name.ToLower().Replace(" ", "") == myCountry.ToLower().Replace(" ", "")).FirstOrDefault();
+                var a = model.HomeCountry.Id;
             }
-            catch
+            catch (Exception ex)
             {
-
+                var error = new ErrorViewModel();
+                error.ErrorTitle = "Error during get HomeCountry";
+                error.ErrorMessage = ex.Message;
+                error.Path = Request.Path;
+                error.StackTrace = ex.StackTrace;
+                EmailSender.SendSiteError(error);
+                return View("Error", error);
             }
             
 

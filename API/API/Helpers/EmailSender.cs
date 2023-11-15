@@ -207,5 +207,33 @@ namespace API.Helpers
 
             smtpClient.Send(mailMessage);
         }
+
+        public static void SendSiteError(ErrorViewModel errorVm)
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            var config = builder.Build();
+
+            var smtpClient = new SmtpClient(config["Smtp:Host"])
+            {
+                Port = int.Parse(config["Smtp:Port"]),
+                Credentials = new NetworkCredential(config["Smtp:Username"], config["Smtp:Password"]),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("matv33v@gmail.com"),
+                Subject = $"Glomad.net - An error occured.",
+                Body = string.Format($"<h3>Error details</h3> " +
+                    $"URL: <b>{errorVm.Path}<b> <br>" +
+                    $"Title: <b>{errorVm.ErrorTitle}<b> <br>" +
+                    $"Message: <b> {errorVm.ErrorMessage}<b> <br>" +
+                    $"Stack trace: {errorVm.StackTrace}"),
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add("matv33v@gmail.com, grishakyana@gmail.com");
+
+            smtpClient.Send(mailMessage);
+        }
     }
 }

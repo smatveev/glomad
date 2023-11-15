@@ -1,19 +1,89 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Something goes wrong. We are already working on the fix.";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div id="introCarousel" class="carousel shadow-2-strong" data-mdb-ride="carousel">
 
-@if (Model.ShowRequestId)
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="mask" style="background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);">
+
+                <header class="navbar navbar-expand-lg">
+                    <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap">
+                        <div class="container d-flex flex-wrap justify-content-center py-3">
+                            <h3>
+                                <a href="/" class="text-white fw-bold">
+                                    <div class="logo-box me-2"></div> Glomad.net
+                                </a>
+                            </h3>
+                            <div class="btn-group ms-auto">
+                                <button type="button" class="btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    🌏 Explore
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/visa-for-nomads">Best digital nomad visas</a></li>
+                                    <li><a class="dropdown-item" href="/visa-for-tourist">Best business visas</a></li>
+                                    <li><a class="dropdown-item" href="/visa-for-startup">Best startup visas</a></li>
+                                    <li><a class="dropdown-item" href="/visa-for-student">Best student visas</a></li>
+                                    <li><a class="dropdown-item" href="/visa-for-work">Best work visas</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <div class="text-white text-center container">
+                        <cache expires-after="@TimeSpan.FromMinutes(60)">
+                            @await Component.InvokeAsync("Menu")
+                        </cache>
+                        <h4 class="m-4 lh-base col-md-auto fw-light">
+                            @*<partial name="_ShareExperience" />*@
+                            🛂Let's know where you can go with your passport easily <br />
+                            🎫 Check the visa requirements for your nationality for every country<br />
+                            🙋‍♀️ Country Frequently Asked Questions (FAQs) <br />
+                            @*😷 Check last COVID-19 travel restrictions for a country. <br />*@
+                            😎 Forget about visa headaches. Be ready to travel at any time<br />
+                            🌎 Be global nomad
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+        <div class="col-6 col-md">
+
+            <h2 class="text-danger">🤔 An error occurred while processing your request.</h2>
+            <p>The support team is notified and already working on the fix.</p>
+
+            @* @if (Model == null)
+            {
+                <h1 class="text-danger">Error.</h1>
+                <h2 class="text-danger">An error occurred while processing your request.</h2>
+                <p>The support team is notified and already working on the fix.</p>
+            } *@
+        </div>
+
+        <div class="col-6 col-md">
+            <img src="~/assets//cat.gif" />
+        </div>
+    </div>
+</div>
+
+
+@* @if (Model.ShowRequestId)
 {
     <p>
         <strong>Request ID:</strong> <code>@Model.RequestId</code>
     </p>
-}
+} *@
 
-<h3>Development Mode</h3>
+@* <h3>Development Mode</h3>
 <p>
     Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
 </p>
@@ -23,3 +93,4 @@
     For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
     and restarting the app.
 </p>
+ *@

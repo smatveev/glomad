@@ -72,7 +72,7 @@ namespace API
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
             }
 
             app.UseHttpsRedirection();
