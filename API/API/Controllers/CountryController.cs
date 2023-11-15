@@ -116,7 +116,6 @@ namespace API.Controllers
             try
             {
                 model.HomeCountry = _context.Country.Where(c => c.Name.ToLower().Replace(" ", "") == myCountry.ToLower().Replace(" ", "")).FirstOrDefault();
-                var a = model.HomeCountry.Id;
             }
             catch (Exception ex)
             {
