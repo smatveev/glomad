@@ -72,6 +72,8 @@ namespace API.Models
         public byte? ProcessingTimeUp { get; set; }
         public byte? ProcessingTimeTo { get; set; }
         public ulong ViewCounter { get; set; }
+        public string NameRu { get; set; }
+        public string DescriptionRu { get; set; }
     }
 
     public enum VisaType

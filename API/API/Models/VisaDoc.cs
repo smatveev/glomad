@@ -13,6 +13,7 @@ namespace API.Models
         public string Text { get; set; }
         public Visa Visa { get; set; }
         public ushort DocumentType { get; set; }
+        public string TextRu { get; set; }
     }
 
     public enum DocumentType : ushort
