@@ -14,6 +14,7 @@ namespace Glomad.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string NameRu { get; set; }
         public string Currency { get; set; }
         public string ISOalpha2 { get; set; }
         public string ISOalpha3 { get; set; }
