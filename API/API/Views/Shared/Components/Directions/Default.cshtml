@@ -4,7 +4,8 @@
 <ul class="list-unstyled text-small">
     @foreach (var c in Model.directions)
     {
-        <li class="mb-1"><a href="/?Passport=@Model.from.Key&To=@c.Key">@Model.from.Value – @c.Value</a></li>
+        <li class="mb-1"><a href="/@c.Value/@Model.from.Value">@Model.from.Value – @c.Value</a></li>
+        @* <li class="mb-1"><a href="/?Passport=@Model.from.Key&To=@c.Key">@Model.from.Value – @c.Value</a></li> *@
         //?Passport=3&To=220
     }
 </ul>
