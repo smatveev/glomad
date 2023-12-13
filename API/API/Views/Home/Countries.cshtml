@@ -7,7 +7,7 @@
     ViewData["MetaDescription"] = "List of countries with last updates of visa info.";
 }
 
-<div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/nasa.jpg') !important">
+<div class="hero-bg px-4 py-5 text-white text-center" style="background-image: url('/assets/country/nasa.jpg') !important">
     <h1 class="fw-bold text-white py-5 my-3 shadowed"><a class="text-white" href="/">🌎</a> / All countries to Travel</h1>
     <h5 class="col-lg-6 mx-auto shadowed">
         There are @countries.Count countries to visit with @ViewBag.VisaOptions visa options. 
@@ -43,13 +43,13 @@
                 <a href="/@c.Name">
                     @{
                         var countryImage = c.Name.ToLower();
-                        var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath + "country/", countryImage + ".jpg");
+                        var path2 = System.IO.Path.Combine(hostingEnv.WebRootPath + "\\assets\\country\\", countryImage + ".jpg");
                         if (!System.IO.File.Exists(path2))
                         {
                             countryImage = "nocover";
                         }
                     }
-                    <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('../@(countryImage)_300.jpg');">
+                    <div class="card bg-dark text-white border-0 rounded-5 card-cover shadow-lg" style="background-image: url('/assets/country/@(countryImage)_300.jpg');">
 
                         <div class="card-img-overlay text-center">
                             <h3 class="card-title shadowed mt-5 mb-4 lh-1 fw-bold">@c.Name</h3>
