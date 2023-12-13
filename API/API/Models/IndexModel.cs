@@ -13,13 +13,8 @@ namespace API.Models
     {
         public IndexModel() { 
         }
-
-        [BindProperty]
-        public int Passport { get; set; }
         public string PassportCountryName { get; set; }
         public string PassportCapitalCode { get; set; }
-
-        public int To { get; set; }
         public string ToCountryName { get; set; }
         public string ToCapitalCode { get; set; }
 

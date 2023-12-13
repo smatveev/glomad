@@ -379,81 +379,21 @@ namespace API.Controllers
         [Route("visa-{query}")]
         //[Route("Search")]
         //[Route("Search/{route}")]
-        public async Task<IActionResult> Index(int Passport, int To, string country, string query)
+        public async Task<IActionResult> Index(string country, string query)
         {
             //Stopwatch sw = new Stopwatch();
             //sw.Start();
             
             var mo = new Models.IndexModel();
-            mo.Passport = Passport;
-            mo.To = To;
 
             //TODO: refactor this shit
             mo.Visas = VisaHelper.GetVisasFromLink(query, _context);
-            mo.Query = query;
-            //if (!string.IsNullOrEmpty(query)) {
-                
-            //    mo.Visas = VisaHelper.GetVisasFromLink(query, _context);
-            //}
-            //else
-            //{
-                
-            //}
-            
+            mo.Query = query;            
 
             mo.TopLastUpdatedVisas = VisaHelper.GetTopLastUpdatedVisas(_context);
             mo.TopLongestVisas = VisaHelper.GetTopLongestVisas(_context);
             mo.TopAnnouncedVisas = VisaHelper.GetTopAnnouncedVisas(_context);
             mo.TopViewedVisas = VisaHelper.GetTopViewedVisas(_context);
-
-            if (To > 0)
-            {
-                mo.ToCountryName = _context.Country.FirstOrDefault(c => c.Id == mo.To).Name;
-                mo.ToCapitalCode = _context.Country.FirstOrDefault(c => c.Id == mo.To).CapitalCode;
-
-                mo.CovidInfo = _context.Country.FirstOrDefault(c => c.Id == To).CovidRestrictions;
-
-                mo.Visas = (from co in _context.Visa
-                            where co.Country.Id == To
-                            select new VisaSearchResult
-                            {
-                                Id = co.Id,
-                                Description = co.Description,
-                                VisaName = co.Name,
-                                IsExdendable = co.IsExtendable,
-                                Duration = co.Duration,
-                                CountryName = mo.ToCountryName,
-                                Reviews = _context.Review.Where(r => r.Visa.Id == co.Id).ToList(),
-                                Type = ((VisaType)co.Type).ToString(),
-                                Income = co.Income,
-                                Cost = $"{co.CostOfProgramm} {co.CostCurrency}",
-                                IsAnnounced = co.IsAnnounced
-                            }).ToList();
-            }
-
-            if (mo.Passport > 0)
-            {
-                var HomeCountry = _context.Country.Where(c => c.Id == mo.Passport).FirstOrDefault();
-
-                mo.NoVisaEntry = _context.NoVisaEntry
-                    .Where(i => i.CountryDestination.Id == To && i.CountryPassport.Id == mo.Passport).FirstOrDefault();
-
-                mo.PassportCapitalCode = HomeCountry.CapitalCode;
-                mo.PassportCountryName = HomeCountry.Name;
-
-                mo.FreeCountries = (from ne in _context.NoVisaEntry
-                                    join co in _context.Country on ne.CountryPassport.Id equals co.Id
-                                    where ne.CountryPassport.Id == mo.Passport && ne.IsVisaRequired == false
-                                    select new CountryFreeEntry
-                                    {
-                                        Details = ne.Description,
-                                        Id = ne.CountryDestination.Id,
-                                        Iata = ne.CountryDestination.ISOalpha3 != null ? ne.CountryDestination.ISOalpha3 : "No data",
-                                        Name = ne.CountryDestination.Name != null ? ne.CountryDestination.Name : "No data",
-                                        EVisaAvailable = ne.IsEVisaAvailable,
-                                        IsVisaRequired = ne.IsVisaRequired
-                                    }).ToList();
-            }
 
             ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
             ViewBag.ToCountries = ViewBag.Countries;
