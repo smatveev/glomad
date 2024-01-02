@@ -10,7 +10,7 @@
 @{
     ViewData["Title"] = ViewBag.Title;
     ViewData["MetaDescription"] = ViewBag.Description;
-    ViewData["Canonical"] = $"https://glomad.net/{Model.Header.CountryName}";
+    ViewData["Canonical"] = ViewBag.Canonical;
 }
 
 @await Html.PartialAsync("_Header", Model.Header)
