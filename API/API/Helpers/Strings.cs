@@ -48,7 +48,7 @@ namespace API.Helpers
                 }
             }
 
-            return String.Empty;
+            return text;
         }
     }
 }
