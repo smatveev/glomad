@@ -261,7 +261,18 @@ namespace API.Controllers
 
                 ViewBag.Title = $"Visas of {model.Country.Name} for citizens of {citizen}: Visa requirements, check lists of documents, {model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
 
-                ViewBag.Description = model.NoVisaEntry?.Description.StripHTML().GetUntilOrEmpty("Important!").Trim();
+
+                if (model.NoVisaEntry != null && !string.IsNullOrEmpty(model.NoVisaEntry.Description))
+                {
+                    ViewBag.Description = model.NoVisaEntry?.Description.StripHTML().GetUntilOrEmpty("Important!").Trim();
+                }
+                else
+                {
+                    ViewBag.Description = $"The list of visa types for {country}. {country} tourist, business, work, student, invest visas. " +
+                        $"Validity, duration of stay, number of entries, and other parameters in " +
+                        $"{DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year} " +
+                        $"for {model.Country.Citizen} visit visas.";
+                }
 
                 ViewBag.Canonical = $"https://glomad.net/{country.FirstCharToUpper()}/{citizen.FirstCharToUpper()}";
             }
