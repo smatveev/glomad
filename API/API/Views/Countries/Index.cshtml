@@ -623,34 +623,58 @@
                 }                
 
                 <div class="mt-3 pb-4 py-3 px-3" id="visas">
-                    @if (Model.Visas?.Count > 0)
-                    {
-                        if (Model.Visas?.Count == 1)
-                        {
-                            <h4><strong>
-                                💳 Also one visa is available in @Model.Header.CountryName:
-                            </strong></h4>
-                        }                        
-                        else if (Model.Visas?.Count > 1)
-                        {
-                            <h4><strong>
-                                💳 Also in @Model.Header.CountryName @Model.Visas?.Count visa types are available
-                                including: @string.Join(", ", Model.Visas.Select(v => v.Type).Distinct())
-                                </strong>
-                            </h4>
-                        }
-                    }
+                    @{
+                        if(Model.Visas?.Count > 0) {
+                            var toutistVisas = Model.Visas.Where(v => v.Type == VisaTypes.Types[2]).ToList();
+                            var otherVisas = Model.Visas.Where(v => v.Type != VisaTypes.Types[2]).ToList();
 
-                    @if(Model.Visas?.Count == 0)
-                    {
-                        <h4 class="text-center p-4">The list of @Model.Header.CountryName visas does't ready yet. 
-                            @await Component.InvokeAsync("SubscribeUpdates")
-                            , please, to updates. We'll let you know as soon as the section is ready.</h4>
-                    }
-                    @if (Model.Visas?.Count > 0)
-                    {
-                        @await Component.InvokeAsync("VisaSearchResult", Model.Visas)
-                    }
+                            if (toutistVisas.Count > 0)
+                            {
+                                if (toutistVisas.Count == 1)
+                                {
+                                    <h4>
+                                        <strong>
+                                            💳 @Model.Header.CountryName Tourist Visa:
+                                        </strong>
+                                    </h4>
+                                }
+                                else if (toutistVisas.Count > 1)
+                                {
+                                    <h4>
+                                        <strong>
+                                            💳 List of Tourist Visas of @Model.Header.CountryName:
+                                        </strong>
+                                    </h4>
+                                }
+                                @await Component.InvokeAsync("VisaSearchResult", toutistVisas)
+                            }
+
+                            if (toutistVisas.Count == 0)
+                            {
+                                <h4 class="text-center p-4">
+                                    The list of Tourist Visas of @Model.Header.CountryName does't ready yet.
+                                    Please, @await Component.InvokeAsync("SubscribeUpdates") to updates. 
+                                    We'll let you know as soon as the section is ready.
+                                </h4>
+                            }
+
+                            if (otherVisas.Count > 0)
+                            {
+                                <h4 class="pt-3">
+                                    <strong>
+                                        💳 Also in @Model.Header.CountryName next visas are available:
+                                    </strong>
+                                </h4>
+                                @foreach(var v in otherVisas)
+                                {
+                                    <a href="/@Model.Country.Name/Visa/@v.Id">
+                                    <span class="me-2 my-2 p-2 badge text-dark rounded-pill bg-light">
+                                        @v.Type
+                                    </span></a>
+                                }
+                            }
+                        }
+                    }                    
                 </div>                               
 
 
