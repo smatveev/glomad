@@ -219,7 +219,7 @@ namespace API.Controllers
 
             if (string.IsNullOrEmpty(citizen))
             {
-                ViewBag.Title = $"{model.Country.Name} visa types: Visa requirements, check lists of documents, {model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
+                ViewBag.Title = $"{model.Country.Name} visa requirements in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
 
                 ViewBag.Description = $"The list of visa types for {country}. {country} tourist, business, work, student, invest visas. " +
                     $"Validity, duration of stay, number of entries, and other parameters in " +
@@ -259,7 +259,7 @@ namespace API.Controllers
                                                            Embassy = e
                                                        }).Distinct().ToList();
 
-                ViewBag.Title = $"Visas of {model.Country.Name} for citizens of {citizen}: Visa requirements, check lists of documents, {model.Country.Citizen} list of visa types in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
+                ViewBag.Title = $"{model.Country.Name} visa requirements for citizens of {citizen} in {DateTime.Now.ToString("MMMM", CultureInfo.InvariantCulture)} of {DateTime.Now.Year}";
 
 
                 if (model.NoVisaEntry != null && !string.IsNullOrEmpty(model.NoVisaEntry.Description))
