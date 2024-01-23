@@ -74,6 +74,134 @@ namespace API.Controllers
             };
         }
 
+        [Route("/sitemap/{country}-sitemap.csv")]
+        public FileResult CountrySitemapAsCvs(string country)
+        {
+            string fileName = $"{country}-data.csv";            
+
+            string site = "https://glomad.net";
+
+            var csv = new StringBuilder();
+            csv.AppendLine("URL,Date");
+
+            var countriesAll = (from c in _context.Country
+                                where c.Name.ToLower() != country
+                                select new
+                                {
+                                    Name = c.Name,
+                                    UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                                }).Distinct().ToList();
+
+            foreach (var to in countriesAll)
+            {
+                csv.AppendLine(string.Format($"{site}/{country}/{to.Name},"));
+            }
+
+            var faqs = (from c in _context.Country
+                        join q in _context.CountryQuestion on c.Id equals q.Country.Id
+                        where c.Name.ToLower() == country
+                        select c.Name).Distinct().ToList();
+
+            foreach (var faq in faqs)
+            {
+                csv.AppendLine(string.Format($"{site}/{country}/FAQ,"));
+            }
+
+
+            List<VisaSearchResult> visas = (from v in _context.Visa
+                                            join c in _context.Country on v.Country.Id equals c.Id
+                                            where c.Name.ToLower() == country
+                                            select new VisaSearchResult
+                                            {
+                                                CountryName = c.Name,
+                                                Id = v.Id,
+                                                UpdateDate = v.UpdateDate.HasValue ? v.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                                            }).ToList();
+
+            foreach (var visa in visas)
+            {
+                csv.AppendLine(string.Format($"{site}/{country}/visa/{visa.Id},"));
+            }
+
+
+            var countrywithembassies = (from c in _context.Country
+                                        join e in _context.Embassy on c.Id equals e.Country.Id
+                                        where c.Name.ToLower() == country
+                                        select new
+                                        {
+                                            Name = c.Name,
+                                            UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                                        }).Distinct().ToList();
+
+            foreach (var ce in countrywithembassies)
+            {
+                csv.AppendLine(string.Format($"{site}/{country}/Embassies,"));               
+            }
+
+
+            var neCountry = (from ne in _context.NoVisaEntry
+                             join co in _context.Country on ne.CountryDestination.Id equals co.Id
+                             where (!ne.IsVisaRequired || ne.IsEVisaAvailable) && (co.Name.ToLower() == country)
+                             select new
+                             {
+                                 Name = co.Name,
+                                 UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : DateTime.Now.AddDays(-7)
+                             }).Distinct().ToList();
+            foreach (var c in neCountry)
+            {
+                csv.AppendLine(string.Format($"{site}/{country}/NoVisaEntry,"));
+            }
+
+
+            var freeEntry = (from ne in _context.NoVisaEntry
+                             join co in _context.Country on ne.CountryPassport.Id equals co.Id
+                             where ne.IsVisaRequired == false && co.Name.ToLower() == country
+                             select new
+                             {
+                                 Name = co.Name,
+                                 UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : DateTime.Now.AddDays(-7)
+                             }).Distinct().ToList();
+
+            foreach (var c in freeEntry)
+            {
+                csv.AppendLine(string.Format($"{site}/{country}/FreeEntry,"));
+            }
+
+            var passports = (from ne in _context.NoVisaEntry
+                             join co in _context.Country on ne.CountryPassport.Id equals co.Id
+                             where co.Name.ToLower() == country
+                             select new
+                             {
+                                 co.Name,
+                                 UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                             }).Distinct().ToList();
+
+            foreach (var p in passports)
+            {
+                csv.AppendLine(string.Format($"{site}/{country}/Passport,"));
+            }
+
+            var countriesWithSummary = (from c in _context.Country
+                                        where (c.Summary != null || c.Summary.Length > 0) && c.Name.ToLower() == country
+                                        select new
+                                        {
+                                            Name = c.Name,
+                                            UpdateDate = c.UpdateDate.HasValue ? c.UpdateDate.Value : DateTime.Now.AddDays(-30)
+                                        }).Distinct().ToList();
+
+            foreach (var item in countriesWithSummary)
+            {
+                csv.AppendLine(string.Format($"{site}/{country}/Auto,"));
+                csv.AppendLine(string.Format($"{site}/{country}/Season,"));
+                csv.AppendLine(string.Format($"{site}/{country}/Guide,"));
+                csv.AppendLine(string.Format($"{site}/{country}/Info,"));
+                csv.AppendLine(string.Format($"{site}/{country}/Safety,"));
+            }
+
+            byte[] fileBytes = Encoding.ASCII.GetBytes(csv.ToString());
+            return File(fileBytes, "text/csv", fileName); // this is the key!
+        }
+
         [Route("/sitemap/{country}-sitemap.xml.gz")]
         public IActionResult CountrySitemap(string country)
         {
