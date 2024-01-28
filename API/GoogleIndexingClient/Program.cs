@@ -2,7 +2,11 @@
 using CsvHelper;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Indexing.v3;
+using Google.Apis.Indexing.v3.Data;
+using Google.Apis.Requests;
+using Google.Apis.Services;
 using Newtonsoft.Json;
+using System;
 using System.Formats.Asn1;
 
 class Program
@@ -60,12 +64,15 @@ class Program
             int endIndex = startIndex + UrlsPerAccount;
             List<string> urlsForAccount = allUrls.GetRange(startIndex, Math.Min(UrlsPerAccount, allUrls.Count - startIndex));
 
-            string accessToken = SetupHttpClient(jsonKeyFile);
-            await IndexUrl(accessToken, urlsForAccount);
+            //string accessToken = SetupHttpClient(jsonKeyFile);
+            GoogleCredential credential = SetupHttpClient(jsonKeyFile);
+            await IndexUrl(urlsForAccount, credential);
         }
+
+        Console.ReadLine();
     }
 
-        private static string SetupHttpClient(string jsonKeyFile)
+        private static GoogleCredential SetupHttpClient(string jsonKeyFile)
     {
         GoogleCredential credential;
         using (var stream = new FileStream(jsonKeyFile, FileMode.Open, FileAccess.Read))
@@ -73,64 +80,95 @@ class Program
             credential = GoogleCredential.FromStream(stream)
                 .CreateScoped(IndexingService.Scope.Indexing);
         }
-
-        var token = credential.UnderlyingCredential.GetAccessTokenForRequestAsync().Result;
-        return token;
+        return credential;
     }
 
-    private static async Task IndexUrl(string accessToken, List<string> urls)
+    private static async Task<List<PublishUrlNotificationResponse>> IndexUrl(List<string> urls, GoogleCredential credential)
     {
-        using (var httpClient = new HttpClient())
+        var googleIndexingApiClientService = new IndexingService(new BaseClientService.Initializer
         {
-            var successfulUrls = 0;
-            var error429Count = 0;
-            var otherErrorsCount = 0;
+            HttpClientInitializer = credential
+        });
 
-            foreach (var url in urls)
+        var request = new BatchRequest(googleIndexingApiClientService);
+
+        var notificationResponses = new List<PublishUrlNotificationResponse>();
+
+        foreach(var url in urls)
+        {
+            var urlNotification = new UrlNotification
             {
-                var content = new
-                {
-                    url = url.Trim(),
-                    type = "URL_UPDATED"
-                };
+                Url = url,
+                Type = "URL_UPDATED"
+            };
 
-                for (int retry = 0; retry < 3; retry++)
-                {
-                    try
-                    {
-                        var jsonString = JsonConvert.SerializeObject(content);
-                        var stringContent = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
-
-                        using (var response = await httpClient.PostAsync(EndPoint, stringContent))
-                        {
-                            var responseText = await response.Content.ReadAsStringAsync();
-                            if (response.IsSuccessStatusCode)
-                            {
-                                successfulUrls++;
-                            }
-                            else if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-                            {
-                                error429Count++;
-                            }
-                            else
-                            {
-                                otherErrorsCount++;
-                            }
-                        }
-                    }
-                    catch
-                    {
-                        await Task.Delay(2000); // Wait for 2 seconds before retrying
-                        continue;
-                    }
-                }
-            }
-
-            Console.WriteLine($"\nTotal URLs Tried: {urls.Count}");
-            Console.WriteLine($"Successful URLs: {successfulUrls}");
-            Console.WriteLine($"URLs with Error 429: {error429Count}");
-            Console.ReadLine();
+            request.Queue<PublishUrlNotificationResponse>(
+            new UrlNotificationsResource.PublishRequest(googleIndexingApiClientService, urlNotification), (response, error, i, message) =>
+            {
+                notificationResponses.Add(response);
+            });
         }
+
+        await request.ExecuteAsync();
+
+            Console.WriteLine($"\nTotal URLs Tried: {notificationResponses.Count}");
+            //Console.WriteLine($"Successful URLs: {notificationResponses.}");
+            //Console.WriteLine($"URLs with Error 429: {error429Count}");
+
+        return await Task.FromResult(notificationResponses);
+
+        //using (var httpClient = new HttpClient())
+        //{
+        //    var successfulUrls = 0;
+        //    var error429Count = 0;
+        //    var otherErrorsCount = 0;
+
+        //    foreach (var url in urls)
+        //    {
+        //        var content = new
+        //        {
+        //            url = url.Trim(),
+        //            type = "URL_UPDATED"
+        //        };
+
+        //        for (int retry = 0; retry < 3; retry++)
+        //        {
+        //            try
+        //            {
+        //                using (Google)
+        //                    var jsonString = JsonConvert.SerializeObject(content);
+        //                var stringContent = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
+
+        //                using (var response = await httpClient.PostAsync(EndPoint, stringContent))
+        //                {
+        //                    var responseText = await response.Content.ReadAsStringAsync();
+        //                    if (response.IsSuccessStatusCode)
+        //                    {
+        //                        successfulUrls++;
+        //                    }
+        //                    else if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+        //                    {
+        //                        error429Count++;
+        //                    }
+        //                    else
+        //                    {
+        //                        otherErrorsCount++;
+        //                    }
+        //                }
+        //            }
+        //            catch
+        //            {
+        //                await Task.Delay(2000); // Wait for 2 seconds before retrying
+        //                continue;
+        //            }
+        //        }
+        //    }
+
+        //    Console.WriteLine($"\nTotal URLs Tried: {urls.Count}");
+        //    Console.WriteLine($"Successful URLs: {successfulUrls}");
+        //    Console.WriteLine($"URLs with Error 429: {error429Count}");
+        //    Console.ReadLine();
+        //}
     }
 }
 
