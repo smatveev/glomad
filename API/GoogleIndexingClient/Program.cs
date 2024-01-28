@@ -44,25 +44,25 @@ class Program
         }
 
         // Process URLs for each account
-        //for (int i = 0; i < numAccounts; i++)
-        //{
-        //    Console.WriteLine($"\nProcessing URLs for Account {i + 1}...");
-        //    string jsonKeyFile = $"account{i + 1}.json";
+        for (int i = 0; i < numAccounts; i++)
+        {
+            Console.WriteLine($"\nProcessing URLs for Account {i + 1}...");
+            string jsonKeyFile = $"account{i + 1}.json";
 
-        //    // Check if account JSON file exists
-        //    if (!File.Exists(jsonKeyFile))
-        //    {
-        //        Console.WriteLine($"Error: {jsonKeyFile} not found!");
-        //        continue;
-        //    }
+            // Check if account JSON file exists
+            if (!File.Exists(jsonKeyFile))
+            {
+                Console.WriteLine($"Error: {jsonKeyFile} not found!");
+                continue;
+            }
 
-        //    int startIndex = i * UrlsPerAccount;
-        //    int endIndex = startIndex + UrlsPerAccount;
-        //    List<string> urlsForAccount = allUrls.GetRange(startIndex, Math.Min(UrlsPerAccount, allUrls.Count - startIndex));
+            int startIndex = i * UrlsPerAccount;
+            int endIndex = startIndex + UrlsPerAccount;
+            List<string> urlsForAccount = allUrls.GetRange(startIndex, Math.Min(UrlsPerAccount, allUrls.Count - startIndex));
 
-        //    string accessToken = SetupHttpClient(jsonKeyFile);
-        //    await IndexUrl(accessToken, urlsForAccount);
-        //}
+            string accessToken = SetupHttpClient(jsonKeyFile);
+            await IndexUrl(accessToken, urlsForAccount);
+        }
     }
 
         private static string SetupHttpClient(string jsonKeyFile)
@@ -129,6 +129,7 @@ class Program
             Console.WriteLine($"\nTotal URLs Tried: {urls.Count}");
             Console.WriteLine($"Successful URLs: {successfulUrls}");
             Console.WriteLine($"URLs with Error 429: {error429Count}");
+            Console.ReadLine();
         }
     }
 }
