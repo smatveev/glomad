@@ -12,9 +12,6 @@ class Program
 
     static async Task Main()
     {
-        Console.WriteLine("Hello, World!");
-
-
         // Check if CSV file exists
         if (!File.Exists("data.csv"))
         {
