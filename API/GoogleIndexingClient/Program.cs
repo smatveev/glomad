@@ -8,7 +8,7 @@ using Google.Apis.Services;
 
 class Program
 {
-    private const string EndPoint = "https://indexing.googleapis.com/v3/urlNotifications:publish";
+    //private const string EndPoint = "https://indexing.googleapis.com/v3/urlNotifications:publish";
     private const int UrlsPerAccount = 200;
 
     static async Task Main()
