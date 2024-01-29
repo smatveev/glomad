@@ -5,9 +5,6 @@ using Google.Apis.Indexing.v3;
 using Google.Apis.Indexing.v3.Data;
 using Google.Apis.Requests;
 using Google.Apis.Services;
-using Newtonsoft.Json;
-using System;
-using System.Formats.Asn1;
 
 class Program
 {
