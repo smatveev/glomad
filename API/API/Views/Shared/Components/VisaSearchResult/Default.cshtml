@@ -8,7 +8,7 @@
 
 @foreach (var visa in Model)
 {
-    if(i == 3)
+    if(i == 3 || i == 5)
     {
         <div class="p-3 mb-3 bg-white border rounded-booking">
 
@@ -27,6 +27,8 @@
 
         </div>        
     }
-    else @await Component.InvokeAsync("VisaRow", visa)
+
+    @await Component.InvokeAsync("VisaRow", visa)
+
     i++;
 }
