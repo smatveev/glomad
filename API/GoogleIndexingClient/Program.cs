@@ -66,6 +66,7 @@ class Program
             await IndexUrl(urlsForAccount, credential);
         }
 
+        Console.Write("Done. Press any key...");
         Console.ReadLine();
     }
 
