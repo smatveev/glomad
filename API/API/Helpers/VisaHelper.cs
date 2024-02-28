@@ -54,7 +54,7 @@ namespace API.Helpers
                               CostNum = co.CostOfProgramm,
                               UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
                               IsAnnounced = co.IsAnnounced
-                          }).Take(6).OrderByDescending(r => r.Reviews.Count).ToList();
+                          }).Take(5).OrderByDescending(r => r.Reviews.Count).ToList();
 
                 return result;
             }
@@ -179,7 +179,7 @@ namespace API.Helpers
                           UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
                           IsAnnounced = co.IsAnnounced,
                           TaxSizeTo = co.TaxSizeTo
-                      }).Take(6).ToList();
+                      }).Take(5).ToList();
 
             return result;
         }
@@ -209,7 +209,7 @@ namespace API.Helpers
                           UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
                           IsAnnounced = co.IsAnnounced,
                           TaxSizeTo = co.TaxSizeTo
-                      }).Take(6).ToList();
+                      }).Take(5).ToList();
 
             return result;
         }
@@ -239,7 +239,7 @@ namespace API.Helpers
                           UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
                           IsAnnounced = co.IsAnnounced,
                           TaxSizeTo = co.TaxSizeTo
-                      }).Take(6).ToList();
+                      }).Take(5).ToList();
 
             return result;
         }
@@ -269,7 +269,7 @@ namespace API.Helpers
                           UpdateDate = co.UpdateDate.HasValue ? co.UpdateDate.Value : c.UpdateDate.Value,
                           IsAnnounced = co.IsAnnounced,
                           TaxSizeTo = co.TaxSizeTo
-                      }).Take(6).ToList();
+                      }).Take(5).ToList();
 
             return result;
         }
