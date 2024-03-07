@@ -16,7 +16,7 @@
 
     <h2 class="text-center p-4">👋 Visa free countries for @Model.header.CountryName passport</h2>
 
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3">
 
         @{ int count = 0; }
         @foreach (var c in Model.countries)
@@ -38,18 +38,20 @@
 
             if (count == 6 || count == 9)
             {
-                <div class="col rounded-5 card-cover shadow-lg">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6249528688314749"
-                            crossorigin="anonymous"></script>
-                    <ins class="adsbygoogle"
-                         style="display:block; text-align:center;"
-                         data-ad-layout="in-article"
-                         data-ad-format="fluid"
-                         data-ad-client="ca-pub-6249528688314749"
-                         data-ad-slot="7131902409"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+                <div class="col">
+                    <div class="card border-0 rounded-5 card-cover shadow-lg">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6249528688314749"
+                                crossorigin="anonymous"></script>
+                        <ins class="adsbygoogle"
+                             style="display:block; text-align:center;"
+                             data-ad-layout="in-article"
+                             data-ad-format="fluid"
+                             data-ad-client="ca-pub-6249528688314749"
+                             data-ad-slot="7131902409"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
                 </div>
             };
 
