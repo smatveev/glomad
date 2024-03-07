@@ -45,32 +45,6 @@
 
 @section Scripts {
     <script>
-        window.onload = function () {
-            loadNoVisaEntry()
-            //loadBookingW()
-
-            var country = document.getElementById("CitizenshipId")
-
-            var ind = [...country.options].findIndex(op => op.text === getCookie("myCountry"))
-            console.log(ind)
-
-            if (ind > -1)
-                country.selectedIndex = ind
-            else
-                country.selectedIndex = 0
-
-            //$('#CitizenshipId').tooltip('show');
-            $('#filters').tooltip('show');
-            setTimeout(function () { $('#filters').tooltip('hide'); }, 10000);
-            //const wrapper = document.querySelector("#filters")
-            //const filters = wrapper.querySelectorAll('div > select');
-
-            //console.log("on load filters ", filters)
-
-            //for (const filter of filters) {
-            //    console.log("filter ", filter)
-            //    filter.addEventListener('change', selectFilter);
-            //}
-        }
+        
     </script>
 }

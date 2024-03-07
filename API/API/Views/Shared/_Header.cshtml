@@ -66,11 +66,6 @@
         }
     </h1>
 
-    @*<h2 class="fw-bold">Your citizen passport is:</h2>
-    <cache expires-after="@TimeSpan.FromMinutes(60)">
-        @await Component.InvokeAsync("Menu")
-    </cache>*@
-
     @if(!string.IsNullOrEmpty(@Model.Text)) {
         <p class="container custom-scrollbar Gcontainer col-lg-8 mx-auto col-lg-8 col-sm-12 mx-auto rounded-3 p-3 mt-3 bg-black-opacy">
             @Model.Text.Trim()
